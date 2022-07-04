@@ -1,0 +1,3 @@
+= Spring AOT Smoke Tests
+
+A suite of tests for applications using AOT on the JVM and in Graal native images.
