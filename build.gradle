@@ -1,0 +1,9 @@
+plugins {
+	id "io.spring.javaformat" apply false
+}
+
+subprojects {
+	plugins.withType(JavaPlugin) {
+		plugins.apply("io.spring.javaformat")
+	}
+}

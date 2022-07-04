@@ -1,0 +1,17 @@
+plugins {
+	id "java"
+	id "io.spring.javaformat"
+	id "org.springframework.boot" apply false
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/snapshot" }
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.assertj:assertj-core")
+	implementation("org.junit.jupiter:junit-jupiter")
+}
