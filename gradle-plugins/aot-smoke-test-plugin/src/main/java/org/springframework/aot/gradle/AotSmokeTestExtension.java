@@ -14,40 +14,33 @@
  * limitations under the License.
  */
 
-package org.springframework.aot.smoketest.support.assertj;
+package org.springframework.aot.gradle;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import javax.inject.Inject;
 
-import org.assertj.core.api.AssertProvider;
+import org.gradle.api.Project;
+import org.gradle.api.provider.Property;
 
 /**
- * Output from an application.
+ * DSL extension for configuring AOT smoke tests.
  *
  * @author Andy Wilkinson
  */
-public class Output implements AssertProvider<OutputAssert> {
+public class AotSmokeTestExtension {
 
-	private final Path path;
+	private final Property<Boolean> webApplication;
 
-	public Output(Path path) {
-		this.path = path;
+	@Inject
+	public AotSmokeTestExtension(Project project) {
+		this.webApplication = project.getObjects().property(Boolean.class);
 	}
 
-	public List<String> lines() {
-		try {
-			return Files.readAllLines(this.path);
-		}
-		catch (IOException ex) {
-			throw new RuntimeException();
-		}
-	}
-
-	@Override
-	public OutputAssert assertThat() {
-		return new OutputAssert(this);
+	/**
+	 * Whether the application under test is a web application.
+	 * @return whether the application under test is a web application.
+	 */
+	public Property<Boolean> getWebApplication() {
+		return this.webApplication;
 	}
 
 }

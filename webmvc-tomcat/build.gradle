@@ -17,12 +17,15 @@ repositories {
 
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 	aotTestImplementation(project(":aot-smoke-test-support"))
-	aotTestImplementation("org.awaitility:awaitility:4.2.0")
+}
+
+aotSmokeTest {
+	webApplication = true
 }
 
 tasks.named("checkFormatAot").configure { enabled = false }

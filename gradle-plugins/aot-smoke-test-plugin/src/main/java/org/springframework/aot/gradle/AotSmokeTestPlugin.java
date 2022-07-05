@@ -49,35 +49,37 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private void configureBootJavaProject(Project project) {
+		AotSmokeTestExtension extension = project.getExtensions().create("aotSmokeTest", AotSmokeTestExtension.class, project);
+		extension.getWebApplication().convention(false);
 		JavaPluginExtension javaExtension = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet aotTest = javaExtension.getSourceSets().create("aotTest");
-		configureJvmTests(project, aotTest);
-		configureNativeImageTests(project, aotTest);
+		configureJvmTests(project, aotTest, extension);
+		configureNativeImageTests(project, aotTest, extension);
 	}
 
-	private void configureJvmTests(Project project, SourceSet aotTest) {
+	private void configureJvmTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
 		Provider<RegularFile> bootJarArchive = project.getTasks()
 				.named(SpringBootPlugin.BOOT_JAR_TASK_NAME, BootJar.class)
 				.flatMap((bootJar) -> bootJar.getArchiveFile());
-		configureTasks(project, aotTest, ApplicationType.JVM, bootJarArchive);
+		configureTasks(project, aotTest, ApplicationType.JVM, bootJarArchive, extension);
 	}
 
-	private void configureNativeImageTests(Project project, SourceSet aotTest) {
+	private void configureNativeImageTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
 		ApplicationType type = ApplicationType.NATIVE;
 		project.getPlugins().withType(NativeImagePlugin.class, (nativeImagePlugin) -> {
 			Provider<RegularFile> applicationBinary = project.getTasks()
 					.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
 					.flatMap((nativeCompile) -> nativeCompile.getOutputFile());
-			configureTasks(project, aotTest, type, applicationBinary);
+			configureTasks(project, aotTest, type, applicationBinary, extension);
 		});
 	}
 
 	private void configureTasks(Project project, SourceSet aotTest, ApplicationType type,
-			Provider<RegularFile> nativeImage) {
+			Provider<RegularFile> nativeImage, AotSmokeTestExtension extension) {
 		Provider<Directory> outputDirectory = project.getLayout().getBuildDirectory()
 				.dir(type.name().toLowerCase() + "App");
 		TaskProvider<? extends StartApplication> startTask = createStartApplicationTask(project,
-				"start" + capitalize(type.name().toLowerCase()) + "App", type, nativeImage, outputDirectory);
+				"start" + capitalize(type.name().toLowerCase()) + "App", type, nativeImage, outputDirectory, extension);
 		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project,
 				"stop" + capitalize(type.name().toLowerCase()) + "App", type, startTask);
 		createAotTestTask(project, type.name().toLowerCase() + "AotTest", aotTest, type, startTask, stopTask);
@@ -96,11 +98,12 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private TaskProvider<? extends StartApplication> createStartApplicationTask(Project project, String name,
-			ApplicationType type, Provider<RegularFile> applicationBinary, Provider<Directory> outputDirectory) {
+			ApplicationType type, Provider<RegularFile> applicationBinary, Provider<Directory> outputDirectory, AotSmokeTestExtension extension) {
 		return project.getTasks().register(name, type.startTaskType, (start) -> {
 			start.getApplicationBinary().set(applicationBinary);
 			start.getOutputDirectory().set(outputDirectory);
 			start.setDescription("Starts the " + type.description + " application.");
+			start.getWebApplication().convention(extension.getWebApplication());
 		});
 	}
 

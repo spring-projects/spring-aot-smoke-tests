@@ -29,3 +29,4 @@ includeBuild "gradle-plugins/aot-smoke-test-plugin"
 
 include "aot-smoke-test-support"
 include "command-line-runner"
+include "webmvc-tomcat"

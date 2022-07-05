@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.error.BasicErrorMessageFactory;
 
+import org.springframework.aot.smoketest.support.Output;
+
 /**
  * An {@link AbstractAssert} for {@link Output}.
  *

@@ -14,28 +14,24 @@
  * limitations under the License.
  */
 
-package org.springframework.aot.gradle;
+package org.springframework.aot.smoketest.support.assertj;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.assertj.core.api.AssertProvider;
 
-import org.gradle.api.Task;
+import org.springframework.aot.smoketest.support.Output;
 
 /**
- * {@link Task} to start a native application.
+ * An {@link AssertProvider} for {@link OutputAssert}.
  *
  * @author Andy Wilkinson
  */
-public class StartNativeApplication extends StartApplication {
+public class AssertableOutput implements AssertProvider<OutputAssert> {
+
+	private final Output output = Output.current();
 
 	@Override
-	protected ProcessBuilder prepareProcessBuilder(ProcessBuilder processBuilder) {
-		List<String> command = new ArrayList<>();
-		command.add(getApplicationBinary().getAsFile().get().getAbsolutePath());
-		if (getWebApplication().get()) {
-			command.add("-Dserver.port=0");
-		}
-		return processBuilder.command(command);
+	public OutputAssert assertThat() {
+		return new OutputAssert(this.output);
 	}
 
 }

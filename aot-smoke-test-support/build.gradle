@@ -1,5 +1,5 @@
 plugins {
-	id "java"
+	id "java-library"
 	id "io.spring.javaformat"
 	id "org.springframework.boot" apply false
 }
@@ -11,7 +11,8 @@ repositories {
 }
 
 dependencies {
-	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.assertj:assertj-core")
-	implementation("org.junit.jupiter:junit-jupiter")
+	api(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	runtimeOnly("io.projectreactor.netty:reactor-netty-http")
+	api("org.springframework:spring-webflux")
+	api("org.springframework.boot:spring-boot-starter-test")
 }

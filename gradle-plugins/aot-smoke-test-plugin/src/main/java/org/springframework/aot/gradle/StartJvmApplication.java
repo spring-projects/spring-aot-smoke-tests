@@ -17,6 +17,8 @@
 package org.springframework.aot.gradle;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.gradle.api.Task;
 import org.gradle.internal.jvm.Jvm;
@@ -31,8 +33,14 @@ public class StartJvmApplication extends StartApplication {
 	@Override
 	protected ProcessBuilder prepareProcessBuilder(ProcessBuilder processBuilder) {
 		File executable = Jvm.current().getJavaExecutable();
-		return processBuilder.command(executable.getAbsolutePath(), "-jar",
-				getApplicationBinary().get().getAsFile().getAbsolutePath());
+		List<String> command = new ArrayList<>();
+		command.add(executable.getAbsolutePath());
+		if (getWebApplication().get()) {
+			command.add("-Dserver.port=0");
+		}
+		command.add("-jar");
+		command.add(getApplicationBinary().get().getAsFile().getAbsolutePath());
+		return processBuilder.command(command);
 	}
 
 }

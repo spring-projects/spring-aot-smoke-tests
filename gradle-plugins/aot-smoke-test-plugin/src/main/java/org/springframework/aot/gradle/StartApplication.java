@@ -27,7 +27,9 @@ import org.gradle.api.Task;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.RegularFile;
 import org.gradle.api.file.RegularFileProperty;
+import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
+import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.TaskAction;
@@ -41,6 +43,8 @@ public abstract class StartApplication extends DefaultTask {
 
 	private final RegularFileProperty applicationBinary;
 
+	private final Property<Boolean> webApplication;
+
 	private final DirectoryProperty outputDirectory;
 
 	private final Provider<RegularFile> pidFile;
@@ -51,6 +55,7 @@ public abstract class StartApplication extends DefaultTask {
 
 	public StartApplication() {
 		this.applicationBinary = getProject().getObjects().fileProperty();
+		this.webApplication = getProject().getObjects().property(Boolean.class);
 		this.outputDirectory = getProject().getObjects().directoryProperty();
 		this.pidFile = this.outputDirectory.map((dir) -> dir.file("pid"));
 		this.outputFile = this.outputDirectory.map((dir) -> dir.file("output.txt"));
@@ -64,6 +69,16 @@ public abstract class StartApplication extends DefaultTask {
 	@InputFile
 	public RegularFileProperty getApplicationBinary() {
 		return this.applicationBinary;
+	}
+
+	/**
+	 * Whether the application to be started is a web application. When it is,
+	 * the application is started with {@code -Dserver.port=0} to prevent port clashes.
+	 * @return whether the application is a web application
+	 */
+	@Input
+	public Property<Boolean> getWebApplication() {
+		return this.webApplication;
 	}
 
 	/**
