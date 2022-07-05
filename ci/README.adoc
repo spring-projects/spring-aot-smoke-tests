@@ -1,0 +1,17 @@
+== Concourse pipeline
+
+Ensure that you've set up the spring-aot-smoke-tests target and can login
+
+[source]
+----
+$ fly -t spring-aot-smoke-tests login -n spring-aot-smoke-tests -c https://ci.spring.io
+----
+
+The pipeline can be deployed using the following command:
+
+[source]
+----
+$ fly -t spring-aot-smoke-tests set-pipeline -p spring-aot-smoke-tests-1.0.x -c ci/pipeline.yml -l ci/parameters.yml
+----
+
+NOTE: This assumes that you have Vault integration configured with the appropriate secrets.

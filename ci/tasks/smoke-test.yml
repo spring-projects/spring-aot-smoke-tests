@@ -1,0 +1,16 @@
+---
+platform: linux
+inputs:
+- name: git-repo
+outputs:
+- name: distribution-repository
+- name: git-repo
+caches:
+- path: maven
+- path: gradle
+params:
+  BRANCH:
+  CI: true
+  SMOKE_TEST:
+run:
+  path: git-repo/ci/scripts/smoke-test.sh

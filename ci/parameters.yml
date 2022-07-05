@@ -1,0 +1,9 @@
+github-organization: "spring-projects"
+github-repository: "spring-aot-smoke-tests"
+docker-hub-organization: "springci"
+artifactory-server: "https://repo.spring.io"
+branch: "main"
+milestone: "1.0.x"
+build-name: "spring-aot-smoke-tests"
+concourse-url: "https://ci.spring.io"
+task-timeout: 1h00m
