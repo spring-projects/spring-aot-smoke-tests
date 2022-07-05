@@ -28,5 +28,7 @@ plugins {
 includeBuild "gradle-plugins/aot-smoke-test-plugin"
 
 include "aot-smoke-test-support"
+include "aot-smoke-test-third-party-hints"
 include "command-line-runner"
+include "webflux-netty"
 include "webmvc-tomcat"

@@ -57,12 +57,15 @@ class WebTestClientParameterResolver implements ParameterResolver {
 	}
 
 	private int extractPort() {
-		Pattern portPattern = Pattern.compile("Tomcat started on port\\(s\\): ([0-9]+)");
+		List<Pattern> portPatterns = List.of(Pattern.compile("Tomcat started on port\\(s\\): ([0-9]+)"),
+				Pattern.compile("Netty started on port ([0-9]+)"));
 		List<String> lines = Output.current().lines();
 		for (String line : lines) {
-			Matcher matcher = portPattern.matcher(line);
-			if (matcher.find()) {
-				return Integer.parseInt(matcher.group(1));
+			for (Pattern portPattern : portPatterns) {
+				Matcher matcher = portPattern.matcher(line);
+				if (matcher.find()) {
+					return Integer.parseInt(matcher.group(1));
+				}
 			}
 		}
 		StringBuilder message = new StringBuilder("Port log message was not found in output:");
