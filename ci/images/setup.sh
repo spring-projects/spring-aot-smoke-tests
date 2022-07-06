@@ -24,3 +24,9 @@ cd /opt/graalvm
 curl -L ${GRAAL_URL} | tar zx --strip-components=1
 test -f /opt/graalvm/bin/java
 test -f /opt/graalvm/bin/javac
+
+###########################################################
+# GRADLE ENTERPRISE
+###########################################################
+mkdir ~/.gradle
+echo 'systemProp.user.name=concourse' > ~/.gradle/gradle.properties
