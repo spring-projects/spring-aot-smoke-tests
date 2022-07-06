@@ -85,9 +85,9 @@ jobs:
         GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
 #@ end
 groups:
+- name: "smoke-tests"
+  jobs: #@ data.values.smoke_tests
 - name: "infrastructure"
   jobs:
     - "build-ci-images"
     - "update-pipeline"
-- name: "smoke-tests"
-  jobs: #@ data.values.smoke_tests
