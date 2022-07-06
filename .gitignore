@@ -5,3 +5,4 @@ build/
 bin/
 .gradle/
 .idea/
+ci/pipeline.yml

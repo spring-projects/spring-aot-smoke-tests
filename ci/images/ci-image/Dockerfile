@@ -5,4 +5,4 @@ ADD get-graal-url.sh /get-graal-url.sh
 RUN ./setup.sh graal22_1
 
 ENV JAVA_HOME /opt/graalvm
-ENV PATH $JAVA_HOME/bin:$PATH
+ENV PATH $JAVA_HOME/bin:/opt/ytt/bin:$PATH

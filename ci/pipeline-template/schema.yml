@@ -1,0 +1,4 @@
+#@data/values-schema
+---
+smoke_tests:
+  - ""

@@ -14,6 +14,10 @@ rm -rf /var/lib/apt/lists/*
 
 curl https://raw.githubusercontent.com/spring-io/concourse-java-scripts/v0.0.4/concourse-java.sh > /opt/concourse-java.sh
 
+mkdir -p /opt/ytt/bin
+curl --location https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.41.1/ytt-linux-amd64 > /opt/ytt/bin/ytt
+chmod +x /opt/ytt/bin/ytt
+
 ###########################################################
 # GRAAL
 ###########################################################
