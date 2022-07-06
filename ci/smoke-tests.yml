@@ -1,4 +1,3 @@
 smoke_tests:
   - command-line-runner
   - webflux-netty
-  - webmvc-tomcat
