@@ -25,6 +25,8 @@ plugins {
 	id "io.spring.ge.conventions" version "0.0.10"
 }
 
+rootProject.name="spring-aot-smoke-tests"
+
 includeBuild "gradle-plugins/aot-smoke-test-plugin"
 
 include "aot-smoke-test-support"
