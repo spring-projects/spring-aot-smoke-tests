@@ -26,7 +26,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @AotSmokeTest
-class WebmvcApplicationAotTests {
+class WebMvcApplicationAotTests {
 
 	@Test
 	void stringResponseBody(WebTestClient client) {
@@ -54,10 +54,15 @@ class WebmvcApplicationAotTests {
 	}
 
 	@Test
-	void jsonPost(WebTestClient client) {
+	void sendPostToPostMappingDefinedOnAnInterfaceAndReceiveEchoedJsonResponse(WebTestClient client) {
 		client.post().uri("echo").bodyValue("{\"message\": \"Native\"}")
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).exchange().expectStatus().isOk()
 				.expectBody().json("{\"message\":\"Native\"}");
+	}
+
+	@Test
+	void customResponseStatusFromResponseStatusAnnotation(WebTestClient client) {
+		client.get().uri("status").exchange().expectStatus().isAccepted();
 	}
 
 }

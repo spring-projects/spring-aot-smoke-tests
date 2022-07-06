@@ -10,12 +10,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 @SpringBootTest
-class WebmvcApplicationTests implements ApplicationContextAware {
+class WebMvcApplicationTests implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	WebmvcController controller;
+	WebMvcController controller;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) {

@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest
-class WebmvcSliceTests {
+class WebMvcSliceTests {
 
 	@Autowired
 	private MockMvc mockMvc;

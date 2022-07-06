@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class WebmvcController {
+public class WebMvcController {
 
 	@GetMapping("/")
-	public String foo() {
+	public String textPlainStringResponseBody() {
 		return "Hello from Spring MVC and Tomcat";
 	}
 
 	@GetMapping("/record")
-	public SampleRecord record() {
+	public SampleRecord recordSerializedToJson() {
 		return new SampleRecord("Hello from Spring MVC and Tomcat");
 	}
 
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@GetMapping("/status")
-	public String status() {
+	public String customResponseStatus() {
 		return "status";
 	}
 
