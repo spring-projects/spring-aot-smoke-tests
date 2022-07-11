@@ -21,12 +21,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Task;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.RegularFile;
 import org.gradle.api.file.RegularFileProperty;
+import org.gradle.api.provider.MapProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.Input;
@@ -40,6 +42,8 @@ import org.gradle.api.tasks.TaskAction;
  * @author Andy WilkinsonO
  */
 public abstract class StartApplication extends DefaultTask {
+	
+	private final MapProperty<String, String> environment;
 
 	private final RegularFileProperty applicationBinary;
 
@@ -54,6 +58,7 @@ public abstract class StartApplication extends DefaultTask {
 	private final Provider<RegularFile> errorFile;
 
 	public StartApplication() {
+		this.environment = getProject().getObjects().mapProperty(String.class, String.class);
 		this.applicationBinary = getProject().getObjects().fileProperty();
 		this.webApplication = getProject().getObjects().property(Boolean.class);
 		this.outputDirectory = getProject().getObjects().directoryProperty();
@@ -117,6 +122,14 @@ public abstract class StartApplication extends DefaultTask {
 	public Provider<RegularFile> getErrorFile() {
 		return this.errorFile;
 	}
+	
+	/**
+	 * Adds the provided {@code environment} to the environment of the application.
+	 * @param environment the environment
+	 */
+	public void environment(Provider<Map<String, String>> environment) {
+		this.environment.putAll(environment);
+	}
 
 	@TaskAction
 	void startApplication() throws IOException {
@@ -127,8 +140,10 @@ public abstract class StartApplication extends DefaultTask {
 		Files.deleteIfExists(redirectedError.toPath());
 		Files.deleteIfExists(redirectedOutput.toPath());
 		Files.deleteIfExists(pid);
-		Process process = prepareProcessBuilder(new ProcessBuilder()).redirectError(redirectedError)
-				.redirectOutput(redirectedOutput).start();
+		ProcessBuilder processBuilder = prepareProcessBuilder(new ProcessBuilder()).redirectError(redirectedError)
+				.redirectOutput(redirectedOutput);
+		processBuilder.environment().putAll(this.environment.get());
+		Process process = processBuilder.start();
 		Files.write(pid, List.of(Long.toString(process.pid())));
 	}
 

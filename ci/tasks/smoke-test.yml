@@ -12,5 +12,12 @@ params:
   BRANCH:
   CI: true
   SMOKE_TEST:
+  DOCKER_HUB_MIRROR:
 run:
-  path: git-repo/ci/scripts/smoke-test.sh
+  path: bash
+  args:
+    - -ec
+    - |
+      source /docker-lib.sh
+      start_docker $DOCKER_HUB_MIRROR
+      ${PWD}/git-repo/ci/scripts/smoke-test.sh

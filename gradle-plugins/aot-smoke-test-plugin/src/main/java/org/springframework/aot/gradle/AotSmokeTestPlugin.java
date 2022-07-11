@@ -16,6 +16,10 @@
 
 package org.springframework.aot.gradle;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import org.graalvm.buildtools.gradle.NativeImagePlugin;
 import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
 import org.gradle.api.Plugin;
@@ -29,14 +33,16 @@ import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.testing.Test;
-
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
 import org.springframework.boot.gradle.tasks.bundling.BootJar;
 
+import com.avast.gradle.dockercompose.ComposeExtension;
+import com.avast.gradle.dockercompose.ComposeSettings;
+
 /**
- * {@link Plugin} for an AOT smoke test project. Configures an {@code aotTest} source set
- * and tasks for running the contained tests against the application running on the JVM
- * and as a native image.
+ * {@link Plugin} for an AOT smoke test project. Configures an {@code aotTest}
+ * source set and tasks for running the contained tests against the application
+ * running on the JVM and as a native image.
  *
  * @author Andy Wilkinson
  */
@@ -49,7 +55,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private void configureBootJavaProject(Project project) {
-		AotSmokeTestExtension extension = project.getExtensions().create("aotSmokeTest", AotSmokeTestExtension.class, project);
+		AotSmokeTestExtension extension = project.getExtensions().create("aotSmokeTest", AotSmokeTestExtension.class,
+				project);
 		extension.getWebApplication().convention(false);
 		JavaPluginExtension javaExtension = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet aotTest = javaExtension.getSourceSets().create("aotTest");
@@ -78,38 +85,69 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			Provider<RegularFile> nativeImage, AotSmokeTestExtension extension) {
 		Provider<Directory> outputDirectory = project.getLayout().getBuildDirectory()
 				.dir(type.name().toLowerCase() + "App");
-		TaskProvider<? extends StartApplication> startTask = createStartApplicationTask(project,
-				"start" + capitalize(type.name().toLowerCase()) + "App", type, nativeImage, outputDirectory, extension);
-		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project,
-				"stop" + capitalize(type.name().toLowerCase()) + "App", type, startTask);
-		createAotTestTask(project, type.name().toLowerCase() + "AotTest", aotTest, type, startTask, stopTask);
+		ComposeSettings composeSettings = composeSettingsForProject(project, type);
+		TaskProvider<? extends StartApplication> startTask = createStartApplicationTask(project, type, nativeImage,
+				outputDirectory, extension, composeSettings);
+		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project, type, startTask, composeSettings);
+		createAotTestTask(project, aotTest, type, startTask, stopTask);
+	}
+
+	private ComposeSettings composeSettingsForProject(Project project, ApplicationType type) {
+		if (!project.file("docker-compose.yml").canRead()) {
+			return null;
+		}
+		project.getPlugins().apply("com.avast.gradle.docker-compose");
+		ComposeExtension compose = project.getExtensions().getByType(ComposeExtension.class);
+		return compose.nested(type.name().toLowerCase() + "App");
 	}
 
 	private String capitalize(String input) {
 		return Character.toUpperCase(input.charAt(0)) + input.substring(1);
 	}
 
-	private TaskProvider<StopApplication> createStopApplicationTask(Project project, String name, ApplicationType type,
-			TaskProvider<? extends StartApplication> startTask) {
-		return project.getTasks().register(name, StopApplication.class, (stop) -> {
+	private TaskProvider<StopApplication> createStopApplicationTask(Project project, ApplicationType type,
+			TaskProvider<? extends StartApplication> startTask, ComposeSettings composeSettings) {
+		String taskName = "stop" + capitalize(type.name().toLowerCase()) + "App";
+		return project.getTasks().register(taskName, StopApplication.class, (stop) -> {
 			stop.getPidFile().set(startTask.flatMap(StartApplication::getPidFile));
 			stop.setDescription("Stops the " + type.description + " application.");
+			if (composeSettings != null) {
+				stop.finalizedBy(composeSettings.getNestedName() + "ComposeDown");
+			}
 		});
 	}
 
-	private TaskProvider<? extends StartApplication> createStartApplicationTask(Project project, String name,
-			ApplicationType type, Provider<RegularFile> applicationBinary, Provider<Directory> outputDirectory, AotSmokeTestExtension extension) {
-		return project.getTasks().register(name, type.startTaskType, (start) -> {
+	private TaskProvider<? extends StartApplication> createStartApplicationTask(Project project, ApplicationType type,
+			Provider<RegularFile> applicationBinary, Provider<Directory> outputDirectory,
+			AotSmokeTestExtension extension, ComposeSettings composeSettings) {
+		String taskName = "start" + capitalize(type.name().toLowerCase()) + "App";
+		return project.getTasks().register(taskName, type.startTaskType, (start) -> {
 			start.getApplicationBinary().set(applicationBinary);
 			start.getOutputDirectory().set(outputDirectory);
 			start.setDescription("Starts the " + type.description + " application.");
 			start.getWebApplication().convention(extension.getWebApplication());
+			if (composeSettings != null) {
+				start.dependsOn(composeSettings.getNestedName() + "ComposeUp");
+				start.environment(project.provider(() -> environment(composeSettings)));
+			}
 		});
 	}
 
-	private void createAotTestTask(Project project, String taskName, SourceSet aotTest, ApplicationType type,
+	private Map<String, String> environment(ComposeSettings settings) {
+		Map<String, String> environment = new HashMap<>();
+		settings.getServicesInfos().forEach((serviceName, service) -> {
+			String name = serviceName.toUpperCase(Locale.ENGLISH);
+			environment.put(name + "_HOST", service.getHost());
+			service.getTcpPorts()
+					.forEach((source, target) -> environment.put(name + "_PORT_" + source, Integer.toString(target)));
+		});
+		return environment;
+	}
+
+	private void createAotTestTask(Project project, SourceSet aotTest, ApplicationType type,
 			TaskProvider<? extends StartApplication> startTask, TaskProvider<StopApplication> stopTask) {
-		TaskProvider<Test> nativeAotTest = project.getTasks().register(taskName, Test.class, (task) -> {
+		String taskName = type.name().toLowerCase() + "AotTest";
+		TaskProvider<Test> aotTestTask = project.getTasks().register(taskName, Test.class, (task) -> {
 			task.dependsOn(startTask);
 			task.useJUnitPlatform();
 			task.setTestClassesDirs(aotTest.getOutput().getClassesDirs());
@@ -122,7 +160,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			task.setDescription("Runs the AOT test suite against the " + type.description + " application.");
 			task.setGroup(JavaBasePlugin.VERIFICATION_GROUP);
 		});
-		project.getTasks().named(JavaBasePlugin.CHECK_TASK_NAME).configure((check) -> check.dependsOn(nativeAotTest));
+		project.getTasks().named(JavaBasePlugin.CHECK_TASK_NAME).configure((check) -> check.dependsOn(aotTestTask));
 	}
 
 	private enum ApplicationType {
