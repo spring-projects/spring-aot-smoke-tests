@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import com.avast.gradle.dockercompose.ComposeExtension;
+import com.avast.gradle.dockercompose.ComposeSettings;
 import org.graalvm.buildtools.gradle.NativeImagePlugin;
 import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
 import org.gradle.api.Plugin;
@@ -33,16 +35,14 @@ import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.testing.Test;
+
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
 import org.springframework.boot.gradle.tasks.bundling.BootJar;
 
-import com.avast.gradle.dockercompose.ComposeExtension;
-import com.avast.gradle.dockercompose.ComposeSettings;
-
 /**
- * {@link Plugin} for an AOT smoke test project. Configures an {@code aotTest}
- * source set and tasks for running the contained tests against the application
- * running on the JVM and as a native image.
+ * {@link Plugin} for an AOT smoke test project. Configures an {@code aotTest} source set
+ * and tasks for running the contained tests against the application running on the JVM
+ * and as a native image.
  *
  * @author Andy Wilkinson
  */

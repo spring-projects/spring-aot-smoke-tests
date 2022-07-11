@@ -42,7 +42,7 @@ import org.gradle.api.tasks.TaskAction;
  * @author Andy WilkinsonO
  */
 public abstract class StartApplication extends DefaultTask {
-	
+
 	private final MapProperty<String, String> environment;
 
 	private final RegularFileProperty applicationBinary;
@@ -77,8 +77,8 @@ public abstract class StartApplication extends DefaultTask {
 	}
 
 	/**
-	 * Whether the application to be started is a web application. When it is,
-	 * the application is started with {@code -Dserver.port=0} to prevent port clashes.
+	 * Whether the application to be started is a web application. When it is, the
+	 * application is started with {@code -Dserver.port=0} to prevent port clashes.
 	 * @return whether the application is a web application
 	 */
 	@Input
@@ -122,7 +122,7 @@ public abstract class StartApplication extends DefaultTask {
 	public Provider<RegularFile> getErrorFile() {
 		return this.errorFile;
 	}
-	
+
 	/**
 	 * Adds the provided {@code environment} to the environment of the application.
 	 * @param environment the environment

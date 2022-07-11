@@ -1,9 +1,10 @@
 pluginManagement {
+	includeBuild "gradle-plugins/aot-smoke-test-plugin"
 	plugins {
+		id "io.spring.javaformat" version "0.0.34"
+		id "org.graalvm.buildtools.native" version "0.9.11"
 		id "org.springframework.boot" version "3.0.0-SNAPSHOT"
 		id "org.springframework.boot.aot" version "3.0.0-SNAPSHOT"
-		id "org.graalvm.buildtools.native" version "0.9.11"
-		id "io.spring.javaformat" version "0.0.34"
 	}
 	repositories {
 		gradlePluginPortal()
@@ -26,8 +27,6 @@ plugins {
 }
 
 rootProject.name="spring-aot-smoke-tests"
-
-includeBuild "gradle-plugins/aot-smoke-test-plugin"
 
 include "aot-smoke-test-support"
 include "aot-smoke-test-third-party-hints"

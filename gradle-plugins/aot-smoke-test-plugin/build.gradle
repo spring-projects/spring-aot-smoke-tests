@@ -1,5 +1,6 @@
 plugins {
 	id "checkstyle"
+	id "io.spring.javaformat"
 	id "java-gradle-plugin"
 }
 
