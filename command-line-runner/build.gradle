@@ -6,15 +6,6 @@ plugins {
 	id 'org.graalvm.buildtools.native'
 }
 
-sourceCompatibility = "17"
-targetCompatibility = "17"
-
-repositories {
-	mavenCentral()
-	maven { url "https://repo.spring.io/milestone" }
-	maven { url "https://repo.spring.io/snapshot" }
-}
-
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter")
@@ -24,5 +15,3 @@ dependencies {
 	aotTestImplementation(project(":aot-smoke-test-support"))
 	aotTestImplementation("org.awaitility:awaitility:4.2.0")
 }
-
-tasks.named("checkFormatAot").configure { enabled = false }

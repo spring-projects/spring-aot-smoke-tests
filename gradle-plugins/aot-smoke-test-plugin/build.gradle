@@ -20,9 +20,12 @@ gradlePlugin {
 }
 
 dependencies {
-	checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:0.0.34")
-	compileOnly("org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT")
+	checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:$javaFormatVersion")
+	
+	compileOnly("io.spring.javaformat:spring-javaformat-gradle-plugin:$javaFormatVersion")
 	compileOnly("org.graalvm.buildtools:native-gradle-plugin:0.9.11")
+	compileOnly("org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT")
+
 	implementation("com.avast.gradle:gradle-docker-compose-plugin:0.16.8")
 }
 

@@ -1,6 +1,6 @@
 pluginManagement {
 	plugins {
-		id "io.spring.javaformat" version "0.0.34"
+		id "io.spring.javaformat" version "$javaFormatVersion"
 	}
 }
 

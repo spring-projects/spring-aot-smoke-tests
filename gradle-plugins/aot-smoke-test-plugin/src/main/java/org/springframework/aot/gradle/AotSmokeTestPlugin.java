@@ -22,8 +22,10 @@ import java.util.Map;
 
 import com.avast.gradle.dockercompose.ComposeExtension;
 import com.avast.gradle.dockercompose.ComposeSettings;
+import io.spring.javaformat.gradle.SpringJavaFormatPlugin;
 import org.graalvm.buildtools.gradle.NativeImagePlugin;
 import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
+import org.gradle.api.JavaVersion;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.file.Directory;
@@ -60,8 +62,21 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		extension.getWebApplication().convention(false);
 		JavaPluginExtension javaExtension = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet aotTest = javaExtension.getSourceSets().create("aotTest");
+		javaExtension.setSourceCompatibility(JavaVersion.VERSION_17);
+		javaExtension.setTargetCompatibility(JavaVersion.VERSION_17);
+		project.getRepositories().mavenCentral();
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Milestone");
+			repo.setUrl("https://repo.spring.io/milestone");
+		});
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Snapshot");
+			repo.setUrl("https://repo.spring.io/snapshot");
+		});
 		configureJvmTests(project, aotTest, extension);
 		configureNativeImageTests(project, aotTest, extension);
+		project.getPlugins().withType(SpringJavaFormatPlugin.class,
+				(plugin) -> project.getTasks().named("checkFormatAot").configure((task) -> task.setEnabled(false)));
 	}
 
 	private void configureJvmTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
