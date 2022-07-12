@@ -1,6 +1,7 @@
 smoke_tests:
   - actuator-webflux
   - actuator-webmvc
+  - aspect
   - async
   - command-line-runner
   - spring-amqp-rabbit
