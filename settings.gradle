@@ -2,7 +2,7 @@ pluginManagement {
 	includeBuild "gradle-plugins/aot-smoke-test-plugin"
 	plugins {
 		id "io.spring.javaformat" version "0.0.34"
-		id "org.graalvm.buildtools.native" version "0.9.11"
+		id "org.graalvm.buildtools.native" version "0.9.13"
 		id "org.springframework.boot" version "3.0.0-SNAPSHOT"
 		id "org.springframework.boot.aot" version "3.0.0-SNAPSHOT"
 	}
