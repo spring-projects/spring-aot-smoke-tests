@@ -17,7 +17,7 @@
 package org.springframework.aot.smoketest.support.assertj;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.error.BasicErrorMessageFactory;
@@ -35,10 +35,14 @@ public class OutputAssert extends AbstractAssert<OutputAssert, Output> {
 		super(actual, OutputAssert.class);
 	}
 
+	/**
+	 * Asserts that the output has a single line matching the given contents.
+	 * @param contents contents to match
+	 * @return {@code this} for fluent API
+	 */
 	public OutputAssert hasSingleLineContaining(String contents) {
 		List<String> lines = this.actual.lines();
-		List<String> matchingLines = lines.stream().filter((line) -> line.contains(contents))
-				.collect(Collectors.toList());
+		List<String> matchingLines = lines.stream().filter((line) -> line.contains(contents)).toList();
 		if (matchingLines.size() != 1) {
 			throwAssertionError(
 					new BasicErrorMessageFactory("%nExpected %s to have a single line that contains '%s' but found %s",
@@ -47,14 +51,32 @@ public class OutputAssert extends AbstractAssert<OutputAssert, Output> {
 		return this;
 	}
 
+	/**
+	 * Asserts that the output has a line matching the given contents.
+	 * @param contents contents to match
+	 * @return {@code this} for fluent API
+	 */
+	public OutputAssert hasLineContaining(String contents) {
+		List<String> lines = this.actual.lines();
+		Optional<String> matchingLines = lines.stream().filter((line) -> line.contains(contents)).findAny();
+		if (matchingLines.isEmpty()) {
+			throwAssertionError(new BasicErrorMessageFactory(
+					"%nExpected %s to have a line that contains '%s' but found none", lines, contents));
+		}
+		return this;
+	}
+
+	/**
+	 * Asserts that the output doesn't have a line matching the given contents.
+	 * @param contents contents to match
+	 * @return {@code this} for fluent API
+	 */
 	public OutputAssert hasNoLinesContaining(String contents) {
 		List<String> lines = this.actual.lines();
-		List<String> matchingLines = lines.stream().filter((line) -> line.contains(contents))
-				.collect(Collectors.toList());
-		if (!matchingLines.isEmpty()) {
-			throwAssertionError(
-					new BasicErrorMessageFactory("%nExpected %s to have no lines that contain '%s' but found %s", lines,
-							contents, matchingLines.size()));
+		boolean noMatch = lines.stream().noneMatch((line) -> line.contains(contents));
+		if (!noMatch) {
+			throwAssertionError(new BasicErrorMessageFactory(
+					"%nExpected %s to have no lines that contain '%s' but found some", lines, contents));
 		}
 		return this;
 	}
