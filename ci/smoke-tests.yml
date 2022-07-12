@@ -4,6 +4,7 @@ smoke_tests:
   - aspect
   - async
   - command-line-runner
+  - scheduled
   - spring-amqp-rabbit
   - webflux-netty
   - webmvc-tomcat
