@@ -30,6 +30,8 @@ rootProject.name="spring-aot-smoke-tests"
 
 include "aot-smoke-test-support"
 include "aot-smoke-test-third-party-hints"
+
+include "actuator-webmvc"
 include "command-line-runner"
 include "spring-amqp-rabbit"
 include "webflux-netty"
