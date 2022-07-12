@@ -1,3 +1,29 @@
 = Spring AOT Smoke Tests
 
 A suite of tests for applications using AOT on the JVM and in Graal native images.
+
+## How to
+
+### Run a single test on JVM
+
+```
+./gradlew --offline :<name of the project>:jvmAotTest
+```
+
+for example
+
+```
+./gradlew --offline :actuator-webmvc:jvmAotTest
+```
+
+### Run a single test
+
+```
+./gradlew --offline :<name of the project>:build
+```
+
+for example
+
+```
+./gradlew --offline :actuator-webmvc:build
+```
