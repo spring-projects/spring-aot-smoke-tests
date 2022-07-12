@@ -33,6 +33,7 @@ include "aot-smoke-test-third-party-hints"
 
 include "actuator-webflux"
 include "actuator-webmvc"
+include "async"
 include "command-line-runner"
 include "spring-amqp-rabbit"
 include "webflux-netty"
