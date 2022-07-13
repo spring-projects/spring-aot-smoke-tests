@@ -11,3 +11,4 @@ smoke_tests:
   - webflux-netty
   - webmvc-tomcat
   - websocket
+  - websocket-stomp
