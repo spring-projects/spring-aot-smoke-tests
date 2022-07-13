@@ -3,7 +3,7 @@ smoke_tests:
   - actuator-webmvc
   - aspect
   - async
-  - commandlinerunner
+  - command-line-runner
   - configuration-properties
   - jdbc
   - security-webflux
