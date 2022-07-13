@@ -17,8 +17,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * types to be injected as parameters:
  *
  * <ul>
- * <li>{@link AssertableOutput} – application's redirected output</li>
- * <li>{@link WebTestClient} – preconfigured with a base URL for the application's
+ * <li>{@link AssertableOutput} - application's redirected output</li>
+ * <li>{@link WebTestClient} - preconfigured with a base URL for the application's
  * port</li>
  *
  * @author Andy Wilkinson
