@@ -1,0 +1,10 @@
+app:
+  string: "a-string"
+  data-size: "1MB"
+  string-list: [ "string-1", "string-2" ]
+  nested-list:
+    - a-int: 1
+    - a-int: 2
+  nested:
+    a-int: 3
+
