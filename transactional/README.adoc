@@ -1,0 +1,1 @@
+Tests if `@Transactional` opens a transaction.

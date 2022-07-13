@@ -8,6 +8,7 @@ smoke_tests:
   - security-webmvc
   - scheduled
   - spring-amqp-rabbit
+  - transactional
   - webflux-netty
   - webmvc-tomcat
   - websocket
