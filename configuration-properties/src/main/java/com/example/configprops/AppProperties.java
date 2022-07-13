@@ -59,6 +59,12 @@ class AppProperties {
 		this.dataSize = dataSize;
 	}
 
+	@Override
+	public String toString() {
+		return "AppProperties{" + "string='" + string + '\'' + ", dataSize=" + dataSize + ", stringList=" + stringList
+				+ ", nestedList=" + nestedList + ", nested=" + nested + '}';
+	}
+
 	static class Nested {
 
 		private int aInt;
@@ -76,12 +82,6 @@ class AppProperties {
 			return "Nested{" + "aInt=" + aInt + '}';
 		}
 
-	}
-
-	@Override
-	public String toString() {
-		return "AppProperties{" + "string='" + string + '\'' + ", dataSize=" + dataSize + ", stringList=" + stringList
-				+ ", nestedList=" + nestedList + ", nested=" + nested + '}';
 	}
 
 }
