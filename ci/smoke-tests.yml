@@ -4,6 +4,7 @@ smoke_tests:
   - aspect
   - async
   - command-line-runner
+  - conditional
   - configuration-properties
   - jdbc
   - security-webflux
