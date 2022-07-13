@@ -31,3 +31,9 @@ for example
 ----
 ./gradlew --offline :actuator-webmvc:build
 ----
+
+=== Add a new sample
+
+1. Create a new directory for your sample
+2. Include the directory in `settings.gradle`
+3. Include the directory in `ci/smoke-tests.yaml`
