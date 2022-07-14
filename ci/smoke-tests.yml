@@ -3,6 +3,7 @@ smoke_tests:
   - actuator-webmvc
   - aspect
   - async
+  - batch
   - command-line-runner
   - conditional
   - configuration-properties
