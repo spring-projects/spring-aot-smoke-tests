@@ -15,6 +15,7 @@ dependencies {
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.cloud:spring-cloud-starter-function-webflux")
+	implementation(project(":aot-smoke-test-third-party-hints"))
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
