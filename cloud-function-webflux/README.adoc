@@ -1,0 +1,1 @@
+Tests if Spring Cloud Function WebFlux works

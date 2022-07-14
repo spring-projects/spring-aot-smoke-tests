@@ -5,6 +5,7 @@ smoke_tests:
   - async
   - batch
   - cloud-function-web
+  - cloud-function-webflux
   - command-line-runner
   - conditional
   - configuration-properties
