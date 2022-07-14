@@ -4,6 +4,7 @@ smoke_tests:
   - aspect
   - async
   - batch
+  - cloud-function-web
   - command-line-runner
   - conditional
   - configuration-properties
