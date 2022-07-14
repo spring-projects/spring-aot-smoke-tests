@@ -3,8 +3,30 @@ pluginManagement {
 	plugins {
 		id "io.spring.javaformat" version "0.0.34"
 		id "org.graalvm.buildtools.native" version "0.9.13"
-		id "org.springframework.boot" version "3.0.0-SNAPSHOT"
-		id "org.springframework.boot.aot" version "3.0.0-SNAPSHOT"
+	}
+	repositories {
+		gradlePluginPortal()
+		mavenCentral()
+		maven {
+			url "https://repo.spring.io/release"
+			content {
+				includeGroup "io.spring.ge.conventions"
+			}
+		}
+	}
+}
+
+// This is needed to prevent gradle from checking for newer versions of the Spring Boot
+// plugin on every build in every sub-project
+buildscript {
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT")
+	}
+	configurations.classpath {
+		resolutionStrategy {
+			cacheDynamicVersionsFor 24, 'hours'
+			cacheChangingModulesFor 24, 'hours'
+		}
 	}
 	repositories {
 		gradlePluginPortal()
@@ -13,10 +35,10 @@ pluginManagement {
 			url "https://repo.spring.io/snapshot"
 		}
 		maven {
+			url 'https://repo.spring.io/milestone'
+		}
+		maven {
 			url "https://repo.spring.io/release"
-			content {
-				includeGroup "io.spring.ge.conventions"
-			}
 		}
 	}
 }

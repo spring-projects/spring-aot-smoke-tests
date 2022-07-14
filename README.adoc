@@ -8,28 +8,28 @@ A suite of tests for applications using AOT on the JVM and in Graal native image
 
 [source,]
 ----
-./gradlew --offline :<name of the project>:jvmAotTest
+./gradlew :<name of the project>:jvmAotTest
 ----
 
 for example
 
 [source,]
 ----
-./gradlew --offline :actuator-webmvc:jvmAotTest
+./gradlew :actuator-webmvc:jvmAotTest
 ----
 
 === Run a single test
 
 [source,]
 ----
-./gradlew --offline :<name of the project>:build
+./gradlew :<name of the project>:build
 ----
 
 for example
 
 [source,]
 ----
-./gradlew --offline :actuator-webmvc:build
+./gradlew :actuator-webmvc:build
 ----
 
 === Add a new sample
