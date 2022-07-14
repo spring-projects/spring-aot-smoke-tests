@@ -1,0 +1,1 @@
+Tests if Spring AMQP with RabbitMQ is working.

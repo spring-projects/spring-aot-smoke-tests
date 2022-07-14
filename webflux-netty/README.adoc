@@ -1,0 +1,1 @@
+Tests if WebFlux with Netty is working.
