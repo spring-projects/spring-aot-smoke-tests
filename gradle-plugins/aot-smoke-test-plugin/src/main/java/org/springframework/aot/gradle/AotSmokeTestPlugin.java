@@ -75,24 +75,30 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		});
 		configureJvmTests(project, aotTest, extension);
 		configureNativeImageTests(project, aotTest, extension);
-		project.getPlugins().withType(SpringJavaFormatPlugin.class,
-				(plugin) -> project.getTasks().named("checkFormatAot").configure((task) -> task.setEnabled(false)));
+		project.getPlugins().withType(SpringJavaFormatPlugin.class, (javaFormat) -> {
+			project.getTasks().all((task) -> {
+				if (task.getName().equals("checkFormatAot")) {
+					task.setEnabled(false);
+				}
+			});
+		});
 	}
 
 	private void configureJvmTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
-		Provider<RegularFile> bootJarArchive = project.getTasks()
-				.named(SpringBootPlugin.BOOT_JAR_TASK_NAME, BootJar.class)
-				.flatMap((bootJar) -> bootJar.getArchiveFile());
-		configureTasks(project, aotTest, ApplicationType.JVM, bootJarArchive, extension);
+		project.getTasks().withType(BootJar.class, (bootJar) -> {
+			if (bootJar.getName().equals(SpringBootPlugin.BOOT_JAR_TASK_NAME)) {
+				configureTasks(project, aotTest, ApplicationType.JVM, bootJar.getArchiveFile(), extension);
+			}
+		});
 	}
 
 	private void configureNativeImageTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
-		ApplicationType type = ApplicationType.NATIVE;
 		project.getPlugins().withType(NativeImagePlugin.class, (nativeImagePlugin) -> {
-			Provider<RegularFile> applicationBinary = project.getTasks()
-					.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
-					.flatMap((nativeCompile) -> nativeCompile.getOutputFile());
-			configureTasks(project, aotTest, type, applicationBinary, extension);
+			project.getTasks().withType(BuildNativeImageTask.class, (nativeCompile) -> {
+				if (nativeCompile.getName().equals(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME)) {
+					configureTasks(project, aotTest, ApplicationType.NATIVE, nativeCompile.getOutputFile(), extension);
+				}
+			});
 		});
 	}
 
@@ -175,7 +181,11 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			task.setDescription("Runs the AOT test suite against the " + type.description + " application.");
 			task.setGroup(JavaBasePlugin.VERIFICATION_GROUP);
 		});
-		project.getTasks().named(JavaBasePlugin.CHECK_TASK_NAME).configure((check) -> check.dependsOn(aotTestTask));
+		project.getTasks().all(task -> {
+			if (task.getName().equals(JavaBasePlugin.CHECK_TASK_NAME)) {
+				task.dependsOn(aotTestTask);
+			}
+		});
 	}
 
 	private enum ApplicationType {
