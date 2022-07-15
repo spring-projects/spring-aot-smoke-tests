@@ -1,12 +1,7 @@
 pluginManagement {
 	includeBuild "gradle-plugins/aot-smoke-test-plugin"
-	plugins {
-		id "io.spring.javaformat" version "0.0.34"
-		id "org.graalvm.buildtools.native" version "0.9.13"
-	}
 	repositories {
 		gradlePluginPortal()
-		mavenCentral()
 		maven {
 			url "https://repo.spring.io/release"
 			content {
@@ -21,6 +16,8 @@ pluginManagement {
 buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT")
+		classpath("io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.34")
+		classpath("org.graalvm.buildtools:native-gradle-plugin:0.9.13")
 	}
 	configurations.classpath {
 		resolutionStrategy {
