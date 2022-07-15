@@ -10,6 +10,7 @@ smoke_tests:
   - command-line-runner
   - conditional
   - configuration-properties
+  - data-jdbc
   - jdbc
   - logging-log4j2
   - security-webflux
