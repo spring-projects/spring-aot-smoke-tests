@@ -11,6 +11,7 @@ smoke_tests:
   - conditional
   - configuration-properties
   - jdbc
+  - logging-log4j2
   - security-webflux
   - security-webmvc
   - scheduled
