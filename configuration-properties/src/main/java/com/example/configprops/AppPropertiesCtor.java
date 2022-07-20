@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.unit.DataSize;
 
 @ConfigurationProperties(prefix = "app.ctor")
-class AppPropertiesCtor {
+public class AppPropertiesCtor {
 
 	private final String string;
 
@@ -18,7 +18,7 @@ class AppPropertiesCtor {
 
 	private final Nested nested;
 
-	AppPropertiesCtor(String string, DataSize dataSize, List<String> stringList, List<Nested> nestedList,
+	public AppPropertiesCtor(String string, DataSize dataSize, List<String> stringList, List<Nested> nestedList,
 			Nested nested) {
 		this.string = string;
 		this.dataSize = dataSize;
@@ -27,23 +27,23 @@ class AppPropertiesCtor {
 		this.nested = nested;
 	}
 
-	String getString() {
+	public String getString() {
 		return string;
 	}
 
-	DataSize getDataSize() {
+	public DataSize getDataSize() {
 		return dataSize;
 	}
 
-	List<String> getStringList() {
+	public List<String> getStringList() {
 		return stringList;
 	}
 
-	List<Nested> getNestedList() {
+	public List<Nested> getNestedList() {
 		return nestedList;
 	}
 
-	Nested getNested() {
+	public Nested getNested() {
 		return nested;
 	}
 
@@ -53,15 +53,15 @@ class AppPropertiesCtor {
 				+ stringList + ", nestedList=" + nestedList + ", nested=" + nested + '}';
 	}
 
-	static class Nested {
+	public static class Nested {
 
 		private final int aInt;
 
-		Nested(int aInt) {
+		public Nested(int aInt) {
 			this.aInt = aInt;
 		}
 
-		int getaInt() {
+		public int getaInt() {
 			return aInt;
 		}
 

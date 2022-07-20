@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.unit.DataSize;
 
 @ConfigurationProperties(prefix = "app.record")
-record AppPropertiesRecord(String string, DataSize dataSize, List<String> stringList, List<Nested> nestedList,
+public record AppPropertiesRecord(String string, DataSize dataSize, List<String> stringList, List<Nested> nestedList,
 		Nested nested) {
-	record Nested(int aInt) {
+	public record Nested(int aInt) {
 	}
 }

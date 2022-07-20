@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.unit.DataSize;
 
 @ConfigurationProperties(prefix = "app")
-class AppProperties {
+public class AppProperties {
 
 	private String string;
 
@@ -19,43 +19,43 @@ class AppProperties {
 
 	private Nested nested = new Nested();
 
-	List<String> getStringList() {
+	public List<String> getStringList() {
 		return stringList;
 	}
 
-	void setStringList(List<String> stringList) {
+	public void setStringList(List<String> stringList) {
 		this.stringList = stringList;
 	}
 
-	List<Nested> getNestedList() {
+	public List<Nested> getNestedList() {
 		return nestedList;
 	}
 
-	void setNestedList(List<Nested> nestedList) {
+	public void setNestedList(List<Nested> nestedList) {
 		this.nestedList = nestedList;
 	}
 
-	Nested getNested() {
+	public Nested getNested() {
 		return nested;
 	}
 
-	void setNested(Nested nested) {
+	public void setNested(Nested nested) {
 		this.nested = nested;
 	}
 
-	String getString() {
+	public String getString() {
 		return string;
 	}
 
-	void setString(String string) {
+	public void setString(String string) {
 		this.string = string;
 	}
 
-	DataSize getDataSize() {
+	public DataSize getDataSize() {
 		return dataSize;
 	}
 
-	void setDataSize(DataSize dataSize) {
+	public void setDataSize(DataSize dataSize) {
 		this.dataSize = dataSize;
 	}
 
@@ -65,15 +65,15 @@ class AppProperties {
 				+ ", nestedList=" + nestedList + ", nested=" + nested + '}';
 	}
 
-	static class Nested {
+	public static class Nested {
 
 		private int aInt;
 
-		int getaInt() {
+		public int getaInt() {
 			return aInt;
 		}
 
-		void setaInt(int aInt) {
+		public void setaInt(int aInt) {
 			this.aInt = aInt;
 		}
 
