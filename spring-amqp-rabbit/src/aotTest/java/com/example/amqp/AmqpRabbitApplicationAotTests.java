@@ -32,7 +32,7 @@ class AmqpRabbitApplicationAotTests {
 	@Test
 	void rabbitListenerMethodReceivesMessageAndSendsResponse(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("++++++ Received: FOO"));
+				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("++++++ Received: ONEtwo"));
 	}
 
 }
