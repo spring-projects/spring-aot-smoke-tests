@@ -15,7 +15,7 @@ class CommandlinerunnerApplicationAotTests {
 
 	@Test
 	void expectedLoggingIsProduced(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("INFO log message")
 					.hasSingleLineContaining("WARNING log message").hasSingleLineContaining("ERROR log message")
 					.hasNoLinesContaining("TRACE log message").hasNoLinesContaining("DEBUG log message");
