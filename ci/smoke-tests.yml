@@ -12,6 +12,7 @@ smoke_tests:
   - configuration-properties
   - data-jdbc
   - data-jpa
+  - hateoas
   - jdbc
   - logging-log4j2
   - security-webflux
