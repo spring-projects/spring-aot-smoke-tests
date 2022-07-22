@@ -7,4 +7,3 @@ bin/
 .idea/
 out/
 ci/pipeline.yml
-.DS_Store
