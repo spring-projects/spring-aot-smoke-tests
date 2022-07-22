@@ -1,1 +1,7 @@
 Tests if validation is working.
+
+Tests:
+
+* Method validation
+* Configuration properties validation
+* WebMVC Controller response body validation
