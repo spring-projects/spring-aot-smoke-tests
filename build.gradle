@@ -1,8 +1,15 @@
+buildscript {
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT"
+	}
+	configurations.classpath {
+		resolutionStrategy.useGlobalDependencySubstitutionRules = false
+	}
+}
+
 plugins {
 	id "io.spring.javaformat" version "0.0.34" apply false
 	id "org.graalvm.buildtools.native" version "0.9.13" apply false
-	id "org.springframework.boot" version "3.0.0-SNAPSHOT" apply false
-	id "org.springframework.boot.aot" version "3.0.0-SNAPSHOT" apply false
 }
 
 subprojects {
