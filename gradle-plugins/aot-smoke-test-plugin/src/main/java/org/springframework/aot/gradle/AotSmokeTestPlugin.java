@@ -23,6 +23,7 @@ import java.util.Map;
 import com.avast.gradle.dockercompose.ComposeExtension;
 import com.avast.gradle.dockercompose.ComposeSettings;
 import io.spring.javaformat.gradle.SpringJavaFormatPlugin;
+import io.spring.javaformat.gradle.tasks.CheckFormat;
 import org.graalvm.buildtools.gradle.NativeImagePlugin;
 import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
 import org.gradle.api.JavaVersion;
@@ -76,7 +77,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		configureJvmTests(project, aotTest, extension);
 		configureNativeImageTests(project, aotTest, extension);
 		project.getPlugins().withType(SpringJavaFormatPlugin.class, (javaFormat) -> {
-			project.getTasks().all((task) -> {
+			project.getTasks().withType(CheckFormat.class).configureEach((task) -> {
 				if (task.getName().equals("checkFormatAot")) {
 					task.setEnabled(false);
 				}
@@ -85,20 +86,17 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private void configureJvmTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
-		project.getTasks().withType(BootJar.class, (bootJar) -> {
-			if (bootJar.getName().equals(SpringBootPlugin.BOOT_JAR_TASK_NAME)) {
-				configureTasks(project, aotTest, ApplicationType.JVM, bootJar.getArchiveFile(), extension);
-			}
-		});
+		Provider<RegularFile> archiveFile = project.getTasks().named(SpringBootPlugin.BOOT_JAR_TASK_NAME, BootJar.class)
+				.flatMap(BootJar::getArchiveFile);
+		configureTasks(project, aotTest, ApplicationType.JVM, archiveFile, extension);
 	}
 
 	private void configureNativeImageTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
 		project.getPlugins().withType(NativeImagePlugin.class, (nativeImagePlugin) -> {
-			project.getTasks().withType(BuildNativeImageTask.class, (nativeCompile) -> {
-				if (nativeCompile.getName().equals(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME)) {
-					configureTasks(project, aotTest, ApplicationType.NATIVE, nativeCompile.getOutputFile(), extension);
-				}
-			});
+			Provider<RegularFile> nativeImage = project.getTasks()
+					.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
+					.flatMap(BuildNativeImageTask::getOutputFile);
+			configureTasks(project, aotTest, ApplicationType.NATIVE, nativeImage, extension);
 		});
 	}
 
@@ -181,11 +179,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			task.setDescription("Runs the AOT test suite against the " + type.description + " application.");
 			task.setGroup(JavaBasePlugin.VERIFICATION_GROUP);
 		});
-		project.getTasks().all(task -> {
-			if (task.getName().equals(JavaBasePlugin.CHECK_TASK_NAME)) {
-				task.dependsOn(aotTestTask);
-			}
-		});
+		project.getTasks().named(JavaBasePlugin.CHECK_TASK_NAME).configure((check) -> check.dependsOn(aotTestTask));
 	}
 
 	private enum ApplicationType {
