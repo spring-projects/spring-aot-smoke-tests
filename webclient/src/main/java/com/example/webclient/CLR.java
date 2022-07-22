@@ -25,15 +25,27 @@ class CLR implements CommandLineRunner {
 	}
 
 	private void http() {
-		WebClient webClient = this.webClientBuilder.baseUrl("http://httpbin.org/").build();
-		DataDto dto = webClient.get().uri("/anything").retrieve().bodyToMono(DataDto.class).block();
-		System.out.printf("http: %s%n", dto);
+		try {
+			WebClient webClient = this.webClientBuilder.baseUrl("http://httpbin.org/").build();
+			DataDto dto = webClient.get().uri("/anything").retrieve().bodyToMono(DataDto.class).block();
+			System.out.printf("http: %s%n", dto);
+		}
+		catch (Exception ex) {
+			System.out.println("http failed:");
+			ex.printStackTrace(System.out);
+		}
 	}
 
 	private void https() {
-		WebClient webClient = this.webClientBuilder.baseUrl("https://httpbin.org/").build();
-		DataDto dto = webClient.get().uri("/anything").retrieve().bodyToMono(DataDto.class).block();
-		System.out.printf("https: %s%n", dto);
+		try {
+			WebClient webClient = this.webClientBuilder.baseUrl("https://httpbin.org/").build();
+			DataDto dto = webClient.get().uri("/anything").retrieve().bodyToMono(DataDto.class).block();
+			System.out.printf("https: %s%n", dto);
+		}
+		catch (Exception ex) {
+			System.out.println("https failed:");
+			ex.printStackTrace(System.out);
+		}
 	}
 
 }
