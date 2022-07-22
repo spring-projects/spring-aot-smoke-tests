@@ -15,6 +15,7 @@ smoke_tests:
   - hateoas
   - jdbc
   - logging-log4j2
+  - logging-logback
   - security-webflux
   - security-webmvc
   - scheduled
