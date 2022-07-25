@@ -25,6 +25,7 @@ import com.avast.gradle.dockercompose.ComposeSettings;
 import io.spring.javaformat.gradle.SpringJavaFormatPlugin;
 import io.spring.javaformat.gradle.tasks.CheckFormat;
 import org.graalvm.buildtools.gradle.NativeImagePlugin;
+import org.graalvm.buildtools.gradle.dsl.GraalVMExtension;
 import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
 import org.gradle.api.JavaVersion;
 import org.gradle.api.Plugin;
@@ -93,6 +94,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 
 	private void configureNativeImageTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
 		project.getPlugins().withType(NativeImagePlugin.class, (nativeImagePlugin) -> {
+			project.getExtensions().getByType(GraalVMExtension.class).getAgent().getTasksToInstrumentPredicate()
+					.set((task) -> false);
 			Provider<RegularFile> nativeImage = project.getTasks()
 					.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
 					.flatMap(BuildNativeImageTask::getOutputFile);
