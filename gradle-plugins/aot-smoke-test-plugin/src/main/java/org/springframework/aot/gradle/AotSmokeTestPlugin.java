@@ -107,52 +107,31 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			Provider<RegularFile> nativeImage, AotSmokeTestExtension extension) {
 		Provider<Directory> outputDirectory = project.getLayout().getBuildDirectory()
 				.dir(type.name().toLowerCase() + "App");
-		ComposeSettings composeSettings = composeSettingsForProject(project, type);
 		TaskProvider<? extends StartApplication> startTask = createStartApplicationTask(project, type, nativeImage,
-				outputDirectory, extension, composeSettings);
-		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project, type, startTask, composeSettings);
-		createAotTestTask(project, aotTest, type, startTask, stopTask);
+				outputDirectory, extension);
+		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project, type, startTask);
+		TaskProvider<Test> aotTestTask = createAotTestTask(project, aotTest, type, startTask, stopTask);
+		configureDockerComposeIfNecessary(project, type, startTask, aotTestTask, stopTask);
 	}
 
-	private ComposeSettings composeSettingsForProject(Project project, ApplicationType type) {
+	private void configureDockerComposeIfNecessary(Project project, ApplicationType type,
+			TaskProvider<? extends StartApplication> startTask, TaskProvider<Test> aotTestTask,
+			TaskProvider<StopApplication> stopTask) {
 		if (!project.file("docker-compose.yml").canRead()) {
-			return null;
+			return;
 		}
 		project.getPlugins().apply("com.avast.gradle.docker-compose");
 		ComposeExtension compose = project.getExtensions().getByType(ComposeExtension.class);
-		return compose.nested(type.name().toLowerCase() + "App");
-	}
-
-	private String capitalize(String input) {
-		return Character.toUpperCase(input.charAt(0)) + input.substring(1);
-	}
-
-	private TaskProvider<StopApplication> createStopApplicationTask(Project project, ApplicationType type,
-			TaskProvider<? extends StartApplication> startTask, ComposeSettings composeSettings) {
-		String taskName = "stop" + capitalize(type.name().toLowerCase()) + "App";
-		return project.getTasks().register(taskName, StopApplication.class, (stop) -> {
-			stop.getPidFile().set(startTask.flatMap(StartApplication::getPidFile));
-			stop.setDescription("Stops the " + type.description + " application.");
-			if (composeSettings != null) {
-				stop.finalizedBy(composeSettings.getNestedName() + "ComposeDown");
-			}
+		ComposeSettings composeSettings = compose.nested(type.name().toLowerCase() + "App");
+		String composeUpTaskName = composeSettings.getNestedName() + "ComposeUp";
+		String composeDownTaskName = composeSettings.getNestedName() + "ComposeDown";
+		project.getTasks().named(composeUpTaskName)
+				.configure((composeUp) -> composeUp.finalizedBy(composeDownTaskName));
+		startTask.configure((start) -> {
+			start.dependsOn(composeUpTaskName);
+			start.environment(project.provider(() -> environment(composeSettings)));
 		});
-	}
-
-	private TaskProvider<? extends StartApplication> createStartApplicationTask(Project project, ApplicationType type,
-			Provider<RegularFile> applicationBinary, Provider<Directory> outputDirectory,
-			AotSmokeTestExtension extension, ComposeSettings composeSettings) {
-		String taskName = "start" + capitalize(type.name().toLowerCase()) + "App";
-		return project.getTasks().register(taskName, type.startTaskType, (start) -> {
-			start.getApplicationBinary().set(applicationBinary);
-			start.getOutputDirectory().set(outputDirectory);
-			start.setDescription("Starts the " + type.description + " application.");
-			start.getWebApplication().convention(extension.getWebApplication());
-			if (composeSettings != null) {
-				start.dependsOn(composeSettings.getNestedName() + "ComposeUp");
-				start.environment(project.provider(() -> environment(composeSettings)));
-			}
-		});
+		project.getTasks().named(composeDownTaskName).configure((composeDown) -> composeDown.mustRunAfter(stopTask));
 	}
 
 	private Map<String, String> environment(ComposeSettings settings) {
@@ -166,7 +145,35 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		return environment;
 	}
 
-	private void createAotTestTask(Project project, SourceSet aotTest, ApplicationType type,
+	private TaskProvider<StopApplication> createStopApplicationTask(Project project, ApplicationType type,
+			TaskProvider<? extends StartApplication> startTask) {
+		String taskName = "stop" + capitalize(type.name().toLowerCase()) + "App";
+		TaskProvider<StopApplication> stopTask = project.getTasks().register(taskName, StopApplication.class,
+				(stop) -> {
+					stop.getPidFile().set(startTask.flatMap(StartApplication::getPidFile));
+					stop.setDescription("Stops the " + type.description + " application.");
+				});
+		startTask.configure((start) -> start.finalizedBy(stopTask));
+		return stopTask;
+	}
+
+	private String capitalize(String input) {
+		return Character.toUpperCase(input.charAt(0)) + input.substring(1);
+	}
+
+	private TaskProvider<? extends StartApplication> createStartApplicationTask(Project project, ApplicationType type,
+			Provider<RegularFile> applicationBinary, Provider<Directory> outputDirectory,
+			AotSmokeTestExtension extension) {
+		String taskName = "start" + capitalize(type.name().toLowerCase()) + "App";
+		return project.getTasks().register(taskName, type.startTaskType, (start) -> {
+			start.getApplicationBinary().set(applicationBinary);
+			start.getOutputDirectory().set(outputDirectory);
+			start.setDescription("Starts the " + type.description + " application.");
+			start.getWebApplication().convention(extension.getWebApplication());
+		});
+	}
+
+	private TaskProvider<Test> createAotTestTask(Project project, SourceSet aotTest, ApplicationType type,
 			TaskProvider<? extends StartApplication> startTask, TaskProvider<StopApplication> stopTask) {
 		String taskName = type.name().toLowerCase() + "AotTest";
 		TaskProvider<Test> aotTestTask = project.getTasks().register(taskName, Test.class, (task) -> {
@@ -181,8 +188,11 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			task.finalizedBy(stopTask);
 			task.setDescription("Runs the AOT test suite against the " + type.description + " application.");
 			task.setGroup(JavaBasePlugin.VERIFICATION_GROUP);
+			task.dependsOn(startTask);
 		});
+		stopTask.configure((stop) -> stop.mustRunAfter(aotTestTask));
 		project.getTasks().named(JavaBasePlugin.CHECK_TASK_NAME).configure((check) -> check.dependsOn(aotTestTask));
+		return aotTestTask;
 	}
 
 	private enum ApplicationType {
