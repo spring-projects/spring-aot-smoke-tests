@@ -22,6 +22,7 @@ smoke_tests:
   - scheduled
   - spring-amqp-rabbit
   - transactional
+  - transactional-event-listener
   - validation
   - webclient
   - webflux-netty
