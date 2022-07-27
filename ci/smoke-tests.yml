@@ -21,6 +21,7 @@ smoke_tests:
   - jdbc
   - logging-log4j2
   - logging-logback
+  - rest-template
   - security-webflux
   - security-webmvc
   - scheduled
