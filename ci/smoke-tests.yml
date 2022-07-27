@@ -12,6 +12,7 @@ smoke_tests:
   - configuration-properties
   - data-jdbc
   - data-jpa
+  - data-mongodb
   - data-r2dbc
   - data-redis
   - event-listener
