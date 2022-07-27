@@ -1,0 +1,1 @@
+Tests if Spring Data R2DBC works

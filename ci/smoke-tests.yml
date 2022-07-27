@@ -12,6 +12,7 @@ smoke_tests:
   - configuration-properties
   - data-jdbc
   - data-jpa
+  - data-r2dbc
   - event-listener
   - hateoas
   - jdbc
