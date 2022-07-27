@@ -13,6 +13,7 @@ smoke_tests:
   - data-jdbc
   - data-jpa
   - data-r2dbc
+  - data-redis
   - event-listener
   - hateoas
   - jdbc
