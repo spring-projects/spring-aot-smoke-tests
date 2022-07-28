@@ -41,36 +41,28 @@ public class ThingAvroSerde implements Serializer<SpecificRecord>, Deserializer<
 				DatumReader<GenericRecord> datumReader;
 				switch (new String(headers.lastHeader("thing").value())) {
 					case "Thing1":
-						datumReader = new SpecificDatumReader<>(
-								Thing1.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing1().getSchema());
 						break;
 					case "Thing2":
-						datumReader = new SpecificDatumReader<>(
-								Thing2.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing2().getSchema());
 						break;
 					case "Thing3":
-						datumReader = new SpecificDatumReader<>(
-								Thing3.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing3().getSchema());
 						break;
 					case "Thing4":
-						datumReader = new SpecificDatumReader<>(
-								Thing4.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing4().getSchema());
 						break;
 					case "Thing5":
-						datumReader = new SpecificDatumReader<>(
-								Thing5.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing5().getSchema());
 						break;
 					case "Thing6":
-						datumReader = new SpecificDatumReader<>(
-								Thing6.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing6().getSchema());
 						break;
 					case "Thing7":
-						datumReader = new SpecificDatumReader<>(
-								Thing7.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing7().getSchema());
 						break;
 					case "Thing8":
-						datumReader = new SpecificDatumReader<>(
-								Thing8.class.getDeclaredConstructor().newInstance().getSchema());
+						datumReader = new SpecificDatumReader<>(new Thing8().getSchema());
 						break;
 					default:
 						datumReader = null;
