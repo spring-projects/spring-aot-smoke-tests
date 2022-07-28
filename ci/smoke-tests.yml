@@ -22,6 +22,7 @@ smoke_tests:
   - jdbc
   - logging-log4j2
   - logging-logback
+  - quartz
   - rest-template
   - rsocket
   - security-webflux
