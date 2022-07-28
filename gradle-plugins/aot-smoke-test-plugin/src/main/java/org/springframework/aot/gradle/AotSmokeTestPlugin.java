@@ -122,7 +122,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		}
 		project.getPlugins().apply("com.avast.gradle.docker-compose");
 		ComposeExtension compose = project.getExtensions().getByType(ComposeExtension.class);
-		ComposeSettings composeSettings = compose.nested(type.name().toLowerCase() + "App");
+		ComposeSettings composeSettings = compose.nested(type.name().toLowerCase());
 		String composeUpTaskName = composeSettings.getNestedName() + "ComposeUp";
 		String composeDownTaskName = composeSettings.getNestedName() + "ComposeDown";
 		project.getTasks().named(composeUpTaskName)
