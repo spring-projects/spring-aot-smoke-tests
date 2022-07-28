@@ -16,6 +16,7 @@ smoke_tests:
   - data-mongodb-reactive
   - data-r2dbc
   - data-redis
+  - data-rest-mongodb
   - event-listener
   - hateoas
   - jdbc
