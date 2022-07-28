@@ -25,6 +25,7 @@ smoke_tests:
   - quartz
   - rest-template
   - rsocket
+  - security-method
   - security-webflux
   - security-webmvc
   - scheduled

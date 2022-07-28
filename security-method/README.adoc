@@ -1,0 +1,1 @@
+Tests if Spring Security with method security works
