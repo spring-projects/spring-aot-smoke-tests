@@ -22,6 +22,9 @@ import org.springframework.aot.smoketest.support.junit.AotSmokeTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.BodyInserters;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,6 +66,20 @@ class WebMvcApplicationAotTests {
 	@Test
 	void customResponseStatusFromResponseStatusAnnotation(WebTestClient client) {
 		client.get().uri("status").exchange().expectStatus().isAccepted();
+	}
+
+	@Test
+	void formSubmission(WebTestClient client) {
+		MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+		formData.add("firstName", "first-name");
+		formData.add("lastName", "last-name");
+		client.post().uri("/form-submission").contentType(MediaType.MULTIPART_FORM_DATA)
+				.body(BodyInserters.fromMultipartData(formData)).exchange().expectStatus().isOk().expectBody().json("""
+						{
+							"firstName": "first-name",
+							"lastName": "last-name"
+						}
+						""");
 	}
 
 }
