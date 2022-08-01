@@ -39,6 +39,7 @@ import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.testing.Test;
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
 import org.springframework.boot.gradle.tasks.bundling.BootJar;
@@ -49,6 +50,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar;
  * and as a native image.
  *
  * @author Andy Wilkinson
+ * @author Moritz Halbritter
  */
 public class AotSmokeTestPlugin implements Plugin<Project> {
 
@@ -77,12 +79,23 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		});
 		configureJvmTests(project, aotTest, extension);
 		configureNativeImageTests(project, aotTest, extension);
+		configureKotlin(project, javaExtension);
+		configureJavaFormat(project);
+	}
+
+	private void configureJavaFormat(Project project) {
 		project.getPlugins().withType(SpringJavaFormatPlugin.class, (javaFormat) -> {
 			project.getTasks().withType(CheckFormat.class).configureEach((task) -> {
 				if (task.getName().equals("checkFormatAot")) {
 					task.setEnabled(false);
 				}
 			});
+		});
+	}
+
+	private void configureKotlin(Project project, JavaPluginExtension javaExtension) {
+		project.getTasks().withType(KotlinJvmCompile.class).configureEach((kotlinCompile) -> {
+			kotlinCompile.getKotlinOptions().setJvmTarget(javaExtension.getTargetCompatibility().toString());
 		});
 	}
 
