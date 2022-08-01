@@ -1,0 +1,21 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'org.springframework.aot.smoke-test'
+	id 'org.graalvm.buildtools.native'
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.h2database:h2")
+	implementation("org.springframework.session:spring-session-jdbc:3.0.0-SNAPSHOT")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	aotTestImplementation(project(":aot-smoke-test-support"))
+}
+
+aotSmokeTest {
+	webApplication = true
+}
