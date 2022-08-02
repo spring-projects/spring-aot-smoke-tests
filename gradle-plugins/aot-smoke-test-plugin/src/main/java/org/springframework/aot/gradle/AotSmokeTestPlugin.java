@@ -38,7 +38,6 @@ import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskProvider;
-import org.gradle.api.tasks.testing.Test;
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
@@ -94,9 +93,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private void configureKotlin(Project project, JavaPluginExtension javaExtension) {
-		project.getTasks().withType(KotlinJvmCompile.class).configureEach((kotlinCompile) -> {
-			kotlinCompile.getKotlinOptions().setJvmTarget(javaExtension.getTargetCompatibility().toString());
-		});
+		project.getTasks().withType(KotlinJvmCompile.class).configureEach((kotlinCompile) -> kotlinCompile
+				.getKotlinOptions().setJvmTarget(javaExtension.getTargetCompatibility().toString()));
 	}
 
 	private void configureJvmTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
@@ -123,12 +121,12 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		TaskProvider<? extends StartApplication> startTask = createStartApplicationTask(project, type, nativeImage,
 				outputDirectory, extension);
 		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project, type, startTask);
-		TaskProvider<Test> aotTestTask = createAotTestTask(project, aotTest, type, startTask, stopTask);
+		TaskProvider<AotTestTask> aotTestTask = createAotTestTask(project, aotTest, type, startTask, stopTask);
 		configureDockerComposeIfNecessary(project, type, startTask, aotTestTask, stopTask);
 	}
 
 	private void configureDockerComposeIfNecessary(Project project, ApplicationType type,
-			TaskProvider<? extends StartApplication> startTask, TaskProvider<Test> aotTestTask,
+			TaskProvider<? extends StartApplication> startTask, TaskProvider<AotTestTask> aotTestTask,
 			TaskProvider<StopApplication> stopTask) {
 		if (!project.file("docker-compose.yml").canRead()) {
 			return;
@@ -144,6 +142,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			start.dependsOn(composeUpTaskName);
 			start.environment(project.provider(() -> environment(composeSettings)));
 		});
+		aotTestTask.configure((aotTest) -> aotTest.environment(project.provider(() -> environment(composeSettings))));
 		project.getTasks().named(composeDownTaskName).configure((composeDown) -> composeDown.mustRunAfter(stopTask));
 	}
 
@@ -186,10 +185,10 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		});
 	}
 
-	private TaskProvider<Test> createAotTestTask(Project project, SourceSet aotTest, ApplicationType type,
+	private TaskProvider<AotTestTask> createAotTestTask(Project project, SourceSet aotTest, ApplicationType type,
 			TaskProvider<? extends StartApplication> startTask, TaskProvider<StopApplication> stopTask) {
 		String taskName = type.name().toLowerCase() + "AotTest";
-		TaskProvider<Test> aotTestTask = project.getTasks().register(taskName, Test.class, (task) -> {
+		TaskProvider<AotTestTask> aotTestTask = project.getTasks().register(taskName, AotTestTask.class, (task) -> {
 			task.dependsOn(startTask);
 			task.useJUnitPlatform();
 			task.setTestClassesDirs(aotTest.getOutput().getClassesDirs());

@@ -20,12 +20,18 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * <li>{@link AssertableOutput} - application's redirected output</li>
  * <li>{@link WebTestClient} - preconfigured with a base URL for the application's
  * port</li>
+ * <li>{@link DockerComposeHost} annotated <code>String</code> - host name of the
+ * docker-compose service</li>
+ * <li>{@link DockerComposePort} annotated <code>int</code> - port of the docker-compose
+ * service</li>
  *
  * @author Andy Wilkinson
+ * @author Moritz Halbritter
  */
 @Retention(RUNTIME)
 @Target(TYPE)
 @Extensions({ @ExtendWith(AssertableOutputParameterResolver.class), @ExtendWith(WebTestClientParameterResolver.class),
+		@ExtendWith(DockerComposeHostParameterResolver.class), @ExtendWith(DockerComposePortParameterResolver.class),
 		@ExtendWith(AwaitApplication.class) })
 public @interface AotSmokeTest {
 
