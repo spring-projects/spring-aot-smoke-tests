@@ -31,6 +31,9 @@ smoke_tests:
   - security-webmvc
   - scheduled
   - spring-amqp-rabbit
+  - spring-kafka
+  - spring-kafka-avro
+  - spring-kafka-streams
   - transactional
   - transactional-event-listener
   - validation
