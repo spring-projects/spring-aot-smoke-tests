@@ -1,0 +1,1 @@
+Tests if tracing with Zipkin via Brave works

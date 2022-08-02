@@ -34,6 +34,7 @@ smoke_tests:
   - spring-kafka
   - spring-kafka-avro
   - spring-kafka-streams
+  - tracing-brave-zipkin
   - transactional
   - transactional-event-listener
   - validation
