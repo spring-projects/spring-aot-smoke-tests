@@ -82,4 +82,19 @@ class WebMvcApplicationAotTests {
 						""");
 	}
 
+	@Test
+	void dataClass(WebTestClient client) {
+		client.post().uri("/data-class").contentType(MediaType.APPLICATION_JSON).bodyValue("""
+				{
+					"greeting": "Hello",
+					"name": "Kotlin"
+				}
+				""").exchange().expectStatus().isOk().expectBody().json("""
+				{
+					"greeting": "Howdy!",
+					"name": "Kotlin"
+				}
+				""");
+	}
+
 }
