@@ -26,10 +26,12 @@ smoke_tests:
   - quartz
   - rest-template
   - rsocket
+  - scheduled
+  - security-ldap
   - security-method
+  - security-thymeleaf
   - security-webflux
   - security-webmvc
-  - scheduled
   - spring-amqp-rabbit
   - spring-kafka
   - spring-kafka-avro
