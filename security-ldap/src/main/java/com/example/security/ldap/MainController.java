@@ -1,4 +1,4 @@
-package com.example.ldapsecurity;
+package com.example.security.ldap;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

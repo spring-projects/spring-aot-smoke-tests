@@ -1,4 +1,4 @@
-package com.example.ldapsecurity;
+package com.example.security.ldap;
 
 import org.junit.jupiter.api.Test;
 

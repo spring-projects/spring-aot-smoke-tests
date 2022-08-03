@@ -1,1 +1,1 @@
-Tests Spring LDAP with Spring Security
+Tests if with Spring Security with LDAP works

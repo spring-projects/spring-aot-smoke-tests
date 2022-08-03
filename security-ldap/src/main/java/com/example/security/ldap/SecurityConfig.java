@@ -1,4 +1,4 @@
-package com.example.ldapsecurity;
+package com.example.security.ldap;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
