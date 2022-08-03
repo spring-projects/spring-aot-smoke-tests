@@ -1,4 +1,4 @@
-package com.example.securitythymeleaf;
+package com.example.security.thymeleaf;
 
 import org.springframework.aot.smoketest.thirdpartyhints.ThymeleafRuntimeHints;
 import org.springframework.boot.SpringApplication;

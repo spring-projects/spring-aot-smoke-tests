@@ -1,4 +1,4 @@
-package com.example.securitythymeleaf;
+package com.example.security.thymeleaf;
 
 import org.junit.jupiter.api.Test;
 

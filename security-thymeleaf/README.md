@@ -1,1 +1,1 @@
-Spring Boot project with Spring Security and Thymeleaf
+Tests if Spring Security works with Thymeleaf and `thymeleaf-extras-springsecurity6`

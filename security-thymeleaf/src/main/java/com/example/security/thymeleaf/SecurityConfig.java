@@ -1,4 +1,4 @@
-package com.example.securitythymeleaf;
+package com.example.security.thymeleaf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
