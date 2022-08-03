@@ -1,10 +1,20 @@
 package com.example.webflux;
 
+import java.net.URI;
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
 import org.junit.jupiter.api.Test;
 
 import org.springframework.aot.smoketest.support.junit.AotSmokeTest;
+import org.springframework.aot.smoketest.support.junit.ApplicationUrl;
+import org.springframework.aot.smoketest.support.junit.ApplicationUrl.Scheme;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.socket.WebSocketMessage;
+import org.springframework.web.reactive.socket.client.ReactorNettyWebSocketClient;
+import org.springframework.web.reactive.socket.client.WebSocketClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,6 +73,18 @@ class WebfluxApplicationAotTests {
 					"name": "Kotlin"
 				}
 				""");
+	}
+
+	@Test
+	void websocket(@ApplicationUrl(scheme = Scheme.WEBSOCKET) URI applicationUrl) {
+		WebSocketClient client = new ReactorNettyWebSocketClient();
+		// We can't use StepVerifier here, as it isn't designed to be used in a reactive
+		// pipeline
+		AtomicReference<List<String>> messages = new AtomicReference<>();
+		client.execute(URI.create(applicationUrl.resolve("/ws/count").toString()), session -> session.receive()
+				.map(WebSocketMessage::getPayloadAsText).collectList().doOnNext(messages::set).then())
+				.block(Duration.ofSeconds(10));
+		assertThat(messages.get()).isNotNull().containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 	}
 
 }
