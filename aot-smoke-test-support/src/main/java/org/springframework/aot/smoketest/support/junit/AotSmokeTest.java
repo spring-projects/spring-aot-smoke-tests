@@ -18,6 +18,7 @@ package org.springframework.aot.smoketest.support.junit;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.net.URI;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.Extensions;
@@ -40,6 +41,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * docker-compose service</li>
  * <li>{@link DockerComposePort} annotated <code>int</code> - port of the docker-compose
  * service</li>
+ * <li>{@link ApplicationUrl} annotated {@link URI} - URI to the application</li>
  *
  * @author Andy Wilkinson
  * @author Moritz Halbritter
@@ -48,7 +50,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 @Extensions({ @ExtendWith(AssertableOutputParameterResolver.class), @ExtendWith(WebTestClientParameterResolver.class),
 		@ExtendWith(DockerComposeHostParameterResolver.class), @ExtendWith(DockerComposePortParameterResolver.class),
-		@ExtendWith(AwaitApplication.class) })
+		@ExtendWith(ApplicationUrlParameterResolver.class), @ExtendWith(AwaitApplication.class) })
 public @interface AotSmokeTest {
 
 }

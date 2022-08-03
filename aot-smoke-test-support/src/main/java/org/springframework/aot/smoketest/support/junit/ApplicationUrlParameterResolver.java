@@ -16,40 +16,34 @@
 
 package org.springframework.aot.smoketest.support.junit;
 
+import java.net.URI;
+
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
-import org.junit.jupiter.api.extension.ExtensionContext.Store;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.reactive.server.WebTestClient.Builder;
-
 /**
- * A {@link ParameterResolver} for {@link WebTestClient}. The {@code WebTestClient} is
- * built with a {@link Builder#baseUrl(String) base URL} for the application under test.
+ * {@link ParameterResolver} for {@link ApplicationUrl} annotated {@link URI}s.
  *
- * @author Andy Wilkinson
+ * @author Moritz Halbritter
  */
-class WebTestClientParameterResolver implements ParameterResolver {
+public class ApplicationUrlParameterResolver implements ParameterResolver {
 
 	@Override
 	public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
 			throws ParameterResolutionException {
-		return WebTestClient.class.equals(parameterContext.getParameter().getType());
+		return URI.class.equals(parameterContext.getParameter().getType())
+				&& parameterContext.isAnnotated(ApplicationUrl.class);
+
 	}
 
 	@Override
 	public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
 			throws ParameterResolutionException {
-		Store store = extensionContext.getRoot().getStore(Namespace.create(WebTestClient.class));
-		return store.getOrComputeIfAbsent(WebTestClient.class, (c) -> createWebTestClient(extensionContext));
-	}
-
-	private WebTestClient createWebTestClient(ExtensionContext extensionContext) {
-		return WebTestClient.bindToServer()
-				.baseUrl("http://localhost:" + ApplicationUnderTest.get(extensionContext).getPort()).build();
+		ApplicationUrl annotation = parameterContext.findAnnotation(ApplicationUrl.class).get();
+		return URI.create(annotation.scheme().getScheme() + "://localhost:"
+				+ ApplicationUnderTest.get(extensionContext).getPort());
 	}
 
 }
