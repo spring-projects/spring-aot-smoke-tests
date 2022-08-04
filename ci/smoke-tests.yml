@@ -32,6 +32,7 @@ smoke_tests:
   - security-thymeleaf
   - security-webflux
   - security-webmvc
+  - session-redis-webflux
   - spring-amqp-rabbit
   - spring-kafka
   - spring-kafka-avro
