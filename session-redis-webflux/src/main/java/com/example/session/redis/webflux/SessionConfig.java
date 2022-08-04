@@ -15,7 +15,9 @@ class SessionConfig {
 
 	@Bean
 	LettuceConnectionFactory redisConnectionFactory() {
-		return new LettuceConnectionFactory();
+		String redisHost = System.getenv().getOrDefault("REDIS_HOST", "localhost");
+		String port = System.getenv().getOrDefault("REDIS_PORT_6379", "6379");
+		return new LettuceConnectionFactory(redisHost, Integer.parseInt(port));
 	}
 
 	@Bean
