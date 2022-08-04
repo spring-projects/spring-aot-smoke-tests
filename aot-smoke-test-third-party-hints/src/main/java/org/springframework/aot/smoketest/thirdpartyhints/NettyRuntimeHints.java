@@ -117,6 +117,14 @@ public class NettyRuntimeHints implements RuntimeHintsRegistrar {
 				hint -> hint.withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
 		hints.reflection().registerType(TypeReference.of("io.netty.channel.socket.nio.NioDatagramChannel"),
 				hint -> hint.withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
+		hints.reflection().registerType(TypeReference.of("io.netty.channel.DefaultChannelPipeline$TailContext"),
+				hint -> hint.withMembers(MemberCategory.INVOKE_DECLARED_METHODS));
+		hints.reflection().registerType(TypeReference.of("io.netty.channel.DefaultChannelPipeline$HeadContext"),
+				hint -> hint.withMembers(MemberCategory.INVOKE_DECLARED_METHODS));
+		hints.reflection().registerType(TypeReference.of("io.netty.handler.codec.http.HttpServerCodec"),
+				hint -> hint.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+		hints.reflection().registerType(TypeReference.of("io.netty.handler.codec.dns.DatagramDnsQueryEncoder"),
+				hint -> hint.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 	}
 
 }
