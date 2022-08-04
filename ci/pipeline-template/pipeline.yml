@@ -77,6 +77,8 @@ jobs:
       privileged: true
       timeout: #@ task_timeout
       file: git-repo/ci/tasks/smoke-test.yml
+      tags:
+        - native
       params:
         BRANCH: #@ branch
         SMOKE_TEST: #@ smoke_test
