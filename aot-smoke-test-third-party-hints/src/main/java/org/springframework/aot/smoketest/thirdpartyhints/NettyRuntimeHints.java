@@ -1,10 +1,14 @@
 package org.springframework.aot.smoketest.thirdpartyhints;
 
+import java.net.ProtocolFamily;
+import java.nio.channels.spi.SelectorProvider;
+
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.TypeReference;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.ReflectionUtils;
 
 /**
  * @author Moritz Halbritter
@@ -125,6 +129,12 @@ public class NettyRuntimeHints implements RuntimeHintsRegistrar {
 				hint -> hint.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 		hints.reflection().registerType(TypeReference.of("io.netty.handler.codec.dns.DatagramDnsQueryEncoder"),
 				hint -> hint.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+		hints.reflection().registerMethod(
+				ReflectionUtils.findMethod(SelectorProvider.class, "openSocketChannel", ProtocolFamily.class));
+		hints.reflection().registerMethod(
+				ReflectionUtils.findMethod(SelectorProvider.class, "openServerSocketChannel", ProtocolFamily.class));
+		hints.reflection().registerType(TypeReference.of("java.nio.DirectByteBuffer"),
+				hint -> hint.withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
 	}
 
 }
