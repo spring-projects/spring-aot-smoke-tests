@@ -1,0 +1,1 @@
+Tests if Thymeleaf view rendering works with WebMVC

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>thymeleaf-webmvc test page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<ul th:each="author, iter : ${authors}">
+    <li th:text="${author.name()}">Some name</li>
+</ul>
+
+</body>
+
+</html>

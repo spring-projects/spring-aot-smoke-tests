@@ -37,6 +37,7 @@ smoke_tests:
   - spring-kafka
   - spring-kafka-avro
   - spring-kafka-streams
+  - thymeleaf-webmvc
   - tracing-brave-zipkin
   - transactional
   - transactional-event-listener
