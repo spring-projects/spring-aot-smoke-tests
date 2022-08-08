@@ -19,3 +19,10 @@ To test run:
 ----
 $ docker run -it --entrypoint /bin/bash <SHA>
 ----
+
+## How To
+
+### Update GraalVM version
+
+1. Add a new switch case in `get-graal-url.sh`
+2. Adjust script invocation of `get-graal-url.sh` in `ci-image/Dockerfile`
