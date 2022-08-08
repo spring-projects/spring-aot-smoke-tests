@@ -2,6 +2,7 @@ smoke_tests:
   - actuator-webflux
   - actuator-webflux-mgmt-port
   - actuator-webmvc
+  - actuator-webmvc-mgmt-port
   - aspect
   - async
   - batch
