@@ -23,6 +23,7 @@ smoke_tests:
   - flyway
   - hateoas
   - jdbc
+  - liquibase
   - logging-log4j2
   - logging-logback
   - mail
