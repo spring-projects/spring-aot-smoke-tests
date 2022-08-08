@@ -42,7 +42,7 @@ public @interface ApplicationUrl {
 
 	enum Scheme {
 
-		WEBSOCKET("ws"), HTTP("http");
+		WEBSOCKET("ws"), HTTP("http"), HTTPS("https");
 
 		private final String scheme;
 
