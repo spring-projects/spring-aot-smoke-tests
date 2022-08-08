@@ -8,7 +8,7 @@ plugins {
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
-	implementation 'org.flywaydb:flyway-core'
+	implementation("org.flywaydb:flyway-core")
 	implementation(project(":aot-smoke-test-third-party-hints"))
 	runtimeOnly("com.h2database:h2")
 
