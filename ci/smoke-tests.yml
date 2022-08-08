@@ -20,6 +20,7 @@ smoke_tests:
   - data-redis
   - data-rest-mongodb
   - event-listener
+  - flyway
   - hateoas
   - jdbc
   - logging-log4j2
