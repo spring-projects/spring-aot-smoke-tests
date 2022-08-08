@@ -28,6 +28,7 @@ include "aot-smoke-test-support"
 include "aot-smoke-test-third-party-hints"
 
 include "actuator-webflux"
+include "actuator-webflux-mgmt-port"
 include "actuator-webmvc"
 include "aspect"
 include "async"
