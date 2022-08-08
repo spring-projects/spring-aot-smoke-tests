@@ -26,3 +26,4 @@ $ docker run -it --entrypoint /bin/bash <SHA>
 
 1. Add a new switch case in `get-graal-url.sh`
 2. Adjust script invocation of `setup.sh` in `ci-image/Dockerfile`
+3. Update the version number in `.sdkmanrc` in the root of this repo
