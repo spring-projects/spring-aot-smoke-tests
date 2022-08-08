@@ -50,6 +50,7 @@ smoke_tests:
   - validation
   - webclient
   - webflux-netty
+  - webflux-netty-tls
   - webmvc-tomcat
   - webmvc-tomcat-tls
   - websocket
