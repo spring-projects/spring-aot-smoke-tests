@@ -2,7 +2,6 @@ version: '3'
 services:
   kafka:
     image: wurstmeister/kafka
-    hostname: kafka
     ports:
       - "9092"
     volumes:
