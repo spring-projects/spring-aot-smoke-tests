@@ -1,0 +1,1 @@
+Tests if Spring Cloud Stream with Rabbit is working.
