@@ -51,5 +51,6 @@ smoke_tests:
   - webclient
   - webflux-netty
   - webmvc-tomcat
+  - webmvc-tomcat-tls
   - websocket
   - websocket-stomp
