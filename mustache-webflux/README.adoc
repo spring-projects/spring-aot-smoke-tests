@@ -1,0 +1,1 @@
+Tests if Mustache view rendering works with WebFlux

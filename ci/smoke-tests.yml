@@ -27,6 +27,7 @@ smoke_tests:
   - logging-log4j2
   - logging-logback
   - mail
+  - mustache-webflux
   - mustache-webmvc
   - quartz
   - rest-template
