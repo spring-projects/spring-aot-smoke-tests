@@ -1,0 +1,8 @@
+hazelcast:
+  cluster-name: cache-hazelcast
+  network:
+    join:
+      auto-detection:
+        enabled: false
+      multicast:
+        enabled: false
