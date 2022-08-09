@@ -1,12 +1,8 @@
-package com.example.webmvc;
+package com.example.webmvc.dto;
 
-public class Response {
+public class Request {
 
 	private String message;
-
-	public Response(String message) {
-		this.message = message;
-	}
 
 	public String getMessage() {
 		return message;

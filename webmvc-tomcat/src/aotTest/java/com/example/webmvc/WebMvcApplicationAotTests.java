@@ -97,4 +97,11 @@ class WebMvcApplicationAotTests {
 				""");
 	}
 
+	@Test
+	void xmlWorks(WebTestClient client) {
+		client.post().uri("/xml").contentType(MediaType.APPLICATION_XML)
+				.bodyValue("<Request><message>Hello</message></Request>").exchange().expectStatus().isOk().expectBody()
+				.xml("<Response><message>Server: Hello</message></Response>");
+	}
+
 }

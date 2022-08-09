@@ -1,4 +1,4 @@
-package com.example.webmvc;
+package com.example.webmvc.dto;
 
 public record SampleRecord(String message) {
 }
