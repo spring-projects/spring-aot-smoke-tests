@@ -9,6 +9,7 @@ smoke_tests:
   - cache-cache2k
   - cache-caffeine
   - cache-hazelcast
+  - cache-redis
   - cache-simple
   - cloud-function-web
   - cloud-function-webflux
