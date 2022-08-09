@@ -6,6 +6,7 @@ smoke_tests:
   - aspect
   - async
   - batch
+  - cache-caffeine
   - cache-hazelcast
   - cloud-function-web
   - cloud-function-webflux
