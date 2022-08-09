@@ -87,4 +87,11 @@ class WebfluxApplicationAotTests {
 		assertThat(messages.get()).isNotNull().containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 	}
 
+	@Test
+	void xmlWorks(WebTestClient client) {
+		client.post().uri("/xml").contentType(MediaType.APPLICATION_XML)
+				.bodyValue("<request><message>Hello</message></request>").exchange().expectStatus().isOk().expectBody()
+				.xml("<response><message>Server: Hello</message></response>");
+	}
+
 }

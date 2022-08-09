@@ -1,12 +1,13 @@
 package com.example.webflux;
 
+import com.example.webflux.dto.RecordDto;
 import reactor.core.publisher.Mono;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Foobar {
+public class TestController {
 
 	@GetMapping("/x")
 	public String greet2() {
