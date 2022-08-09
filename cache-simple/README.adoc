@@ -1,0 +1,1 @@
+Tests if caching with ConcurrentHashMap works
