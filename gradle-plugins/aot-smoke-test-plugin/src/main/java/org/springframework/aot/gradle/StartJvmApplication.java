@@ -35,6 +35,7 @@ public class StartJvmApplication extends StartApplication {
 		File executable = Jvm.current().getJavaExecutable();
 		List<String> command = new ArrayList<>();
 		command.add(executable.getAbsolutePath());
+		command.add("-Dspring.aot.enabled=true");
 		if (getWebApplication().get()) {
 			command.add("-Dserver.port=0");
 		}
