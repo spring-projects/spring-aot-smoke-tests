@@ -30,6 +30,7 @@ smoke_tests:
   - event-listener
   - flyway
   - freemarker-webflux
+  - freemarker-webmvc
   - hateoas
   - jdbc
   - liquibase

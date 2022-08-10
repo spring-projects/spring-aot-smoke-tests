@@ -1,0 +1,1 @@
+Tests if Freemarker view rendering works with WebMVC
