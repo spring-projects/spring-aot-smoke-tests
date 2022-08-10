@@ -4,7 +4,7 @@ services:
     image: wurstmeister/kafka
     hostname: kafka
     ports:
-      - "9092"
+      - '9092'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -20,6 +20,6 @@ services:
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
-      - "2181"
+      - '2181'
     environment:
       - KAFKA_ADVERTISED_HOST_NAME=zookeeper
