@@ -1,0 +1,13 @@
+spring.kafka:
+  bootstrap-servers: "localhost:${KAFKA_PORT_9092:9092}"
+  consumer.auto-offset-reset: earliest
+
+spring.cloud:
+  function:
+    definition: graalSupplier;graalUppercaseFunction;graalLoggingConsumer
+  stream:
+    bindings:
+      graalSupplier-out-0:
+        destination: graalUppercaseFunction-in-0
+      graalLoggingConsumer-in-0:
+        destination: graalUppercaseFunction-out-0

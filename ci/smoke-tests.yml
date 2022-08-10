@@ -13,6 +13,8 @@ smoke_tests:
   - cache-simple
   - cloud-function-web
   - cloud-function-webflux
+  - cloud-stream-kafka
+  - cloud-stream-rabbit
   - cloud-task
   - command-line-runner
   - conditional
