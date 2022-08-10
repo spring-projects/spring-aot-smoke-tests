@@ -66,11 +66,14 @@ class ActuatorWebMvcApplicationAotTests {
 	}
 
 	@Test
-	void shouldHavePrometheusMetrics(WebTestClient client) {
+	void prometheusWorks(WebTestClient client) {
 		client.get().uri("/actuator/prometheus").exchange().expectStatus().isOk().expectBody()
 				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
-						.contains("jvm_classes_loaded_classes "));
-
+						// Check custom timer
+						.contains("custom_timer_seconds_max 5.0").contains("custom_timer_seconds_count 1.0")
+						.contains("custom_timer_seconds_sum 5.0")
+						// Check JVM metric
+						.contains("# TYPE jvm_threads_peak_threads gauge"));
 	}
 
 }
