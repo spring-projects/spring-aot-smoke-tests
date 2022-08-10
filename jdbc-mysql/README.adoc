@@ -1,1 +1,1 @@
-Tests if JDBC with PostgreSQL is working
+Tests if JDBC with MySQL is working
