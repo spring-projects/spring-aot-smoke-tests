@@ -1,11 +1,11 @@
-package com.example.jdbc;
+package com.example.jdbc.h2;
 
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JdbcApplicationTests {
+class JdbcH2ApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,1 +1,0 @@
-Tests if JDBC is working and if `schema.sql` is picked up by Spring Boot.

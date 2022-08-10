@@ -1,4 +1,4 @@
-package com.example.jdbc;
+package com.example.jdbc.h2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

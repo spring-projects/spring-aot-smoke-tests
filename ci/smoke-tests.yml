@@ -33,7 +33,7 @@ smoke_tests:
   - freemarker-webflux
   - freemarker-webmvc
   - hateoas
-  - jdbc
+  - jdbc-h2
   - liquibase
   - logging-log4j2
   - logging-logback

@@ -1,0 +1,1 @@
+Tests if JDBC with H2 is working.
