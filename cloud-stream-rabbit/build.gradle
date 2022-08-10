@@ -6,12 +6,10 @@ plugins {
 }
 
 ext {
-	set('springBootVersion', "3.0.0-M4")
 	set('springCloudVersion', "2022.0.0-SNAPSHOT")
 }
 
 dependencies {
-	implementation(enforcedPlatform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.cloud:spring-cloud-stream")
