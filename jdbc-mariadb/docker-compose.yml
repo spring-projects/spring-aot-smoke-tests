@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  mariadb:
+    image: 'mariadb:10.8'
+    environment:
+      - 'MARIADB_DATABASE=test'
+      - 'MARIADB_USER=mariadb'
+      - 'MARIADB_PASSWORD=password'
+      - 'MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true'
+    ports:
+      - '3306'
