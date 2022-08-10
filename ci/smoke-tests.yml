@@ -25,6 +25,7 @@ smoke_tests:
   - data-mongodb-reactive
   - data-r2dbc
   - data-redis
+  - data-redis-reactive
   - data-rest-mongodb
   - event-listener
   - flyway
