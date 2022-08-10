@@ -20,6 +20,7 @@ smoke_tests:
   - conditional
   - configuration-properties
   - data-jdbc-h2
+  - data-jdbc-postgresql
   - data-jpa
   - data-mongodb
   - data-mongodb-reactive
