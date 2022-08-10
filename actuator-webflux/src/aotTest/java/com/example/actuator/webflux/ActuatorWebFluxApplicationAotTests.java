@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.aot.smoketest.support.junit.AotSmokeTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @AotSmokeTest
 class ActuatorWebFluxApplicationAotTests {
 
@@ -43,6 +45,17 @@ class ActuatorWebFluxApplicationAotTests {
 	void shouldHaveOsInfoProperties(WebTestClient client) {
 		client.get().uri("/actuator/info").exchange().expectStatus().isOk().expectBody().jsonPath("$.os.name")
 				.isNotEmpty();
+	}
+
+	@Test
+	void prometheusWorks(WebTestClient client) {
+		client.get().uri("/actuator/prometheus").exchange().expectStatus().isOk().expectBody()
+				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
+						// Check custom timer
+						.contains("custom_timer_seconds_max 5.0").contains("custom_timer_seconds_count 1.0")
+						.contains("custom_timer_seconds_sum 5.0")
+						// Check JVM metric
+						.contains("# TYPE jvm_threads_peak_threads gauge"));
 	}
 
 }

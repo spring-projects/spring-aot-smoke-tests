@@ -11,6 +11,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation(project(":aot-smoke-test-third-party-hints"))
 
+	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 	aotTestImplementation(project(":aot-smoke-test-support"))
