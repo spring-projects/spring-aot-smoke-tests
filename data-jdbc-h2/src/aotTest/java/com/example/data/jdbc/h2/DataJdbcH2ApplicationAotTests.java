@@ -1,4 +1,4 @@
-package com.example.data.jdbc;
+package com.example.data.jdbc.h2;
 
 import java.time.Duration;
 
@@ -11,7 +11,7 @@ import org.springframework.aot.smoketest.support.junit.AotSmokeTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @AotSmokeTest
-class DataJdbcApplicationAotTests {
+class DataJdbcH2ApplicationAotTests {
 
 	@Test
 	void insert(AssertableOutput output) {

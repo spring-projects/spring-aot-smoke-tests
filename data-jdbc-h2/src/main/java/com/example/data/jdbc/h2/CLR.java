@@ -1,10 +1,10 @@
-package com.example.data.jdbc;
+package com.example.data.jdbc.h2;
 
 import java.util.List;
 import java.util.Set;
 
-import com.example.data.jdbc.model.Author;
-import com.example.data.jdbc.model.Book;
+import com.example.data.jdbc.h2.model.Author;
+import com.example.data.jdbc.h2.model.Book;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

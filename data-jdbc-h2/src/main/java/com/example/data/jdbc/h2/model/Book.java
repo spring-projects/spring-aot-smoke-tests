@@ -1,4 +1,4 @@
-package com.example.data.jdbc.model;
+package com.example.data.jdbc.h2.model;
 
 import java.util.Objects;
 

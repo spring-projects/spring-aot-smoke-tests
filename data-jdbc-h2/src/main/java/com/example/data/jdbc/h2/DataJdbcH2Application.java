@@ -1,4 +1,4 @@
-package com.example.data.jdbc;
+package com.example.data.jdbc.h2;
 
 import org.springframework.aot.smoketest.thirdpartyhints.HikariRuntimeHints;
 import org.springframework.boot.SpringApplication;
@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ImportRuntimeHints;
 
 @SpringBootApplication
 @ImportRuntimeHints(HikariRuntimeHints.class)
-public class DataJdbcApplication {
+public class DataJdbcH2Application {
 
 	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(DataJdbcApplication.class, args);
+		SpringApplication.run(DataJdbcH2Application.class, args);
 		Thread.currentThread().join(); // To be able to measure memory consumption
 	}
 

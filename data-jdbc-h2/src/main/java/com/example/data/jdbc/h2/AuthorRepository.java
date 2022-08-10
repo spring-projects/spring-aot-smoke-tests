@@ -1,8 +1,8 @@
-package com.example.data.jdbc;
+package com.example.data.jdbc.h2;
 
 import java.util.Optional;
 
-import com.example.data.jdbc.model.Author;
+import com.example.data.jdbc.h2.model.Author;
 
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
