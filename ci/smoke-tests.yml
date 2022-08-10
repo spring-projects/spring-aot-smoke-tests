@@ -29,6 +29,7 @@ smoke_tests:
   - data-rest-mongodb
   - event-listener
   - flyway
+  - freemarker-webflux
   - hateoas
   - jdbc
   - liquibase
