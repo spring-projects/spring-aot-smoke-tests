@@ -46,6 +46,7 @@ smoke_tests:
   - security-thymeleaf
   - security-webflux
   - security-webmvc
+  - servlet-tomcat
   - session-jdbc
   - session-redis-webflux
   - spring-amqp-rabbit
