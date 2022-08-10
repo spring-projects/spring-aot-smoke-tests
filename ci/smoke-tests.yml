@@ -34,6 +34,7 @@ smoke_tests:
   - freemarker-webmvc
   - hateoas
   - jdbc-h2
+  - jdbc-mysql
   - jdbc-postgresql
   - liquibase
   - logging-log4j2

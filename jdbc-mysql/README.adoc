@@ -1,0 +1,1 @@
+Tests if JDBC with PostgreSQL is working
