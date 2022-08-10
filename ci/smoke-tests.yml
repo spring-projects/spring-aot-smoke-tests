@@ -19,7 +19,7 @@ smoke_tests:
   - command-line-runner
   - conditional
   - configuration-properties
-  - data-jdbc
+  - data-jdbc-h2
   - data-jpa
   - data-mongodb
   - data-mongodb-reactive
