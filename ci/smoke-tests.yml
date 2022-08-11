@@ -19,6 +19,7 @@ smoke_tests:
   - command-line-runner
   - conditional
   - configuration-properties
+  - data-cassandra
   - data-jdbc-h2
   - data-jdbc-postgresql
   - data-jpa
