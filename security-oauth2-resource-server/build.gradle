@@ -1,0 +1,31 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'org.springframework.aot.smoke-test'
+	id 'org.graalvm.buildtools.native'
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+	implementation("com.squareup.okhttp3:mockwebserver")
+	implementation(project(":aot-smoke-test-third-party-hints"))
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.security:spring-security-test")
+
+	aotTestImplementation(project(":aot-smoke-test-support"))
+}
+
+aotSmokeTest {
+	webApplication = true
+}
+
+graalvmNative {
+	binaries {
+		main {
+			buildArgs("--enable-http")
+		}
+	}
+}
