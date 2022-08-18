@@ -70,6 +70,9 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		SourceSet aotTest = javaExtension.getSourceSets().create("aotTest");
 		javaExtension.setSourceCompatibility(JavaVersion.VERSION_17);
 		javaExtension.setTargetCompatibility(JavaVersion.VERSION_17);
+		if ("true".equals(project.getProperties().get("useMavenLocal"))) {
+			project.getRepositories().mavenLocal();
+		}
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Milestone");
