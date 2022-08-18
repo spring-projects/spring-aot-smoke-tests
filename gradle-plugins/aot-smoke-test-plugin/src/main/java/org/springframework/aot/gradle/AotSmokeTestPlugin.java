@@ -16,6 +16,7 @@
 
 package org.springframework.aot.gradle;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -26,12 +27,14 @@ import io.spring.javaformat.gradle.SpringJavaFormatPlugin;
 import io.spring.javaformat.gradle.tasks.CheckFormat;
 import org.graalvm.buildtools.gradle.NativeImagePlugin;
 import org.graalvm.buildtools.gradle.dsl.GraalVMExtension;
+import org.graalvm.buildtools.gradle.dsl.GraalVMReachabilityMetadataRepositoryExtension;
 import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
 import org.gradle.api.JavaVersion;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.RegularFile;
+import org.gradle.api.plugins.ExtensionAware;
 import org.gradle.api.plugins.JavaBasePlugin;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginExtension;
@@ -105,8 +108,18 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 
 	private void configureNativeImageTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
 		project.getPlugins().withType(NativeImagePlugin.class, (nativeImagePlugin) -> {
-			project.getExtensions().getByType(GraalVMExtension.class).getAgent().getTasksToInstrumentPredicate()
-					.set((task) -> false);
+			GraalVMExtension graalVMExtension = project.getExtensions().getByType(GraalVMExtension.class);
+			graalVMExtension.getAgent().getTasksToInstrumentPredicate().set((task) -> false);
+			GraalVMReachabilityMetadataRepositoryExtension metadataRepositoryExtension = ((ExtensionAware) graalVMExtension)
+					.getExtensions().getByType(GraalVMReachabilityMetadataRepositoryExtension.class);
+			String reachabilityMetadataVersion = (String) project.getProperties().get("reachabilityMetadataVersion");
+			if (reachabilityMetadataVersion != null) {
+				metadataRepositoryExtension.getVersion().set(reachabilityMetadataVersion);
+			}
+			String reachabilityMetadataUrl = (String) project.getProperties().get("reachabilityMetadataUrl");
+			if (reachabilityMetadataUrl != null) {
+				metadataRepositoryExtension.getUri().set(URI.create(reachabilityMetadataUrl));
+			}
 			Provider<RegularFile> nativeImage = project.getTasks()
 					.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
 					.flatMap(BuildNativeImageTask::getOutputFile);
