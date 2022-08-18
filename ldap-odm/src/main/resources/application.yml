@@ -5,4 +5,3 @@ spring:
       credential:
         username: uid=admin,ou=system
         password: secret
-      ldif: classpath:setup_data.ldif

@@ -1,5 +1,7 @@
 package example.ldap.odm;
 
+import example.ldap.odm.LdapOdmApplication.LdapOdmApplicationRuntimeHints;
+
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.boot.SpringApplication;
@@ -7,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportRuntimeHints;
 
 @SpringBootApplication
-@ImportRuntimeHints(LdapOdmApplication.Hints.class)
+@ImportRuntimeHints(LdapOdmApplicationRuntimeHints.class)
 public class LdapOdmApplication {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -15,13 +17,12 @@ public class LdapOdmApplication {
 		Thread.currentThread().join(); // To be able to measure memory consumption
 	}
 
-	static class Hints implements RuntimeHintsRegistrar {
+	static class LdapOdmApplicationRuntimeHints implements RuntimeHintsRegistrar {
 
 		@Override
 		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-			// TODO Should this be in Spring Boot?
-			// https://github.com/spring-projects/spring-boot/issues/32084
-			hints.resources().registerPattern(".*.ldif");
+			// TODO: should be contributed to third party metadata
+			hints.resources().registerPattern("com/unboundid/ldap/sdk/schema/standard-schema.ldif");
 		}
 
 	}
