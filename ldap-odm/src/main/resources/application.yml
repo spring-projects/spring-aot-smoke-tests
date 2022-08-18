@@ -1,0 +1,7 @@
+spring:
+  ldap:
+    embedded:
+      base-dn: dc=io
+      credential:
+        username: uid=admin,ou=system
+        password: secret

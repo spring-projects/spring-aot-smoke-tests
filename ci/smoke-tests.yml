@@ -39,6 +39,7 @@ smoke_tests:
   - jdbc-mariadb
   - jdbc-mysql
   - jdbc-postgresql
+  - ldap-odm
   - liquibase
   - logging-log4j2
   - logging-logback
