@@ -21,6 +21,7 @@ smoke_tests:
   - conditional
   - configuration-properties
   - data-cassandra
+  - data-cassandra-reactive
   - data-jdbc-h2
   - data-jdbc-postgresql
   - data-jpa
