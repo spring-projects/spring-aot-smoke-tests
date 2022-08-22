@@ -47,7 +47,7 @@ for example
 ./gradlew :<name of the smoke test>:build --include-build /path/to/your/project
 ----
 
-Gradle https://docs.gradle.org/current/userguide/composite_builds.html[will then substitute the dependency] with your provided version.
+Gradle https://docs.gradle.org/current/userguide/composite_builds.html#command_line_composite[will then substitute the dependency] with your provided version.
 
 _Hint: You can use `--include-build` multiple times._
 
