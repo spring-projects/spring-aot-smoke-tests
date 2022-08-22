@@ -1,6 +1,6 @@
 = Spring AOT Smoke Tests
 
-A suite of tests for applications using AOT on the JVM and in Graal native images.
+A suite of tests for applications using AOT on the JVM and in GraalVM native images.
 
 == How to
 
@@ -8,7 +8,7 @@ A suite of tests for applications using AOT on the JVM and in Graal native image
 
 [source,]
 ----
-./gradlew :<name of the project>:jvmAotTest
+./gradlew :<name of the smoke test>:jvmAotTest
 ----
 
 for example
@@ -22,7 +22,7 @@ for example
 
 [source,]
 ----
-./gradlew :<name of the project>:build
+./gradlew :<name of the smoke test>:build
 ----
 
 for example
@@ -37,3 +37,18 @@ for example
 1. Create a new directory for your sample
 2. Include the directory in `settings.gradle`
 3. Include the directory in `ci/smoke-tests.yaml`
+
+=== Test against local changes
+
+==== Gradle
+
+[source,]
+----
+./gradlew :<name of the smoke test>:build --include-build /path/to/your/project
+----
+
+_Hint: You can use `--include-build` multiple times._
+
+==== Maven
+
+See https://github.com/spring-projects/spring-aot-smoke-tests/pull/94[this pull request].
