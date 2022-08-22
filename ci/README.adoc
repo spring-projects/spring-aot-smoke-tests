@@ -7,9 +7,10 @@ To add a new smoke test, modify `ci/smoke-tests.yml`.
 An updated pipeline is then generated using https://carvel.dev/ytt[`ytt`].
 With `ytt` installed, run the following command:
 
-```
+[source]
+----
 ytt -f ci/pipeline-template/schema.yml -f ci/pipeline-template/pipeline.yml --data-values-file ci/smoke-tests.yml > ci/pipeline.yml
-```
+----
 
 
 
