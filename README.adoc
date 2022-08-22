@@ -40,15 +40,36 @@ for example
 
 === Test against local changes
 
-==== Gradle
+==== Your project uses Gradle
 
 [source,]
 ----
 ./gradlew :<name of the smoke test>:build --include-build /path/to/your/project
 ----
 
+Gradle https://docs.gradle.org/current/userguide/composite_builds.html[will then substitute the dependency] with your provided version.
+
 _Hint: You can use `--include-build` multiple times._
 
-==== Maven
+==== Your project uses Maven
 
 See https://github.com/spring-projects/spring-aot-smoke-tests/pull/94[this pull request].
+
+=== Override a dependency version
+
+As the test doesn't use the Spring Dependency Management Plugin, you can't use the `ext['...'] = '...'` method.
+
+Instead, use https://docs.gradle.org/current/userguide/dependency_constraints.html[Gradle dependency constraints].
+Say, for example, you want to update the version of Spring Session JDBC to `3.0.0-SNAPSHOT`:
+
+[source,]
+----
+dependencies {
+    // ...
+    constraints {
+        implementation('org.springframework.session:spring-session-jdbc:3.0.0-SNAPSHOT')
+    }
+}
+----
+
+This works for direct and transitive dependencies.
