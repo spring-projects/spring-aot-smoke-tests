@@ -47,6 +47,7 @@ smoke_tests:
   - mail
   - mustache-webflux
   - mustache-webmvc
+  - order
   - quartz
   - rest-template
   - rsocket
