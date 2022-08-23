@@ -13,7 +13,7 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://:29092,PLAINTEXT_HOST://:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:_{PORT_COMMAND}
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      PORT_COMMAND: "docker ps | grep kafka_1 | cut -d: -f 2 | cut -d- -f 1"
+      PORT_COMMAND: "docker ps | egrep 'kafka(-|_)1' | cut -d: -f 2 | cut -d- -f 1"
     depends_on:
       - zookeeper
 
