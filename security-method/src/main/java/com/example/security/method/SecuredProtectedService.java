@@ -1,21 +1,21 @@
 package com.example.security.method;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProtectedService {
+public class SecuredProtectedService {
 
 	public void anonymous() {
 		System.out.println("anonymous()");
 	}
 
-	@PreAuthorize("hasRole('USER')")
+	@Secured("ROLE_USER")
 	public void user() {
 		System.out.println("user()");
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@Secured("ROLE_ADMIN")
 	public void admin() {
 		System.out.println("admin()");
 	}
