@@ -54,6 +54,7 @@ smoke_tests:
   - scheduled
   - security-ldap
   - security-method
+  - security-oauth2-resource-server
   - security-thymeleaf
   - security-webflux
   - security-webmvc
