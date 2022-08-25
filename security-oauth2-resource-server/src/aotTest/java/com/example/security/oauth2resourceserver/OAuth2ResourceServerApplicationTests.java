@@ -1,4 +1,4 @@
-package example.securityoauth2resourceserver;
+package com.example.security.oauth2resourceserver;
 
 import org.junit.jupiter.api.Test;
 

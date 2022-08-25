@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.env;
+package com.example.security.oauth2resourceserver.env;
 
 import java.io.IOException;
 
