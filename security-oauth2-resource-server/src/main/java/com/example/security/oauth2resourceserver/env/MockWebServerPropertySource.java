@@ -66,11 +66,16 @@ public class MockWebServerPropertySource extends PropertySource<MockWebServer> i
 		if (!name.equals(NAME)) {
 			return null;
 		}
-		if (logger.isTraceEnabled()) {
-			logger.trace("Looking up the url for '" + name + "'");
+		logger.trace("Looking up the url for '%s'".formatted(name));
+		try {
+			String url = getUrl();
+			logger.trace("Property value: '%s' = '%s'".formatted(name, url));
+			return url;
 		}
-		String url = getUrl();
-		return url;
+		catch (RuntimeException ex) {
+			logger.error("Failed to get property value for '%s'".formatted(name), ex);
+			throw ex;
+		}
 	}
 
 	@Override
@@ -79,7 +84,7 @@ public class MockWebServerPropertySource extends PropertySource<MockWebServer> i
 	}
 
 	/**
-	 * Get's the URL (i.e. "http://localhost:123456")
+	 * Gets the URL (i.e. "http://localhost:123456")
 	 * @return the url with the dynamic port
 	 */
 	private String getUrl() {
