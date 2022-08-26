@@ -13,7 +13,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 
-    aotTestImplementation("org.springframework.boot:spring-boot-starter-json")
+    aotTestImplementation("com.fasterxml.jackson.core:jackson-databind")
     aotTestImplementation(project(":aot-smoke-test-support"))
 }
 
