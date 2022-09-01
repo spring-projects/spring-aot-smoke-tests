@@ -75,7 +75,7 @@ public class IntegrationApplication {
 				.fromSupplier(Date::new, e -> e.id("dateSourceEndpoint").poller(p -> p.fixedDelay(1000, 1000)))
 				.channel(c -> c.queue("dateChannel", jdbcChannelMessageStore, "dateChannelGroup"))
 				.gateway(subflow -> subflow.convert(Integer.class, e -> e.advice(new RequestHandlerRetryAdvice())))
-				// .channel(c -> c.queue(redisChannelMessageStore, "secondsChannelGroup"))
+				.channel(c -> c.queue(redisChannelMessageStore, "secondsChannelGroup"))
 				.handle(m -> System.out.println("Current seconds: " + m.getPayload())).get();
 	}
 
