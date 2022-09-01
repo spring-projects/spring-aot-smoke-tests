@@ -16,11 +16,11 @@ graalvmNative {
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation('org.springframework.boot:spring-boot-starter-integration')
-	implementation('org.springframework.boot:spring-boot-starter-data-redis')
+//	implementation('org.springframework.boot:spring-boot-starter-data-redis')
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	implementation('org.springframework.integration:spring-integration-webflux')
 	implementation('org.springframework.integration:spring-integration-jdbc')
-	implementation('org.springframework.integration:spring-integration-redis')
+//	implementation('org.springframework.integration:spring-integration-redis')
 	implementation('io.micrometer:micrometer-core')
 	implementation(project(':aot-smoke-test-third-party-hints'))
 

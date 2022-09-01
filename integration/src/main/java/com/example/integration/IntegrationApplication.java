@@ -11,8 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.http.HttpMethod;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.MessagingGateway;
@@ -29,8 +27,6 @@ import org.springframework.integration.handler.advice.RequestHandlerRetryAdvice;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
 import org.springframework.integration.jdbc.store.JdbcChannelMessageStore;
 import org.springframework.integration.jdbc.store.channel.H2ChannelMessageStoreQueryProvider;
-import org.springframework.integration.redis.store.RedisChannelMessageStore;
-import org.springframework.integration.support.json.JacksonJsonUtils;
 import org.springframework.integration.webflux.dsl.WebFlux;
 import org.springframework.messaging.MessageHandler;
 
@@ -60,22 +56,22 @@ public class IntegrationApplication {
 		return jdbcChannelMessageStore;
 	}
 
-	@Bean
-	RedisChannelMessageStore redisChannelMessageStore(RedisConnectionFactory connectionFactory) {
-		RedisChannelMessageStore redisChannelMessageStore = new RedisChannelMessageStore(connectionFactory);
-		redisChannelMessageStore
-				.setValueSerializer(new GenericJackson2JsonRedisSerializer(JacksonJsonUtils.messagingAwareMapper()));
-		return redisChannelMessageStore;
-	}
+	/*
+	 * @Bean RedisChannelMessageStore redisChannelMessageStore(RedisConnectionFactory
+	 * connectionFactory) { RedisChannelMessageStore redisChannelMessageStore = new
+	 * RedisChannelMessageStore(connectionFactory); redisChannelMessageStore
+	 * .setValueSerializer(new
+	 * GenericJackson2JsonRedisSerializer(JacksonJsonUtils.messagingAwareMapper()));
+	 * return redisChannelMessageStore; }
+	 */
 
 	@Bean
-	IntegrationFlow printFormattedSecondsFlow(JdbcChannelMessageStore jdbcChannelMessageStore,
-			RedisChannelMessageStore redisChannelMessageStore) {
+	IntegrationFlow printFormattedSecondsFlow(JdbcChannelMessageStore jdbcChannelMessageStore) {
 		return IntegrationFlow
 				.fromSupplier(Date::new, e -> e.id("dateSourceEndpoint").poller(p -> p.fixedDelay(1000, 1000)))
 				.channel(c -> c.queue("dateChannel", jdbcChannelMessageStore, "dateChannelGroup"))
 				.gateway(subflow -> subflow.convert(Integer.class, e -> e.advice(new RequestHandlerRetryAdvice())))
-				.channel(c -> c.queue(redisChannelMessageStore, "secondsChannelGroup"))
+				// .channel(c -> c.queue(redisChannelMessageStore, "secondsChannelGroup"))
 				.handle(m -> System.out.println("Current seconds: " + m.getPayload())).get();
 	}
 
@@ -124,7 +120,7 @@ public class IntegrationApplication {
 	}
 
 	@MessagingGateway(defaultRequestChannel = "controlBus.input")
-	public static interface ControlBusGateway {
+	public interface ControlBusGateway {
 
 		@Gateway(payloadExpression = "'@' + args[0] + '.start()'")
 		void startEndpoint(String id);
