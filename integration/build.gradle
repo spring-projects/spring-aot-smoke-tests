@@ -5,14 +5,6 @@ plugins {
 	id 'org.graalvm.buildtools.native'
 }
 
-graalvmNative {
-	binaries {
-		main {
-			buildArgs.add('--initialize-at-run-time=sun.net.dns.ResolverConfigurationImpl')
-		}
-	}
-}
-
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation('org.springframework.boot:spring-boot-starter-integration')
@@ -34,4 +26,14 @@ dependencies {
 
 aotSmokeTest {
 	webApplication = true
+}
+
+graalvmNative {
+	binaries {
+		main {
+			buildArgs.add("--exclude-config")
+			buildArgs.add("/netty-.*")
+			buildArgs.add("META-INF/native-image/.*")
+		}
+	}
 }

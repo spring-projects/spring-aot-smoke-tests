@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.sql.DataSource;
 
-import org.springframework.aot.smoketest.thirdpartyhints.NettyRuntimeHints;
-import org.springframework.aot.smoketest.thirdpartyhints.ReactorNettyHints;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +40,6 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 @EnableMessageHistory("dateChannel")
 @EnableIntegrationManagement
 @EnableIntegrationGraphController("/integration-graph")
-@ImportRuntimeHints({ NettyRuntimeHints.class, ReactorNettyHints.class, InterimRuntimeHints.class })
 public class IntegrationApplication {
 
 	public static void main(String[] args) {
