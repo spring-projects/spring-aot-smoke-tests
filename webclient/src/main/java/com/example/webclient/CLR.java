@@ -2,16 +2,14 @@ package com.example.webclient;
 
 import java.time.Duration;
 
-import com.example.webclient.DataDto.DataDtoRuntimeHints;
-
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
 
 @Component
-@ImportRuntimeHints(DataDtoRuntimeHints.class)
+@RegisterReflectionForBinding(DataDto.class)
 class CLR implements CommandLineRunner {
 
 	private final Builder webClientBuilder;

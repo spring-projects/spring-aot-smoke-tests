@@ -3,16 +3,14 @@ package com.example.resttemplate;
 import java.net.URI;
 import java.time.Duration;
 
-import com.example.resttemplate.DataDto.DataDtoRuntimeHints;
-
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-@ImportRuntimeHints(DataDtoRuntimeHints.class)
+@RegisterReflectionForBinding(DataDto.class)
 class CLR implements CommandLineRunner {
 
 	private final RestTemplateBuilder restTemplateBuilder;

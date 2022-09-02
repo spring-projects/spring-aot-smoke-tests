@@ -6,6 +6,7 @@ import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 class QuartzConfiguration {
 
 	@Bean
+	@RegisterReflectionForBinding(SimpleJob.class)
 	public JobDetail simpleJobDetail() {
 		return JobBuilder.newJob(SimpleJob.class).withIdentity("simpleJob").usingJobData("greeting", "Hello world!")
 				.storeDurably().build();
