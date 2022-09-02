@@ -1,9 +1,5 @@
 package com.example.webclient;
 
-import org.springframework.aot.hint.RuntimeHints;
-import org.springframework.aot.hint.RuntimeHintsRegistrar;
-import org.springframework.context.aot.BindingReflectionHintsRegistrar;
-
 public class DataDto {
 
 	private String url;
@@ -32,17 +28,6 @@ public class DataDto {
 	@Override
 	public String toString() {
 		return "DataDto{" + "url='" + url + '\'' + ", method='" + method + '\'' + '}';
-	}
-
-	static class DataDtoRuntimeHints implements RuntimeHintsRegistrar {
-
-		private final BindingReflectionHintsRegistrar bindingReflectionHintsRegistrar = new BindingReflectionHintsRegistrar();
-
-		@Override
-		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-			this.bindingReflectionHintsRegistrar.registerReflectionHints(hints.reflection(), DataDto.class);
-		}
-
 	}
 
 }
