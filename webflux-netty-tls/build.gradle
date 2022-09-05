@@ -13,8 +13,8 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	aotTestImplementation(project(":aot-smoke-test-support"))
-	aotTestImplementation("io.projectreactor.netty:reactor-netty")
+	aotSmokeTestImplementation(project(":aot-smoke-test-support"))
+	aotSmokeTestImplementation("io.projectreactor.netty:reactor-netty")
 }
 
 aotSmokeTest {

@@ -67,7 +67,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				project);
 		extension.getWebApplication().convention(false);
 		JavaPluginExtension javaExtension = project.getExtensions().getByType(JavaPluginExtension.class);
-		SourceSet aotTest = javaExtension.getSourceSets().create("aotTest");
+		SourceSet aotTest = javaExtension.getSourceSets().create("aotSmokeTest");
 		javaExtension.setSourceCompatibility(JavaVersion.VERSION_17);
 		javaExtension.setTargetCompatibility(JavaVersion.VERSION_17);
 		project.getRepositories().mavenCentral();
