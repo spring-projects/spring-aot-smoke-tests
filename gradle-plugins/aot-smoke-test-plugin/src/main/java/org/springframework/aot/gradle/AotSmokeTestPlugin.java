@@ -88,7 +88,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	private void configureJavaFormat(Project project) {
 		project.getPlugins().withType(SpringJavaFormatPlugin.class, (javaFormat) -> {
 			project.getTasks().withType(CheckFormat.class).configureEach((task) -> {
-				if (task.getName().equals("checkFormatAot")) {
+				if (task.getName().equals("checkFormatAot") || task.getName().equals("checkFormatAotTest")) {
 					task.setEnabled(false);
 				}
 			});
