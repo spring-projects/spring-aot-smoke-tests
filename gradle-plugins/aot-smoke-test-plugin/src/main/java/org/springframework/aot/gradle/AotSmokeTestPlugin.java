@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import com.avast.gradle.dockercompose.ComposeExtension;
 import com.avast.gradle.dockercompose.ComposeSettings;
@@ -70,6 +71,12 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		SourceSet aotTest = javaExtension.getSourceSets().create("aotSmokeTest");
 		javaExtension.setSourceCompatibility(JavaVersion.VERSION_17);
 		javaExtension.setTargetCompatibility(JavaVersion.VERSION_17);
+		if (project.hasProperty("fromMavenLocal")) {
+			String fromMavenLocal = project.property("fromMavenLocal").toString();
+			Stream<String> includedGroups = Stream.of(fromMavenLocal.split(","));
+			project.getRepositories().mavenLocal(
+					(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
+		}
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Milestone");
