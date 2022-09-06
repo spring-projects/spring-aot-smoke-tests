@@ -12,6 +12,7 @@ smoke_tests:
   - cache-redis
   - cache-simple
   - cache-simple-jdk-proxy
+  - cloud-discovery-consul
   - cloud-function-web
   - cloud-function-webflux
   - cloud-stream-kafka
