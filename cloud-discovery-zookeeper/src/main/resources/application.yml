@@ -1,3 +1,6 @@
 spring:
   application:
     name: zookeeper-discovery-client
+  cloud:
+    zookeeper:
+      connect-string: ${ZOOKEEPER_HOST:localhost}:${ZOOKEEPER_PORT_2181:2181}

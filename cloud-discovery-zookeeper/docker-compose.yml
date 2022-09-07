@@ -3,4 +3,4 @@ services:
   zookeeper:
     image: zookeeper:latest
     ports:
-      - "2181:2181"
+      - "2181"
