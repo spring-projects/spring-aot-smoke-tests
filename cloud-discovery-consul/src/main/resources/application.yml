@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: consul-discovery-client
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT_8500:8500}
