@@ -3,7 +3,6 @@ plugins {
 	id 'org.springframework.boot'
 	id 'org.springframework.aot.smoke-test'
 	id 'org.graalvm.buildtools.native'
-	id 'org.jetbrains.kotlin.jvm'
 }
 
 dependencies {
@@ -19,4 +18,15 @@ dependencies {
 
 aotSmokeTest {
 	webApplication = true
+}
+
+graalvmNative {
+	binaries {
+		main {
+			verbose = true
+			buildArgs.add("--exclude-config")
+			buildArgs.add("/netty-.*")
+			buildArgs.add("META-INF/native-image/.*")
+		}
+	}
 }

@@ -12,7 +12,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.session:spring-session-data-redis")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
-	implementation(project(":aot-smoke-test-third-party-hints"))
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
@@ -21,4 +20,14 @@ dependencies {
 
 aotSmokeTest {
 	webApplication = true
+}
+
+graalvmNative {
+	binaries {
+		main {
+			buildArgs.add("--exclude-config")
+			buildArgs.add("/netty-.*")
+			buildArgs.add("META-INF/native-image/.*")
+		}
+	}
 }

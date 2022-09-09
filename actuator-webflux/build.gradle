@@ -9,7 +9,6 @@ dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
-	implementation(project(":aot-smoke-test-third-party-hints"))
 
 	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
@@ -20,4 +19,14 @@ dependencies {
 
 aotSmokeTest {
 	webApplication = true
+}
+
+graalvmNative {
+	binaries {
+		main {
+			buildArgs.add("--exclude-config")
+			buildArgs.add("/netty-.*")
+			buildArgs.add("META-INF/native-image/.*")
+		}
+	}
 }
