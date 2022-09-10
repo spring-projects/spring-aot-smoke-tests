@@ -1,4 +1,6 @@
 #@data/values-schema
 ---
-smoke_tests:
-  - ""
+groups:
+  - name: "group name"
+    smoke_tests:
+    - ""

@@ -1,83 +1,99 @@
-smoke_tests:
-  - actuator-webflux
-  - actuator-webflux-mgmt-port
-  - actuator-webmvc
-  - actuator-webmvc-mgmt-port
-  - aspect
-  - async
-  - batch
-  - cache-cache2k
-  - cache-caffeine
-  - cache-hazelcast
-  - cache-redis
-  - cache-simple
-  - cache-simple-jdk-proxy
-  - cloud-discovery-consul
-  - cloud-discovery-zookeeper
-  - cloud-function-web
-  - cloud-function-webflux
-  - cloud-stream-kafka
-  - cloud-stream-rabbit
-  - cloud-task
-  - command-line-runner
-  - conditional
-  - configuration-properties
-  - data-cassandra
-  - data-cassandra-reactive
-  - data-jdbc-h2
-  - data-jdbc-postgresql
-  - data-jpa
-  - data-mongodb
-  - data-mongodb-reactive
-  - data-r2dbc
-  - data-redis
-  - data-redis-reactive
-  - data-rest-mongodb
-  - event-listener
-  - flyway
-  - freemarker-webflux
-  - freemarker-webmvc
-  - hateoas
-  - jdbc-h2
-  - jdbc-mariadb
-  - jdbc-mysql
-  - jdbc-postgresql
-  - ldap-odm
-  - liquibase
-  - logging-log4j2
-  - logging-logback
-  - mail
-  - mustache-webflux
-  - mustache-webmvc
-  - order
-  - quartz
-  - rest-template
-  - rsocket
-  - scheduled
-  - security-ldap
-  - security-method
-  - security-oauth2-authorization-server
-  - security-oauth2-resource-server
-  - security-thymeleaf
-  - security-webflux
-  - security-webmvc
-  - servlet-tomcat
-  - session-jdbc
-  - session-redis-webflux
-  - spring-amqp-rabbit
-  - spring-kafka
-  - spring-kafka-avro
-  - spring-kafka-streams
-  - thymeleaf-webmvc
-  - thymeleaf-webflux
-  - tracing-brave-zipkin
-  - transactional
-  - transactional-event-listener
-  - validation
-  - webclient
-  - webflux-netty
-  - webflux-netty-tls
-  - webmvc-tomcat
-  - webmvc-tomcat-tls
-  - websocket
-  - websocket-stomp
+groups:
+  - name: batch
+    smoke_tests:
+     - batch
+  - name: boot
+    smoke_tests:
+    - actuator-webflux
+    - actuator-webflux-mgmt-port
+    - actuator-webmvc
+    - actuator-webmvc-mgmt-port
+    - command-line-runner
+    - conditional
+    - configuration-properties
+    - flyway
+    - freemarker-webflux
+    - freemarker-webmvc
+    - liquibase
+    - logging-log4j2
+    - logging-logback
+    - mustache-webflux
+    - mustache-webmvc
+    - servlet-tomcat
+    - thymeleaf-webmvc
+    - thymeleaf-webflux
+    - tracing-brave-zipkin
+  - name: cloud
+    smoke_tests:
+    - cloud-discovery-consul
+    - cloud-discovery-zookeeper
+    - cloud-function-web
+    - cloud-function-webflux
+    - cloud-stream-kafka
+    - cloud-stream-rabbit
+    - cloud-task
+  - name: data
+    smoke_tests:
+    - data-cassandra
+    - data-cassandra-reactive
+    - data-jdbc-h2
+    - data-jdbc-postgresql
+    - data-jpa
+    - data-mongodb
+    - data-mongodb-reactive
+    - data-r2dbc
+    - data-redis
+    - data-redis-reactive
+    - data-rest-mongodb
+    - hateoas
+  - name: framework
+    smoke_tests:
+    - async
+    - aspect
+    - cache-cache2k
+    - cache-caffeine
+    - cache-hazelcast
+    - cache-redis
+    - cache-simple
+    - cache-simple-jdk-proxy
+    - event-listener
+    - jdbc-h2
+    - jdbc-mariadb
+    - jdbc-mysql
+    - jdbc-postgresql
+    - mail
+    - order
+    - quartz
+    - rest-template
+    - rsocket
+    - scheduled
+    - transactional
+    - transactional-event-listener
+    - validation
+    - webclient
+    - webflux-netty
+    - webflux-netty-tls
+    - webmvc-tomcat
+    - webmvc-tomcat-tls
+    - websocket
+    - websocket-stomp
+  - name: integration
+    smoke_tests:
+    - spring-amqp-rabbit
+    - spring-kafka
+    - spring-kafka-avro
+    - spring-kafka-streams
+  - name: security
+    smoke_tests:
+    - ldap-odm
+    - security-ldap
+    - security-method
+    - security-oauth2-authorization-server
+    - security-oauth2-resource-server
+    - security-thymeleaf
+    - security-webflux
+    - security-webmvc
+  - name: session
+    smoke_tests:
+    - session-jdbc
+    - session-redis-webflux
