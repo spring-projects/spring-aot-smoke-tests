@@ -73,6 +73,8 @@ jobs:
 - name: #@ smoke_test + "-jvm"
   serial: true
   public: true
+  serial_groups:
+  - #@ group.name + "-jvm"
   plan:
   - get: ci-image
   - get: git-repo
@@ -97,6 +99,8 @@ jobs:
 - name: #@ smoke_test + "-native"
   serial: true
   public: true
+  serial_groups:
+  - #@ group.name + "-native"
   plan:
   - get: ci-image
   - get: git-repo
