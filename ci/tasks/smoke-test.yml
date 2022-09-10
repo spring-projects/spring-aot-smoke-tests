@@ -12,6 +12,7 @@ params:
   BRANCH:
   CI: true
   SMOKE_TEST:
+  TASK:
   DOCKER_HUB_MIRROR:
 run:
   path: bash
