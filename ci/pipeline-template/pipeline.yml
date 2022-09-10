@@ -37,6 +37,10 @@ resources:
     password: ((docker-hub-password))
     tag: #@ milestone
     repository: #@ docker_hub["organization"] + "/" + github["repository"] + "-ci"
+- name: daily
+  type: time
+  icon: clock-outline
+  source: { interval: "24h" }
 jobs:
 - name: build-ci-images
   plan:
@@ -72,6 +76,8 @@ jobs:
   plan:
   - get: ci-image
   - get: git-repo
+  - get: daily
+    trigger: true
   - do:
     - task: smoke-test
       image: ci-image
