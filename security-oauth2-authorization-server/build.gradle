@@ -24,3 +24,11 @@ aotSmokeTest {
 test {
     useJUnitPlatform()
 }
+
+graalvmNative {
+    binaries {
+        main {
+            buildArgs("--enable-http")
+        }
+    }
+}
