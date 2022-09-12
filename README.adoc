@@ -51,9 +51,17 @@ Gradle https://docs.gradle.org/current/userguide/composite_builds.html#command_l
 
 _Hint: You can use `--include-build` multiple times._
 
-==== Your project uses Maven
+==== Your project uses Maven or --include-build does not work
 
-See https://github.com/spring-projects/spring-aot-smoke-tests/pull/94[this pull request].
+First, install the snapshots into your local Maven cache.
+You can now consume those snapshots using `-PfromMavenLocal` which takes a comma-separated list of group IDs:
+
+[source,]
+----
+./gradlew :rest-template:build -PfromMavenLocal=org.springframework,org.springframework.data
+----
+
+The preceding example will run the `rest-template` smoke test, resolving Spring Framework and Spring Data modules from your local Maven cache.
 
 === Override a dependency version
 
