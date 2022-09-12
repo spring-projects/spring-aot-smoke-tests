@@ -29,6 +29,7 @@ groups:
     - cloud-discovery-zookeeper
     - cloud-function-web
     - cloud-function-webflux
+    - cloud-loadbalancing-web
     - cloud-loadbalancing-webflux
     - cloud-stream-kafka
     - cloud-stream-rabbit
