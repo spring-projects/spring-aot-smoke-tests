@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: loadbalancer-client
+  cloud:
+    loadbalancer:
+      eager-load:
+        clients:
+          - demo-service
+    discovery:
+      client:
+        simple:
+          instances:
+            test-service:
+              - uri: http://${TEST-SERVICE_HOST:localhost}:${TEST-SERVICE_PORT_8081:8081}
+            demo-service:
+              - uri: http://${DEMO-SERVICE_HOST:localhost}:${DEMO-SERVICE_PORT_8082:8082}
