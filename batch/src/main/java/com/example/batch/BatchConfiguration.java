@@ -8,6 +8,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration(proxyBeanMethods = false)
 @EnableBatchProcessing
@@ -19,11 +20,11 @@ class BatchConfiguration {
 	}
 
 	@Bean
-	public Step step1(StepBuilderFactory stepBuilderFactory) {
+	public Step step1(StepBuilderFactory stepBuilderFactory, PlatformTransactionManager transactionManager) {
 		return stepBuilderFactory.get("step1").tasklet((stepContribution, chunkContext) -> {
 			System.out.println("Step 1 running");
 			return RepeatStatus.FINISHED;
-		}).build();
+		}).transactionManager(transactionManager).build();
 	}
 
 }
