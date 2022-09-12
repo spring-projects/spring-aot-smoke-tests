@@ -21,3 +21,11 @@ dependencies {
 aotSmokeTest {
 	webApplication = true
 }
+
+graalvmNative {
+	binaries {
+		main {
+			buildArgs("--enable-http")
+		}
+	}
+}
