@@ -23,10 +23,3 @@ dependencies {
 aotSmokeTest {
 	webApplication = true
 }
-
-tasks.named("processAot") {
-	// debugOptions {
-	// 	enabled = true
-	// 	suspend = true
-	// }
-}

@@ -1,27 +1,21 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot'
-    id 'org.springframework.aot.smoke-test'
-    id 'org.graalvm.buildtools.native'
+	id 'java'
+	id 'org.springframework.boot'
+	id 'org.springframework.aot.smoke-test'
+	id 'org.graalvm.buildtools.native'
 }
 
-apply plugin: "org.springframework.boot.aot"
-
 dependencies {
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.ldap:spring-ldap-core")
-    implementation("com.unboundid:unboundid-ldapsdk")
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.ldap:spring-ldap-core")
+	implementation("com.unboundid:unboundid-ldapsdk")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    aotSmokeTestImplementation(project(":aot-smoke-test-support"))
+	aotSmokeTestImplementation(project(":aot-smoke-test-support"))
 }
 
 aotSmokeTest {
-    webApplication = true
-}
-
-test {
-    useJUnitPlatform()
+	webApplication = true
 }
