@@ -14,3 +14,6 @@ spring:
               - uri: http://${TEST-SERVICE_HOST:localhost}:${TEST-SERVICE_PORT_8081:8081}
             demo-service:
               - uri: http://${DEMO-SERVICE_HOST:localhost}:${DEMO-SERVICE_PORT_8082:8082}
+logging:
+  level:
+    io.netty.resolver.dns.DnsServerAddressStreamProviders: OFF
