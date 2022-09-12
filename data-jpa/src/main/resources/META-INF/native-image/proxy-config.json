@@ -1,0 +1,20 @@
+[
+  {
+    "interfaces": [
+      "org.hibernate.SessionFactory",
+      "org.springframework.orm.jpa.EntityManagerFactoryInfo"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.hibernate.SessionFactory",
+      "org.springframework.orm.jpa.EntityManagerProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.hibernate.Session",
+      "org.springframework.orm.jpa.EntityManagerProxy"
+    ]
+  }
+]

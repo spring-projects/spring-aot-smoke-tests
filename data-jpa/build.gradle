@@ -9,6 +9,7 @@ dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	runtimeOnly("com.h2database:h2")
+	compileOnly("org.graalvm.nativeimage:graal-hotspot-library:22.0.0")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

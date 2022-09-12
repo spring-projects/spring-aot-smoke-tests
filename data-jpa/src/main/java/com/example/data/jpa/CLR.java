@@ -1,5 +1,6 @@
 package com.example.data.jpa;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -22,9 +23,9 @@ class CLR implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... args) {
-		insertAuthors();
+		var authors = insertAuthors();
 		listAllAuthors();
-		findById();
+		findById(authors);
 		findByPartialName();
 		queryFindByName();
 		deleteAll();
@@ -52,9 +53,9 @@ class CLR implements CommandLineRunner {
 		System.out.printf("findByPartialName(): author2 = %s%n", author2);
 	}
 
-	private void findById() {
-		Author author1 = this.authorRepository.findById(1L).orElse(null);
-		Author author2 = this.authorRepository.findById(2L).orElse(null);
+	private void findById(List<Author> authors) {
+		Author author1 = this.authorRepository.findById(authors.get(0).getId()).orElse(null);
+		Author author2 = this.authorRepository.findById(authors.get(1).getId()).orElse(null);
 
 		System.out.printf("findById(): author1 = %s%n", author1);
 		System.out.printf("findById(): author2 = %s%n", author2);
@@ -70,7 +71,7 @@ class CLR implements CommandLineRunner {
 		}
 	}
 
-	private void insertAuthors() {
+	private List<Author> insertAuthors() {
 		Author author1 = this.authorRepository.save(new Author(null, "Josh Long",
 				Set.of(new Book(null, "Reactive Spring"), new Book(null, "Cloud Native Java"))));
 		Author author2 = this.authorRepository.save(
@@ -78,6 +79,8 @@ class CLR implements CommandLineRunner {
 
 		System.out.printf("insertAuthors(): author1 = %s%n", author1);
 		System.out.printf("insertAuthors(): author2 = %s%n", author2);
+
+		return Arrays.asList(author1, author2);
 	}
 
 }
