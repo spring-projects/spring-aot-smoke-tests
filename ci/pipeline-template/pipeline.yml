@@ -104,8 +104,6 @@ jobs:
   plan:
   - get: ci-image
   - get: git-repo
-    passed:
-    - #@ smoke_test + "-jvm"
   - do:
     - task: smoke-test
       image: ci-image
