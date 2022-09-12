@@ -44,6 +44,7 @@ include "cloud-discovery-consul"
 include "cloud-discovery-zookeeper"
 include "cloud-function-web"
 include "cloud-function-webflux"
+include 'cloud-loadbalancing-webflux'
 include "cloud-stream-kafka"
 include "cloud-stream-rabbit"
 include "cloud-task"
