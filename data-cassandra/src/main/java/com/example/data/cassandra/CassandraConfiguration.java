@@ -15,11 +15,11 @@ class CassandraConfiguration {
 	@Bean
 	CqlSession cqlSession(CqlSessionBuilder cqlSessionBuilder, CassandraProperties properties) {
 		// This creates the keyspace on startup
-		try (CqlSession session = cqlSessionBuilder.build()) {
+		try (CqlSession session = cqlSessionBuilder.withKeyspace((String) null).build()) {
 			session.execute(CreateKeyspaceCqlGenerator
 					.toCql(CreateKeyspaceSpecification.createKeyspace(properties.getKeyspaceName()).ifNotExists()));
 		}
-		return cqlSessionBuilder.build();
+		return cqlSessionBuilder.withKeyspace(properties.getKeyspaceName()).build();
 	}
 
 }
