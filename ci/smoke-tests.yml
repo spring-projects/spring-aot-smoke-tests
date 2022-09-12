@@ -81,6 +81,7 @@ groups:
     - websocket-stomp
   - name: integration
     smoke_tests:
+    - integration
     - spring-amqp-rabbit
     - spring-kafka
     - spring-kafka-avro
