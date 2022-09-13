@@ -16,7 +16,7 @@ class BatchApplicationAotTests {
 	@Test
 	void expectedLoggingIsProduced(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("Step 1 running");
+			assertThat(output).hasLineContaining("Found <Person");
 		});
 	}
 
