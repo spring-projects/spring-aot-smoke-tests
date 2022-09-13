@@ -19,6 +19,7 @@ groups:
     - logging-logback
     - mustache-webflux
     - mustache-webmvc
+    - servlet-jetty
     - servlet-tomcat
     - thymeleaf-webmvc
     - thymeleaf-webflux
