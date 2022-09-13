@@ -14,3 +14,18 @@ dependencies {
 	aotSmokeTestImplementation(project(":aot-smoke-test-support"))
 	aotSmokeTestImplementation("org.awaitility:awaitility:4.2.0")
 }
+
+aotSmokeTest {
+	webApplication = true
+}
+
+graalvmNative {
+	binaries {
+		main {
+			verbose = true
+			buildArgs.add("--exclude-config")
+			buildArgs.add("/netty-.*")
+			buildArgs.add("META-INF/native-image")
+		}
+	}
+}
