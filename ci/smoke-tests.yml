@@ -21,6 +21,7 @@ groups:
     - mustache-webmvc
     - servlet-jetty
     - servlet-tomcat
+    - servlet-undertow
     - thymeleaf-webmvc
     - thymeleaf-webflux
     - tracing-brave-zipkin
