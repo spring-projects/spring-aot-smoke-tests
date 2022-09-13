@@ -80,6 +80,7 @@ groups:
     - webmvc-tomcat
     - webmvc-tomcat-tls
     - websocket
+    - websocket-jetty
     - websocket-stomp
   - name: integration
     smoke_tests:

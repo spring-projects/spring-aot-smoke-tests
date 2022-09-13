@@ -113,5 +113,6 @@ include "webflux-netty-tls"
 include "webmvc-tomcat"
 include "webmvc-tomcat-tls"
 include "websocket"
+include "websocket-jetty"
 include "websocket-stomp"
 
