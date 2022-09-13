@@ -14,7 +14,6 @@ dependencies {
 	implementation('org.springframework.integration:spring-integration-jdbc')
 	implementation('org.springframework.integration:spring-integration-redis')
 	implementation('io.micrometer:micrometer-core')
-	implementation(project(':aot-smoke-test-third-party-hints'))
 
 	runtimeOnly('com.h2database:h2')
 
