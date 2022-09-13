@@ -1,0 +1,1 @@
+Tests WebSocket support with Undertow.

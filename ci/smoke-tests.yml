@@ -82,6 +82,7 @@ groups:
     - websocket
     - websocket-jetty
     - websocket-stomp
+    - websocket-undertow
   - name: integration
     smoke_tests:
     - integration
