@@ -60,6 +60,7 @@ groups:
     - cache-redis
     - cache-simple
     - cache-simple-jdk-proxy
+    - configuration-class-proxy
     - event-listener
     - jdbc-h2
     - jdbc-mariadb

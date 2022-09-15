@@ -1,0 +1,1 @@
+Tests if CGLIB proxies for configuration classes are managed
