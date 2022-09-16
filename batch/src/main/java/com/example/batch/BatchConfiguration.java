@@ -3,8 +3,9 @@ package com.example.batch;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,16 +16,16 @@ import org.springframework.transaction.PlatformTransactionManager;
 class BatchConfiguration {
 
 	@Bean
-	public Job job(JobBuilderFactory jobBuilderFactory, Step step1) {
-		return jobBuilderFactory.get("job").start(step1).build();
+	public Job job(JobRepository jobRepository, Step step1) {
+		return new JobBuilder("job").repository(jobRepository).start(step1).build();
 	}
 
 	@Bean
-	public Step step1(StepBuilderFactory stepBuilderFactory, PlatformTransactionManager transactionManager) {
-		return stepBuilderFactory.get("step1").tasklet((stepContribution, chunkContext) -> {
+	public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+		return new StepBuilder("step1").tasklet((stepContribution, chunkContext) -> {
 			System.out.println("Step 1 running");
 			return RepeatStatus.FINISHED;
-		}).transactionManager(transactionManager).build();
+		}).repository(jobRepository).transactionManager(transactionManager).build();
 	}
 
 }
