@@ -15,12 +15,3 @@ dependencies {
 	aotSmokeTestImplementation("org.awaitility:awaitility:4.2.0")
 }
 
-graalvmNative {
-	binaries {
-		main {
-			buildArgs.add("--exclude-config")
-			buildArgs.add("/netty-.*")
-			buildArgs.add("META-INF/native-image/.*")
-		}
-	}
-}

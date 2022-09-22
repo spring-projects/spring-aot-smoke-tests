@@ -19,13 +19,3 @@ dependencies {
 aotSmokeTest {
 	webApplication = true
 }
-
-graalvmNative {
-	binaries {
-		main {
-			buildArgs.add("--exclude-config")
-			buildArgs.add("/netty-.*")
-			buildArgs.add("META-INF/native-image/.*")
-		}
-	}
-}
