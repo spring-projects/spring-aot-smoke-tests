@@ -58,4 +58,11 @@ class ActuatorWebFluxApplicationAotTests {
 						.contains("# TYPE jvm_threads_peak_threads gauge"));
 	}
 
+	@Test
+	void shouldHaveLoggers(WebTestClient client) {
+		client.get().uri("/actuator/loggers").exchange().expectStatus().isOk().expectBody().jsonPath("$.levels")
+				.isNotEmpty().jsonPath("$.loggers.['ROOT']").isNotEmpty().jsonPath("$.loggers.['_org.springframework']")
+				.isNotEmpty();
+	}
+
 }

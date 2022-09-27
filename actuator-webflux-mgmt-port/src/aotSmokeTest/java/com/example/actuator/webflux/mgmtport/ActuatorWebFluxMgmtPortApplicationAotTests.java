@@ -52,6 +52,13 @@ class ActuatorWebFluxMgmtPortApplicationAotTests {
 				.isNotEmpty();
 	}
 
+	@Test
+	void shouldHaveLoggers() {
+		client.get().uri("/actuator/loggers").exchange().expectStatus().isOk().expectBody().jsonPath("$.levels")
+				.isNotEmpty().jsonPath("$.loggers.['ROOT']").isNotEmpty().jsonPath("$.loggers.['_org.springframework']")
+				.isNotEmpty();
+	}
+
 	private static WebTestClient buildManagementClient() {
 		for (String line : Output.current().lines()) {
 			Matcher matcher = MANAGEMENT_PORT_REGEX.matcher(line);
