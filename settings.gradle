@@ -27,7 +27,7 @@ rootProject.name="spring-aot-smoke-tests"
 include "aot-smoke-test-support"
 include "aot-smoke-test-third-party-hints"
 
-["batch", "boot", "cloud", "data", "framework", "integration", "security", "session"].each { group ->
+["batch", "boot", "cloud", "data", "framework", "graphql", "integration", "security", "session"].each { group ->
 	file(group).eachDirMatch(~/[a-z].*/) { smokeTest ->
 		include "$group:${smokeTest.name}"
 	}

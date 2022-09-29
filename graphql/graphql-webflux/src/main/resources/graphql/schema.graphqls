@@ -1,0 +1,8 @@
+type Query {
+    project(slug: ID!): Project
+}
+
+type Project {
+    slug: ID!
+    name: String!
+}

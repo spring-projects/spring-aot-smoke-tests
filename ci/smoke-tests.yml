@@ -291,6 +291,17 @@ groups:
      - name: websocket-undertow
        app_test: true
        test: false
+  - name: graphql
+    smoke_tests:
+     - name: graphql-webflux
+       app_test: true
+       test: true
+     - name: graphql-webflux-rsocket
+       app_test: true
+       test: true
+     - name: graphql-webmvc
+       app_test: true
+       test: true
   - name: integration
     smoke_tests:
      - name: integration

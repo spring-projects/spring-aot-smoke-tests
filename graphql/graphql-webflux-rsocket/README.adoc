@@ -1,0 +1,1 @@
+Tests if Spring for GraphQL with WebFlux over RSockets is working
