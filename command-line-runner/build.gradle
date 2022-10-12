@@ -14,7 +14,3 @@ dependencies {
 	aotSmokeTestImplementation(project(":aot-smoke-test-support"))
 	aotSmokeTestImplementation("org.awaitility:awaitility:4.2.0")
 }
-
-tasks.named("bootRun") {
-	systemProperty 'spring.aot.enabled', 'true'
-}
