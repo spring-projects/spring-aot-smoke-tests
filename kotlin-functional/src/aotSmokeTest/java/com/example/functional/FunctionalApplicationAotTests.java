@@ -16,7 +16,7 @@ public class FunctionalApplicationAotTests {
 	@Test
 	void expectedLoggingIsProduced(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("Hello World");
+			assertThat(output).hasSingleLineContaining("Hello world!");
 		});
 	}
 
