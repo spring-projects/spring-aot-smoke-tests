@@ -1,7 +1,7 @@
+spring.main.web-application-type: none
 spring.rabbitmq:
   host: "${RABBITMQ_HOST:localhost}"
   port: "${RABBITMQ_PORT_5672:5672}"
-
 spring.cloud:
   function:
     definition: graalSupplier;graalUppercaseFunction;graalLoggingConsumer
