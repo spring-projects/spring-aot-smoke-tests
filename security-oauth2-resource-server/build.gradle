@@ -10,7 +10,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	implementation("com.squareup.okhttp3:mockwebserver")
-	implementation(project(":aot-smoke-test-third-party-hints"))
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
