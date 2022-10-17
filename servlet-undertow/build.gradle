@@ -7,7 +7,6 @@ plugins {
 
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation(project(":aot-smoke-test-third-party-hints"))
 	implementation("org.springframework.boot:spring-boot-starter-undertow")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	modules {
