@@ -64,7 +64,7 @@ public class SpringCloudStreamRabbitApplication {
 			this.word = word;
 		}
 
-		public void setId(int size) {
+		public void setSize(int size) {
 			this.size = size;
 		}
 
