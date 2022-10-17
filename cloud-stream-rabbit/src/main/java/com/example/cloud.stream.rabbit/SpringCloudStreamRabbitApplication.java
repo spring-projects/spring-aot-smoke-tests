@@ -19,12 +19,15 @@ public class SpringCloudStreamRabbitApplication {
 	}
 
 	@Bean
-	public Function<String, String> graalUppercaseFunction() {
-		return String::toUpperCase;
+	public Function<Word, String> graalUppercaseFunction() {
+		return word -> {
+			String s = new String("{\"size\":" + word.size + ",\"word\":\"" + word.getWord().toUpperCase() + "\"}");
+			return s;
+		};
 	}
 
 	@Bean
-	public Consumer<String> graalLoggingConsumer(StreamBridge streamBridge) {
+	public Consumer<Word> graalLoggingConsumer(StreamBridge streamBridge) {
 		return s -> {
 			System.out.println("++++++Received:" + s);
 			// Verifying that StreamBridge API works in native applications.
@@ -33,15 +36,54 @@ public class SpringCloudStreamRabbitApplication {
 	}
 
 	@Bean
-	public Supplier<String> graalSupplier() {
+	public Supplier<Word> graalSupplier() {
 		final String[] splitWoodchuck = "How much wood could a woodchuck chuck if a woodchuck could chuck wood?"
 				.split(" ");
 		final AtomicInteger wordsIndex = new AtomicInteger(0);
 		return () -> {
 			int wordIndex = wordsIndex.getAndAccumulate(splitWoodchuck.length,
 					(curIndex, numWords) -> curIndex < numWords - 1 ? curIndex + 1 : 0);
-			return splitWoodchuck[wordIndex];
+			String strWord = splitWoodchuck[wordIndex];
+			Word word = new Word(strWord.length(), strWord);
+			return word;
 		};
+	}
+
+	public static class Word {
+
+		private int size;
+
+		private String word;
+
+		public Word() {
+
+		}
+
+		public Word(int size, String word) {
+			this.size = size;
+			this.word = word;
+		}
+
+		public void setSize(int size) {
+			this.size = size;
+		}
+
+		public int getSize() {
+			return this.size;
+		}
+
+		public void setWord(String word) {
+			this.word = word;
+		}
+
+		public String getWord() {
+			return this.word;
+		}
+
+		public String toString() {
+			return this.word + ":" + this.size;
+		}
+
 	}
 
 }
