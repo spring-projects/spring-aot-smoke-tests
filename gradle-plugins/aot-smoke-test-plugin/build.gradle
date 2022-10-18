@@ -23,7 +23,7 @@ dependencies {
 	checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:$javaFormatVersion")
 	
 	compileOnly("io.spring.javaformat:spring-javaformat-gradle-plugin:$javaFormatVersion")
-	compileOnly("org.graalvm.buildtools:native-gradle-plugin:0.9.14")
+	compileOnly("org.graalvm.buildtools:native-gradle-plugin:0.9.15")
 	compileOnly("org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT")
 	compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
 
