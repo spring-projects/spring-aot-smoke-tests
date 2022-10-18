@@ -28,3 +28,6 @@ app.record:
   nested:
     a-int: 3
 
+spring:
+  config:
+    import: test.yaml

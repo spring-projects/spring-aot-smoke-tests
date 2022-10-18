@@ -2,6 +2,7 @@ package com.example.configprops;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,10 +15,14 @@ public class CLR implements CommandLineRunner {
 
 	private final AppPropertiesRecord appPropertiesRecord;
 
-	CLR(AppProperties appProperties, AppPropertiesCtor appPropertiesCtor, AppPropertiesRecord appPropertiesRecord) {
+	private final Environment environment;
+
+	CLR(AppProperties appProperties, AppPropertiesCtor appPropertiesCtor, AppPropertiesRecord appPropertiesRecord,
+			Environment environment) {
 		this.appProperties = appProperties;
 		this.appPropertiesCtor = appPropertiesCtor;
 		this.appPropertiesRecord = appPropertiesRecord;
+		this.environment = environment;
 	}
 
 	@Override
@@ -42,6 +47,8 @@ public class CLR implements CommandLineRunner {
 		System.out.printf("appPropertiesRecord.nestedList(): %s%n", appPropertiesRecord.nestedList());
 		System.out.printf("appPropertiesRecord.nested(): %s%n", appPropertiesRecord.nested());
 		System.out.printf("appPropertiesRecord.nested().aInt(): %s%n", appPropertiesRecord.nested().aInt());
+
+		System.out.printf("test.yaml some.imported.key: %s%n", environment.getProperty("some.imported.key"));
 	}
 
 }

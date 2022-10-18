@@ -158,4 +158,12 @@ class ConfigPropsApplicationAotTests {
 
 	}
 
+	@Test
+	void shouldImportConfig(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("test.yaml some.imported.key: some-value");
+		});
+
+	}
+
 }
