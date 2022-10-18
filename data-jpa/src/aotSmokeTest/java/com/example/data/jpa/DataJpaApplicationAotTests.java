@@ -63,4 +63,11 @@ class DataJpaApplicationAotTests {
 		});
 	}
 
+	@Test
+	void callback(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasLineContaining("Pre remove author");
+		});
+	}
+
 }

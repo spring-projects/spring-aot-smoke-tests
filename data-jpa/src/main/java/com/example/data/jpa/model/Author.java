@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreRemove;
 
 @Entity
 public class Author {
@@ -44,6 +45,11 @@ public class Author {
 
 	public Set<Book> getBooks() {
 		return books;
+	}
+
+	@PreRemove
+	public void preRemove() {
+		System.out.println("Pre remove author " + id);
 	}
 
 	@Override
