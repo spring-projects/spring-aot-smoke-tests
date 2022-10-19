@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class FormSubmissionController {
 
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public Form greetingSubmit(@ModelAttribute Form form) {
-		return form;
+	public OutputForm greetingSubmit(@ModelAttribute InputForm form) {
+		return new OutputForm(form.firstName, form.lastName);
 	}
 
-	record Form(String firstName, String lastName) {
+	record InputForm(String firstName, String lastName) {
+	}
+
+	record OutputForm(String firstName, String lastName) {
 	}
 
 }
