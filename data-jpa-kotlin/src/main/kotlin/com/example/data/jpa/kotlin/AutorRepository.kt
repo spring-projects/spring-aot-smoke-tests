@@ -7,8 +7,8 @@ import java.util.*
 
 interface AuthorRepository : JpaRepository<Author?, Long?> {
 
-	fun findByNameContainingIgnoreCase(partialName: String?): Optional<Author?>?
+	fun findByNameContainingIgnoreCase(partialName: String): Author?
 
 	@Query("SELECT a FROM Author a WHERE a.name = :name")
-	fun queryFindByName(name: String?): Optional<Author?>?
+	fun queryFindByName(name: String): Author?
 }

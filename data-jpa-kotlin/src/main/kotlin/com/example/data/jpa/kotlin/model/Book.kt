@@ -6,20 +6,7 @@ import jakarta.persistence.Id
 import java.util.*
 
 @Entity
-class Book {
-
-	@Id
-	@GeneratedValue
-	var id: Long? = null
-		private set
-	var title: String? = null
-
-	protected constructor() {}
-
-	constructor(id: Long?, title: String?) {
-		this.id = id
-		this.title = title
-	}
+class Book(@Id @GeneratedValue var id: Long?, var title: String?) {
 
 	override fun equals(other: Any?): Boolean {
 		if (this === other) {

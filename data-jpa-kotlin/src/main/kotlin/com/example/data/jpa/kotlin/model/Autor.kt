@@ -4,21 +4,12 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-class Author {
-
-	@Id
-	@GeneratedValue
-	var id: Long? = null
-	var name: String? = null
+class Author(@Id @GeneratedValue var id: Long?, var name: String?) {
 
 	@OneToMany(cascade = [CascadeType.ALL])
 	var books: Set<Book>? = null
 
-	protected constructor() {}
-
-	constructor(id: Long?, name: String?, books: Set<Book>?) {
-		this.id = id
-		this.name = name
+	constructor(id: Long?, name: String?, books: Set<Book>?) : this(id, name) {
 		this.books = books
 	}
 

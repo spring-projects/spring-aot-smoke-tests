@@ -37,16 +37,16 @@ class CLR implements CommandLineRunner {
 	}
 
 	private void queryFindByName() {
-		Author author1 = this.authorRepository.queryFindByName("Josh Long").orElse(null);
-		Author author2 = this.authorRepository.queryFindByName("Martin Kleppmann").orElse(null);
+		Author author1 = this.authorRepository.queryFindByName("Josh Long");
+		Author author2 = this.authorRepository.queryFindByName("Martin Kleppmann");
 
 		System.out.printf("queryFindByName(): author1 = %s%n", author1);
 		System.out.printf("queryFindByName(): author2 = %s%n", author2);
 	}
 
 	private void findByPartialName() {
-		Author author1 = this.authorRepository.findByNameContainingIgnoreCase("sh lo").orElse(null);
-		Author author2 = this.authorRepository.findByNameContainingIgnoreCase("in kl").orElse(null);
+		Author author1 = this.authorRepository.findByNameContainingIgnoreCase("sh lo");
+		Author author2 = this.authorRepository.findByNameContainingIgnoreCase("in kl");
 
 		System.out.printf("findByPartialName(): author1 = %s%n", author1);
 		System.out.printf("findByPartialName(): author2 = %s%n", author2);
