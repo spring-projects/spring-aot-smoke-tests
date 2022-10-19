@@ -13,6 +13,11 @@ class Author(@Id @GeneratedValue var id: Long?, var name: String?) {
 		this.books = books
 	}
 
+	@PostPersist
+	fun postPersist() {
+		println("Persisted Author $id")
+	}
+
 	override fun equals(other: Any?): Boolean {
 		if (this === other) {
 			return true
