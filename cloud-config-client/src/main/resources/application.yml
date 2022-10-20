@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: client-service
+  config:
+    import: optional:configserver:http://${DEMO-CONFIG-SERVER_HOST:localhost}:${DEMO-CONFIG-SERVER_PORT_8888:8888}
+  cloud:
+    refresh:
+      enabled: false
