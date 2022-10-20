@@ -17,8 +17,8 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
-				.authorizeRequests(authorize -> authorize.mvcMatchers("/rest/anonymous").permitAll()
-						.mvcMatchers("/rest/admin").hasRole("ADMIN").anyRequest().authenticated())
+				.authorizeHttpRequests(authorize -> authorize.requestMatchers("/rest/anonymous").permitAll()
+						.requestMatchers("/rest/admin").hasRole("ADMIN").anyRequest().authenticated())
 				.httpBasic().and().build();
 	}
 
