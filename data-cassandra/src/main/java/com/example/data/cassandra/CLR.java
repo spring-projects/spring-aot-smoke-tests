@@ -1,21 +1,34 @@
 package com.example.data.cassandra;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.cassandra.core.CassandraTemplate;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 @Component
 class CLR implements CommandLineRunner {
 
-	private final PersonRepository personRepository;
+	@Autowired
+	private PersonRepository personRepository;
 
-	CLR(PersonRepository personRepository) {
-		this.personRepository = personRepository;
-	}
+	@Autowired
+	private CassandraTemplate template;
+
+	@Autowired
+	private OrderRepository orderRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		this.personRepository.save(new Person(UUID.randomUUID().toString(), "first-1", "last-1"));
 		this.personRepository.save(new Person(UUID.randomUUID().toString(), "first-2", "last-2"));
 		this.personRepository.save(new Person(UUID.randomUUID().toString(), "first-3", "last-3"));
@@ -27,6 +40,100 @@ class CLR implements CommandLineRunner {
 		for (Person person : this.personRepository.findByLastname("last-3")) {
 			System.out.printf("findByLastname(): %s%n", person);
 		}
+
+		LineItem product1 = new LineItem("p1", 1.23);
+		LineItem product2 = new LineItem("p2", 0.87, 2);
+		LineItem product3 = new LineItem("p3", 5.33);
+
+		runPagingAndSorting(product1, product2, product3);
+		runPartTreeQuery(product1, product2, product3);
+		runResultProjection(product1, product2, product3);
+	}
+
+	// Paging and Sorting with Repository
+	private void runPagingAndSorting(LineItem product1, LineItem product2, LineItem product3) {
+
+		log("---- Paging / Sorting ----");
+		orderRepository.deleteAll();
+
+		orderRepository.save(newOrder("o1", "c42", product1, product2, product3));
+		orderRepository.save(newOrder("o2", "c42", product1));
+		orderRepository.save(newOrder("o3", "c42", product2));
+		orderRepository.save(newOrder("o4", "c42", product3));
+		orderRepository.save(newOrder("o5", "b12", product1));
+		orderRepository.save(newOrder("o6", "b12", product1));
+
+		// sort
+		List<Order> sortedByCustomer = orderRepository.findById("o1", Sort.by("customerId"));
+		log("sortedByCustomer: %s", sortedByCustomer);
+
+		// page
+
+		// slice
+		Slice<Order> c42_slice0 = orderRepository.findSliceByCustomerId("c42", PageRequest.of(0, 2));
+		log("c42_slice0: %s", c42_slice0);
+
+		Slice<Order> c42_slice1 = orderRepository.findSliceByCustomerId("c42", c42_slice0.nextPageable());
+		log("c42_slice1: %s", c42_slice1);
+
+		log("-----------------\n\n\n");
+	}
+
+	// Part Tree Query
+	private void runPartTreeQuery(LineItem product1, LineItem product2, LineItem product3) {
+
+		log("---- PART TREE QUERY ----");
+		orderRepository.deleteAll();
+
+		Order order = newOrder("o7", "c42", product1, product2, product3);
+		orderRepository.save(order);
+
+		List<Order> byCustomerId = orderRepository.findByCustomerId(order.getCustomerId());
+		System.out.print("derivedQuery: ");
+		byCustomerId.forEach(this::log);
+
+		byCustomerId.forEach(this::log);
+
+		log("-----------------\n\n\n");
+	}
+
+	// Query with Result Projection
+	private void runResultProjection(LineItem product1, LineItem product2, LineItem product3) {
+
+		log("---- RESULT PROJECTION ----");
+		orderRepository.deleteAll();
+
+		Order order = newOrder("o9", "c42", product1, product2, product3);
+		orderRepository.save(order);
+
+		List<OrderProjection> result = orderRepository.findProjectionByCustomerId(order.getCustomerId());
+		result.forEach(it -> log("OrderProjection(%s){id=%s, customerId=%s}", it.getClass().getSimpleName(), it.getId(),
+				it.getCustomerId()));
+
+		log("-----------------\n\n\n");
+	}
+
+	private Order newOrder(String id, String customerId, LineItem... items) {
+		return newOrder(id, customerId, new Date(), items);
+	}
+
+	private Order newOrder(String id, String customerId, Date date, LineItem... items) {
+
+		Order order = new Order(id, customerId, date, new ArrayList<>());
+
+		Arrays.stream(items).forEach(order::addItem);
+
+		return order;
+	}
+
+	private void log(Object value) {
+		log(String.valueOf(value), new Object[0]);
+	}
+
+	private void log(String message, Object... arguments) {
+		String messageNewline = String.valueOf(message).endsWith("\n") ? message : message + "\n";
+		System.out.printf(messageNewline, arguments);
+		System.out.flush();
 	}
 
 }
