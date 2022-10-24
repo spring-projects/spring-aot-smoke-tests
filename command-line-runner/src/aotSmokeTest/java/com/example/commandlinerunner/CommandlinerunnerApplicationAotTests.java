@@ -18,7 +18,8 @@ class CommandlinerunnerApplicationAotTests {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("INFO log message")
 					.hasSingleLineContaining("WARNING log message").hasSingleLineContaining("ERROR log message")
-					.hasNoLinesContaining("TRACE log message").hasNoLinesContaining("DEBUG log message");
+					.hasNoLinesContaining("TRACE log message").hasNoLinesContaining("DEBUG log message")
+					.hasSingleLineContaining("Hello from MyServiceImpl");
 		});
 	}
 
