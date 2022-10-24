@@ -25,10 +25,10 @@ class DataJpaApplicationAotTests {
 	void listAllAuthors(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("listAllAuthors(): author = Author{name='Josh Long'")
-					.hasSingleLineContaining("Book{title='Cloud Native Java'}")
-					.hasSingleLineContaining("Book{title='Reactive Spring'}")
+					.hasSingleLineContaining("Book{title='Cloud Native Java'")
+					.hasSingleLineContaining("Book{title='Reactive Spring'")
 					.hasSingleLineContaining("listAllAuthors(): author = Author{name='Martin Kleppmann'}")
-					.hasSingleLineContaining("Book{title='Designing Data Intensive Applications'}");
+					.hasSingleLineContaining("Book{title='Designing Data Intensive Applications'");
 		});
 	}
 
@@ -67,6 +67,14 @@ class DataJpaApplicationAotTests {
 	void callback(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasLineContaining("Pre remove author");
+		});
+	}
+
+	@Test
+	void entityGraph(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining(
+					"namedEntityGraph: Book{title='Spring in Action', authors=[Author{name='Craig Walls'}]}");
 		});
 	}
 

@@ -1,12 +1,19 @@
 package com.example.data.jpa.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedEntityGraph(name = "Book.authors", attributeNodes = @NamedAttributeNode("authors"))
 public class Book {
 
 	@Id
@@ -14,6 +21,9 @@ public class Book {
 	private Long id;
 
 	private String title;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<Author> authors = new HashSet<>();
 
 	protected Book() {
 	}
@@ -35,6 +45,14 @@ public class Book {
 		this.title = title;
 	}
 
+	public Set<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(Set<Author> authors) {
+		this.authors = authors;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -54,7 +72,7 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book{" + "title='" + title + '\'' + '}';
+		return "Book{" + "title='" + title + '\'' + ", authors=" + authors + '}';
 	}
 
 }
