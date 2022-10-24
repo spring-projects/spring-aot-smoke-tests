@@ -13,7 +13,8 @@ import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.OneToMany;
 
 @Entity
-@NamedEntityGraph(name = "Book.authors", attributeNodes = @NamedAttributeNode("authors"))
+// @NamedEntityGraph(name = "Book.authors", attributeNodes =
+// @NamedAttributeNode("authors"))
 public class Book {
 
 	@Id

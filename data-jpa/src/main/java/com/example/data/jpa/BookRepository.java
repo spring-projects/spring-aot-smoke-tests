@@ -22,7 +22,7 @@ import org.springframework.data.repository.ListCrudRepository;
 
 public interface BookRepository extends ListCrudRepository<Book, Long> {
 
-	@EntityGraph(value = "Book.authors")
+	// @EntityGraph(value = "Book.authors")
 	@Query("SELECT b FROM Book b WHERE b.title = :title")
 	Book findByTitleWithNamedGraph(String title);
 
