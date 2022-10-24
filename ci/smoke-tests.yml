@@ -27,6 +27,7 @@ groups:
     - tracing-brave-zipkin
   - name: cloud
     smoke_tests:
+    - cloud-config-client
     - cloud-discovery-consul
     - cloud-discovery-zookeeper
     - cloud-function-web

@@ -26,6 +26,7 @@ public class SecurityThymeleafApplication {
 					MemberCategory.INVOKE_PUBLIC_METHODS);
 			hints.reflection().registerType(User.class, MemberCategory.INVOKE_PUBLIC_METHODS);
 		}
+
 	}
 
 }
