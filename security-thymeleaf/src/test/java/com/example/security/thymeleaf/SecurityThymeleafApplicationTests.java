@@ -13,7 +13,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -44,8 +43,7 @@ public class SecurityThymeleafApplicationTests {
 
 	@Test
 	public void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
-		mockMvc.perform(get("/hello")).andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrlPattern("**/login"));
+		mockMvc.perform(get("/hello")).andExpect(status().isUnauthorized());
 	}
 
 	@Test

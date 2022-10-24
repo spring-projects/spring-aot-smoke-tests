@@ -42,6 +42,7 @@ import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskProvider;
+import org.gradle.api.tasks.testing.Test;
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
@@ -130,11 +131,18 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			Provider<RegularFile> nativeImage = project.getTasks()
 					.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
 					.flatMap(BuildNativeImageTask::getOutputFile);
-			configureTasks(project, aotTest, ApplicationType.NATIVE, nativeImage, extension);
+			TaskProvider<AotTestTask> aotTestTask = configureTasks(project, aotTest, ApplicationType.NATIVE,
+					nativeImage, extension);
+			configureUnitTests(project, aotTestTask);
 		});
 	}
 
-	private void configureTasks(Project project, SourceSet aotTest, ApplicationType type,
+	private void configureUnitTests(Project project, TaskProvider<AotTestTask> aotTestTask) {
+		project.getTasks().named("test", Test.class).configure(Test::useJUnitPlatform);
+		aotTestTask.configure((task) -> task.dependsOn(NativeImagePlugin.NATIVE_TEST_TASK_NAME));
+	}
+
+	private TaskProvider<AotTestTask> configureTasks(Project project, SourceSet aotTest, ApplicationType type,
 			Provider<RegularFile> nativeImage, AotSmokeTestExtension extension) {
 		Provider<Directory> outputDirectory = project.getLayout().getBuildDirectory()
 				.dir(type.name().toLowerCase() + "App");
@@ -143,6 +151,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project, type, startTask);
 		TaskProvider<AotTestTask> aotTestTask = createAotTestTask(project, aotTest, type, startTask, stopTask);
 		configureDockerComposeIfNecessary(project, type, startTask, aotTestTask, stopTask);
+		return aotTestTask;
 	}
 
 	private void configureDockerComposeIfNecessary(Project project, ApplicationType type,

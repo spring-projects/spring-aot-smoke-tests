@@ -23,7 +23,7 @@ class CommandlinerunnerApplicationTests implements ApplicationContextAware {
 	}
 
 	@Test
-	void contextLoads() {
+	void contextIsInjected() {
 		assertThat(this.applicationContext).as("ApplicationContextAware").isNotNull();
 	}
 
