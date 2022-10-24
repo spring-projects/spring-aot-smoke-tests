@@ -6,9 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CommandlinerunnerApplication {
 
-	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(CommandlinerunnerApplication.class, args);
-		Thread.currentThread().join(); // To be able to measure memory consumption
+	public static void main(String[] args) {
+		SpringApplication application = new SpringApplication(CommandlinerunnerApplication.class);
+		System.setProperty("main.ran", "true");
+		application.run(args);
 	}
 
 }
