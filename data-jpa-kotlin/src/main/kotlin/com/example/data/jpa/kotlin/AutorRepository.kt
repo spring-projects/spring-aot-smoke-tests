@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import java.util.*
 
-interface AuthorRepository : JpaRepository<Author?, Long?> {
+interface AuthorRepository : JpaRepository<Author, Long> {
 
 	fun findByNameContainingIgnoreCase(partialName: String): Author?
 

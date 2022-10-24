@@ -1,21 +1,26 @@
 package com.example.data.jpa.kotlin.model
 
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import jakarta.persistence.PostPersist
 import java.util.*
 
 @Entity
 class Author(@Id @GeneratedValue var id: Long?, var name: String?) {
 
 	@OneToMany(cascade = [CascadeType.ALL])
-	var books: Set<Book>? = null
+	var books: Set<Book> = HashSet()
 
-	constructor(id: Long?, name: String?, books: Set<Book>?) : this(id, name) {
+	constructor(id: Long?, name: String, books: Set<Book>) : this(id, name) {
 		this.books = books
 	}
 
 	@PostPersist
 	fun postPersist() {
-		println("Persisted Author $id")
+		println("Persisted $this")
 	}
 
 	override fun equals(other: Any?): Boolean {

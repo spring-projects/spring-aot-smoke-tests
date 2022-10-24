@@ -17,7 +17,9 @@ class DataJpaApplicationAotTests {
 	void insert(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("insertAuthors(): author1 = Author{name='Josh Long'}")
-					.hasSingleLineContaining("insertAuthors(): author2 = Author{name='Martin Kleppmann'}");
+					.hasSingleLineContaining("insertAuthors(): author2 = Author{name='Martin Kleppmann'}")
+					.hasSingleLineContaining("Persisted Author{name='Josh Long'}")
+					.hasSingleLineContaining("Persisted Author{name='Martin Kleppmann'}");
 		});
 	}
 
