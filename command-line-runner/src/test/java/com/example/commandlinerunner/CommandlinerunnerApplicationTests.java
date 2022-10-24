@@ -14,7 +14,7 @@ import org.springframework.context.ApplicationContextAware;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = WebEnvironment.NONE, useMainMethod = UseMainMethod.ALWAYS, args = "--test.property=1")
+@SpringBootTest(webEnvironment = WebEnvironment.NONE, useMainMethod = UseMainMethod.ALWAYS, args = "--test.args=1")
 class CommandlinerunnerApplicationTests implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
@@ -45,7 +45,7 @@ class CommandlinerunnerApplicationTests implements ApplicationContextAware {
 
 	@Test
 	void shouldPassArgs(@Autowired ApplicationArguments applicationArguments) {
-		List<String> values = applicationArguments.getOptionValues("test.property");
+		List<String> values = applicationArguments.getOptionValues("test.args");
 		assertThat(values).containsExactly("1");
 	}
 
