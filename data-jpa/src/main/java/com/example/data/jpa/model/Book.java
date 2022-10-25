@@ -8,13 +8,9 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedAttributeNode;
-import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.OneToMany;
 
 @Entity
-// @NamedEntityGraph(name = "Book.authors", attributeNodes =
-// @NamedAttributeNode("authors"))
 public class Book {
 
 	@Id

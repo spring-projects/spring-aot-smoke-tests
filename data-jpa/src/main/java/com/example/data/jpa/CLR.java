@@ -73,7 +73,6 @@ class CLR implements CommandLineRunner {
 		book.getAuthors().add(author);
 		bookRepository.save(book);
 
-		// Book loaded = bookRepository.findByTitleWithNamedGraph("Spring in Action");
 		Book loaded = bookRepository.findByTitleWithAdHocGraph("Spring in Action");
 		System.out.println("namedEntityGraph: " + loaded);
 	}
