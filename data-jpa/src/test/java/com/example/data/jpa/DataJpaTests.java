@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +22,9 @@ class DataJpaTests {
 
 	@Autowired
 	private TestEntityManager testEntityManager;
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Test
 	void shouldSaveAndLoad() {
@@ -38,6 +42,11 @@ class DataJpaTests {
 	@Test
 	void shouldInjectTestEntityManager() {
 		assertThat(this.testEntityManager).as("testEntityManager").isNotNull();
+	}
+
+	@Test
+	void shouldInjectJdbcTemplate() {
+		assertThat(this.jdbcTemplate).as("jdbcTemplate").isNotNull();
 	}
 
 }
