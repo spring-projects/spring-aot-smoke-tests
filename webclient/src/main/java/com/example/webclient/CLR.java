@@ -14,14 +14,18 @@ class CLR implements CommandLineRunner {
 
 	private final Builder webClientBuilder;
 
-	CLR(WebClient.Builder webClientBuilder) {
+	private final DataService dataService;
+
+	CLR(WebClient.Builder webClientBuilder, DataService dataService) {
 		this.webClientBuilder = webClientBuilder;
+		this.dataService = dataService;
 	}
 
 	@Override
 	public void run(String... args) {
 		http();
 		https();
+		service();
 	}
 
 	private void http() {
@@ -46,6 +50,17 @@ class CLR implements CommandLineRunner {
 		}
 		catch (Exception ex) {
 			System.out.println("https failed:");
+			ex.printStackTrace(System.out);
+		}
+	}
+
+	private void service() {
+		try {
+			ExchangeDataDto dto = this.dataService.getData();
+			System.out.printf("service: %s%n", dto);
+		}
+		catch (Exception ex) {
+			System.out.println("service failed:");
 			ex.printStackTrace(System.out);
 		}
 	}
