@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OutputCaptureTests {
 
 	@Test
-	void testName(CapturedOutput output) {
+	void test(CapturedOutput output) {
 		System.out.println("Hello World!");
 		assertThat(output).contains("Hello World!");
 	}
