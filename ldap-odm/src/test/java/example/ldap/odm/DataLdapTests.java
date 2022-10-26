@@ -9,22 +9,23 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.ldap.DataLdapTest;
-import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.context.annotation.Import;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataLdapTest
+@Import(OdmPersonDaoImpl.class)
 class DataLdapTests {
 
 	@Autowired
-	private LdapTemplate ldapTemplate;
+	private PersonDao personDao;
 
 	@Test
 	void saveAndLoad() throws InvalidNameException {
 		Person person = getPerson();
-		this.ldapTemplate.create(person);
+		this.personDao.create(person);
 
-		List<Person> persons = this.ldapTemplate.findAll(Person.class);
+		List<Person> persons = this.personDao.findAll();
 		assertThat(persons).contains(person);
 	}
 

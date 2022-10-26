@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.naming.ldap.LdapName;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.support.LdapNameBuilder;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RegisterReflectionForBinding(Person.class)
 public class OdmPersonDaoImpl implements PersonDao {
 
 	private final LdapTemplate ldapTemplate;
