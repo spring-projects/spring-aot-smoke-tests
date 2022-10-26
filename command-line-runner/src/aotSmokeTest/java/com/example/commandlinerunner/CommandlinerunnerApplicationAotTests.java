@@ -23,4 +23,11 @@ class CommandlinerunnerApplicationAotTests {
 		});
 	}
 
+	@Test
+	void bannerIsPrinted(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("= Command line runner smoke test =");
+		});
+	}
+
 }
