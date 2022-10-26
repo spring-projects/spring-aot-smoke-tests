@@ -1,6 +1,7 @@
 package com.example.data.jpa;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -16,8 +17,11 @@ class CLR implements CommandLineRunner {
 
 	private final AuthorRepository authorRepository;
 
-	CLR(AuthorRepository authorRepository) {
+	private final BookRepository bookRepository;
+
+	CLR(AuthorRepository authorRepository, BookRepository bookRepository) {
 		this.authorRepository = authorRepository;
+		this.bookRepository = bookRepository;
 	}
 
 	@Override
@@ -29,6 +33,7 @@ class CLR implements CommandLineRunner {
 		findByPartialName();
 		queryFindByName();
 		deleteAll();
+		entityGraph();
 	}
 
 	private void deleteAll() {
@@ -59,6 +64,17 @@ class CLR implements CommandLineRunner {
 
 		System.out.printf("findById(): author1 = %s%n", author1);
 		System.out.printf("findById(): author2 = %s%n", author2);
+	}
+
+	private void entityGraph() {
+
+		Book book = new Book(null, "Spring in Action");
+		Author author = new Author(null, "Craig Walls", Collections.emptySet());
+		book.getAuthors().add(author);
+		bookRepository.save(book);
+
+		Book loaded = bookRepository.findByTitleWithAdHocGraph("Spring in Action");
+		System.out.println("namedEntityGraph: " + loaded);
 	}
 
 	private void listAllAuthors() {

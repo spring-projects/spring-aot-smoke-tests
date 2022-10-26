@@ -63,6 +63,7 @@ groups:
     - cache-simple-jdk-proxy
     - configuration-class-proxy
     - event-listener
+    - hibernate
     - jdbc-h2
     - jdbc-mariadb
     - jdbc-mysql
