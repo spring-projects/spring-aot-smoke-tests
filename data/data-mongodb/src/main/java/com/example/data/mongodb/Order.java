@@ -53,7 +53,7 @@ public class Order {
 	@DBRef
 	private Coupon simpleRef;
 
-	@DBRef(lazy = true) // TODO: ClassProxies
+	@DBRef(lazy = true)
 	private Coupon coupon;
 
 	@DBRef(lazy = true) // JdkProxy
@@ -62,7 +62,7 @@ public class Order {
 	@DocumentReference
 	private Discount documentRef;
 
-	// @DocumentReference(lazy = true) // TODO: ClassProxies
+	@DocumentReference(lazy = true)
 	Discount lazyDocumentRef;
 
 	@CreatedDate
