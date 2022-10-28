@@ -1,3 +1,4 @@
+package com.example.cloud.stream.rabbit;
 /*
  * Copyright 2022 the original author or authors.
  *
@@ -14,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.example.rabbit;
+
 
 import java.time.Duration;
 
