@@ -42,6 +42,7 @@ include "cache-simple"
 include "cache-simple-jdk-proxy"
 include 'cloud-config-client'
 include "cloud-discovery-consul"
+include "cloud-discovery-eureka"
 include "cloud-discovery-zookeeper"
 include "cloud-function-web"
 include "cloud-function-webflux"

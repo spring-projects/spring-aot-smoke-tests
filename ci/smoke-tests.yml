@@ -29,6 +29,7 @@ groups:
     smoke_tests:
     - cloud-config-client
     - cloud-discovery-consul
+    - cloud-discovery-eureka
     - cloud-discovery-zookeeper
     - cloud-function-web
     - cloud-function-webflux

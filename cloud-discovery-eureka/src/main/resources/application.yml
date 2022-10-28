@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    refresh:
+      enabled: false
+  application:
+    name: eureka-discovery-client
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT_8761:8761}/eureka/
