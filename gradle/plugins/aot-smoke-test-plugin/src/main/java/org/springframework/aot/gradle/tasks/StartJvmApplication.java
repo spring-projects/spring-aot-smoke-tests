@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.aot.gradle;
+package org.springframework.aot.gradle.tasks;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import org.gradle.internal.jvm.Jvm;
  *
  * @author Andy Wilkinson
  */
-public class StartJvmApplication extends StartApplication {
+public abstract class StartJvmApplication extends StartApplication {
 
 	@Override
 	protected ProcessBuilder prepareProcessBuilder(ProcessBuilder processBuilder) {

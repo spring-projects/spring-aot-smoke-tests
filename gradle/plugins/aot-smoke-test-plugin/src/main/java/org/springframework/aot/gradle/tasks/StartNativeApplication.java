@@ -14,33 +14,28 @@
  * limitations under the License.
  */
 
-package org.springframework.aot.gradle;
+package org.springframework.aot.gradle.tasks;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.gradle.api.Project;
-import org.gradle.api.provider.Property;
+import org.gradle.api.Task;
 
 /**
- * DSL extension for configuring AOT smoke tests.
+ * {@link Task} to start a native application.
  *
  * @author Andy Wilkinson
  */
-public class AotSmokeTestExtension {
+public abstract class StartNativeApplication extends StartApplication {
 
-	private final Property<Boolean> webApplication;
-
-	@Inject
-	public AotSmokeTestExtension(Project project) {
-		this.webApplication = project.getObjects().property(Boolean.class);
-	}
-
-	/**
-	 * Whether the application under test is a web application.
-	 * @return whether the application under test is a web application.
-	 */
-	public Property<Boolean> getWebApplication() {
-		return this.webApplication;
+	@Override
+	protected ProcessBuilder prepareProcessBuilder(ProcessBuilder processBuilder) {
+		List<String> command = new ArrayList<>();
+		command.add(getApplicationBinary().getAsFile().get().getAbsolutePath());
+		if (getWebApplication().get()) {
+			command.add("-Dserver.port=0");
+		}
+		return processBuilder.command(command);
 	}
 
 }

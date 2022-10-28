@@ -14,28 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.aot.gradle;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.gradle.api.Task;
-
 /**
- * {@link Task} to start a native application.
- *
- * @author Andy Wilkinson
+ * DSL for smoke testing of applications using AOT.
  */
-public class StartNativeApplication extends StartApplication {
-
-	@Override
-	protected ProcessBuilder prepareProcessBuilder(ProcessBuilder processBuilder) {
-		List<String> command = new ArrayList<>();
-		command.add(getApplicationBinary().getAsFile().get().getAbsolutePath());
-		if (getWebApplication().get()) {
-			command.add("-Dserver.port=0");
-		}
-		return processBuilder.command(command);
-	}
-
-}
+package org.springframework.aot.gradle.dsl;

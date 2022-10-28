@@ -45,6 +45,12 @@ import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.testing.Test;
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
+import org.springframework.aot.gradle.dsl.AotSmokeTestExtension;
+import org.springframework.aot.gradle.tasks.AppTest;
+import org.springframework.aot.gradle.tasks.StartApplication;
+import org.springframework.aot.gradle.tasks.StartJvmApplication;
+import org.springframework.aot.gradle.tasks.StartNativeApplication;
+import org.springframework.aot.gradle.tasks.StopApplication;
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
 import org.springframework.boot.gradle.tasks.bundling.BootJar;
 
@@ -148,20 +154,20 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		});
 	}
 
-	private TaskProvider<AotTestTask> configureTasks(Project project, SourceSet appTest, ApplicationType type,
+	private TaskProvider<AppTest> configureTasks(Project project, SourceSet appTest, ApplicationType type,
 			Provider<RegularFile> nativeImage, AotSmokeTestExtension extension) {
 		Provider<Directory> outputDirectory = project.getLayout().getBuildDirectory()
 				.dir(type.name().toLowerCase() + "App");
 		TaskProvider<? extends StartApplication> startTask = createStartApplicationTask(project, type, nativeImage,
 				outputDirectory, extension);
 		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project, type, startTask);
-		TaskProvider<AotTestTask> aotTestTask = createAppTestTask(project, appTest, type, startTask, stopTask);
-		configureDockerComposeIfNecessary(project, type, startTask, aotTestTask, stopTask);
-		return aotTestTask;
+		TaskProvider<AppTest> appTestTask = createAppTestTask(project, appTest, type, startTask, stopTask);
+		configureDockerComposeIfNecessary(project, type, startTask, appTestTask, stopTask);
+		return appTestTask;
 	}
 
 	private void configureDockerComposeIfNecessary(Project project, ApplicationType type,
-			TaskProvider<? extends StartApplication> startTask, TaskProvider<AotTestTask> aotTestTask,
+			TaskProvider<? extends StartApplication> startTask, TaskProvider<AppTest> appTestTask,
 			TaskProvider<StopApplication> stopTask) {
 		if (!project.file("docker-compose.yml").canRead()) {
 			return;
@@ -175,13 +181,13 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.configure((composeUp) -> composeUp.finalizedBy(composeDownTaskName));
 		startTask.configure((start) -> {
 			start.dependsOn(composeUpTaskName);
-			start.environment(project.provider(() -> environment(composeSettings)));
+			start.getInternalEnvironment().putAll(environment(project, composeSettings));
 		});
-		aotTestTask.configure((aotTest) -> aotTest.environment(project.provider(() -> environment(composeSettings))));
+		appTestTask.configure((appTest) -> appTest.getInternalEnvironment().putAll(environment(project, composeSettings)));
 		project.getTasks().named(composeDownTaskName).configure((composeDown) -> composeDown.mustRunAfter(stopTask));
 	}
 
-	private Map<String, String> environment(ComposeSettings settings) {
+	private Provider<Map<String, String>> environment(Project project, ComposeSettings settings) {
 		Map<String, String> environment = new HashMap<>();
 		settings.getServicesInfos().forEach((serviceName, service) -> {
 			String name = serviceName.toUpperCase(Locale.ENGLISH);
@@ -189,7 +195,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			service.getTcpPorts()
 					.forEach((source, target) -> environment.put(name + "_PORT_" + source, Integer.toString(target)));
 		});
-		return environment;
+		return project.provider(() -> environment);
 	}
 
 	private TaskProvider<StopApplication> createStopApplicationTask(Project project, ApplicationType type,
@@ -222,13 +228,13 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		});
 	}
 
-	private TaskProvider<AotTestTask> createAppTestTask(Project project, SourceSet source, ApplicationType type,
+	private TaskProvider<AppTest> createAppTestTask(Project project, SourceSet source, ApplicationType type,
 			TaskProvider<? extends StartApplication> startTask, TaskProvider<StopApplication> stopTask) {
 		String taskName = switch (type) {
 			case JVM -> "appTest";
 			case NATIVE -> "nativeAppTest";
 		};
-		TaskProvider<AotTestTask> appTestTask = project.getTasks().register(taskName, AotTestTask.class, (task) -> {
+		TaskProvider<AppTest> appTestTask = project.getTasks().register(taskName, AppTest.class, (task) -> {
 			task.dependsOn(startTask);
 			task.useJUnitPlatform();
 			task.setTestClassesDirs(source.getOutput().getClassesDirs());

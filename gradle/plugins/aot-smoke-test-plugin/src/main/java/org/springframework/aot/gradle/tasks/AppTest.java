@@ -14,39 +14,25 @@
  * limitations under the License.
  */
 
-package org.springframework.aot.gradle;
+package org.springframework.aot.gradle.tasks;
 
-import java.util.Map;
-
-import org.gradle.api.Task;
 import org.gradle.api.provider.MapProperty;
-import org.gradle.api.provider.Provider;
+import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.testing.Test;
 
 /**
- * {@link Task} to execute the AOT tests.
+ * Custom {@link Test} task for app tests.
  *
  * @author Moritz Halbritter
  */
-public class AotTestTask extends Test {
+public abstract class AppTest extends Test {
 
-	private final MapProperty<String, String> environment;
-
-	public AotTestTask() {
-		this.environment = getProject().getObjects().mapProperty(String.class, String.class);
-	}
-
-	/**
-	 * Adds the provided {@code environment} to the environment of the application.
-	 * @param environment the environment
-	 */
-	public void environment(Provider<Map<String, String>> environment) {
-		this.environment.putAll(environment);
-	}
+	@Internal
+	public abstract MapProperty<String, String> getInternalEnvironment();
 
 	@Override
 	public void executeTests() {
-		environment(this.environment.get());
+		environment(getInternalEnvironment().get());
 		super.executeTests();
 	}
 

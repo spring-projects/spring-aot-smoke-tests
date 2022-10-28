@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-package org.springframework.aot.gradle;
+package org.springframework.aot.gradle.tasks;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Task;
 import org.gradle.api.file.DirectoryProperty;
-import org.gradle.api.file.RegularFile;
 import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.MapProperty;
 import org.gradle.api.provider.Property;
-import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
 import org.gradle.api.tasks.Internal;
@@ -43,28 +40,10 @@ import org.gradle.api.tasks.TaskAction;
  */
 public abstract class StartApplication extends DefaultTask {
 
-	private final MapProperty<String, String> environment;
-
-	private final RegularFileProperty applicationBinary;
-
-	private final Property<Boolean> webApplication;
-
-	private final DirectoryProperty outputDirectory;
-
-	private final Provider<RegularFile> pidFile;
-
-	private final Provider<RegularFile> outputFile;
-
-	private final Provider<RegularFile> errorFile;
-
 	public StartApplication() {
-		this.environment = getProject().getObjects().mapProperty(String.class, String.class);
-		this.applicationBinary = getProject().getObjects().fileProperty();
-		this.webApplication = getProject().getObjects().property(Boolean.class);
-		this.outputDirectory = getProject().getObjects().directoryProperty();
-		this.pidFile = this.outputDirectory.map((dir) -> dir.file("pid"));
-		this.outputFile = this.outputDirectory.map((dir) -> dir.file("output.txt"));
-		this.errorFile = this.outputDirectory.map((dir) -> dir.file("error.txt"));
+		getPidFile().convention(getOutputDirectory().map((dir) -> dir.file("pid")));
+		getOutputFile().convention(getOutputDirectory().map((dir) -> dir.file("output.txt")));
+		getErrorFile().convention(getOutputDirectory().map((dir) -> dir.file("error.txt")));
 	}
 
 	/**
@@ -72,9 +51,7 @@ public abstract class StartApplication extends DefaultTask {
 	 * @return the application's binary
 	 */
 	@InputFile
-	public RegularFileProperty getApplicationBinary() {
-		return this.applicationBinary;
-	}
+	public abstract RegularFileProperty getApplicationBinary();
 
 	/**
 	 * Whether the application to be started is a web application. When it is, the
@@ -82,9 +59,7 @@ public abstract class StartApplication extends DefaultTask {
 	 * @return whether the application is a web application
 	 */
 	@Input
-	public Property<Boolean> getWebApplication() {
-		return this.webApplication;
-	}
+	public abstract Property<Boolean> getWebApplication();
 
 	/**
 	 * The directory to which output should be written. Controls the location of the pid,
@@ -92,57 +67,44 @@ public abstract class StartApplication extends DefaultTask {
 	 * @return the output directory
 	 */
 	@Internal
-	public DirectoryProperty getOutputDirectory() {
-		return this.outputDirectory;
-	}
+	public abstract DirectoryProperty getOutputDirectory();
 
 	/**
 	 * The file to which the application's pid should be written.
 	 * @return the pid file
 	 */
 	@Internal
-	public Provider<RegularFile> getPidFile() {
-		return this.pidFile;
-	}
+	public abstract RegularFileProperty getPidFile();
 
 	/**
 	 * The file to which the application's redirected output stream should be written.
 	 * @return the output file
 	 */
 	@Internal
-	public Provider<RegularFile> getOutputFile() {
-		return this.outputFile;
-	}
+	public abstract RegularFileProperty getOutputFile();
 
 	/**
 	 * The file to which the application's redirected error stream should be written.
 	 * @return the error file
 	 */
 	@Internal
-	public Provider<RegularFile> getErrorFile() {
-		return this.errorFile;
-	}
+	public abstract RegularFileProperty getErrorFile();
 
-	/**
-	 * Adds the provided {@code environment} to the environment of the application.
-	 * @param environment the environment
-	 */
-	public void environment(Provider<Map<String, String>> environment) {
-		this.environment.putAll(environment);
-	}
+	@Internal
+	public abstract MapProperty<String, String> getInternalEnvironment();
 
 	@TaskAction
 	void startApplication() throws IOException {
-		this.outputDirectory.getAsFile().get().mkdirs();
-		File redirectedError = this.errorFile.get().getAsFile();
-		File redirectedOutput = this.outputFile.get().getAsFile();
-		Path pid = this.pidFile.get().getAsFile().toPath();
+		getOutputDirectory().getAsFile().get().mkdirs();
+		File redirectedError = getErrorFile().get().getAsFile();
+		File redirectedOutput = getOutputFile().get().getAsFile();
+		Path pid = getPidFile().get().getAsFile().toPath();
 		Files.deleteIfExists(redirectedError.toPath());
 		Files.deleteIfExists(redirectedOutput.toPath());
 		Files.deleteIfExists(pid);
 		ProcessBuilder processBuilder = prepareProcessBuilder(new ProcessBuilder()).redirectError(redirectedError)
 				.redirectOutput(redirectedOutput);
-		processBuilder.environment().putAll(this.environment.get());
+		processBuilder.environment().putAll(getInternalEnvironment().get());
 		Process process = processBuilder.start();
 		Files.write(pid, List.of(Long.toString(process.pid())));
 	}
