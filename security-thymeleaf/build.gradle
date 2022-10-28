@@ -15,7 +15,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 
-	aotSmokeTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation(project(":aot-smoke-test-support"))
 }
 
 aotSmokeTest {

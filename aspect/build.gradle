@@ -11,6 +11,6 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	aotSmokeTestImplementation(project(":aot-smoke-test-support"))
-	aotSmokeTestImplementation("org.awaitility:awaitility:4.2.0")
+	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }

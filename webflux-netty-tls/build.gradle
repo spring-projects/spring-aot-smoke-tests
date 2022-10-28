@@ -11,8 +11,8 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	aotSmokeTestImplementation(project(":aot-smoke-test-support"))
-	aotSmokeTestImplementation("io.projectreactor.netty:reactor-netty")
+	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("io.projectreactor.netty:reactor-netty")
 }
 
 aotSmokeTest {
