@@ -81,7 +81,7 @@ jobs:
   - get: daily
     trigger: true
   - do:
-    - task: smoke-test
+    - task: app-test
       image: ci-image
       privileged: true
       timeout: #@ task_timeout
@@ -105,7 +105,7 @@ jobs:
   - get: ci-image
   - get: git-repo
   - do:
-    - task: smoke-test
+    - task: native-app-test
       image: ci-image
       privileged: true
       timeout: #@ task_timeout
@@ -131,7 +131,7 @@ jobs:
   - get: daily
     trigger: true
   - do:
-    - task: smoke-test
+    - task: test
       image: ci-image
       privileged: true
       timeout: #@ task_timeout
@@ -155,7 +155,7 @@ jobs:
   - get: ci-image
   - get: git-repo
   - do:
-    - task: smoke-test
+    - task: native-test
       image: ci-image
       privileged: true
       timeout: #@ task_timeout
@@ -174,11 +174,15 @@ jobs:
 #@ end
 groups:
 #@ for group in data.values.groups:
-- name: #@ group.name + "-smoke-tests"
+- name: #@ group.name + "-app-tests"
   jobs:
 #@ for smoke_test in group.smoke_tests:
   - #@ smoke_test + "-app-test"
   - #@ smoke_test + "-native-app-test"
+#@ end
+- name: #@ group.name + "-tests"
+  jobs:
+#@ for smoke_test in group.smoke_tests:
   - #@ smoke_test + "-test"
   - #@ smoke_test + "-native-test"
 #@ end
