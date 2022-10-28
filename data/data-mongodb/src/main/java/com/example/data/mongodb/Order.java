@@ -62,7 +62,7 @@ public class Order {
 	@DocumentReference
 	private Discount documentRef;
 
-	// @DocumentReference(lazy = true) // TODO: ClassProxies
+	@DocumentReference(lazy = true) // TODO: ClassProxies
 	Discount lazyDocumentRef;
 
 	@CreatedDate

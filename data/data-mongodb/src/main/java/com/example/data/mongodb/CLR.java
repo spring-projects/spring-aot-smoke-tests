@@ -179,7 +179,7 @@ class CLR implements CommandLineRunner {
 		orderRepository.save(newOrder("b12", product1));
 
 		List<OrdersPerCustomer> result = orderRepository.totalOrdersPerCustomer(Sort.by(Sort.Order.desc("total")));
-		log("result: %s", result);
+		log("aggregation: %s", result);
 
 		// assertThat(result).containsExactly(new OrdersPerCustomer("c42", 3L), new
 		// OrdersPerCustomer("b12", 2L));
@@ -281,6 +281,7 @@ class CLR implements CommandLineRunner {
 		Optional<Order> loaded = orderRepository.findById(order.getId());
 		log("document ref (no proxy): %s", loaded.get().getDocumentRef().getPercentage());
 		log("lazy document ref (aot): %s", loaded.get().lazyDocumentRef);
+		log("lazy document ref (resolved): %s", loaded.get().getLazyDocumentRef().getPercentage());
 
 		log("-----------------\n\n\n");
 	}
@@ -297,7 +298,7 @@ class CLR implements CommandLineRunner {
 				ExampleMatcher.matching().withIgnorePaths("items"));
 
 		Iterable<Order> result = orderRepository.findAll(example);
-		log("result: %s", result);
+		log("qbe: %s", result);
 
 		log("-----------------\n\n\n");
 	}
