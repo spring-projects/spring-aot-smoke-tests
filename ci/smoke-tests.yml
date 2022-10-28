@@ -69,6 +69,7 @@ groups:
     - jdbc-mariadb
     - jdbc-mysql
     - jdbc-postgresql
+    - kotlin-functional
     - mail
     - order
     - quartz
