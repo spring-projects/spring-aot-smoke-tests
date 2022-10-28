@@ -1,4 +1,4 @@
-package com.example.commandlinerunner;
+package com.example.custombanner;
 
 import java.time.Duration;
 

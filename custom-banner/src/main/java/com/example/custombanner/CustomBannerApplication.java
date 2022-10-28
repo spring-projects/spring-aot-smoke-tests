@@ -1,4 +1,4 @@
-package com.example.commandlinerunner;
+package com.example.custombanner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
