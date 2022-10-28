@@ -11,6 +11,7 @@ groups:
     - command-line-runner
     - conditional
     - configuration-properties
+    - custom-banner
     - flyway
     - freemarker-webflux
     - freemarker-webmvc
