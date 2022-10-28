@@ -90,7 +90,7 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
         TASK: appTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
@@ -114,7 +114,7 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
         TASK: nativeAppTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
@@ -140,7 +140,7 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
         TASK: test
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
@@ -164,7 +164,7 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
         TASK: nativeTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
