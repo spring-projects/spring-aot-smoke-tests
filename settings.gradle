@@ -1,5 +1,5 @@
 pluginManagement {
-	includeBuild "gradle-plugins/aot-smoke-test-plugin"
+	includeBuild "gradle/plugins/aot-smoke-test-plugin"
 	repositories {
 		gradlePluginPortal()
 		maven {
