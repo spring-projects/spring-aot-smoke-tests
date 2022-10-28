@@ -45,6 +45,7 @@ groups:
     - data-jdbc-h2
     - data-jdbc-postgresql
     - data-jpa
+    - data-jpa-kotlin
     - data-mongodb
     - data-mongodb-reactive
     - data-r2dbc
