@@ -33,6 +33,8 @@ import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
 import org.gradle.api.JavaVersion;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.artifacts.dsl.DependencyHandler;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.RegularFile;
 import org.gradle.api.plugins.ExtensionAware;
@@ -47,6 +49,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
 import org.springframework.aot.gradle.dsl.AotSmokeTestExtension;
 import org.springframework.aot.gradle.tasks.AppTest;
+import org.springframework.aot.gradle.tasks.DescribeSmokeTests;
 import org.springframework.aot.gradle.tasks.StartApplication;
 import org.springframework.aot.gradle.tasks.StartJvmApplication;
 import org.springframework.aot.gradle.tasks.StartNativeApplication;
@@ -97,6 +100,18 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		configureTests(project);
 		configureKotlin(project, javaExtension);
 		configureJavaFormat(project);
+		Configuration smokeTests = project.getConfigurations().create("smokeTests");
+		TaskProvider<DescribeSmokeTests> describeSmokeTests = project.getTasks().register("describeSmokeTests",
+				DescribeSmokeTests.class);
+		describeSmokeTests.configure((task) -> {
+			task.getOutputDirectory().set(project.getLayout().getBuildDirectory().dir(task.getName()));
+			task.setAppTests(appTest.getAllSource());
+			task.setTests(javaExtension.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME).getAllSource());
+		});
+		project.artifacts((artifacts) -> artifacts.add(smokeTests.getName(), describeSmokeTests));
+		DependencyHandler dependencies = project.getRootProject().getDependencies();
+		dependencies.add("smokeTests",
+				dependencies.project(Map.of("path", project.getPath(), "configuration", smokeTests.getName())));
 	}
 
 	private void configureAppTests(Project project, AotSmokeTestExtension extension, SourceSet appTest) {

@@ -11,6 +11,7 @@ plugins {
 	id "io.spring.javaformat" version "0.0.34" apply false
 	id "org.graalvm.buildtools.native" version "0.9.18" apply false
 	id "org.jetbrains.kotlin.jvm" version "1.7.10" apply false
+	id "org.springframework.aot.smoke-test-aggregator"
 }
 
 subprojects {
