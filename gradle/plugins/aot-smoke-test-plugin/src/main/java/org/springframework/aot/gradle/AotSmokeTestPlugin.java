@@ -183,19 +183,22 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			start.dependsOn(composeUpTaskName);
 			start.getInternalEnvironment().putAll(environment(project, composeSettings));
 		});
-		appTestTask.configure((appTest) -> appTest.getInternalEnvironment().putAll(environment(project, composeSettings)));
+		appTestTask
+				.configure((appTest) -> appTest.getInternalEnvironment().putAll(environment(project, composeSettings)));
 		project.getTasks().named(composeDownTaskName).configure((composeDown) -> composeDown.mustRunAfter(stopTask));
 	}
 
 	private Provider<Map<String, String>> environment(Project project, ComposeSettings settings) {
-		Map<String, String> environment = new HashMap<>();
-		settings.getServicesInfos().forEach((serviceName, service) -> {
-			String name = serviceName.toUpperCase(Locale.ENGLISH);
-			environment.put(name + "_HOST", service.getHost());
-			service.getTcpPorts()
-					.forEach((source, target) -> environment.put(name + "_PORT_" + source, Integer.toString(target)));
+		return project.provider(() -> {
+			Map<String, String> environment = new HashMap<>();
+			settings.getServicesInfos().forEach((serviceName, service) -> {
+				String name = serviceName.toUpperCase(Locale.ENGLISH);
+				environment.put(name + "_HOST", service.getHost());
+				service.getTcpPorts().forEach(
+						(source, target) -> environment.put(name + "_PORT_" + source, Integer.toString(target)));
+			});
+			return environment;
 		});
-		return project.provider(() -> environment);
 	}
 
 	private TaskProvider<StopApplication> createStopApplicationTask(Project project, ApplicationType type,
