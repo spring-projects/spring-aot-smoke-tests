@@ -1,15 +1,14 @@
-package com.example.commandlinerunner;
+package com.example.tcf;
 
-import com.example.commandlinerunner.service.MyService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@SpringBootTest
+@SpringJUnitConfig(MyServiceConfiguration.class)
 class MockBeanTests {
 
 	@MockBean

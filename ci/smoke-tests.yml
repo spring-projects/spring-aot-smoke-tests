@@ -4,7 +4,7 @@ groups:
      - batch
   - name: boot
     smoke_tests:
-      - actuator-webflux
+    - actuator-webflux
     - actuator-webflux-mgmt-port
     - actuator-webmvc
     - actuator-webmvc-mgmt-port
@@ -79,6 +79,7 @@ groups:
     - rest-template
     - rsocket
     - scheduled
+    - tcf
     - transactional
     - transactional-event-listener
     - validation
