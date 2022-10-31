@@ -70,18 +70,18 @@ jobs:
     file: git-repo/ci/pipeline.yml
 #@ for group in data.values.groups:
 #@ for smoke_test in group.smoke_tests:
-- name: #@ smoke_test + "-jvm"
+- name: #@ smoke_test + "-app-test"
   serial: true
   public: true
   serial_groups:
-  - #@ group.name + "-jvm"
+  - #@ group.name + "-app-test"
   plan:
   - get: ci-image
   - get: git-repo
   - get: daily
     trigger: true
   - do:
-    - task: smoke-test
+    - task: app-test
       image: ci-image
       privileged: true
       timeout: #@ task_timeout
@@ -90,22 +90,22 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ smoke_test
-        TASK: jvmAotTest
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        TASK: appTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
         GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
         GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
-- name: #@ smoke_test + "-native"
+- name: #@ smoke_test + "-native-app-test"
   serial: true
   public: true
   serial_groups:
-  - #@ group.name + "-native"
+  - #@ group.name + "-native-app-test"
   plan:
   - get: ci-image
   - get: git-repo
   - do:
-    - task: smoke-test
+    - task: native-app-test
       image: ci-image
       privileged: true
       timeout: #@ task_timeout
@@ -114,8 +114,58 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ smoke_test
-        TASK: nativeAotTest
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        TASK: nativeAppTest
+        DOCKER_HUB_MIRROR: ((docker-hub-mirror))
+        GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
+        GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
+        GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
+- name: #@ smoke_test + "-test"
+  serial: true
+  public: true
+  serial_groups:
+  - #@ group.name + "-test"
+  plan:
+  - get: ci-image
+  - get: git-repo
+  - get: daily
+    trigger: true
+  - do:
+    - task: test
+      image: ci-image
+      privileged: true
+      timeout: #@ task_timeout
+      file: git-repo/ci/tasks/smoke-test.yml
+      tags:
+        - native
+      params:
+        BRANCH: #@ branch
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        TASK: test
+        DOCKER_HUB_MIRROR: ((docker-hub-mirror))
+        GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
+        GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
+        GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
+- name: #@ smoke_test + "-native-test"
+  serial: true
+  public: true
+  serial_groups:
+  - #@ group.name + "-native-test"
+  plan:
+  - get: ci-image
+  - get: git-repo
+  - do:
+    - task: native-test
+      image: ci-image
+      privileged: true
+      timeout: #@ task_timeout
+      file: git-repo/ci/tasks/smoke-test.yml
+      tags:
+        - native
+      params:
+        BRANCH: #@ branch
+        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        TASK: nativeTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
         GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
@@ -124,11 +174,17 @@ jobs:
 #@ end
 groups:
 #@ for group in data.values.groups:
-- name: #@ group.name + "-smoke-tests"
+- name: #@ group.name + "-app-tests"
   jobs:
 #@ for smoke_test in group.smoke_tests:
-  - #@ smoke_test + "-jvm"
-  - #@ smoke_test + "-native"
+  - #@ smoke_test + "-app-test"
+  - #@ smoke_test + "-native-app-test"
+#@ end
+- name: #@ group.name + "-tests"
+  jobs:
+#@ for smoke_test in group.smoke_tests:
+  - #@ smoke_test + "-test"
+  - #@ smoke_test + "-native-test"
 #@ end
 #@ end
 - name: "infrastructure"

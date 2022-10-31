@@ -11,6 +11,7 @@ groups:
     - command-line-runner
     - conditional
     - configuration-properties
+    - custom-banner
     - flyway
     - freemarker-webflux
     - freemarker-webmvc
@@ -45,6 +46,7 @@ groups:
     - data-jdbc-h2
     - data-jdbc-postgresql
     - data-jpa
+    - data-jpa-kotlin
     - data-mongodb
     - data-mongodb-reactive
     - data-r2dbc
@@ -69,6 +71,7 @@ groups:
     - jdbc-mariadb
     - jdbc-mysql
     - jdbc-postgresql
+    - kotlin-functional
     - mail
     - order
     - quartz

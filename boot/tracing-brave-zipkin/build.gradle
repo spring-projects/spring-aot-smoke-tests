@@ -1,0 +1,27 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'org.springframework.aot.smoke-test'
+	id 'org.graalvm.buildtools.native'
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("io.micrometer:micrometer-tracing-bridge-brave")
+	implementation("io.zipkin.reporter2:zipkin-reporter-brave")
+	implementation("io.zipkin.reporter2:zipkin-sender-urlconnection")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("org.awaitility:awaitility:4.2.0")
+}
+
+graalvmNative {
+	binaries {
+		main {
+			buildArgs("--enable-http")
+		}
+	}
+}
