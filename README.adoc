@@ -16,21 +16,21 @@ The `appTest` task tests the application running on the JVM. The `nativeAppTest`
 
 [source,]
 ----
-./gradlew :<name of the smoke test>:build
+./gradlew :<name of the group>:<name of the smoke test>:build
 ----
 
 for example
 
 [source,]
 ----
-./gradlew :actuator-webmvc:build
+./gradlew :boot:actuator-webmvc:build
 ----
 
 === Run a specific type of tests for a project
 
 [source,]
 ----
-./gradlew :<name of the smoke test>:<test task name>
+./gradlew :<name of the group>:<name of the smoke test>:<test task name>
 ----
 
 Valid test task names are:
@@ -44,7 +44,7 @@ for example
 
 [source,]
 ----
-./gradlew :actuator-webmvc:appTest
+./gradlew :boot:actuator-webmvc:appTest
 ----
 
 === Add a new sample
@@ -59,7 +59,7 @@ for example
 
 [source,]
 ----
-./gradlew :<name of the smoke test>:build --include-build /path/to/your/project
+./gradlew :<name of the group>:<name of the smoke test>:build --include-build /path/to/your/project
 ----
 
 Gradle https://docs.gradle.org/current/userguide/composite_builds.html#command_line_composite[will then substitute the dependency] with your provided version.
