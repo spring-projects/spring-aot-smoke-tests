@@ -4,7 +4,7 @@ groups:
      - batch
   - name: boot
     smoke_tests:
-    - actuator-webflux
+      - actuator-webflux
     - actuator-webflux-mgmt-port
     - actuator-webmvc
     - actuator-webmvc-mgmt-port
@@ -15,6 +15,7 @@ groups:
     - flyway
     - freemarker-webflux
     - freemarker-webmvc
+    - json
     - liquibase
     - logging-log4j2
     - logging-logback
