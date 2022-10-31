@@ -7,17 +7,10 @@ plugins {
 
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.security:spring-security-oauth2-authorization-server:1.0.0-SNAPSHOT")
+	implementation("org.springframework.boot:spring-boot-starter-json")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-test")
 
-	appTestImplementation("com.fasterxml.jackson.core:jackson-databind")
 	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
-
-aotSmokeTest {
-	webApplication = true
-}
-
