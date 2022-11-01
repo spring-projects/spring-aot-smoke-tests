@@ -70,7 +70,8 @@ jobs:
     file: git-repo/ci/pipeline.yml
 #@ for group in data.values.groups:
 #@ for smoke_test in group.smoke_tests:
-- name: #@ smoke_test + "-app-test"
+#@ if smoke_test.app_test:
+- name: #@ smoke_test.name + "-app-test"
   serial: true
   public: true
   serial_groups:
@@ -90,13 +91,13 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test.name
         TASK: appTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
         GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
         GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
-- name: #@ smoke_test + "-native-app-test"
+- name: #@ smoke_test.name + "-native-app-test"
   serial: true
   public: true
   serial_groups:
@@ -114,13 +115,15 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test.name
         TASK: nativeAppTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
         GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
         GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
-- name: #@ smoke_test + "-test"
+#@ end
+#@ if smoke_test.test:
+- name: #@ smoke_test.name + "-test"
   serial: true
   public: true
   serial_groups:
@@ -140,13 +143,13 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test.name
         TASK: test
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
         GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
         GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
-- name: #@ smoke_test + "-native-test"
+- name: #@ smoke_test.name + "-native-test"
   serial: true
   public: true
   serial_groups:
@@ -164,7 +167,7 @@ jobs:
         - native
       params:
         BRANCH: #@ branch
-        SMOKE_TEST: #@ group.name + ":" + smoke_test
+        SMOKE_TEST: #@ group.name + ":" + smoke_test.name
         TASK: nativeTest
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
@@ -172,19 +175,24 @@ jobs:
         GRADLE_ENTERPRISE_CACHE_PASSWORD: ((gradle_enterprise_cache_user.password))
 #@ end
 #@ end
+#@ end
 groups:
 #@ for group in data.values.groups:
 - name: #@ group.name + "-app-tests"
   jobs:
 #@ for smoke_test in group.smoke_tests:
-  - #@ smoke_test + "-app-test"
-  - #@ smoke_test + "-native-app-test"
+#@ if smoke_test.app_test:
+  - #@ smoke_test.name + "-app-test"
+  - #@ smoke_test.name + "-native-app-test"
+#@ end
 #@ end
 - name: #@ group.name + "-tests"
   jobs:
 #@ for smoke_test in group.smoke_tests:
-  - #@ smoke_test + "-test"
-  - #@ smoke_test + "-native-test"
+#@ if smoke_test.test:
+  - #@ smoke_test.name + "-test"
+  - #@ smoke_test.name + "-native-test"
+#@ end
 #@ end
 #@ end
 - name: "infrastructure"

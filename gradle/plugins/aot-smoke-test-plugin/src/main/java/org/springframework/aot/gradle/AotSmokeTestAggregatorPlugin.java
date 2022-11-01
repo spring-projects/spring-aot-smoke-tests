@@ -20,6 +20,7 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
 
+import org.springframework.aot.gradle.tasks.UpdateConcoursePipeline;
 import org.springframework.aot.gradle.tasks.UpdateStatusPage;
 
 /**
@@ -36,6 +37,10 @@ public class AotSmokeTestAggregatorPlugin implements Plugin<Project> {
 		project.getTasks().register("updateStatusPage", UpdateStatusPage.class, (task) -> {
 			task.setSmokeTests(smokeTests);
 			task.getOutputFile().set(project.file("STATUS.adoc"));
+		});
+		project.getTasks().register("updateConcoursePipeline", UpdateConcoursePipeline.class, (task) -> {
+			task.setSmokeTests(smokeTests);
+			task.getOutputFile().set(project.file("ci/smoke-tests.yml"));
 		});
 	}
 

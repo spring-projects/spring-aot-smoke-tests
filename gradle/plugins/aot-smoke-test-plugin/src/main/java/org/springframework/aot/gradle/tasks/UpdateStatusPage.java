@@ -16,61 +16,31 @@
 
 package org.springframework.aot.gradle.tasks;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-import org.gradle.api.DefaultTask;
-import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.RegularFileProperty;
-import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
 /**
- * Tasks to update an Asciidoctor status page for the smoke tests.
+ * Task to update an Asciidoctor status page for the smoke tests.
  *
  * @author Andy Wilkinson
  */
-public abstract class UpdateStatusPage extends DefaultTask {
-
-	private FileCollection smokeTestDescriptions;
-
-	@InputFiles
-	public FileCollection getSmokeTests() {
-		return this.smokeTestDescriptions;
-	}
-
-	public void setSmokeTests(FileCollection smokeTests) {
-		this.smokeTestDescriptions = smokeTests;
-	}
+public abstract class UpdateStatusPage extends AbstractSmokeTestsTask {
 
 	@OutputFile
 	public abstract RegularFileProperty getOutputFile();
 
 	@TaskAction
 	void updateStatusPage() throws IOException {
-		List<SmokeTest> smokeTests = this.smokeTestDescriptions.getFiles().stream().map(this::readProperties)
-				.map(SmokeTest::new).collect(Collectors.toList());
-		Map<String, SortedSet<SmokeTest>> groupedSmokeTests = new TreeMap<>();
-		for (SmokeTest smokeTest : smokeTests) {
-			groupedSmokeTests.computeIfAbsent(smokeTest.group,
-					(group) -> new TreeSet<>((one, two) -> one.name().compareTo(two.name))).add(smokeTest);
-		}
 		List<String> lines = new ArrayList<>();
 		lines.add("|===");
-		groupedSmokeTests.forEach((group, tests) -> {
+		smokeTests().forEach((group, tests) -> {
 			lines.add("5+^h|" + capitalize(group));
 			lines.add("h|Smoke Test");
 			for (TestType testType : TestType.values()) {
@@ -95,27 +65,6 @@ public abstract class UpdateStatusPage extends DefaultTask {
 			buffer.append(buffer.isEmpty() ? Character.toUpperCase(c) : c);
 		}
 		return buffer.toString();
-	}
-
-	private Properties readProperties(File smokeTest) {
-		Properties properties = new Properties();
-		try (InputStream input = new FileInputStream(new File(smokeTest, "smoke-tests.properties"))) {
-			properties.load(input);
-		}
-		catch (IOException ex) {
-			throw new RuntimeException(ex);
-		}
-		return properties;
-	}
-
-	private static record SmokeTest(String name, String group, String path, boolean tests, boolean appTests) {
-
-		private SmokeTest(Properties properties) {
-			this(properties.getProperty("name"), properties.getProperty("group"), properties.getProperty("path"),
-					Boolean.valueOf(properties.getProperty("tests")),
-					Boolean.valueOf(properties.getProperty("appTests")));
-		}
-
 	}
 
 	private enum TestType {
