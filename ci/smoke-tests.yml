@@ -17,7 +17,6 @@ groups:
     - freemarker-webmvc
     - json
     - liquibase
-    - logging-log4j2
     - logging-logback
     - mustache-webflux
     - mustache-webmvc
