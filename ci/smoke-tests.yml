@@ -32,6 +32,7 @@ groups:
     - cloud-discovery-consul
     - cloud-discovery-eureka
     - cloud-discovery-zookeeper
+    - cloud-gateway
     - cloud-function-web
     - cloud-function-webflux
     - cloud-loadbalancing-web
