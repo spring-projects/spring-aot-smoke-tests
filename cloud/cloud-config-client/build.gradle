@@ -26,3 +26,11 @@ aotSmokeTest {
     webApplication = true
 }
 
+tasks.named("processAot") {
+    dependsOn tasks.named("jvmComposeUp")
+}
+
+tasks.named("jvmComposeDown") {
+    mustRunAfter tasks.named("processAot")
+}
+
