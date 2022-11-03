@@ -15,8 +15,6 @@ package com.example.cloud.stream.rabbit;
  * limitations under the License.
  */
 
-
-
 import java.time.Duration;
 
 import org.awaitility.Awaitility;
