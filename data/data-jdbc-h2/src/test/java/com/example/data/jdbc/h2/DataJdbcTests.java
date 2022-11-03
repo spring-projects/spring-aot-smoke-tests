@@ -40,4 +40,5 @@ class DataJdbcTests {
 		assertThat(found.get().getName()).isEqualTo("author-1");
 		assertThat(found.get().getBooks()).hasSize(1);
 	}
+
 }
