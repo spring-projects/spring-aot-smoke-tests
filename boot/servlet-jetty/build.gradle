@@ -5,6 +5,10 @@ plugins {
 	id 'org.graalvm.buildtools.native'
 }
 
+configurations.all {
+	resolutionStrategy.force("jakarta.servlet:jakarta.servlet-api:5.0.0")
+}
+
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-jetty")
