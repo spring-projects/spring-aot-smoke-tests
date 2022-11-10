@@ -72,7 +72,7 @@ class SecurityWebMvcApplicationAotTests {
 	@Test
 	void adminShouldBeProtectedWithWrongRole(WebTestClient client) {
 		client.get().uri("/rest/admin").headers((header) -> header.setBasicAuth("user", "password")).exchange()
-				.expectStatus().isUnauthorized();
+				.expectStatus().isForbidden();
 	}
 
 	@Test
