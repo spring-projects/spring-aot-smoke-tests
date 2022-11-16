@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@RegisterReflectionForBinding({Dto.class, Dto2.class, Dto3.class})
+@RegisterReflectionForBinding({ Dto.class, Dto2.class, Dto3.class })
 public class JsonApplication {
 
 	public static void main(String[] args) throws InterruptedException {
