@@ -60,6 +60,20 @@ class ConfigPropsApplicationAotTests {
 			});
 		}
 
+		@Test
+		void nestedNotInnerShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appProperties.getNestedNotInner(): NestedNotInner{aInt=4}");
+			});
+		}
+
+		@Test
+		void nestedNotInnerIntShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appProperties.getNestedNotInner().getaInt(): 4");
+			});
+		}
+
 	}
 
 	@Nested

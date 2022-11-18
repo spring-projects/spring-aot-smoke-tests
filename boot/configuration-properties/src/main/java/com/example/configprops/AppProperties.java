@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.util.unit.DataSize;
 
 @ConfigurationProperties(prefix = "app")
@@ -18,6 +19,9 @@ public class AppProperties {
 	private List<Nested> nestedList = new ArrayList<>();
 
 	private Nested nested = new Nested();
+
+	@NestedConfigurationProperty
+	private NestedNotInner nestedNotInner = new NestedNotInner();
 
 	public List<String> getStringList() {
 		return stringList;
@@ -41,6 +45,14 @@ public class AppProperties {
 
 	public void setNested(Nested nested) {
 		this.nested = nested;
+	}
+
+	public NestedNotInner getNestedNotInner() {
+		return nestedNotInner;
+	}
+
+	public void setNestedNotInner(NestedNotInner nestedNotInner) {
+		this.nestedNotInner = nestedNotInner;
 	}
 
 	public String getString() {

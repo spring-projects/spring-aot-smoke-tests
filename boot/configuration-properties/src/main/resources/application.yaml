@@ -7,6 +7,8 @@ app:
     - a-int: 2
   nested:
     a-int: 3
+  nested-not-inner:
+    a-int: 4
 
 app.ctor:
   string: "a-string"

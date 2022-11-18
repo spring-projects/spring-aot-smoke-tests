@@ -33,6 +33,9 @@ public class CLR implements CommandLineRunner {
 		System.out.printf("appProperties.getNestedList(): %s%n", appProperties.getNestedList());
 		System.out.printf("appProperties.getNested(): %s%n", appProperties.getNested());
 		System.out.printf("appProperties.getNested().getaInt(): %s%n", appProperties.getNested().getaInt());
+		System.out.printf("appProperties.getNestedNotInner(): %s%n", appProperties.getNestedNotInner());
+		System.out.printf("appProperties.getNestedNotInner().getaInt(): %s%n",
+				appProperties.getNestedNotInner().getaInt());
 
 		System.out.printf("appPropertiesCtor.getString(): %s%n", appPropertiesCtor.getString());
 		System.out.printf("appPropertiesCtor.getDataSize(): %s%n", appPropertiesCtor.getDataSize());
