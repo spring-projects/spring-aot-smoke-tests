@@ -1,8 +1,9 @@
-package com.example.configprops;
+package com.example.configprops.ctor;
 
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.util.unit.DataSize;
 
 @ConfigurationProperties(prefix = "app.ctor")
@@ -18,6 +19,7 @@ public class AppPropertiesCtor {
 
 	private final Nested nested;
 
+	@NestedConfigurationProperty
 	private final NestedNotInner nestedNotInner;
 
 	public AppPropertiesCtor(String string, DataSize dataSize, List<String> stringList, List<Nested> nestedList,

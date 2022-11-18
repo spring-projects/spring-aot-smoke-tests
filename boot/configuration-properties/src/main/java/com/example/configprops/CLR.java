@@ -1,5 +1,9 @@
 package com.example.configprops;
 
+import com.example.configprops.ctor.AppPropertiesCtor;
+import com.example.configprops.javabean.AppProperties;
+import com.example.configprops.records.AppPropertiesRecord;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;

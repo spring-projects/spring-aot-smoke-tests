@@ -1,4 +1,4 @@
-package com.example.configprops;
+package com.example.configprops.javabean;
 
 import java.util.ArrayList;
 import java.util.List;

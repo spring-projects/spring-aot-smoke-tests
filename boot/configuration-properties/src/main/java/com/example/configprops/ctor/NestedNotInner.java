@@ -1,6 +1,6 @@
-package com.example.configprops;
+package com.example.configprops.ctor;
 
-class NestedNotInner {
+public class NestedNotInner {
 
 	private int aInt;
 
