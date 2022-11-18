@@ -74,7 +74,7 @@ public class AppProperties {
 	@Override
 	public String toString() {
 		return "AppProperties{" + "string='" + string + '\'' + ", dataSize=" + dataSize + ", stringList=" + stringList
-				+ ", nestedList=" + nestedList + ", nested=" + nested + '}';
+				+ ", nestedList=" + nestedList + ", nested=" + nested + ", nestedNotInner=" + nestedNotInner + '}';
 	}
 
 	public static class Nested {

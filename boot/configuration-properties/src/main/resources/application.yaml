@@ -19,6 +19,8 @@ app.ctor:
     - a-int: 2
   nested:
     a-int: 3
+  nested-not-inner:
+    a-int: 4
 
 app.record:
   string: "a-string"
@@ -29,6 +31,8 @@ app.record:
     - a-int: 2
   nested:
     a-int: 3
+  nested-not-inner:
+    a-int: 4
 
 spring:
   config:

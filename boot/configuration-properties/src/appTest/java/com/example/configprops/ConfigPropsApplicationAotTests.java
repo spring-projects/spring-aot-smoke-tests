@@ -122,6 +122,21 @@ class ConfigPropsApplicationAotTests {
 			});
 		}
 
+		@Test
+		void nestedNotInnerShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output)
+						.hasSingleLineContaining("appPropertiesCtor.getNestedNotInner(): NestedNotInner{aInt=4}");
+			});
+		}
+
+		@Test
+		void nestedNotInnerIntShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appPropertiesCtor.getNestedNotInner().getaInt(): 4");
+			});
+		}
+
 	}
 
 	@Nested
@@ -167,6 +182,21 @@ class ConfigPropsApplicationAotTests {
 		void nestedIntShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output).hasSingleLineContaining("appPropertiesRecord.nested().aInt(): 3");
+			});
+		}
+
+		@Test
+		void nestedNotInnerShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output)
+						.hasSingleLineContaining("appPropertiesRecord.nestedNotInner(): NestedNotInner{aInt=4}");
+			});
+		}
+
+		@Test
+		void nestedNotInnerIntShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appPropertiesRecord.nestedNotInner().getaInt(): 4");
 			});
 		}
 

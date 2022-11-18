@@ -43,6 +43,9 @@ public class CLR implements CommandLineRunner {
 		System.out.printf("appPropertiesCtor.getNestedList(): %s%n", appPropertiesCtor.getNestedList());
 		System.out.printf("appPropertiesCtor.getNested(): %s%n", appPropertiesCtor.getNested());
 		System.out.printf("appPropertiesCtor.getNested().getaInt(): %s%n", appPropertiesCtor.getNested().getaInt());
+		System.out.printf("appPropertiesCtor.getNestedNotInner(): %s%n", appPropertiesCtor.getNestedNotInner());
+		System.out.printf("appPropertiesCtor.getNestedNotInner().getaInt(): %s%n",
+				appPropertiesCtor.getNestedNotInner().getaInt());
 
 		System.out.printf("appPropertiesRecord.string(): %s%n", appPropertiesRecord.string());
 		System.out.printf("appPropertiesRecord.dataSize(): %s%n", appPropertiesRecord.dataSize());
@@ -50,6 +53,9 @@ public class CLR implements CommandLineRunner {
 		System.out.printf("appPropertiesRecord.nestedList(): %s%n", appPropertiesRecord.nestedList());
 		System.out.printf("appPropertiesRecord.nested(): %s%n", appPropertiesRecord.nested());
 		System.out.printf("appPropertiesRecord.nested().aInt(): %s%n", appPropertiesRecord.nested().aInt());
+		System.out.printf("appPropertiesRecord.nestedNotInner(): %s%n", appPropertiesRecord.nestedNotInner());
+		System.out.printf("appPropertiesRecord.nestedNotInner().getaInt(): %s%n",
+				appPropertiesRecord.nestedNotInner().getaInt());
 
 		System.out.printf("test.yaml some.imported.key: %s%n", environment.getProperty("some.imported.key"));
 	}

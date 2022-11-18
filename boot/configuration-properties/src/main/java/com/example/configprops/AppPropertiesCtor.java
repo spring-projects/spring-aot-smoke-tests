@@ -18,13 +18,16 @@ public class AppPropertiesCtor {
 
 	private final Nested nested;
 
+	private final NestedNotInner nestedNotInner;
+
 	public AppPropertiesCtor(String string, DataSize dataSize, List<String> stringList, List<Nested> nestedList,
-			Nested nested) {
+			Nested nested, NestedNotInner nestedNotInner) {
 		this.string = string;
 		this.dataSize = dataSize;
 		this.stringList = stringList;
 		this.nestedList = nestedList;
 		this.nested = nested;
+		this.nestedNotInner = nestedNotInner;
 	}
 
 	public String getString() {
@@ -47,10 +50,15 @@ public class AppPropertiesCtor {
 		return nested;
 	}
 
+	public NestedNotInner getNestedNotInner() {
+		return nestedNotInner;
+	}
+
 	@Override
 	public String toString() {
 		return "AppPropertiesCtor{" + "string='" + string + '\'' + ", dataSize=" + dataSize + ", stringList="
-				+ stringList + ", nestedList=" + nestedList + ", nested=" + nested + '}';
+				+ stringList + ", nestedList=" + nestedList + ", nested=" + nested + ", nestedNotInner="
+				+ nestedNotInner + '}';
 	}
 
 	public static class Nested {
