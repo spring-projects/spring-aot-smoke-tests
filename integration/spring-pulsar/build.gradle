@@ -5,9 +5,13 @@ plugins {
     id 'org.graalvm.buildtools.native'
 }
 
+ext {
+    set('springPulsarVersion', "0.1.0-SNAPSHOT")
+}
+
 dependencies {
     implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-    implementation("org.springframework.pulsar:spring-pulsar-spring-boot-starter:0.1.0-SNAPSHOT")
+    implementation("org.springframework.pulsar:spring-pulsar-spring-boot-starter:${springPulsarVersion}")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 

@@ -1,8 +1,8 @@
 version: '3'
 services:
   pulsar:
-    image: apachepulsar/pulsar
+    image: apachepulsar/pulsar:2.10.2
     ports:
-      - 8080
-      - 6650
+      - '8080'
+      - '6650'
     command: bin/pulsar standalone
