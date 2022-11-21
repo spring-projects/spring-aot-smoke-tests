@@ -34,6 +34,9 @@ class CLR implements CommandLineRunner {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	TransactionalComponent txComponent;
+
 	@Override
 	public void run(String... args) {
 		initializeDatabase(args);
@@ -56,6 +59,7 @@ class CLR implements CommandLineRunner {
 		runWithDbRefs(product1, product2, product3);
 		runWithDocumentReferences(product1, product2, product3);
 		runQueryByExample(product1);
+		runInTransaction(product1);
 
 		personRepository.save(new Person("first-1", "last-1"));
 		personRepository.save(new Person("first-2", "last-2"));
@@ -87,6 +91,7 @@ class CLR implements CommandLineRunner {
 			else {
 				db.createCollection("coupon");
 			}
+			db.getCollection("person").drop();
 
 			return "ok";
 		});
@@ -300,6 +305,19 @@ class CLR implements CommandLineRunner {
 		Iterable<Order> result = orderRepository.findAll(example);
 		log("qbe: %s", result);
 
+		log("-----------------\n\n\n");
+	}
+
+	private void runInTransaction(LineItem product1) {
+
+		log("---- MULTI DOCUMENT TRANSACTION ----");
+		try {
+			txComponent.runTransactional(product1);
+		}
+		catch (RuntimeException e) {
+			System.out.printf("transactional-status: %s%n", e.getMessage());
+			System.out.printf("after-transaction: %s%n", orderRepository.findByCustomerId("within-tx"));
+		}
 		log("-----------------\n\n\n");
 	}
 

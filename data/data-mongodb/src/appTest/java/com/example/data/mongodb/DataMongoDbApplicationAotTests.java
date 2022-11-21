@@ -55,6 +55,15 @@ class DataMongoDbApplicationAotTests {
 	}
 
 	@Test
+	void transactionSupport(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("in-transaction: Order{id='")
+					.hasSingleLineContaining("transactional-status: rollback")
+					.hasSingleLineContaining("after-transaction: []");
+		});
+	}
+
+	@Test
 	void findAll(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("findAll(): Person{firstname='first-1', lastname='last-1'}")
