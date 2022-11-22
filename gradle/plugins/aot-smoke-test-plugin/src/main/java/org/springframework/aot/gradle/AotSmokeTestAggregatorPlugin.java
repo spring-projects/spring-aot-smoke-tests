@@ -19,6 +19,7 @@ package org.springframework.aot.gradle;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.tasks.TaskProvider;
 
 import org.springframework.aot.gradle.tasks.UpdateConcoursePipeline;
 import org.springframework.aot.gradle.tasks.UpdateStatusPage;
@@ -34,13 +35,18 @@ public class AotSmokeTestAggregatorPlugin implements Plugin<Project> {
 	@Override
 	public void apply(Project project) {
 		Configuration smokeTests = project.getConfigurations().create("smokeTests");
-		project.getTasks().register("updateStatusPage", UpdateStatusPage.class, (task) -> {
-			task.setSmokeTests(smokeTests);
-			task.getOutputFile().set(project.file("STATUS.adoc"));
-		});
-		project.getTasks().register("updateConcoursePipeline", UpdateConcoursePipeline.class, (task) -> {
-			task.setSmokeTests(smokeTests);
-			task.getOutputFile().set(project.file("ci/smoke-tests.yml"));
+		TaskProvider<UpdateStatusPage> updateStatusPage = project.getTasks().register("updateStatusPage",
+				UpdateStatusPage.class, (task) -> {
+					task.setSmokeTests(smokeTests);
+					task.getOutputFile().set(project.file("STATUS.adoc"));
+				});
+		TaskProvider<UpdateConcoursePipeline> updateConcoursePipeline = project.getTasks()
+				.register("updateConcoursePipeline", UpdateConcoursePipeline.class, (task) -> {
+					task.setSmokeTests(smokeTests);
+					task.getOutputFile().set(project.file("ci/smoke-tests.yml"));
+				});
+		project.getTasks().register("updateInfrastructure", (task) -> {
+			task.dependsOn(updateStatusPage, updateConcoursePipeline);
 		});
 	}
 

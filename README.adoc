@@ -47,11 +47,11 @@ for example
 ./gradlew :boot:actuator-webmvc:appTest
 ----
 
-=== Add a new sample
+=== Add a new smoke test
 
-1. Create a new directory for your sample
+1. Create a new directory for your smoke test in the appropriate group
 2. Include the directory in `settings.gradle`
-3. Include the directory in `ci/smoke-tests.yaml`
+3. Run `./gradlew updateInfrastructure` to add the smoke test to the status page and CI pipeline
 
 === Test against local changes
 
