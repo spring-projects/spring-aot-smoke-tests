@@ -96,3 +96,11 @@ dependencies {
 ----
 
 This works for direct and transitive dependencies.
+
+=== Docker Compose tips
+
+If your sample uses Docker Compose here are few tips:
+
+* Do not specify hardcoded port mappings in `docker-compose.yml` - use `'8080'` rather than `'8080':'8080'`
+* Wrap your port values in single quotes (`'8080'`)
+* Configure your sample app to use the dynamic host (`YOUR_SVC_HOST`) and port (`YOUR_SVC_PORT`) property (https://github.com/spring-projects/spring-aot-smoke-tests/blob/main/data/data-jdbc-postgresql/src/main/resources/application.properties[example])
