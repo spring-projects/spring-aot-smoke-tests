@@ -105,6 +105,8 @@ jobs:
   plan:
   - get: ci-image
   - get: git-repo
+  - get: daily
+    trigger: true
   - do:
     - task: native-app-test
       image: ci-image
@@ -157,6 +159,8 @@ jobs:
   plan:
   - get: ci-image
   - get: git-repo
+  - get: daily
+    trigger: true
   - do:
     - task: native-test
       image: ci-image
