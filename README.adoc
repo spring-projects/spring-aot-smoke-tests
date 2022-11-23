@@ -7,8 +7,11 @@ Unit tests are processed ahead of time and are then either run on the JVM or as 
 Unit tests can be run on the JVM using the `test` task and as a native executable using the `nativeTest` task.
 
 Application tests are always executed on the JVM against an application that's running on the JVM or as a native executable.
-The `appTest` task tests the application running on the JVM. The `nativeAppTest` task tests the application running as a native executable.
+The `appTest` task tests the application running on the JVM.The `nativeAppTest` task tests the application running as a native executable.
 
+== Contributing
+
+Please read and follow the link:CONTRIBUTING.adoc[contributing guide].
 
 == How to
 
@@ -96,11 +99,3 @@ dependencies {
 ----
 
 This works for direct and transitive dependencies.
-
-=== Docker Compose tips
-
-If your sample uses Docker Compose here are few tips:
-
-* Do not specify hardcoded port mappings in `docker-compose.yml` - use `'8080'` rather than `'8080':'8080'`
-* Wrap your port values in single quotes (`'8080'`)
-* Configure your sample app to use the dynamic host (`YOUR_SVC_HOST`) and port (`YOUR_SVC_PORT`) property (https://github.com/spring-projects/spring-aot-smoke-tests/blob/main/data/data-jdbc-postgresql/src/main/resources/application.properties[example])
