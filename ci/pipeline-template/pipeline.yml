@@ -221,22 +221,34 @@ jobs:
 #@ end
 groups:
 #@ for group in data.values.groups:
+#@   app_tests = []
+#@   for smoke_test in group.smoke_tests:
+#@     if smoke_test.app_test:
+#@       app_tests.append(smoke_test.name + "-app-test")
+#@       app_tests.append(smoke_test.name + "-native-app-test")
+#@     end
+#@   end
+#@   if len(app_tests) > 0:
 - name: #@ group.name + "-app-tests"
   jobs:
-#@ for smoke_test in group.smoke_tests:
-#@ if smoke_test.app_test:
-  - #@ smoke_test.name + "-app-test"
-  - #@ smoke_test.name + "-native-app-test"
-#@ end
-#@ end
+#@     for app_test in app_tests:
+  - #@ app_test
+#@     end
+#@   end
+#@   tests = []
+#@   for smoke_test in group.smoke_tests:
+#@     if smoke_test.test:
+#@       tests.append(smoke_test.name + "-test")
+#@       tests.append(smoke_test.name + "-native-test")
+#@     end
+#@   end
+#@   if len(tests) > 0:
 - name: #@ group.name + "-tests"
   jobs:
-#@ for smoke_test in group.smoke_tests:
-#@ if smoke_test.test:
-  - #@ smoke_test.name + "-test"
-  - #@ smoke_test.name + "-native-test"
-#@ end
-#@ end
+#@     for test in tests:
+  - #@ test
+#@     end
+#@   end
 #@ end
 - name: "infrastructure"
   jobs:
