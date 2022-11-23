@@ -12,6 +12,33 @@
 
 #@ load("@ytt:data", "data")
 
+#@ total_tests = 0
+#@ for group in data.values.groups:
+#@   for smoke_test in group.smoke_tests:
+#@     if smoke_test.app_test:
+#@       total_tests += 1
+#@     end
+#@     if smoke_test.test:
+#@       total_tests += 1
+#@     end
+#@   end
+#@ end
+#@ total_tests = total_tests + 1
+#@ test_interval = (60 * 24) // total_tests
+#@ trigger_times = []
+#@ for x in range(total_tests):
+#@   hours = str((x * test_interval) // 60)
+#@   if (len(hours) == 1):
+#@     hours = "0" + hours
+#@   end
+#@   minutes = str((x * test_interval) % 60)
+#@   if (len(minutes) == 1):
+#@     minutes = "0" + minutes
+#@   end
+#@   trigger_times.append(hours + ":" + minutes)
+#@ end
+#@ test_index = 0
+
 resources:
 - name: git-repo
   type: git
@@ -37,10 +64,30 @@ resources:
     password: ((docker-hub-password))
     tag: #@ milestone
     repository: #@ docker_hub["organization"] + "/" + github["repository"] + "-ci"
-- name: daily
+#@ for group in data.values.groups:
+#@   for smoke_test in group.smoke_tests:
+#@     if smoke_test.app_test:
+- name: #@ "time-" + smoke_test.name + "-app-test"
   type: time
   icon: clock-outline
-  source: { interval: "24h" }
+  source:
+    interval: 24h
+    start: #@ trigger_times[test_index]
+    stop: #@ trigger_times[test_index + 1]
+#@       test_index += 1
+#@     end
+#@     if smoke_test.test:
+- name: #@ "time-" + smoke_test.name + "-test"
+  type: time
+  icon: clock-outline
+  source:
+    interval: 24h
+    start: #@ trigger_times[test_index]
+    stop: #@ trigger_times[test_index + 1]
+#@       test_index += 1
+#@     end
+#@   end
+#@ end
 jobs:
 - name: build-ci-images
   plan:
@@ -74,12 +121,10 @@ jobs:
 - name: #@ smoke_test.name + "-app-test"
   serial: true
   public: true
-  serial_groups:
-  - #@ group.name + "-app-test"
   plan:
   - get: ci-image
   - get: git-repo
-  - get: daily
+  - get: #@ "time-" + smoke_test.name + "-app-test"
     trigger: true
   - do:
     - task: app-test
@@ -100,12 +145,10 @@ jobs:
 - name: #@ smoke_test.name + "-native-app-test"
   serial: true
   public: true
-  serial_groups:
-  - #@ group.name + "-native-app-test"
   plan:
   - get: ci-image
   - get: git-repo
-  - get: daily
+  - get: #@ "time-" + smoke_test.name + "-app-test"
     trigger: true
   - do:
     - task: native-app-test
@@ -128,12 +171,10 @@ jobs:
 - name: #@ smoke_test.name + "-test"
   serial: true
   public: true
-  serial_groups:
-  - #@ group.name + "-test"
   plan:
   - get: ci-image
   - get: git-repo
-  - get: daily
+  - get: #@ "time-" + smoke_test.name + "-test"
     trigger: true
   - do:
     - task: test
@@ -154,12 +195,10 @@ jobs:
 - name: #@ smoke_test.name + "-native-test"
   serial: true
   public: true
-  serial_groups:
-  - #@ group.name + "-native-test"
   plan:
   - get: ci-image
   - get: git-repo
-  - get: daily
+  - get: #@ "time-" + smoke_test.name + "-test"
     trigger: true
   - do:
     - task: native-test
