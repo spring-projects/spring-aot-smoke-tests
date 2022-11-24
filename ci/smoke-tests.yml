@@ -20,7 +20,7 @@ groups:
        test: false
      - name: command-line-runner
        app_test: true
-       test: true
+       test: false
      - name: conditional
        app_test: true
        test: false
@@ -63,6 +63,9 @@ groups:
      - name: servlet-undertow
        app_test: true
        test: false
+     - name: tcf
+       app_test: false
+       test: true
      - name: thymeleaf-webflux
        app_test: true
        test: false
