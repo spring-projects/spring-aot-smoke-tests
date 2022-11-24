@@ -1,0 +1,44 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'org.springframework.aot.smoke-test'
+	id 'org.graalvm.buildtools.native'
+	id 'org.jetbrains.kotlin.jvm'
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-starter-jetty")
+	modules {
+		module("org.springframework.boot:spring-boot-starter-reactor-netty") {
+			replacedBy("org.springframework.boot:spring-boot-starter-jetty", "Use Jetty instead of Netty")
+		}
+	}
+	// Downgrades for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
+	implementation('jakarta.servlet:jakarta.servlet-api') {
+		version {
+			strictly '5.0.0'
+		}
+	}
+	implementation('jakarta.websocket:jakarta.websocket-api') {
+		version {
+			strictly '2.0.0'
+		}
+	}
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	implementation("org.glassfish.jaxb:jaxb-runtime")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.eclipse.jetty:jetty-reactive-httpclient")
+
+	appTestImplementation("org.eclipse.jetty.websocket:websocket-jetty-client")
+	appTestImplementation(project(":aot-smoke-test-support"))
+}
+
+aotSmokeTest {
+	webApplication = true
+}
+

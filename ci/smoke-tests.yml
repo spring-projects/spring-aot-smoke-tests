@@ -237,6 +237,9 @@ groups:
      - name: webclient
        app_test: true
        test: false
+     - name: webflux-jetty
+       app_test: true
+       test: true
      - name: webflux-netty
        app_test: true
        test: true
