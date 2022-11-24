@@ -42,6 +42,12 @@ h|nativeTest
 |
 |
 
+|boot-tcf
+|
+|
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/boot-tcf-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/boot-tcf-test]
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/boot-tcf-native-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/boot-tcf-native-test]
+
 |command-line-runner
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/command-line-runner-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/command-line-runner-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/command-line-runner-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/command-line-runner-native-app-test]
@@ -131,12 +137,6 @@ h|nativeTest
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/servlet-undertow-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/servlet-undertow-native-app-test]
 |
 |
-
-|tcf
-|
-|
-|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/tcf-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/tcf-test]
-|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/tcf-native-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/tcf-native-test]
 
 |thymeleaf-webflux
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/thymeleaf-webflux-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/thymeleaf-webflux-app-test]

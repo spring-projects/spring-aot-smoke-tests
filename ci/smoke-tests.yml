@@ -18,6 +18,9 @@ groups:
      - name: actuator-webmvc-mgmt-port
        app_test: true
        test: false
+     - name: boot-tcf
+       app_test: false
+       test: true
      - name: command-line-runner
        app_test: true
        test: false
@@ -63,9 +66,6 @@ groups:
      - name: servlet-undertow
        app_test: true
        test: false
-     - name: tcf
-       app_test: false
-       test: true
      - name: thymeleaf-webflux
        app_test: true
        test: false
