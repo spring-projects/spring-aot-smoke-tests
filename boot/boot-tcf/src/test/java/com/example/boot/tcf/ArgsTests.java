@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, args = "--test.args=1")
-class ArgsTest {
+class ArgsTests {
 
 	@Test
 	void shouldPassArgs(@Autowired ApplicationArguments applicationArguments) {
