@@ -21,10 +21,13 @@ class RandomPortTests {
 	private TestRestTemplate template;
 
 	@Test
-	void shouldGetResponse() {
+	void check() {
 		assertThat(this.port).isNotZero();
+	}
+
+	@Test
+	void testRestTemplateWorks() {
 		ResponseEntity<String> response = this.template.getForEntity("/", String.class);
 		assertThat(response.getBody()).isEqualTo("Hello from Spring MVC and Tomcat");
 	}
-
 }
