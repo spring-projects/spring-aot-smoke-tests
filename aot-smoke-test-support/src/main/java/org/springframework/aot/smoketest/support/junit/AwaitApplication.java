@@ -16,6 +16,8 @@
 
 package org.springframework.aot.smoketest.support.junit;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -31,13 +33,15 @@ import org.springframework.aot.smoketest.support.Output;
  */
 class AwaitApplication implements BeforeAllCallback {
 
+	private static final Duration START_TIMEOUT = Duration.ofSeconds(30);
+
 	private Pattern APPLICATION_STARTED = Pattern
 			.compile("Started [A-Za-z0-9]+ in [0-9\\.]+ seconds \\(process running for [0-9\\.]+\\)");
 
 	@Override
 	public void beforeAll(ExtensionContext context) throws Exception {
 		Output output = Output.current();
-		long end = System.currentTimeMillis() + 10000;
+		long end = Instant.now().plus(START_TIMEOUT).toEpochMilli();
 		List<String> lines = null;
 		while (System.currentTimeMillis() < end) {
 			lines = output.lines();
@@ -47,7 +51,8 @@ class AwaitApplication implements BeforeAllCallback {
 				}
 			}
 		}
-		StringBuilder message = new StringBuilder("Started log message was not detected within 10 seconds in output:");
+		StringBuilder message = new StringBuilder(
+				"Started log message was not detected within " + START_TIMEOUT + " in output:");
 		message.append("\n\n");
 		if (lines == null || lines.isEmpty()) {
 			message.append("<< none >>");
