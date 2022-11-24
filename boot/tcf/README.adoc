@@ -1,0 +1,1 @@
+Tests if Spring Boot's TestContext Framework is working

@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CommandlinerunnerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication application = new SpringApplication(CommandlinerunnerApplication.class);
-		System.setProperty("main.ran", "true");
-		application.run(args);
+		SpringApplication.run(CommandlinerunnerApplication.class, args);
 	}
 
 }

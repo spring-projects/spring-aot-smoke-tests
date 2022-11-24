@@ -1,4 +1,4 @@
-package com.example.commandlinerunner;
+package com.example.boot.tcf;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
