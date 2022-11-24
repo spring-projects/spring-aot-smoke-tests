@@ -501,6 +501,12 @@ h|nativeTest
 |
 |
 
+|webmvc-jetty
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-app-test]
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-native-app-test]
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-test]
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-native-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-jetty-native-test]
+
 |webmvc-tomcat
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-tomcat-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-tomcat-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-tomcat-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/webmvc-tomcat-native-app-test]
