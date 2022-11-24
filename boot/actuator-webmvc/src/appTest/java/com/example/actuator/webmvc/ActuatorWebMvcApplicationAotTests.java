@@ -24,6 +24,20 @@ class ActuatorWebMvcApplicationAotTests {
 	}
 
 	@Test
+	void shouldHaveAnotherCustomHealthIndicator(WebTestClient client) {
+		client.get().uri("/actuator/health").exchange().expectStatus().isOk().expectBody()
+				.jsonPath("$.components.anotherCustom.status").isEqualTo("UP");
+	}
+
+	@Test
+	void shouldHaveCompositeHealth(WebTestClient client) {
+		client.get().uri("/actuator/health").exchange().expectStatus().isOk().expectBody()
+				.jsonPath("$.components.composite.status").isEqualTo("UP")
+				.jsonPath("$.components.composite.components.another-custom.status").isEqualTo("UP")
+				.jsonPath("$.components.composite.components.custom.status").isEqualTo("UP");
+	}
+
+	@Test
 	void shouldHaveCustomEndpoint(WebTestClient client) {
 		client.get().uri("/actuator/custom").exchange().expectStatus().isOk().expectBody().consumeWith(
 				(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("custom-read"));
