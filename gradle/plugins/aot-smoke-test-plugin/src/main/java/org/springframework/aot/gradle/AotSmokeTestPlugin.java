@@ -20,12 +20,12 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import com.avast.gradle.dockercompose.ComposeExtension;
 import com.avast.gradle.dockercompose.ComposeSettings;
 import io.spring.javaformat.gradle.SpringJavaFormatPlugin;
-import io.spring.javaformat.gradle.tasks.CheckFormat;
 import org.graalvm.buildtools.gradle.NativeImagePlugin;
 import org.graalvm.buildtools.gradle.dsl.GraalVMExtension;
 import org.graalvm.buildtools.gradle.dsl.GraalVMReachabilityMetadataRepositoryExtension;
@@ -128,13 +128,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private void configureJavaFormat(Project project) {
-		project.getPlugins().withType(SpringJavaFormatPlugin.class, (javaFormat) -> {
-			project.getTasks().withType(CheckFormat.class).configureEach((task) -> {
-				if (task.getName().equals("checkFormatAot") || task.getName().equals("checkFormatAotTest")) {
-					task.setEnabled(false);
-				}
-			});
-		});
+		project.getPlugins().withType(SpringJavaFormatPlugin.class, (javaFormat) -> project.getGradle()
+				.getStartParameter().getExcludedTaskNames().addAll(Set.of("checkFormatAot", "checkFormatAotTest")));
 	}
 
 	private void configureKotlin(Project project, JavaPluginExtension javaExtension) {
