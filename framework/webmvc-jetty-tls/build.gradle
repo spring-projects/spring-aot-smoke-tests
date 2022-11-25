@@ -1,0 +1,31 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'org.springframework.aot.smoke-test'
+	id 'org.graalvm.buildtools.native'
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-jetty")
+	modules {
+		module("org.springframework.boot:spring-boot-starter-tomcat") {
+			replacedBy("org.springframework.boot:spring-boot-starter-jetty", "Use Jetty instead of Tomcat")
+		}
+	}
+	// Downgrade for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
+	implementation('jakarta.servlet:jakarta.servlet-api') {
+		version {
+			strictly '5.0.0'
+		}
+	}
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	appTestImplementation(project(":aot-smoke-test-support"))
+}
+
+aotSmokeTest {
+	webApplication = true
+}
