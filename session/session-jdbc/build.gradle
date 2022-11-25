@@ -6,10 +6,6 @@ plugins {
 }
 
 dependencies {
-	constraints {
-		implementation("org.springframework.session:spring-session-core:3.0.0-SNAPSHOT")
-		implementation("org.springframework.session:spring-session-jdbc:3.0.0-SNAPSHOT")
-	}
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.h2database:h2")
