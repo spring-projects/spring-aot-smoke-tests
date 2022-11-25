@@ -261,13 +261,13 @@ groups:
      - name: webmvc-undertow
        app_test: true
        test: true
-     - name: websocket
-       app_test: true
-       test: false
      - name: websocket-jetty
        app_test: true
        test: false
      - name: websocket-stomp
+       app_test: true
+       test: false
+     - name: websocket-tomcat
        app_test: true
        test: false
      - name: websocket-undertow
