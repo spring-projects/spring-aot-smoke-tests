@@ -258,6 +258,9 @@ groups:
      - name: webmvc-tomcat-tls
        app_test: true
        test: false
+     - name: webmvc-undertow
+       app_test: true
+       test: true
      - name: websocket
        app_test: true
        test: false

@@ -1,0 +1,1 @@
+Tests if WebMVC with Undertow is working.
