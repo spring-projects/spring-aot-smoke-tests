@@ -124,6 +124,9 @@ groups:
      - name: data-jdbc-h2
        app_test: true
        test: true
+     - name: data-jdbc-h2-kotlin
+       app_test: true
+       test: true
      - name: data-jdbc-postgresql
        app_test: true
        test: false

@@ -1,0 +1,1 @@
+Tests if Spring Data JDBC with the H2 database using Kotlin works
