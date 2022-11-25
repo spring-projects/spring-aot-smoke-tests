@@ -249,6 +249,9 @@ groups:
      - name: webflux-netty-tls
        app_test: true
        test: false
+     - name: webflux-undertow
+       app_test: true
+       test: true
      - name: webmvc-jetty
        app_test: true
        test: true
