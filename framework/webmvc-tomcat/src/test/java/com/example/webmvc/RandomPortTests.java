@@ -30,4 +30,5 @@ class RandomPortTests {
 		ResponseEntity<String> response = this.template.getForEntity("/", String.class);
 		assertThat(response.getBody()).isEqualTo("Hello from Spring MVC and Tomcat");
 	}
+
 }
