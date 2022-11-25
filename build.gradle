@@ -1,6 +1,6 @@
 buildscript {
 	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 	}
 	configurations.classpath {
 		resolutionStrategy.useGlobalDependencySubstitutionRules = false

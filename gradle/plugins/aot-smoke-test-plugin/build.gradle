@@ -28,7 +28,7 @@ dependencies {
 	
 	compileOnly("io.spring.javaformat:spring-javaformat-gradle-plugin:$javaFormatVersion")
 	compileOnly("org.graalvm.buildtools:native-gradle-plugin:$nbtVersion")
-	compileOnly("org.springframework.boot:spring-boot-gradle-plugin:3.0.0-SNAPSHOT")
+	compileOnly("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
 	compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
 
 	implementation("com.avast.gradle:gradle-docker-compose-plugin:0.16.8")
