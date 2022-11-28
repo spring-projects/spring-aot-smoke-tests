@@ -302,6 +302,9 @@ groups:
      - name: spring-kafka-streams
        app_test: true
        test: false
+     - name: spring-pulsar
+       app_test: true
+       test: false
   - name: security
     smoke_tests:
      - name: ldap-odm
