@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ApplicationTest
 public class SpringPulsarApplicationAotTests {
 
-    @Test
-    void pulsarListenerMethodReceivesMessage(AssertableOutput output) {
-        Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> assertThat(output)
-                .hasSingleLineContaining("Message Received: Greeting[message=Hello from GraalVM!]"));
-    }
+	@Test
+	void pulsarListenerMethodReceivesMessage(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> assertThat(output)
+				.hasSingleLineContaining("Message Received: Greeting[message=Hello from GraalVM!]"));
+	}
 
 }
