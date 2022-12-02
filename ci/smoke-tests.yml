@@ -81,6 +81,9 @@ groups:
      - name: tracing-brave-zipkin
        app_test: true
        test: false
+     - name: xml-config
+       app_test: true
+       test: false
   - name: cloud
     smoke_tests:
      - name: cloud-config-client

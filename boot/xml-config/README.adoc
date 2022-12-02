@@ -1,0 +1,1 @@
+Tests if the XML configuration works
