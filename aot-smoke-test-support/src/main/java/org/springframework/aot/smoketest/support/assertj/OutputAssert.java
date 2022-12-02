@@ -67,6 +67,21 @@ public class OutputAssert extends AbstractAssert<OutputAssert, Output> {
 	}
 
 	/**
+	 * Asserts that the output has a line matching the given contents.
+	 * @param regex contents to match
+	 * @return {@code this} for fluent API
+	 */
+	public OutputAssert hasLineMatching(String regex) {
+		List<String> lines = this.actual.lines();
+		Optional<String> matchingLines = lines.stream().filter((line) -> line.matches(regex)).findAny();
+		if (matchingLines.isEmpty()) {
+			throwAssertionError(new BasicErrorMessageFactory(
+					"%nExpected %s to have a line that matches '%s' but found none", lines, regex));
+		}
+		return this;
+	}
+
+	/**
 	 * Asserts that the output doesn't have a line matching the given contents.
 	 * @param contents contents to match
 	 * @return {@code this} for fluent API

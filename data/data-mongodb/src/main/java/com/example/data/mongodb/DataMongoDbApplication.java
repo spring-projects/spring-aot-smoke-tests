@@ -10,12 +10,16 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoManagedTypes;
+import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableMongoAuditing(auditorAwareRef = "fixedAuditor")
+@EnableTransactionManagement
 public class DataMongoDbApplication {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -37,6 +41,11 @@ public class DataMongoDbApplication {
 	@Bean
 	public MongoManagedTypes managedTypes() {
 		return MongoManagedTypes.from(Customer.class, Order.class);
+	}
+
+	@Bean
+	public MongoTransactionManager mongoTransactionManager(MongoDatabaseFactory mongoDatabaseFactory) {
+		return new MongoTransactionManager(mongoDatabaseFactory);
 	}
 
 	@ReadingConverter

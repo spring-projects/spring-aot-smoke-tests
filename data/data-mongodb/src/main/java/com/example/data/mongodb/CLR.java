@@ -34,6 +34,9 @@ class CLR implements CommandLineRunner {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	TransactionalComponent txComponent;
+
 	@Override
 	public void run(String... args) {
 		initializeDatabase(args);
@@ -56,6 +59,7 @@ class CLR implements CommandLineRunner {
 		runWithDbRefs(product1, product2, product3);
 		runWithDocumentReferences(product1, product2, product3);
 		runQueryByExample(product1);
+		runInTransaction(product1);
 
 		personRepository.save(new Person("first-1", "last-1"));
 		personRepository.save(new Person("first-2", "last-2"));
@@ -87,6 +91,7 @@ class CLR implements CommandLineRunner {
 			else {
 				db.createCollection("coupon");
 			}
+			db.getCollection("person").drop();
 
 			return "ok";
 		});
@@ -179,7 +184,7 @@ class CLR implements CommandLineRunner {
 		orderRepository.save(newOrder("b12", product1));
 
 		List<OrdersPerCustomer> result = orderRepository.totalOrdersPerCustomer(Sort.by(Sort.Order.desc("total")));
-		log("result: %s", result);
+		log("aggregation: %s", result);
 
 		// assertThat(result).containsExactly(new OrdersPerCustomer("c42", 3L), new
 		// OrdersPerCustomer("b12", 2L));
@@ -281,6 +286,7 @@ class CLR implements CommandLineRunner {
 		Optional<Order> loaded = orderRepository.findById(order.getId());
 		log("document ref (no proxy): %s", loaded.get().getDocumentRef().getPercentage());
 		log("lazy document ref (aot): %s", loaded.get().lazyDocumentRef);
+		log("lazy document ref (resolved): %s", loaded.get().getLazyDocumentRef().getPercentage());
 
 		log("-----------------\n\n\n");
 	}
@@ -297,8 +303,21 @@ class CLR implements CommandLineRunner {
 				ExampleMatcher.matching().withIgnorePaths("items"));
 
 		Iterable<Order> result = orderRepository.findAll(example);
-		log("result: %s", result);
+		log("qbe: %s", result);
 
+		log("-----------------\n\n\n");
+	}
+
+	private void runInTransaction(LineItem product1) {
+
+		log("---- MULTI DOCUMENT TRANSACTION ----");
+		try {
+			txComponent.runTransactional(product1);
+		}
+		catch (RuntimeException e) {
+			System.out.printf("transactional-status: %s%n", e.getMessage());
+			System.out.printf("after-transaction: %s%n", orderRepository.findByCustomerId("within-tx"));
+		}
 		log("-----------------\n\n\n");
 	}
 
