@@ -1,0 +1,1 @@
+Tests if logging via Logback with `logback-spring.xml` configuration works

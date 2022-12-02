@@ -1,0 +1,2 @@
+application.log-filename: "logback-logback-spring-xml.log"
+spring.profiles.active: "log-to-file"

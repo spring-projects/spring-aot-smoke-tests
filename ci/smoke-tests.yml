@@ -51,6 +51,9 @@ groups:
      - name: logging-logback
        app_test: true
        test: false
+     - name: logging-logback-spring-xml
+       app_test: true
+       test: false
      - name: logging-logback-xml
        app_test: true
        test: false

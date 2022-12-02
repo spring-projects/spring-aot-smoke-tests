@@ -1,0 +1,14 @@
+package com.example.logbackspring.xml;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class LogbackSpringXmlApplication {
+
+	public static void main(String[] args) throws InterruptedException {
+		SpringApplication.run(LogbackSpringXmlApplication.class, args);
+		Thread.currentThread().join(); // To be able to measure memory consumption
+	}
+
+}
