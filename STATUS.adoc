@@ -640,6 +640,12 @@ h|nativeTest
 |
 |
 
+|spring-pulsar-reactive
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/spring-pulsar-reactive-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/spring-pulsar-reactive-app-test]
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/spring-pulsar-reactive-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/spring-pulsar-reactive-native-app-test]
+|
+|
+
 
 5+^h|Security
 h|Smoke Test

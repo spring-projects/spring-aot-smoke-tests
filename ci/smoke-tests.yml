@@ -311,6 +311,9 @@ groups:
      - name: spring-pulsar
        app_test: true
        test: false
+     - name: spring-pulsar-reactive
+       app_test: true
+       test: false
   - name: security
     smoke_tests:
      - name: ldap-odm
