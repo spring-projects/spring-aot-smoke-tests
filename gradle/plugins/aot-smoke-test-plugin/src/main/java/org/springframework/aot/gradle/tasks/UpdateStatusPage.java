@@ -39,13 +39,20 @@ public abstract class UpdateStatusPage extends AbstractSmokeTestsTask {
 	@TaskAction
 	void updateStatusPage() throws IOException {
 		List<String> lines = new ArrayList<>();
-		lines.add("|===");
+		lines.add("= Smoke Tests Status");
+		lines.add(":toc:");
+		lines.add(":toc-title: Projects");
+		lines.add("");
 		smokeTests().forEach((group, tests) -> {
-			lines.add("5+^h|" + capitalize(group));
+			lines.add("== " + capitalize(group));
+			lines.add("");
+			lines.add("[%header,cols=\"" + (TestType.values().length + 1) + "\"]");
+			lines.add("|===");
 			lines.add("h|Smoke Test");
 			for (TestType testType : TestType.values()) {
 				lines.add("h|" + testType.taskName());
 			}
+			lines.add("");
 			for (SmokeTest test : tests) {
 				lines.add("|" + test.name());
 				for (TestType testType : TestType.values()) {
@@ -53,9 +60,9 @@ public abstract class UpdateStatusPage extends AbstractSmokeTestsTask {
 				}
 				lines.add("");
 			}
+			lines.add("|===");
 			lines.add("");
 		});
-		lines.add("|===");
 		Files.write(getOutputFile().get().getAsFile().toPath(), lines);
 	}
 

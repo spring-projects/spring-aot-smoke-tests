@@ -1,23 +1,35 @@
+= Smoke Tests Status
+:toc:
+:toc-title: Projects
+
+== Batch
+
+[%header,cols="5"]
 |===
-5+^h|Batch
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |batch
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/batch-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/batch-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/batch-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/batch-native-app-test]
 |
 |
 
+|===
 
-5+^h|Boot
+== Boot
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |actuator-webflux
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/actuator-webflux-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/actuator-webflux-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/actuator-webflux-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/actuator-webflux-native-app-test]
@@ -174,13 +186,18 @@ h|nativeTest
 |
 |
 
+|===
 
-5+^h|Cloud
+== Cloud
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |cloud-config-client
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/cloud-config-client-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/cloud-config-client-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/cloud-config-client-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/cloud-config-client-native-app-test]
@@ -253,13 +270,18 @@ h|nativeTest
 |
 |
 
+|===
 
-5+^h|Data
+== Data
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |data-cassandra
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/data-cassandra-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/data-cassandra-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/data-cassandra-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/data-cassandra-native-app-test]
@@ -344,13 +366,18 @@ h|nativeTest
 |
 |
 
+|===
 
-5+^h|Framework
+== Framework
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |aspect
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/aspect-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/aspect-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/aspect-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/aspect-native-app-test]
@@ -597,13 +624,18 @@ h|nativeTest
 |
 |
 
+|===
 
-5+^h|Graphql
+== Graphql
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |graphql-webflux
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webflux-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webflux-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webflux-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webflux-native-app-test]
@@ -622,13 +654,18 @@ h|nativeTest
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webmvc-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webmvc-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webmvc-native-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/graphql-webmvc-native-test]
 
+|===
 
-5+^h|Integration
+== Integration
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |integration
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/integration-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/integration-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/integration-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/integration-native-app-test]
@@ -671,13 +708,18 @@ h|nativeTest
 |
 |
 
+|===
 
-5+^h|Security
+== Security
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |ldap-odm
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/ldap-odm-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/ldap-odm-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/ldap-odm-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/ldap-odm-native-app-test]
@@ -726,13 +768,18 @@ h|nativeTest
 |
 |
 
+|===
 
-5+^h|Session
+== Session
+
+[%header,cols="5"]
+|===
 h|Smoke Test
 h|appTest
 h|nativeAppTest
 h|test
 h|nativeTest
+
 |session-jdbc
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/session-jdbc-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/session-jdbc-app-test]
 |image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/session-jdbc-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-1.0.x/jobs/session-jdbc-native-app-test]
@@ -745,5 +792,5 @@ h|nativeTest
 |
 |
 
-
 |===
+
