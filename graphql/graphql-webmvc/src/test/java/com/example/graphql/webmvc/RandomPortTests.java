@@ -35,20 +35,13 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @AutoConfigureHttpGraphQlTester
 class RandomPortTests {
 
-	private static final String DOCUMENT = """
-			{
-			  project(slug:"spring-boot") {
-				name
-			  }
-			}
-			""";
-
 	@LocalServerPort
 	private int localPort;
 
 	@Test
 	void getProjectUsingHttp(@Autowired HttpGraphQlTester graphQlTester) {
-		graphQlTester.document(DOCUMENT).execute().path("project.name").entity(String.class).isEqualTo("Spring Boot");
+		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
+				.isEqualTo("Spring Boot");
 	}
 
 	@Test
@@ -56,7 +49,8 @@ class RandomPortTests {
 		WebSocketClient webClient = new ReactorNettyWebSocketClient();
 		URI uri = URI.create("http://localhost:" + localPort + "/graphql");
 		WebSocketGraphQlTester graphQlTester = WebSocketGraphQlTester.create(uri, webClient);
-		graphQlTester.document(DOCUMENT).execute().path("project.name").entity(String.class).isEqualTo("Spring Boot");
+		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
+				.isEqualTo("Spring Boot");
 	}
 
 }

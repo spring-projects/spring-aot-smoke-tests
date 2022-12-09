@@ -27,20 +27,13 @@ import org.springframework.graphql.test.tester.GraphQlTester;
 @AutoConfigureGraphQlTester
 class GraphQlTesterTests {
 
-	private static final String DOCUMENT = """
-			{
-			  project(slug:"spring-boot") {
-				name
-			  }
-			}
-			""";
-
 	@Autowired
 	private GraphQlTester graphQlTester;
 
 	@Test
 	void getProject() {
-		graphQlTester.document(DOCUMENT).execute().path("project.name").entity(String.class).isEqualTo("Spring Boot");
+		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
+				.isEqualTo("Spring Boot");
 	}
 
 }

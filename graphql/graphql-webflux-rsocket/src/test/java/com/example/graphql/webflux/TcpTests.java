@@ -27,19 +27,12 @@ import org.springframework.graphql.test.tester.RSocketGraphQlTester;
 @AutoConfigureGraphQlTester
 class TcpTests {
 
-	private static final String DOCUMENT = """
-			{
-			  project(slug:"spring-boot") {
-				name
-			  }
-			}
-			""";
-
 	@Test
 	void getProject() {
 		TcpClientTransport transport = TcpClientTransport.create(9090);
 		RSocketGraphQlTester graphQlTester = RSocketGraphQlTester.builder().clientTransport(transport).build();
-		graphQlTester.document(DOCUMENT).execute().path("project.name").entity(String.class).isEqualTo("Spring Boot");
+		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
+				.isEqualTo("Spring Boot");
 	}
 
 }
