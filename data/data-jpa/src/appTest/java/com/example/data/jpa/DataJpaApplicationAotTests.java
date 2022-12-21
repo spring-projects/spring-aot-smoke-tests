@@ -88,4 +88,12 @@ class DataJpaApplicationAotTests {
 		});
 	}
 
+	@Test
+	void abstractPersistable(AssertableOutput output) {
+
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasLineMatching(".*Publisher\\{name='independently published', id=\\d.*\\}");
+		});
+	}
+
 }

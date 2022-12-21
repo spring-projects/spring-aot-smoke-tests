@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import com.example.data.jpa.model.Author;
 import com.example.data.jpa.model.Book;
 
+import com.example.data.jpa.model.Publisher;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,12 @@ class CLR implements CommandLineRunner {
 
 	private final BookRepository bookRepository;
 
-	CLR(AuthorRepository authorRepository, BookRepository bookRepository) {
+	private final PublisherRepository publisherRepository;
+
+	CLR(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
 		this.authorRepository = authorRepository;
 		this.bookRepository = bookRepository;
+		this.publisherRepository = publisherRepository;
 	}
 
 	@Override
@@ -36,6 +40,7 @@ class CLR implements CommandLineRunner {
 		streamAuthors();
 		deleteAll();
 		entityGraph();
+		insertPublishers(); // uses AbstractPersistable
 	}
 
 	private void deleteAll() {
@@ -105,6 +110,12 @@ class CLR implements CommandLineRunner {
 		System.out.printf("insertAuthors(): author2 = %s%n", author2);
 
 		return Arrays.asList(author1, author2);
+	}
+
+	private List<Publisher> insertPublishers() {
+		Publisher publisher1 = this.publisherRepository.save(new Publisher("independently published"));
+		System.out.printf("insertPublishers(): publisher1 - %s%n", publisher1);
+		return List.of(publisher1);
 	}
 
 }
