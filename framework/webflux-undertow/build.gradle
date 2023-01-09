@@ -21,7 +21,6 @@ dependencies {
 	implementation("org.glassfish.jaxb:jaxb-runtime")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.eclipse.jetty:jetty-reactive-httpclient")
 
 	appTestImplementation("org.eclipse.jetty.websocket:websocket-jetty-client")
 	appTestImplementation(project(":aot-smoke-test-support"))
