@@ -47,6 +47,21 @@ class ConfigPropsApplicationAotTests {
 		}
 
 		@Test
+		void stringMapShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appProperties.getStringMap(): {a=alpha, b=bravo}");
+			});
+		}
+
+		@Test
+		void nestedMapShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output)
+						.hasSingleLineContaining("appProperties.getNestedMap(): {a=Nested{aInt=5}, b=Nested{aInt=6}}");
+			});
+		}
+
+		@Test
 		void nestedShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output).hasSingleLineContaining("appProperties.getNested(): Nested{aInt=3}");

@@ -5,6 +5,14 @@ app:
   nested-list:
     - a-int: 1
     - a-int: 2
+  string-map:
+    a: alpha
+    b: bravo
+  nested-map:
+    a:
+      a-int: 5
+    b:
+      a-int: 6
   nested:
     a-int: 3
   nested-not-inner:

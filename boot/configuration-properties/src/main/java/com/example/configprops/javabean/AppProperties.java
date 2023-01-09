@@ -1,7 +1,9 @@
 package com.example.configprops.javabean;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -17,6 +19,10 @@ public class AppProperties {
 	private List<String> stringList = new ArrayList<>();
 
 	private List<Nested> nestedList = new ArrayList<>();
+
+	private Map<String, String> stringMap = new LinkedHashMap<>();
+
+	private Map<String, Nested> nestedMap = new LinkedHashMap<>();
 
 	private Nested nested = new Nested();
 
@@ -37,6 +43,22 @@ public class AppProperties {
 
 	public void setNestedList(List<Nested> nestedList) {
 		this.nestedList = nestedList;
+	}
+
+	public Map<String, String> getStringMap() {
+		return this.stringMap;
+	}
+
+	public void setStringMap(Map<String, String> stringMap) {
+		this.stringMap = stringMap;
+	}
+
+	public Map<String, Nested> getNestedMap() {
+		return this.nestedMap;
+	}
+
+	public void setNestedMap(Map<String, Nested> nestedMap) {
+		this.nestedMap = nestedMap;
 	}
 
 	public Nested getNested() {
