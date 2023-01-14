@@ -89,6 +89,7 @@ public class IntegrationApplication {
 	MessageHandler loggingHandler() {
 		LoggingHandler loggingHandler = new LoggingHandler(LoggingHandler.Level.TRACE);
 		loggingHandler.setLoggerName("tracing.data");
+		loggingHandler.setLogExpressionString("#jsonPath(payload.toString(), '$')");
 		return loggingHandler;
 	}
 
