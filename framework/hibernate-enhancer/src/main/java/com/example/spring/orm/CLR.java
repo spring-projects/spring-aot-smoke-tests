@@ -24,7 +24,6 @@ public class CLR implements CommandLineRunner {
 	}
 
 	public void lazyLoad(Long id) {
-
 		clearCache();
 
 		Category result = entityManager.find(Category.class, id);
@@ -32,7 +31,6 @@ public class CLR implements CommandLineRunner {
 	}
 
 	public Long insertTestData() {
-
 		Product product = new Product();
 		product.setName("lazy-loading-works :)");
 		entityManager.persist(product);
@@ -47,7 +45,6 @@ public class CLR implements CommandLineRunner {
 	}
 
 	void clearCache() {
-
 		Session s = (Session) entityManager.getDelegate();
 		SessionFactory sf = s.getSessionFactory();
 		sf.getCache().evictEntityData();

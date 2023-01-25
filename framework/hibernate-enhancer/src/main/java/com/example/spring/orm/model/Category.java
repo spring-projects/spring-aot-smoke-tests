@@ -13,7 +13,7 @@ public class Category {
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY) //
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Product product;
 
 	public Category(Product product) {
