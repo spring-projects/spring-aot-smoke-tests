@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportRuntimeHints;
@@ -26,6 +28,10 @@ public class BatchApplication {
 		@Override
 		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
 			hints.resources().registerPattern("persons.csv");
+
+			// TODO remove the follwoing hint once
+			// https://github.com/spring-projects/spring-batch/issues/4248 is resolved
+			hints.proxies().registerJdkProxy(AopProxyUtils.completeJdkProxyInterfaces(JobOperator.class));
 		}
 
 	}
