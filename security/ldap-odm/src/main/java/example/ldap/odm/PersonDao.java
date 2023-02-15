@@ -10,6 +10,8 @@ public interface PersonDao {
 
 	List<Person> findAll();
 
+	List<Person> findAll(boolean paged, boolean sorted);
+
 	Person findByPrimaryKey(String country, String company, String fullname);
 
 }
