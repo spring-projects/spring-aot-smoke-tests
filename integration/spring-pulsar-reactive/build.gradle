@@ -6,7 +6,7 @@ plugins {
 }
 
 ext {
-    set('springPulsarVersion', "0.1.0-SNAPSHOT")
+    set('springPulsarVersion', "0.1.1-SNAPSHOT")
 }
 
 repositories {

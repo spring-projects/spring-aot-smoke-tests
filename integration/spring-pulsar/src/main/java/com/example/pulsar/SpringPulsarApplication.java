@@ -20,10 +20,8 @@ public class SpringPulsarApplication {
 	@Bean
 	ApplicationRunner sendMessageToTopicOnAppStartup(PulsarTemplate<Greeting> pulsarTemplate) {
 		String topic = "graalvm-demo-topic";
-		pulsarTemplate.setSchema(Schema.JSON(Greeting.class));
-		return args -> {
-			pulsarTemplate.sendAsync(topic, new Greeting("Hello from GraalVM!"));
-		};
+		return args -> pulsarTemplate.sendAsync(topic, new Greeting("Hello from GraalVM!"),
+				Schema.JSON(Greeting.class));
 	}
 
 	@PulsarListener(subscriptionName = "graalvm-demo-subscription", topics = "graalvm-demo-topic",
