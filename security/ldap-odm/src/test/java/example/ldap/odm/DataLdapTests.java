@@ -26,6 +26,17 @@ class DataLdapTests {
 		this.personDao.create(person);
 
 		List<Person> persons = this.personDao.findAll();
+		this.personDao.delete(person);
+		assertThat(persons).contains(person);
+	}
+
+	@Test
+	void saveAndLoadPagedAndSorted() throws InvalidNameException {
+		Person person = getPerson();
+		this.personDao.create(person);
+
+		List<Person> persons = this.personDao.findAll(true, true);
+		this.personDao.delete(person);
 		assertThat(persons).contains(person);
 	}
 

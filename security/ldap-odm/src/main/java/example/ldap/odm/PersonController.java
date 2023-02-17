@@ -27,6 +27,12 @@ public class PersonController {
 		return this.personDao.findAll();
 	}
 
+	@GetMapping("/list")
+	public List<Person> findAll(@RequestParam(value = "paged", defaultValue = "false") boolean paged,
+			@RequestParam(value = "sorted", defaultValue = "false") boolean sorted) {
+		return this.personDao.findAll(paged, sorted);
+	}
+
 	@GetMapping(params = { "country", "company", "fullName" })
 	public Person showPerson(@RequestParam String country, @RequestParam String company,
 			@RequestParam String fullName) {
