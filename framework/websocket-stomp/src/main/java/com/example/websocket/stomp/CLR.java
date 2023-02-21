@@ -34,6 +34,7 @@ class CLR implements CommandLineRunner {
 				.connect("ws://localhost:%d/stomp".formatted(getServerPort()), handler).get(5, TimeUnit.SECONDS);
 
 		stompSession.subscribe("/topic/greetings", handler);
+		stompSession.subscribe("/app/subscription", new EmptyStompHandler());
 		stompSession.send("/app/hello", new HelloMessage("STOMP Client"));
 	}
 
@@ -57,6 +58,10 @@ class CLR implements CommandLineRunner {
 		public void handleFrame(StompHeaders headers, Object payload) {
 			System.out.printf("Client: Received '%s'%n", payload);
 		}
+
+	}
+
+	private static class EmptyStompHandler extends StompSessionHandlerAdapter {
 
 	}
 

@@ -36,6 +36,12 @@ class WebSocketStompApplicationAotTests {
 	}
 
 	@Test
+	void serverShouldSubscribe(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10))
+				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Server: subscription"));
+	}
+
+	@Test
 	void serverShouldReceiveMessage(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> assertThat(output)
 				.hasSingleLineContaining("Server: Received 'HelloMessage{name='STOMP Client'}'"));
