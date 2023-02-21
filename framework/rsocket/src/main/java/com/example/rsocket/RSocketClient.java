@@ -28,6 +28,7 @@ class RSocketClient implements CommandLineRunner {
 		message(requester);
 		reactiveMessage(requester);
 		messageRecord(requester);
+		messageExceptionHandler(requester);
 	}
 
 	@EventListener
@@ -51,6 +52,11 @@ class RSocketClient implements CommandLineRunner {
 		MessageRecord messageRecord = requester.route("message-record").data(new MessageRecord("client", "Hello!"))
 				.retrieveMono(MessageRecord.class).block();
 		System.out.printf("Client: messageRecord(): %s%n", messageRecord);
+	}
+
+	private void messageExceptionHandler(RSocketRequester requester) {
+		requester.route("illegal-state-exception").send().block();
+		System.out.printf("Client: messageExceptionHandler()");
 	}
 
 }

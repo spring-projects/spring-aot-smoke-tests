@@ -4,6 +4,7 @@ import com.example.rsocket.dto.Message;
 import com.example.rsocket.dto.MessageRecord;
 import reactor.core.publisher.Mono;
 
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
@@ -26,6 +27,16 @@ public class RSocketController {
 	public MessageRecord messageRecord(MessageRecord request) {
 		System.out.printf("Server: messageRecord(): %s%n", request);
 		return new MessageRecord("server", request.message());
+	}
+
+	@MessageMapping("illegal-state-exception")
+	public void throwIllegalStateException() {
+		throw new IllegalStateException();
+	}
+
+	@MessageExceptionHandler({ IllegalStateException.class })
+	public void handleIllegalStateException() {
+		System.out.printf("Server: handleIllegalStateException()");
 	}
 
 }

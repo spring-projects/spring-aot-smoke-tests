@@ -39,4 +39,12 @@ class RSocketApplicationAotTests {
 		});
 	}
 
+	@Test
+	void messageExceptionHandler(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("Client: messageExceptionHandler()")
+					.hasSingleLineContaining("Server: handleIllegalStateException()");
+		});
+	}
+
 }
