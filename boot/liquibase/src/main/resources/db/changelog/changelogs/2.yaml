@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: nvoxland
+      changes:
+        - addColumn:
+            tableName: person
+            columns:
+              - column:
+                  name: username
+                  type: varchar(8)
