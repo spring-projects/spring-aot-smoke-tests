@@ -17,17 +17,29 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
-				.authorizeHttpRequests(authorize -> authorize.requestMatchers("/rest/anonymous").permitAll()
-						.requestMatchers("/rest/admin").hasRole("ADMIN").anyRequest().authenticated())
-				.httpBasic().and().build();
+			.authorizeHttpRequests(authorize -> authorize.requestMatchers("/rest/anonymous")
+				.permitAll()
+				.requestMatchers("/rest/admin")
+				.hasRole("ADMIN")
+				.anyRequest()
+				.authenticated())
+			.httpBasic()
+			.and()
+			.build();
 	}
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-		UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
-				.build();
-		UserDetails admin = User.withDefaultPasswordEncoder().username("admin").password("password").roles("ADMIN")
-				.build();
+		UserDetails user = User.withDefaultPasswordEncoder()
+			.username("user")
+			.password("password")
+			.roles("USER")
+			.build();
+		UserDetails admin = User.withDefaultPasswordEncoder()
+			.username("admin")
+			.password("password")
+			.roles("ADMIN")
+			.build();
 
 		return new InMemoryUserDetailsManager(user, admin);
 	}

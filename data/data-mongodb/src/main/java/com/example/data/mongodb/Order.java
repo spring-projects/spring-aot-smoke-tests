@@ -197,8 +197,9 @@ public class Order {
 	public static List<IndexDefinition> getIndexes(IndexResolver indexResolver) {
 		List<IndexDefinition> ret = new ArrayList<>();
 		indexResolver.resolveIndexFor(Order.class).forEach(ret::add);
-		ret.add(new Index().unique().on("createdBy", Sort.Direction.ASC)
-				.partial(PartialIndexFilter.of(Criteria.where("createdBy").exists(true))));
+		ret.add(new Index().unique()
+			.on("createdBy", Sort.Direction.ASC)
+			.partial(PartialIndexFilter.of(Criteria.where("createdBy").exists(true))));
 		return ret;
 	}
 

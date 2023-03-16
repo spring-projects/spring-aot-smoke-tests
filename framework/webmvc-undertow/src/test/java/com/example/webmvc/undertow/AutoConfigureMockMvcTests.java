@@ -20,8 +20,9 @@ class AutoConfigureMockMvcTests {
 
 	@Test
 	void shouldGetResponse() throws Exception {
-		mvc.perform(get("/")).andExpect(status().isOk())
-				.andExpect(content().string("Hello from Spring MVC and Undertow"));
+		mvc.perform(get("/"))
+			.andExpect(status().isOk())
+			.andExpect(content().string("Hello from Spring MVC and Undertow"));
 	}
 
 }

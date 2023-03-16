@@ -154,8 +154,8 @@ class BML6 implements BatchMessageListener<String, Thing6> {
 
 	@Override
 	public void onMessage(List<ConsumerRecord<String, Thing6>> records) {
-		System.out.println(
-				"++++++6:Received " + records.get(0).value().getClass().getSimpleName() + ":" + records.get(0));
+		System.out
+			.println("++++++6:Received " + records.get(0).value().getClass().getSimpleName() + ":" + records.get(0));
 	}
 
 }

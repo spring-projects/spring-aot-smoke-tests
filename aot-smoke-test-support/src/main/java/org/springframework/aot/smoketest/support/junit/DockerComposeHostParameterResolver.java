@@ -47,7 +47,7 @@ class DockerComposeHostParameterResolver implements ParameterResolver {
 		if (value == null) {
 			throw new ParameterResolutionException(
 					"Can't get host name for docker-compose service '%s', the environment variable '%s' is missing"
-							.formatted(serviceName, envVariable));
+						.formatted(serviceName, envVariable));
 		}
 		return value;
 	}

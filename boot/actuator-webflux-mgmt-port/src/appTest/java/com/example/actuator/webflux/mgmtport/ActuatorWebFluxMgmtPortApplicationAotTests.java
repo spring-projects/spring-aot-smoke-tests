@@ -24,39 +24,80 @@ class ActuatorWebFluxMgmtPortApplicationAotTests {
 
 	@Test
 	void shouldContainLinks() {
-		client.get().uri("/actuator").exchange().expectStatus().isOk().expectBody().jsonPath("$._links.self.templated")
-				.isEqualTo(false).jsonPath("$._links.env-toMatch.templated").isEqualTo(true);
+		client.get()
+			.uri("/actuator")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$._links.self.templated")
+			.isEqualTo(false)
+			.jsonPath("$._links.env-toMatch.templated")
+			.isEqualTo(true);
 	}
 
 	@Test
 	void shouldHaveReadiness() {
-		client.get().uri("/actuator/health/readiness").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("$.status").isEqualTo("UP");
+		client.get()
+			.uri("/actuator/health/readiness")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$.status")
+			.isEqualTo("UP");
 	}
 
 	@Test
 	void shouldHaveEnvInfoProperties() {
-		client.get().uri("/actuator/info").exchange().expectStatus().isOk().expectBody().jsonPath("$.app.hello")
-				.isEqualTo("world");
+		client.get()
+			.uri("/actuator/info")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$.app.hello")
+			.isEqualTo("world");
 	}
 
 	@Test
 	void shouldHaveJavaInfoProperties() {
-		client.get().uri("/actuator/info").exchange().expectStatus().isOk().expectBody().jsonPath("$.java.version")
-				.isNotEmpty();
+		client.get()
+			.uri("/actuator/info")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$.java.version")
+			.isNotEmpty();
 	}
 
 	@Test
 	void shouldHaveOsInfoProperties() {
-		client.get().uri("/actuator/info").exchange().expectStatus().isOk().expectBody().jsonPath("$.os.name")
-				.isNotEmpty();
+		client.get()
+			.uri("/actuator/info")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$.os.name")
+			.isNotEmpty();
 	}
 
 	@Test
 	void shouldHaveLoggers() {
-		client.get().uri("/actuator/loggers").exchange().expectStatus().isOk().expectBody().jsonPath("$.levels")
-				.isNotEmpty().jsonPath("$.loggers.['ROOT']").isNotEmpty().jsonPath("$.loggers.['_org.springframework']")
-				.isNotEmpty();
+		client.get()
+			.uri("/actuator/loggers")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$.levels")
+			.isNotEmpty()
+			.jsonPath("$.loggers.['ROOT']")
+			.isNotEmpty()
+			.jsonPath("$.loggers.['_org.springframework']")
+			.isNotEmpty();
 	}
 
 	private static WebTestClient buildManagementClient() {

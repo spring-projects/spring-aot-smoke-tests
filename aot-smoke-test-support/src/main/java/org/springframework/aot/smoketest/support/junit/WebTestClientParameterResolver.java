@@ -49,7 +49,8 @@ class WebTestClientParameterResolver implements ParameterResolver {
 
 	private WebTestClient createWebTestClient(ExtensionContext extensionContext) {
 		return WebTestClient.bindToServer()
-				.baseUrl("http://localhost:" + ApplicationUnderTest.get(extensionContext).getPort()).build();
+			.baseUrl("http://localhost:" + ApplicationUnderTest.get(extensionContext).getPort())
+			.build();
 	}
 
 }

@@ -22,7 +22,7 @@ public class ActuatorWebFluxApplication {
 	CompositeReactiveHealthContributor compositeReactiveHealthContributor(CustomHealthIndicator customHealthIndicator,
 			AnotherCustomHealthIndicator anotherCustomHealthIndicator) {
 		return CompositeReactiveHealthContributor
-				.fromMap(Map.of("custom", customHealthIndicator, "another-custom", anotherCustomHealthIndicator));
+			.fromMap(Map.of("custom", customHealthIndicator, "another-custom", anotherCustomHealthIndicator));
 	}
 
 }

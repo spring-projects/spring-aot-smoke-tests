@@ -16,15 +16,21 @@ class QuartzConfiguration {
 	@Bean
 	@RegisterReflectionForBinding(SimpleJob.class)
 	public JobDetail simpleJobDetail() {
-		return JobBuilder.newJob(SimpleJob.class).withIdentity("simpleJob").usingJobData("greeting", "Hello world!")
-				.storeDurably().build();
+		return JobBuilder.newJob(SimpleJob.class)
+			.withIdentity("simpleJob")
+			.usingJobData("greeting", "Hello world!")
+			.storeDurably()
+			.build();
 	}
 
 	@Bean
 	Trigger simpleJobTrigger(JobDetail simpleJobDetail) {
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(1);
-		return TriggerBuilder.newTrigger().forJob(simpleJobDetail).withIdentity("simpleJobTrigger")
-				.withSchedule(scheduleBuilder).build();
+		return TriggerBuilder.newTrigger()
+			.forJob(simpleJobDetail)
+			.withIdentity("simpleJobTrigger")
+			.withSchedule(scheduleBuilder)
+			.build();
 	}
 
 }

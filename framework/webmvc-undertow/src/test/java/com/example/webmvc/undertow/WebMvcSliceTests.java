@@ -18,8 +18,9 @@ class WebMvcSliceTests {
 
 	@Test
 	void check() throws Exception {
-		this.mockMvc.perform(get("/")).andExpect(status().isOk())
-				.andExpect(content().string("Hello from Spring MVC and Undertow"));
+		this.mockMvc.perform(get("/"))
+			.andExpect(status().isOk())
+			.andExpect(content().string("Hello from Spring MVC and Undertow"));
 	}
 
 }

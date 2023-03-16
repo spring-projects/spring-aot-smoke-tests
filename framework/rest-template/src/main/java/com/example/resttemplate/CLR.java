@@ -22,7 +22,8 @@ class CLR implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		RestTemplate restTemplate = this.restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(5))
-				.setReadTimeout(Duration.ofSeconds(5)).build();
+			.setReadTimeout(Duration.ofSeconds(5))
+			.build();
 		http(restTemplate);
 		https(restTemplate);
 	}

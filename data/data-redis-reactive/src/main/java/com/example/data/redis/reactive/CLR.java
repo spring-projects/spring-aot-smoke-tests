@@ -40,25 +40,30 @@ class CLR implements CommandLineRunner {
 
 		Jackson2JsonRedisSerializer<Person> serializer = new Jackson2JsonRedisSerializer<>(objectMapper, Person.class);
 		RedisSerializationContext.RedisSerializationContextBuilder<String, Person> builder = RedisSerializationContext
-				.newSerializationContext(new StringRedisSerializer());
+			.newSerializationContext(new StringRedisSerializer());
 		RedisSerializationContext<String, Person> context = builder.value(serializer).build();
 		ReactiveRedisTemplate<String, Person> personTemplate = new ReactiveRedisTemplate<>(connectionFactory, context);
 
 		Flux.just(new Person("1", "first-1", "last-1"), new Person("2", "first-2", "last-2"),
 				new Person("3", "first-3", "last-3"))
-				.flatMap((person) -> personTemplate.opsForValue().set(person.getId(), person)).collectList().block();
+			.flatMap((person) -> personTemplate.opsForValue().set(person.getId(), person))
+			.collectList()
+			.block();
 
 		for (int i = 1; i <= 3; i++) {
 			String id = Integer.toString(i);
-			personTemplate.opsForValue().get(id).subscribe((person) -> System.out.printf("%s: %s%n", id, person),
-					(ex) -> ex.printStackTrace(System.out));
+			personTemplate.opsForValue()
+				.get(id)
+				.subscribe((person) -> System.out.printf("%s: %s%n", id, person),
+						(ex) -> ex.printStackTrace(System.out));
 		}
 	}
 
 	private void templateOperations() {
 		this.template.opsForValue().set("success-token", "OK").block();
-		this.template.opsForValue().get("success-token").subscribe(
-				value -> System.out.printf("template ops: %s%n", value), (ex) -> ex.printStackTrace(System.out));
+		this.template.opsForValue()
+			.get("success-token")
+			.subscribe(value -> System.out.printf("template ops: %s%n", value), (ex) -> ex.printStackTrace(System.out));
 	}
 
 	private void connectionCommand() {

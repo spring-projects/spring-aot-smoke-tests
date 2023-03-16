@@ -31,8 +31,11 @@ class TcpTests {
 	void getProject() {
 		TcpClientTransport transport = TcpClientTransport.create(9090);
 		RSocketGraphQlTester graphQlTester = RSocketGraphQlTester.builder().clientTransport(transport).build();
-		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
-				.isEqualTo("Spring Boot");
+		graphQlTester.documentName("project")
+			.execute()
+			.path("project.name")
+			.entity(String.class)
+			.isEqualTo("Spring Boot");
 	}
 
 }

@@ -40,8 +40,11 @@ class RandomPortTests {
 
 	@Test
 	void getProjectUsingHttp(@Autowired HttpGraphQlTester graphQlTester) {
-		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
-				.isEqualTo("Spring Boot");
+		graphQlTester.documentName("project")
+			.execute()
+			.path("project.name")
+			.entity(String.class)
+			.isEqualTo("Spring Boot");
 	}
 
 	@Test
@@ -49,8 +52,11 @@ class RandomPortTests {
 		WebSocketClient webClient = new ReactorNettyWebSocketClient();
 		URI uri = URI.create("http://localhost:" + localPort + "/graphql");
 		WebSocketGraphQlTester graphQlTester = WebSocketGraphQlTester.create(uri, webClient);
-		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
-				.isEqualTo("Spring Boot");
+		graphQlTester.documentName("project")
+			.execute()
+			.path("project.name")
+			.entity(String.class)
+			.isEqualTo("Spring Boot");
 	}
 
 }

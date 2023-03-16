@@ -31,8 +31,12 @@ class CLR implements CommandLineRunner {
 	private void http() {
 		try {
 			WebClient webClient = this.webClientBuilder.baseUrl("http://httpbin.org/").build();
-			DataDto dto = webClient.get().uri("/anything").retrieve().bodyToMono(DataDto.class)
-					.timeout(Duration.ofSeconds(5)).block();
+			DataDto dto = webClient.get()
+				.uri("/anything")
+				.retrieve()
+				.bodyToMono(DataDto.class)
+				.timeout(Duration.ofSeconds(5))
+				.block();
 			System.out.printf("http: %s%n", dto);
 		}
 		catch (Exception ex) {
@@ -44,8 +48,12 @@ class CLR implements CommandLineRunner {
 	private void https() {
 		try {
 			WebClient webClient = this.webClientBuilder.baseUrl("https://httpbin.org/").build();
-			DataDto dto = webClient.get().uri("/anything").retrieve().bodyToMono(DataDto.class)
-					.timeout(Duration.ofSeconds(5)).block();
+			DataDto dto = webClient.get()
+				.uri("/anything")
+				.retrieve()
+				.bodyToMono(DataDto.class)
+				.timeout(Duration.ofSeconds(5))
+				.block();
 			System.out.printf("https: %s%n", dto);
 		}
 		catch (Exception ex) {

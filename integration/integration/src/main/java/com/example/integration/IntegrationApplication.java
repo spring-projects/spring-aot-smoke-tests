@@ -62,7 +62,7 @@ public class IntegrationApplication {
 	RedisChannelMessageStore redisChannelMessageStore(RedisConnectionFactory connectionFactory) {
 		RedisChannelMessageStore redisChannelMessageStore = new RedisChannelMessageStore(connectionFactory);
 		redisChannelMessageStore
-				.setValueSerializer(new GenericJackson2JsonRedisSerializer(JacksonJsonUtils.messagingAwareMapper()));
+			.setValueSerializer(new GenericJackson2JsonRedisSerializer(JacksonJsonUtils.messagingAwareMapper()));
 		return redisChannelMessageStore;
 	}
 
@@ -71,11 +71,12 @@ public class IntegrationApplication {
 			RedisChannelMessageStore redisChannelMessageStore) {
 
 		return IntegrationFlow
-				.fromSupplier(Date::new, e -> e.id("dateSourceEndpoint").poller(p -> p.fixedDelay(1000, 1000)))
-				.channel(c -> c.queue("dateChannel", jdbcChannelMessageStore, "dateChannelGroup"))
-				.gateway(subflow -> subflow.convert(Integer.class, e -> e.advice(new RequestHandlerRetryAdvice())))
-				.channel(c -> c.queue(redisChannelMessageStore, "secondsChannelGroup"))
-				.handle(m -> System.out.println("Current seconds: " + m.getPayload())).get();
+			.fromSupplier(Date::new, e -> e.id("dateSourceEndpoint").poller(p -> p.fixedDelay(1000, 1000)))
+			.channel(c -> c.queue("dateChannel", jdbcChannelMessageStore, "dateChannelGroup"))
+			.gateway(subflow -> subflow.convert(Integer.class, e -> e.advice(new RequestHandlerRetryAdvice())))
+			.channel(c -> c.queue(redisChannelMessageStore, "secondsChannelGroup"))
+			.handle(m -> System.out.println("Current seconds: " + m.getPayload()))
+			.get();
 	}
 
 	@Bean
@@ -116,11 +117,12 @@ public class IntegrationApplication {
 	@Bean
 	public IntegrationFlow controlBusControllerFlow(ControlBusGateway controlBusGateway) {
 		return IntegrationFlow
-				.from(WebFlux.inboundChannelAdapter("/control-bus/{endpointId}")
-						.payloadExpression("#pathVariables.endpointId")
-						.requestMapping(mapping -> mapping.methods(HttpMethod.GET)))
-				.wireTap(subflow -> subflow.handle(m -> System.out.println("Starting endpoint: " + m.getPayload())))
-				.handle(controlBusGateway, "startEndpoint").get();
+			.from(WebFlux.inboundChannelAdapter("/control-bus/{endpointId}")
+				.payloadExpression("#pathVariables.endpointId")
+				.requestMapping(mapping -> mapping.methods(HttpMethod.GET)))
+			.wireTap(subflow -> subflow.handle(m -> System.out.println("Starting endpoint: " + m.getPayload())))
+			.handle(controlBusGateway, "startEndpoint")
+			.get();
 	}
 
 	@MessagingGateway(defaultRequestChannel = "controlBus.input")

@@ -17,17 +17,29 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
 		return http
-				.authorizeExchange((exchanges) -> exchanges.pathMatchers("/rest/anonymous").permitAll()
-						.pathMatchers("/rest/admin").hasRole("ADMIN").anyExchange().authenticated())
-				.httpBasic().and().build();
+			.authorizeExchange((exchanges) -> exchanges.pathMatchers("/rest/anonymous")
+				.permitAll()
+				.pathMatchers("/rest/admin")
+				.hasRole("ADMIN")
+				.anyExchange()
+				.authenticated())
+			.httpBasic()
+			.and()
+			.build();
 	}
 
 	@Bean
 	public ReactiveUserDetailsService userDetailsService() {
-		UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
-				.build();
-		UserDetails admin = User.withDefaultPasswordEncoder().username("admin").password("password").roles("ADMIN")
-				.build();
+		UserDetails user = User.withDefaultPasswordEncoder()
+			.username("user")
+			.password("password")
+			.roles("USER")
+			.build();
+		UserDetails admin = User.withDefaultPasswordEncoder()
+			.username("admin")
+			.password("password")
+			.roles("ADMIN")
+			.build();
 
 		return new MapReactiveUserDetailsService(user, admin);
 	}

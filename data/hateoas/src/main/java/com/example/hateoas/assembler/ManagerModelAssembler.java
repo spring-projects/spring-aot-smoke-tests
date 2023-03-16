@@ -19,7 +19,7 @@ public class ManagerModelAssembler extends RepresentationModelAssemblerSupport<M
 	public ManagerModel toModel(Manager entity) {
 		ManagerModel model = createModelWithId(entity.getId(), entity);
 		model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ManagerController.class).reports(entity.getId()))
-				.withRel("reports"));
+			.withRel("reports"));
 		return model;
 	}
 

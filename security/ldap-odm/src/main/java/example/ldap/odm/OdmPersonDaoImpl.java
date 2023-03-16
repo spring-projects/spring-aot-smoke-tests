@@ -31,7 +31,7 @@ public class OdmPersonDaoImpl implements PersonDao {
 	public OdmPersonDaoImpl(LdapTemplate ldapTemplate) {
 		this.ldapTemplate = ldapTemplate;
 		this.odm = (Object ctx) -> this.ldapTemplate.getObjectDirectoryMapper()
-				.mapFromLdapDataEntry((DirContextOperations) ctx, Person.class);
+			.mapFromLdapDataEntry((DirContextOperations) ctx, Person.class);
 		SearchControls controls = new SearchControls();
 		controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
 		controls.setReturningObjFlag(true);
@@ -74,8 +74,13 @@ public class OdmPersonDaoImpl implements PersonDao {
 	}
 
 	private LdapName buildDn(String country, String company, String fullname) {
-		return LdapNameBuilder.newInstance().add("dc", "io").add("dc", "spring").add("c", country).add("ou", company)
-				.add("cn", fullname).build();
+		return LdapNameBuilder.newInstance()
+			.add("dc", "io")
+			.add("dc", "spring")
+			.add("c", country)
+			.add("ou", company)
+			.add("cn", fullname)
+			.build();
 	}
 
 }

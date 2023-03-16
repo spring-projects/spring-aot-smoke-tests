@@ -17,7 +17,7 @@ class CassandraConfiguration {
 		// This creates the keyspace on startup
 		try (CqlSession session = cqlSessionBuilder.withKeyspace((String) null).build()) {
 			session.execute(CreateKeyspaceCqlGenerator
-					.toCql(CreateKeyspaceSpecification.createKeyspace(properties.getKeyspaceName()).ifNotExists()));
+				.toCql(CreateKeyspaceSpecification.createKeyspace(properties.getKeyspaceName()).ifNotExists()));
 		}
 		return cqlSessionBuilder.withKeyspace(properties.getKeyspaceName()).build();
 	}

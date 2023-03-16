@@ -31,7 +31,8 @@ class CLR implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		MyStompHandler handler = new MyStompHandler();
 		StompSession stompSession = this.webSocketStompClient
-				.connect("ws://localhost:%d/stomp".formatted(getServerPort()), handler).get(5, TimeUnit.SECONDS);
+			.connect("ws://localhost:%d/stomp".formatted(getServerPort()), handler)
+			.get(5, TimeUnit.SECONDS);
 
 		stompSession.subscribe("/topic/greetings", handler);
 		stompSession.subscribe("/app/subscription", new EmptyStompHandler());

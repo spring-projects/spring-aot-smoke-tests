@@ -22,7 +22,7 @@ public class ActuatorWebMvcApplication {
 	CompositeHealthContributor compositeHealthContributor(CustomHealthIndicator customHealthIndicator,
 			AnotherCustomHealthIndicator anotherCustomHealthIndicator) {
 		return CompositeHealthContributor
-				.fromMap(Map.of("custom", customHealthIndicator, "another-custom", anotherCustomHealthIndicator));
+			.fromMap(Map.of("custom", customHealthIndicator, "another-custom", anotherCustomHealthIndicator));
 	}
 
 }

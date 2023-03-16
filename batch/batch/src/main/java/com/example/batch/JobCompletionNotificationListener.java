@@ -22,9 +22,9 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
 	public void afterJob(JobExecution jobExecution) {
 		if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
 			jdbcTemplate
-					.query("SELECT first_name, last_name FROM person",
-							(resultSet, row) -> new Person(resultSet.getString(1), resultSet.getString(2)))
-					.forEach(person -> LOGGER.info("Found <" + person + "> in the database."));
+				.query("SELECT first_name, last_name FROM person",
+						(resultSet, row) -> new Person(resultSet.getString(1), resultSet.getString(2)))
+				.forEach(person -> LOGGER.info("Found <" + person + "> in the database."));
 		}
 	}
 

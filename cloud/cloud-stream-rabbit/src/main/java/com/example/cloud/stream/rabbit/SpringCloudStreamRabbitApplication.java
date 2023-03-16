@@ -38,7 +38,7 @@ public class SpringCloudStreamRabbitApplication {
 	@Bean
 	public Supplier<Word> graalSupplier() {
 		final String[] splitWoodchuck = "How much wood could a woodchuck chuck if a woodchuck could chuck wood?"
-				.split(" ");
+			.split(" ");
 		final AtomicInteger wordsIndex = new AtomicInteger(0);
 		return () -> {
 			int wordIndex = wordsIndex.getAndAccumulate(splitWoodchuck.length,

@@ -18,8 +18,8 @@ class WebsocketConfig {
 	WebSocketHandler webSocketHandler() {
 		return webSocketSession -> {
 			Flux<WebSocketMessage> stream = Flux.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-					.map(element -> webSocketSession.textMessage(Integer.toString(element)))
-					.delayElements(Duration.ofMillis(100));
+				.map(element -> webSocketSession.textMessage(Integer.toString(element)))
+				.delayElements(Duration.ofMillis(100));
 			return webSocketSession.send(stream);
 		};
 	}

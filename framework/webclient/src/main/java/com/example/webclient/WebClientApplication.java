@@ -22,7 +22,7 @@ public class WebClientApplication {
 	DataService dataService(WebClient.Builder webClientBuilder) {
 		WebClient webClient = webClientBuilder.baseUrl("https://httpbin.org/").build();
 		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient))
-				.build();
+			.build();
 		return factory.createClient(DataService.class);
 	}
 

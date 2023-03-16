@@ -37,20 +37,26 @@ class RSocketClient implements CommandLineRunner {
 	}
 
 	private void message(RSocketRequester requester) {
-		Message message = requester.route("message").data(new Message("client", "Hello!")).retrieveMono(Message.class)
-				.block();
+		Message message = requester.route("message")
+			.data(new Message("client", "Hello!"))
+			.retrieveMono(Message.class)
+			.block();
 		System.out.printf("Client: message(): %s%n", message);
 	}
 
 	private void reactiveMessage(RSocketRequester requester) {
-		Message message = requester.route("reactive-message").data(new Message("client", "Hello!"))
-				.retrieveMono(Message.class).block();
+		Message message = requester.route("reactive-message")
+			.data(new Message("client", "Hello!"))
+			.retrieveMono(Message.class)
+			.block();
 		System.out.printf("Client: reactiveMessage(): %s%n", message);
 	}
 
 	private void messageRecord(RSocketRequester requester) {
-		MessageRecord messageRecord = requester.route("message-record").data(new MessageRecord("client", "Hello!"))
-				.retrieveMono(MessageRecord.class).block();
+		MessageRecord messageRecord = requester.route("message-record")
+			.data(new MessageRecord("client", "Hello!"))
+			.retrieveMono(MessageRecord.class)
+			.block();
 		System.out.printf("Client: messageRecord(): %s%n", messageRecord);
 	}
 

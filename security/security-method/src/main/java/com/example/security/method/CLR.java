@@ -62,7 +62,7 @@ public class CLR implements CommandLineRunner {
 		impersonateAnonymous();
 		this.postAuthorizeProtectedService.anonymous();
 		System.out
-				.println("testPostAuthorizeAnonymous(): postAuthorizeProtectedService.anonymous() worked as anonymous");
+			.println("testPostAuthorizeAnonymous(): postAuthorizeProtectedService.anonymous() worked as anonymous");
 	}
 
 	private void testSecuredAnonymous() {
@@ -286,14 +286,16 @@ public class CLR implements CommandLineRunner {
 
 	private void impersonateUser() {
 		UserDetails user = this.userDetailsManager.loadUserByUsername("user");
-		SecurityContextHolder.getContext().setAuthentication(
-				new TestingAuthenticationToken(user, user.getPassword(), List.copyOf(user.getAuthorities())));
+		SecurityContextHolder.getContext()
+			.setAuthentication(
+					new TestingAuthenticationToken(user, user.getPassword(), List.copyOf(user.getAuthorities())));
 	}
 
 	private void impersonateAdmin() {
 		UserDetails user = this.userDetailsManager.loadUserByUsername("admin");
-		SecurityContextHolder.getContext().setAuthentication(
-				new TestingAuthenticationToken(user, user.getPassword(), List.copyOf(user.getAuthorities())));
+		SecurityContextHolder.getContext()
+			.setAuthentication(
+					new TestingAuthenticationToken(user, user.getPassword(), List.copyOf(user.getAuthorities())));
 	}
 
 }

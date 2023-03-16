@@ -22,8 +22,8 @@ public class SecurityThymeleafApplication {
 
 		@Override
 		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-			hints.reflection().registerType(UsernamePasswordAuthenticationToken.class,
-					MemberCategory.INVOKE_PUBLIC_METHODS);
+			hints.reflection()
+				.registerType(UsernamePasswordAuthenticationToken.class, MemberCategory.INVOKE_PUBLIC_METHODS);
 			hints.reflection().registerType(User.class, MemberCategory.INVOKE_PUBLIC_METHODS);
 		}
 

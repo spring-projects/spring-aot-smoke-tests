@@ -38,7 +38,7 @@ class CLR implements CommandLineRunner {
 			repository.deleteAll().block();
 
 			Order order = new Order("c42", new Date()).//
-					addItem(product1).addItem(product2).addItem(product3);
+				addItem(product1).addItem(product2).addItem(product3);
 			repository.save(order).block();
 
 			Iterable<Order> all = repository.findAll().toIterable();
@@ -69,8 +69,9 @@ class CLR implements CommandLineRunner {
 			System.out.println("c42_page1: " + c42_page1);
 
 			// slice
-			List<Order> c42_slice0 = repository.findSliceByCustomerId("c42", PageRequest.of(0, 2)).collectList()
-					.block();
+			List<Order> c42_slice0 = repository.findSliceByCustomerId("c42", PageRequest.of(0, 2))
+				.collectList()
+				.block();
 			System.out.println("c42_slice0: " + c42_slice0);
 
 			System.out.println("-----------------\n\n\n");
@@ -82,7 +83,7 @@ class CLR implements CommandLineRunner {
 			repository.deleteAll().block();
 
 			Order order = new Order("c42", new Date()).//
-					addItem(product1).addItem(product2).addItem(product3);
+				addItem(product1).addItem(product2).addItem(product3);
 			repository.save(order).block();
 
 			List<Order> byCustomerId = repository.findByCustomerId(order.getCustomerId()).collectList().block();
@@ -98,11 +99,12 @@ class CLR implements CommandLineRunner {
 			repository.deleteAll().block();
 
 			Order order = new Order("c42", new Date()).//
-					addItem(product1).addItem(product2).addItem(product3);
+				addItem(product1).addItem(product2).addItem(product3);
 			repository.save(order).block();
 
-			List<Order> byCustomerId = repository.findByCustomerViaAnnotation(order.getCustomerId()).collectList()
-					.block();
+			List<Order> byCustomerId = repository.findByCustomerViaAnnotation(order.getCustomerId())
+				.collectList()
+				.block();
 			System.out.print("annotatedQuery: ");
 			byCustomerId.forEach(System.out::println);
 
@@ -122,7 +124,8 @@ class CLR implements CommandLineRunner {
 			repository.save(new Order("b12", new Date()).addItem(product1)).block();
 
 			List<OrdersPerCustomer> result = repository.totalOrdersPerCustomer(Sort.by(Sort.Order.desc("total")))
-					.collectList().block();
+				.collectList()
+				.block();
 			System.out.println("aggregation: " + result);
 
 			System.out.println("-----------------\n\n\n");
@@ -134,7 +137,7 @@ class CLR implements CommandLineRunner {
 			repository.deleteAll().block();
 
 			Order order = new Order("c42", new Date()).//
-					addItem(product1).addItem(product2).addItem(product3);
+				addItem(product1).addItem(product2).addItem(product3);
 			order = repository.save(order).block();
 
 			Invoice invoice = repository.getInvoiceFor(order).block();
@@ -149,11 +152,12 @@ class CLR implements CommandLineRunner {
 			repository.deleteAll().block();
 
 			Order order = new Order("c42", new Date()).//
-					addItem(product1).addItem(product2).addItem(product3);
+				addItem(product1).addItem(product2).addItem(product3);
 			repository.save(order).block();
 
 			List<OrderProjection> result = repository.findOrderProjectionByCustomerId(order.getCustomerId())
-					.collectList().block();
+				.collectList()
+				.block();
 
 			System.out.print("projection: ");
 			result.forEach(it -> System.out.println(String.format("OrderProjection(%s){id=%s, customerId=%s}",

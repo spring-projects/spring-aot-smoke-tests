@@ -32,8 +32,11 @@ class GraphQlTesterTests {
 
 	@Test
 	void getProject() {
-		graphQlTester.documentName("project").execute().path("project.name").entity(String.class)
-				.isEqualTo("Spring Boot");
+		graphQlTester.documentName("project")
+			.execute()
+			.path("project.name")
+			.entity(String.class)
+			.isEqualTo("Spring Boot");
 	}
 
 }

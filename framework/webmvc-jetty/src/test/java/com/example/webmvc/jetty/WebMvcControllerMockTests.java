@@ -18,8 +18,9 @@ class WebMvcControllerMockTests {
 	@Test
 	void check() throws Exception {
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(new WebMvcController()).build();
-		mockMvc.perform(get("/")).andExpect(status().isOk())
-				.andExpect(content().string("Hello from Spring MVC and Jetty"));
+		mockMvc.perform(get("/"))
+			.andExpect(status().isOk())
+			.andExpect(content().string("Hello from Spring MVC and Jetty"));
 	}
 
 }

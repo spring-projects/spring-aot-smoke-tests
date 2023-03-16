@@ -44,9 +44,10 @@ public class ManagerController {
 		List<Employee> employees = List.of(new Employee("1", "first-name-1", "last-name-1", "1"),
 				new Employee("2", "first-name-2", "last-name-2", "1"),
 				new Employee("3", "first-name-3", "last-name-3", "1"));
-		return employeeModelAssembler.toCollectionModel(employees).withFallbackType(EmployeeModel.class)
-				.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ManagerController.class).reports(id))
-						.withSelfRel());
+		return employeeModelAssembler.toCollectionModel(employees)
+			.withFallbackType(EmployeeModel.class)
+			.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ManagerController.class).reports(id))
+				.withSelfRel());
 	}
 
 }

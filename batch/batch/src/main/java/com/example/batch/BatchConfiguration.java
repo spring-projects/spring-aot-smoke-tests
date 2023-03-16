@@ -31,8 +31,11 @@ class BatchConfiguration {
 	@StepScope
 	public FlatFileItemReader<Person> reader(@Value("#{jobParameters['fileName']}") String fileName) {
 		return new FlatFileItemReaderBuilder<Person>().name("personItemReader")
-				.resource(new ClassPathResource(fileName)).delimited().names("firstName", "lastName")
-				.fieldSetMapper(new RecordFieldSetMapper<>(Person.class)).build();
+			.resource(new ClassPathResource(fileName))
+			.delimited()
+			.names("firstName", "lastName")
+			.fieldSetMapper(new RecordFieldSetMapper<>(Person.class))
+			.build();
 	}
 
 	@Bean
@@ -46,9 +49,10 @@ class BatchConfiguration {
 	@Bean
 	public JdbcBatchItemWriter<Person> writer(DataSource dataSource) {
 		return new JdbcBatchItemWriterBuilder<Person>()
-				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO person (first_name, last_name) VALUES (:firstName, :lastName)").dataSource(dataSource)
-				.build();
+			.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
+			.sql("INSERT INTO person (first_name, last_name) VALUES (:firstName, :lastName)")
+			.dataSource(dataSource)
+			.build();
 	}
 
 	@Bean
@@ -60,8 +64,11 @@ class BatchConfiguration {
 	public Step step1(JobRepository jobRepository, FlatFileItemReader<Person> itemReader,
 			ItemProcessor<Person, Person> itemProcessor, JdbcBatchItemWriter<Person> itemWriter,
 			PlatformTransactionManager transactionManager) {
-		return new StepBuilder("step1", jobRepository).<Person, Person>chunk(2, transactionManager).reader(itemReader)
-				.processor(itemProcessor).writer(itemWriter).build();
+		return new StepBuilder("step1", jobRepository).<Person, Person>chunk(2, transactionManager)
+			.reader(itemReader)
+			.processor(itemProcessor)
+			.writer(itemWriter)
+			.build();
 	}
 
 	@Bean

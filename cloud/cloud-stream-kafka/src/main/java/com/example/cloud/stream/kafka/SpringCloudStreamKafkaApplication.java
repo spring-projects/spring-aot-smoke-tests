@@ -35,7 +35,7 @@ public class SpringCloudStreamKafkaApplication {
 	@Bean
 	public Supplier<String> graalSupplier() {
 		final String[] splitWoodchuck = "How much wood could a woodchuck chuck if a woodchuck could chuck wood?"
-				.split(" ");
+			.split(" ");
 		final AtomicInteger wordsIndex = new AtomicInteger(0);
 		return () -> {
 			int wordIndex = wordsIndex.getAndAccumulate(splitWoodchuck.length,

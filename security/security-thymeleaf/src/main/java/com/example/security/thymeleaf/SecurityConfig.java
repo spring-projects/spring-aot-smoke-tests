@@ -19,18 +19,26 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
-				.authorizeHttpRequests(
-						(authorize) -> authorize.requestMatchers("/").permitAll().anyRequest().authenticated())
-				.httpBasic(withDefaults()).formLogin(withDefaults()).build();
+			.authorizeHttpRequests(
+					(authorize) -> authorize.requestMatchers("/").permitAll().anyRequest().authenticated())
+			.httpBasic(withDefaults())
+			.formLogin(withDefaults())
+			.build();
 	}
 
 	@Bean
 	@SuppressWarnings("deprecation")
 	UserDetailsService userDetailsService() {
-		UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
-				.build();
-		UserDetails admin = User.withDefaultPasswordEncoder().username("admin").password("password").roles("ADMIN")
-				.build();
+		UserDetails user = User.withDefaultPasswordEncoder()
+			.username("user")
+			.password("password")
+			.roles("USER")
+			.build();
+		UserDetails admin = User.withDefaultPasswordEncoder()
+			.username("admin")
+			.password("password")
+			.roles("ADMIN")
+			.build();
 
 		return new InMemoryUserDetailsManager(user, admin);
 	}

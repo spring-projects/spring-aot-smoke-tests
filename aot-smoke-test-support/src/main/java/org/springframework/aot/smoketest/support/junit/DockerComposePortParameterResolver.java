@@ -48,7 +48,7 @@ class DockerComposePortParameterResolver implements ParameterResolver {
 		if (value == null) {
 			throw new ParameterResolutionException(
 					"Can't get mapped port for docker-compose service '%s' port %d, the environment variable '%s' is missing"
-							.formatted(serviceName, port, envVariable));
+						.formatted(serviceName, port, envVariable));
 		}
 		return Integer.parseInt(value);
 	}
