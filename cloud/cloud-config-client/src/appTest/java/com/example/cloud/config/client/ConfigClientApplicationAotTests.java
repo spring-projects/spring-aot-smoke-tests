@@ -18,7 +18,7 @@ public class ConfigClientApplicationAotTests {
 		Awaitility.await().atMost(30, TimeUnit.SECONDS).untilAsserted(() -> {
 			assertThat(output).hasLineContaining("Fetching config from server");
 			assertThat(output)
-					.hasLineContaining("Located environment: name=client-service, profiles=[default], label=null");
+				.hasLineContaining("Located environment: name=client-service, profiles=[default], label=null");
 		});
 
 	}

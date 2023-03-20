@@ -33,13 +33,18 @@ class SpringCloudStreamKafkaApplicationAotTests {
 	void suppliedMessageIsUppercasedAndLogged(AssertableOutput output) {
 		// INPUT -> How much wood could a woodchuck chuck if a woodchuck could chuck
 		// wood?"
-		Awaitility.await().atMost(Duration.ofSeconds(30))
-				.untilAsserted(() -> assertThat(output).hasLineContaining("++++++Received:HOW")
-						.hasLineContaining("++++++Received:MUCH").hasLineContaining("++++++Received:WOOD")
-						.hasLineContaining("++++++Received:COULD").hasLineContaining("++++++Received:A")
-						.hasLineContaining("++++++Received:WOODCHUCK").hasLineContaining("++++++Received:CHUCK")
-						.hasLineContaining("++++++Received:IF").hasLineContaining("++++++Received:COULD")
-						.hasLineContaining("++++++Received:WOOD?"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output).hasLineContaining("++++++Received:HOW")
+				.hasLineContaining("++++++Received:MUCH")
+				.hasLineContaining("++++++Received:WOOD")
+				.hasLineContaining("++++++Received:COULD")
+				.hasLineContaining("++++++Received:A")
+				.hasLineContaining("++++++Received:WOODCHUCK")
+				.hasLineContaining("++++++Received:CHUCK")
+				.hasLineContaining("++++++Received:IF")
+				.hasLineContaining("++++++Received:COULD")
+				.hasLineContaining("++++++Received:WOOD?"));
 	}
 
 }

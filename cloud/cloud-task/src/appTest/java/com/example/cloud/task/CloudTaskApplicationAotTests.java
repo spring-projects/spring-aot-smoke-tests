@@ -16,8 +16,9 @@ class CloudTaskApplicationAotTests {
 	@Test
 	void expectedLoggingIsProduced(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("Before task: cloudtask").hasSingleLineContaining("Task ran!")
-					.hasSingleLineContaining("After task: cloudtask");
+			assertThat(output).hasSingleLineContaining("Before task: cloudtask")
+				.hasSingleLineContaining("Task ran!")
+				.hasSingleLineContaining("After task: cloudtask");
 		});
 	}
 

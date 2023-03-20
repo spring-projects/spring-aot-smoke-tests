@@ -12,10 +12,20 @@ public class CloudGatewayApplicationAotTests {
 
 	@Test
 	void shouldRouteRequests(WebTestClient client) {
-		client.get().uri("test-service").exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("test"));
-		client.get().uri("demo-service").exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("demo"));
+		client.get()
+			.uri("test-service")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("test"));
+		client.get()
+			.uri("demo-service")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("demo"));
 	}
 
 }

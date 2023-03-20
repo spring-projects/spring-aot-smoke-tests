@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot'
@@ -6,11 +8,11 @@ plugins {
 }
 
 ext {
-	set('springCloudVersion', "2022.0.0-SNAPSHOT")
+	set('springCloudVersion', "2022.0.2-SNAPSHOT")
 }
 
 dependencies {
-	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation(platform(SpringBootPlugin.BOM_COORDINATES))
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.cloud:spring-cloud-starter-task")
