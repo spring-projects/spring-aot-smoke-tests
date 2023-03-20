@@ -10,7 +10,7 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "2022.0.0-SNAPSHOT")
+    set('springCloudVersion', "2022.0.2-SNAPSHOT")
 }
 
 dependencies {
