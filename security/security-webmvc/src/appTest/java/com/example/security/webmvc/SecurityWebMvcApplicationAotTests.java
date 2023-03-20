@@ -28,8 +28,13 @@ class SecurityWebMvcApplicationAotTests {
 
 	@Test
 	void anonymousShouldBeAccessibleWithoutCredentials(WebTestClient client) {
-		client.get().uri("/rest/anonymous").exchange().expectStatus().isOk().expectBody().consumeWith(
-				(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("anonymous"));
+		client.get()
+			.uri("/rest/anonymous")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("anonymous"));
 	}
 
 	@Test
@@ -39,16 +44,25 @@ class SecurityWebMvcApplicationAotTests {
 
 	@Test
 	void authorizedShouldBeAccessibleWithCredentials(WebTestClient client) {
-		client.get().uri("/rest/authorized").headers((header) -> header.setBasicAuth("user", "password")).exchange()
-				.expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
-						.isEqualTo("authorized: user"));
+		client.get()
+			.uri("/rest/authorized")
+			.headers((header) -> header.setBasicAuth("user", "password"))
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith(
+					(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("authorized: user"));
 	}
 
 	@Test
 	void authorizedShouldBeProtectedWithWrongCredentials(WebTestClient client) {
-		client.get().uri("/rest/authorized").headers((header) -> header.setBasicAuth("wrong-user", "wrong-password"))
-				.exchange().expectStatus().isUnauthorized();
+		client.get()
+			.uri("/rest/authorized")
+			.headers((header) -> header.setBasicAuth("wrong-user", "wrong-password"))
+			.exchange()
+			.expectStatus()
+			.isUnauthorized();
 	}
 
 	@Test
@@ -58,21 +72,34 @@ class SecurityWebMvcApplicationAotTests {
 
 	@Test
 	void adminShouldBeAccessibleWithCredentials(WebTestClient client) {
-		client.get().uri("/rest/admin").headers((header) -> header.setBasicAuth("admin", "password")).exchange()
-				.expectStatus().isOk().expectBody().consumeWith(
-						(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("admin: admin"));
+		client.get()
+			.uri("/rest/admin")
+			.headers((header) -> header.setBasicAuth("admin", "password"))
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("admin: admin"));
 	}
 
 	@Test
 	void adminShouldBeProtectedWithWrongCredentials(WebTestClient client) {
-		client.get().uri("/rest/admin").headers((header) -> header.setBasicAuth("wrong-admin", "wrong-password"))
-				.exchange().expectStatus().isUnauthorized();
+		client.get()
+			.uri("/rest/admin")
+			.headers((header) -> header.setBasicAuth("wrong-admin", "wrong-password"))
+			.exchange()
+			.expectStatus()
+			.isUnauthorized();
 	}
 
 	@Test
 	void adminShouldBeProtectedWithWrongRole(WebTestClient client) {
-		client.get().uri("/rest/admin").headers((header) -> header.setBasicAuth("user", "password")).exchange()
-				.expectStatus().isForbidden();
+		client.get()
+			.uri("/rest/admin")
+			.headers((header) -> header.setBasicAuth("user", "password"))
+			.exchange()
+			.expectStatus()
+			.isForbidden();
 	}
 
 	@Test

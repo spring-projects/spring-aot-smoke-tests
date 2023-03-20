@@ -51,8 +51,8 @@ class DataCassandraApplicationAotTests {
 	void findAll(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("findAll(): Person{firstname='first-1', lastname='last-1'}")
-					.hasSingleLineContaining("findAll(): Person{firstname='first-2', lastname='last-2'}")
-					.hasSingleLineContaining("findAll(): Person{firstname='first-3', lastname='last-3'}");
+				.hasSingleLineContaining("findAll(): Person{firstname='first-2', lastname='last-2'}")
+				.hasSingleLineContaining("findAll(): Person{firstname='first-3', lastname='last-3'}");
 		});
 	}
 
@@ -60,7 +60,7 @@ class DataCassandraApplicationAotTests {
 	void findByLastName(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("findByLastname(): Person{firstname='first-3', lastname='last-3'}");
+				.hasSingleLineContaining("findByLastname(): Person{firstname='first-3', lastname='last-3'}");
 		});
 	}
 

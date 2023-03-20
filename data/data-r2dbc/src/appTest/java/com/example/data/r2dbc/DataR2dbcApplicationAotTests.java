@@ -17,7 +17,7 @@ class DataR2dbcApplicationAotTests {
 	void findAll(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("findAll(): Reservation{id=1, name='reservation-1'}")
-					.hasSingleLineContaining("findAll(): Reservation{id=2, name='reservation-2'}");
+				.hasSingleLineContaining("findAll(): Reservation{id=2, name='reservation-2'}");
 		});
 	}
 

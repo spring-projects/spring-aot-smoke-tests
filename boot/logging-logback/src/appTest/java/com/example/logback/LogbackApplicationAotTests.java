@@ -16,12 +16,15 @@ class LogbackApplicationAotTests {
 	@Test
 	void expectedLoggingIsProduced(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output).hasNoLinesContaining("Trace message").hasSingleLineContaining("Debug message")
-					.hasSingleLineContaining("Info message").hasSingleLineContaining("Warn message")
-					.hasSingleLineContaining("Error message").hasSingleLineContaining("Info with parameters: 1")
-					.hasSingleLineContaining("Error with stacktrace")
-					.hasSingleLineContaining("java.lang.RuntimeException: Boom")
-					.hasSingleLineContaining("at com.example.logback.CLR.run(CLR.java");
+			assertThat(output).hasNoLinesContaining("Trace message")
+				.hasSingleLineContaining("Debug message")
+				.hasSingleLineContaining("Info message")
+				.hasSingleLineContaining("Warn message")
+				.hasSingleLineContaining("Error message")
+				.hasSingleLineContaining("Info with parameters: 1")
+				.hasSingleLineContaining("Error with stacktrace")
+				.hasSingleLineContaining("java.lang.RuntimeException: Boom")
+				.hasSingleLineContaining("at com.example.logback.CLR.run(CLR.java");
 		});
 	}
 

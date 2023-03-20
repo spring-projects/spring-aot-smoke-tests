@@ -18,7 +18,7 @@ class EventListenerApplicationAotTests {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("HelloEventPublisher: Publishing HelloEvent");
 			assertThat(output)
-					.hasSingleLineContaining("HelloEventListener: Got event HelloEvent{greeting='Hello world'}");
+				.hasSingleLineContaining("HelloEventListener: Got event HelloEvent{greeting='Hello world'}");
 		});
 	}
 

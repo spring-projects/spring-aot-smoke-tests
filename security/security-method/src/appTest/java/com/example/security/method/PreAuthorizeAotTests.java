@@ -17,10 +17,10 @@ class PreAuthorizeAotTests {
 	void anonymousCanCallOnlyAnonymousMethod(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining(
-							"testAnonymous(): preAuthorizeProtectedService.anonymous() worked as anonymous")
-					.hasSingleLineContaining("testUser(): preAuthorizeProtectedService.user() failed as anonymous")
-					.hasSingleLineContaining("testAdmin(): preAuthorizeProtectedService.admin() failed as anonymous");
+				.hasSingleLineContaining(
+						"testAnonymous(): preAuthorizeProtectedService.anonymous() worked as anonymous")
+				.hasSingleLineContaining("testUser(): preAuthorizeProtectedService.user() failed as anonymous")
+				.hasSingleLineContaining("testAdmin(): preAuthorizeProtectedService.admin() failed as anonymous");
 		});
 	}
 
@@ -28,7 +28,7 @@ class PreAuthorizeAotTests {
 	void userCanCallUserMethod(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("testUser(): preAuthorizeProtectedService.user() worked as user")
-					.hasSingleLineContaining("testAdmin(): preAuthorizeProtectedService.admin() failed as user");
+				.hasSingleLineContaining("testAdmin(): preAuthorizeProtectedService.admin() failed as user");
 		});
 	}
 
@@ -36,7 +36,7 @@ class PreAuthorizeAotTests {
 	void adminCanCallAdminMethod(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("testAdmin(): preAuthorizeProtectedService.admin() worked as admin");
+				.hasSingleLineContaining("testAdmin(): preAuthorizeProtectedService.admin() worked as admin");
 		});
 	}
 

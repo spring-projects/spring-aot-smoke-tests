@@ -12,8 +12,14 @@ class ServletJettyApplicationAotTests {
 
 	@Test
 	void servletIsInvokable(WebTestClient client) {
-		client.get().uri("/?name=Servlet").exchange().expectStatus().isOk().expectBody().consumeWith(
-				(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello Servlet"));
+		client.get()
+			.uri("/?name=Servlet")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith(
+					(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello Servlet"));
 	}
 
 }

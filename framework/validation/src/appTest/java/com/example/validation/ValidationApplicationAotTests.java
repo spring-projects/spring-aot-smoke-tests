@@ -35,8 +35,8 @@ class ValidationApplicationAotTests {
 	void methodValidationWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("this.someService.hello('world'): hello world")
-					.hasSingleLineContaining("this.someService.hello(''): Got expected exception").hasNoLinesContaining(
-							"this.someService.hello(''): Invocation worked, this should not have happened!");
+				.hasSingleLineContaining("this.someService.hello(''): Got expected exception")
+				.hasNoLinesContaining("this.someService.hello(''): Invocation worked, this should not have happened!");
 		});
 	}
 
@@ -47,11 +47,22 @@ class ValidationApplicationAotTests {
 
 	@Test
 	void controllerValidationWorks(WebTestClient client) {
-		client.post().uri("/hello").contentType(MediaType.APPLICATION_JSON).bodyValue("{\"name\": \"world\"}")
-				.exchange().expectStatus().isOk().expectBody().consumeWith(
-						(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello world"));
-		client.post().uri("/hello").contentType(MediaType.APPLICATION_JSON).bodyValue("{\"name\": \"\"}").exchange()
-				.expectStatus().isBadRequest();
+		client.post()
+			.uri("/hello")
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue("{\"name\": \"world\"}")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello world"));
+		client.post()
+			.uri("/hello")
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue("{\"name\": \"\"}")
+			.exchange()
+			.expectStatus()
+			.isBadRequest();
 	}
 
 }

@@ -28,37 +28,71 @@ class HateoasApplicationAotTests {
 
 	@Test
 	void employeeHasLinks(WebTestClient client) {
-		client.get().uri("/employee/1").exchange().expectStatus().isOk().expectBody().jsonPath("$.id").isEqualTo("1")
-				.jsonPath("$._links.self.href").value(v -> {
-					assertThat(v).isInstanceOf(String.class);
-					assertThat((String) v).endsWith("/employee/1");
-				}).jsonPath("$._links.manager.href").value(v -> {
-					assertThat(v).isInstanceOf(String.class);
-					assertThat((String) v).endsWith("/manager/1");
-				});
+		client.get()
+			.uri("/employee/1")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$.id")
+			.isEqualTo("1")
+			.jsonPath("$._links.self.href")
+			.value(v -> {
+				assertThat(v).isInstanceOf(String.class);
+				assertThat((String) v).endsWith("/employee/1");
+			})
+			.jsonPath("$._links.manager.href")
+			.value(v -> {
+				assertThat(v).isInstanceOf(String.class);
+				assertThat((String) v).endsWith("/manager/1");
+			});
 	}
 
 	@Test
 	void managerHasLinks(WebTestClient client) {
-		client.get().uri("/manager/1").exchange().expectStatus().isOk().expectBody().jsonPath("$.id").isEqualTo("1")
-				.jsonPath("$._links.self.href").value(v -> {
-					assertThat(v).isInstanceOf(String.class);
-					assertThat((String) v).endsWith("/manager/1");
-				}).jsonPath("$._links.reports.href").value(v -> {
-					assertThat(v).isInstanceOf(String.class);
-					assertThat((String) v).endsWith("/manager/1/reports");
-				});
+		client.get()
+			.uri("/manager/1")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$.id")
+			.isEqualTo("1")
+			.jsonPath("$._links.self.href")
+			.value(v -> {
+				assertThat(v).isInstanceOf(String.class);
+				assertThat((String) v).endsWith("/manager/1");
+			})
+			.jsonPath("$._links.reports.href")
+			.value(v -> {
+				assertThat(v).isInstanceOf(String.class);
+				assertThat((String) v).endsWith("/manager/1/reports");
+			});
 	}
 
 	@Test
 	void reportsIsCollection(WebTestClient client) {
-		client.get().uri("/manager/1/reports").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("$._links.self.href").value(v -> {
-					assertThat(v).isInstanceOf(String.class);
-					assertThat((String) v).endsWith("/manager/1/reports");
-				}).jsonPath("$._embedded").isMap().jsonPath("$._embedded.employees").isArray()
-				.jsonPath("$._embedded.employees[0].id").isEqualTo("1").jsonPath("$._embedded.employees[1].id")
-				.isEqualTo("2").jsonPath("$._embedded.employees[2].id").isEqualTo("3");
+		client.get()
+			.uri("/manager/1/reports")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.jsonPath("$._links.self.href")
+			.value(v -> {
+				assertThat(v).isInstanceOf(String.class);
+				assertThat((String) v).endsWith("/manager/1/reports");
+			})
+			.jsonPath("$._embedded")
+			.isMap()
+			.jsonPath("$._embedded.employees")
+			.isArray()
+			.jsonPath("$._embedded.employees[0].id")
+			.isEqualTo("1")
+			.jsonPath("$._embedded.employees[1].id")
+			.isEqualTo("2")
+			.jsonPath("$._embedded.employees[2].id")
+			.isEqualTo("3");
 	}
 
 }

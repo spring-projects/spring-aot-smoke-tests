@@ -21,15 +21,14 @@ class LogbackXmlApplicationAotTests {
 	void expectedLoggingIsProduced(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
 			assertThat(output).hasNoLinesContaining("Trace message")
-					.hasSingleLineContaining("main | DEBUG | com.example.logbackspring.xml.CLR | Debug message")
-					.hasSingleLineContaining("main | INFO  | com.example.logbackspring.xml.CLR | Info message")
-					.hasSingleLineContaining("main | WARN  | com.example.logbackspring.xml.CLR | Warn message")
-					.hasSingleLineContaining("main | ERROR | com.example.logbackspring.xml.CLR | Error message")
-					.hasSingleLineContaining(
-							"main | INFO  | com.example.logbackspring.xml.CLR | Info with parameters: 1")
-					.hasSingleLineContaining("main | ERROR | com.example.logbackspring.xml.CLR | Error with stacktrace")
-					.hasSingleLineContaining("java.lang.RuntimeException: Boom")
-					.hasSingleLineContaining("at com.example.logbackspring.xml.CLR.run(CLR.java");
+				.hasSingleLineContaining("main | DEBUG | com.example.logbackspring.xml.CLR | Debug message")
+				.hasSingleLineContaining("main | INFO  | com.example.logbackspring.xml.CLR | Info message")
+				.hasSingleLineContaining("main | WARN  | com.example.logbackspring.xml.CLR | Warn message")
+				.hasSingleLineContaining("main | ERROR | com.example.logbackspring.xml.CLR | Error message")
+				.hasSingleLineContaining("main | INFO  | com.example.logbackspring.xml.CLR | Info with parameters: 1")
+				.hasSingleLineContaining("main | ERROR | com.example.logbackspring.xml.CLR | Error with stacktrace")
+				.hasSingleLineContaining("java.lang.RuntimeException: Boom")
+				.hasSingleLineContaining("at com.example.logbackspring.xml.CLR.run(CLR.java");
 		});
 	}
 

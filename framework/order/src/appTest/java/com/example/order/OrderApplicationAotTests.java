@@ -15,8 +15,9 @@ class OrderApplicationAotTests {
 
 	@Test
 	void expectedOrderIsLogged(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(
-				() -> assertThat(output).hasSingleLineContaining("Items: priority50, -20, -10, 10, none"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Items: priority50, -20, -10, 10, none"));
 	}
 
 }

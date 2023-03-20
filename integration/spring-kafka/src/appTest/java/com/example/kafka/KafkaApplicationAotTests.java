@@ -31,7 +31,9 @@ class KafkaApplicationAotTests {
 
 	@Test
 	void kafkaListenerMethodReceivesMessageAndSendsResponse(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> assertThat(output)
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output)
 				.hasSingleLineContaining("++++++Received: Greeting{message='Hello from GraalVM!'}"));
 	}
 

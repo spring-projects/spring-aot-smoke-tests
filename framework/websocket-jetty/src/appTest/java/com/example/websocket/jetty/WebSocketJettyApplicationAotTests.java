@@ -31,26 +31,30 @@ class WebSocketJettyApplicationAotTests {
 
 	@Test
 	void clientShouldSendMessage(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Client: Sent 'Hello Websocket'"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Client: Sent 'Hello Websocket'"));
 	}
 
 	@Test
 	void serverShouldReceiveMessage(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Server: Received 'Hello Websocket'"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Server: Received 'Hello Websocket'"));
 	}
 
 	@Test
 	void serverShouldReply(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Server: Sent 'Hello Websocket'"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Server: Sent 'Hello Websocket'"));
 	}
 
 	@Test
 	void clientShouldReceiveReply(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Client: Received 'Hello Websocket'"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Client: Received 'Hello Websocket'"));
 	}
 
 }

@@ -31,8 +31,8 @@ class DataRedisReactiveApplicationAotTests {
 	void findAll(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("1: Person{firstname='first-1', lastname='last-1'}")
-					.hasSingleLineContaining("2: Person{firstname='first-2', lastname='last-2'}")
-					.hasSingleLineContaining("3: Person{firstname='first-3', lastname='last-3'}");
+				.hasSingleLineContaining("2: Person{firstname='first-2', lastname='last-2'}")
+				.hasSingleLineContaining("3: Person{firstname='first-3', lastname='last-3'}");
 		});
 	}
 

@@ -15,8 +15,9 @@ class ZookeeperDiscoveryClientApplicationAotTests {
 
 	@Test
 	void shouldRegisterWithZookeeper(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30))
-				.untilAsserted(() -> assertThat(output).hasLineContaining("Session establishment complete on server"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output).hasLineContaining("Session establishment complete on server"));
 
 	}
 

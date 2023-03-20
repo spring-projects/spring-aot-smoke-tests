@@ -15,8 +15,9 @@ class AsyncApplicationAotTests {
 
 	@Test
 	void asyncShouldRunInTheBackground(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("set:Asynchronous action running..."));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("set:Asynchronous action running..."));
 	}
 
 }

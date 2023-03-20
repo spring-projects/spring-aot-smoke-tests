@@ -15,8 +15,9 @@ class TransactionalApplicationAotTests {
 
 	@Test
 	void transactionShouldBeActive(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Transaction active: true"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Transaction active: true"));
 	}
 
 }

@@ -17,7 +17,7 @@ class DataJdbcH2ApplicationAotTests {
 	void insert(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("insertAuthors(): author1 = Author{name='Josh Long'}")
-					.hasSingleLineContaining("insertAuthors(): author2 = Author{name='Martin Kleppmann'}");
+				.hasSingleLineContaining("insertAuthors(): author2 = Author{name='Martin Kleppmann'}");
 		});
 	}
 
@@ -25,10 +25,10 @@ class DataJdbcH2ApplicationAotTests {
 	void listAllAuthors(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("listAllAuthors(): author = Author{name='Josh Long'")
-					.hasSingleLineContaining("Book{title='Cloud Native Java'}")
-					.hasSingleLineContaining("Book{title='Reactive Spring'}")
-					.hasSingleLineContaining("listAllAuthors(): author = Author{name='Martin Kleppmann'}")
-					.hasSingleLineContaining("Book{title='Designing Data Intensive Applications'}");
+				.hasSingleLineContaining("Book{title='Cloud Native Java'}")
+				.hasSingleLineContaining("Book{title='Reactive Spring'}")
+				.hasSingleLineContaining("listAllAuthors(): author = Author{name='Martin Kleppmann'}")
+				.hasSingleLineContaining("Book{title='Designing Data Intensive Applications'}");
 		});
 	}
 
@@ -36,7 +36,7 @@ class DataJdbcH2ApplicationAotTests {
 	void findById(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("findById(): author1 = Author{name='Josh Long'}")
-					.hasSingleLineContaining("findById(): author2 = Author{name='Martin Kleppmann'}");
+				.hasSingleLineContaining("findById(): author2 = Author{name='Martin Kleppmann'}");
 		});
 	}
 
@@ -44,7 +44,7 @@ class DataJdbcH2ApplicationAotTests {
 	void queryDerivedFromMethodName(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("findByPartialName(): author1 = Author{name='Josh Long'}")
-					.hasSingleLineContaining("findByPartialName(): author2 = Author{name='Martin Kleppmann'}");
+				.hasSingleLineContaining("findByPartialName(): author2 = Author{name='Martin Kleppmann'}");
 		});
 	}
 
@@ -52,7 +52,7 @@ class DataJdbcH2ApplicationAotTests {
 	void queryAnnotatedMethod(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("queryFindByName(): author1 = Author{name='Josh Long'}")
-					.hasSingleLineContaining("queryFindByName(): author2 = Author{name='Martin Kleppmann'}");
+				.hasSingleLineContaining("queryFindByName(): author2 = Author{name='Martin Kleppmann'}");
 		});
 	}
 

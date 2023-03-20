@@ -33,34 +33,59 @@ class WebMvcUndertowApplicationAotTests {
 
 	@Test
 	void stringResponseBody(WebTestClient client) {
-		client.get().exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
-						.isEqualTo("Hello from Spring MVC and Undertow"));
+		client.get()
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
+				.isEqualTo("Hello from Spring MVC and Undertow"));
 	}
 
 	@Test
 	void resourceInPublic(WebTestClient client) {
-		client.get().uri("bar.html").exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Bar"));
+		client.get()
+			.uri("bar.html")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Bar"));
 	}
 
 	@Test
 	void resourceInStatic(WebTestClient client) {
-		client.get().uri("foo.html").exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Foo"));
+		client.get()
+			.uri("foo.html")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Foo"));
 	}
 
 	@Test
 	void jsonResponseFromSerializedRecord(WebTestClient client) {
-		client.get().uri("record").exchange().expectStatus().isOk().expectBody()
-				.json("{\"message\":\"Hello from Spring MVC and Undertow\"}");
+		client.get()
+			.uri("record")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.json("{\"message\":\"Hello from Spring MVC and Undertow\"}");
 	}
 
 	@Test
 	void sendPostToPostMappingDefinedOnAnInterfaceAndReceiveEchoedJsonResponse(WebTestClient client) {
-		client.post().uri("echo").bodyValue("{\"message\": \"Native\"}")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).exchange().expectStatus().isOk()
-				.expectBody().json("{\"message\":\"Native\"}");
+		client.post()
+			.uri("echo")
+			.bodyValue("{\"message\": \"Native\"}")
+			.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.json("{\"message\":\"Native\"}");
 	}
 
 	@Test
@@ -73,13 +98,20 @@ class WebMvcUndertowApplicationAotTests {
 		MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
 		formData.add("firstName", "first-name");
 		formData.add("lastName", "last-name");
-		client.post().uri("/form-submission").contentType(MediaType.MULTIPART_FORM_DATA)
-				.body(BodyInserters.fromMultipartData(formData)).exchange().expectStatus().isOk().expectBody().json("""
-						{
-							"firstName": "first-name",
-							"lastName": "last-name"
-						}
-						""");
+		client.post()
+			.uri("/form-submission")
+			.contentType(MediaType.MULTIPART_FORM_DATA)
+			.body(BodyInserters.fromMultipartData(formData))
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.json("""
+					{
+						"firstName": "first-name",
+						"lastName": "last-name"
+					}
+					""");
 	}
 
 	@Test
@@ -99,9 +131,15 @@ class WebMvcUndertowApplicationAotTests {
 
 	@Test
 	void xmlWorks(WebTestClient client) {
-		client.post().uri("/xml").contentType(MediaType.APPLICATION_XML)
-				.bodyValue("<Request><message>Hello</message></Request>").exchange().expectStatus().isOk().expectBody()
-				.xml("<Response><message>Server: Hello</message></Response>");
+		client.post()
+			.uri("/xml")
+			.contentType(MediaType.APPLICATION_XML)
+			.bodyValue("<Request><message>Hello</message></Request>")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.xml("<Response><message>Server: Hello</message></Response>");
 	}
 
 }

@@ -17,10 +17,10 @@ class TransactionalEventListenerApplicationAotTests {
 	void eventIsPublishedIfTransactionIsCommited(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining(
-							"TransactionalEventPublisher: Publishing TransactionalEvent (transaction successful)")
-					.hasSingleLineContaining(
-							"TransactionalEventListener: Got event TransactionalEvent{greeting='TX successful'}");
+				.hasSingleLineContaining(
+						"TransactionalEventPublisher: Publishing TransactionalEvent (transaction successful)")
+				.hasSingleLineContaining(
+						"TransactionalEventListener: Got event TransactionalEvent{greeting='TX successful'}");
 		});
 	}
 
@@ -28,10 +28,9 @@ class TransactionalEventListenerApplicationAotTests {
 	void eventIsNotPublishedIfTransactionIsAborted(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining(
-							"TransactionalEventPublisher: Publishing TransactionalEvent (transaction failed)")
-					.hasNoLinesContaining(
-							"TransactionalEventListener: Got event TransactionalEvent{greeting='TX failed'}");
+				.hasSingleLineContaining(
+						"TransactionalEventPublisher: Publishing TransactionalEvent (transaction failed)")
+				.hasNoLinesContaining("TransactionalEventListener: Got event TransactionalEvent{greeting='TX failed'}");
 		});
 	}
 

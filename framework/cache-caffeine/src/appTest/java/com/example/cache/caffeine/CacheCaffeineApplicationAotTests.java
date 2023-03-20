@@ -24,7 +24,7 @@ class CacheCaffeineApplicationAotTests {
 	void methodIsCachedOnInterfaces(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("interface.invoke: 1")
-					.hasNoLinesContaining("interface.invoke: 2");
+				.hasNoLinesContaining("interface.invoke: 2");
 		});
 	}
 

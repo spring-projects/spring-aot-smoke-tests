@@ -19,7 +19,7 @@ class RestTemplateApplicationAotTests {
 	void httpWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("http: DataDto{url='http://httpbin.org/anything', method='GET'}");
+				.hasSingleLineContaining("http: DataDto{url='http://httpbin.org/anything', method='GET'}");
 		});
 	}
 
@@ -27,7 +27,7 @@ class RestTemplateApplicationAotTests {
 	void httpsWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("https: DataDto{url='https://httpbin.org/anything', method='GET'}");
+				.hasSingleLineContaining("https: DataDto{url='https://httpbin.org/anything', method='GET'}");
 		});
 	}
 

@@ -31,8 +31,9 @@ class GraphQlApplicationAotTests {
 	void getProject() {
 		TcpClientTransport transport = TcpClientTransport.create(9090);
 		RSocketGraphQlClient graphQlClient = RSocketGraphQlClient.builder().clientTransport(transport).build();
-		Mono<String> projectName = graphQlClient.documentName("project").retrieve("project.name")
-				.toEntity(String.class);
+		Mono<String> projectName = graphQlClient.documentName("project")
+			.retrieve("project.name")
+			.toEntity(String.class);
 		StepVerifier.create(projectName).expectNext("Spring Framework").expectComplete().verify();
 	}
 

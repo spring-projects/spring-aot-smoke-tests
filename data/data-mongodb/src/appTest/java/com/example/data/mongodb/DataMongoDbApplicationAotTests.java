@@ -41,9 +41,9 @@ class DataMongoDbApplicationAotTests {
 	void documentReference(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("document ref (no proxy): 30.0")
-					.hasLineMatching("lazy document ref .*\\$LazyLoadingProxy")
-					.hasLineContaining("lazy document ref (resolved): 30.0")
-					.hasLineContaining("lazy document ref (resolved): 30.0");
+				.hasLineMatching("lazy document ref .*\\$LazyLoadingProxy")
+				.hasLineContaining("lazy document ref (resolved): 30.0")
+				.hasLineContaining("lazy document ref (resolved): 30.0");
 		});
 	}
 
@@ -58,8 +58,8 @@ class DataMongoDbApplicationAotTests {
 	void transactionSupport(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("in-transaction: Order{id='")
-					.hasSingleLineContaining("transactional-status: rollback")
-					.hasSingleLineContaining("after-transaction: []");
+				.hasSingleLineContaining("transactional-status: rollback")
+				.hasSingleLineContaining("after-transaction: []");
 		});
 	}
 
@@ -67,8 +67,8 @@ class DataMongoDbApplicationAotTests {
 	void findAll(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("findAll(): Person{firstname='first-1', lastname='last-1'}")
-					.hasSingleLineContaining("findAll(): Person{firstname='first-2', lastname='last-2'}")
-					.hasSingleLineContaining("findAll(): Person{firstname='first-3', lastname='last-3'}");
+				.hasSingleLineContaining("findAll(): Person{firstname='first-2', lastname='last-2'}")
+				.hasSingleLineContaining("findAll(): Person{firstname='first-3', lastname='last-3'}");
 		});
 	}
 
@@ -76,7 +76,7 @@ class DataMongoDbApplicationAotTests {
 	void findByLastName(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("findByLastname(): Person{firstname='first-3', lastname='last-3'}");
+				.hasSingleLineContaining("findByLastname(): Person{firstname='first-3', lastname='last-3'}");
 		});
 	}
 

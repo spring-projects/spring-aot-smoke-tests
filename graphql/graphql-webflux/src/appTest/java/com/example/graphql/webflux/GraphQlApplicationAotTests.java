@@ -37,8 +37,9 @@ class GraphQlApplicationAotTests {
 	void getProjectUsingHttp(@ApplicationUrl(scheme = ApplicationUrl.Scheme.HTTP) URI applicationUrl) {
 		WebClient webClient = WebClient.create(applicationUrl.toString() + "/graphql");
 		HttpGraphQlClient graphQlClient = HttpGraphQlClient.create(webClient);
-		Mono<String> projectName = graphQlClient.documentName("project").retrieve("project.name")
-				.toEntity(String.class);
+		Mono<String> projectName = graphQlClient.documentName("project")
+			.retrieve("project.name")
+			.toEntity(String.class);
 		StepVerifier.create(projectName).expectNext("Spring Framework").expectComplete().verify();
 	}
 
@@ -46,9 +47,11 @@ class GraphQlApplicationAotTests {
 	void getProjectUsingWebSocket(@ApplicationUrl(scheme = ApplicationUrl.Scheme.WEBSOCKET) URI applicationUrl) {
 		WebSocketClient webClient = new ReactorNettyWebSocketClient();
 		WebSocketGraphQlClient graphQlClient = WebSocketGraphQlClient
-				.builder(applicationUrl.toString() + "/graphql", webClient).build();
-		Mono<String> projectName = graphQlClient.documentName("project").retrieve("project.name")
-				.toEntity(String.class);
+			.builder(applicationUrl.toString() + "/graphql", webClient)
+			.build();
+		Mono<String> projectName = graphQlClient.documentName("project")
+			.retrieve("project.name")
+			.toEntity(String.class);
 		StepVerifier.create(projectName).expectNext("Spring Framework").expectComplete().verify();
 	}
 

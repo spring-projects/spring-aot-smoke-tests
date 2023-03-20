@@ -31,10 +31,14 @@ class KafkaAvroApplicationAotTests {
 
 	@Test
 	void kafkaListenerMethodReceivesMessageAndSendsResponse(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> assertThat(output)
-				.hasSingleLineContaining("++++++1:Received Thing1:").hasSingleLineContaining("++++++2:Received Thing2:")
-				.hasSingleLineContaining("++++++3:Received Thing3:").hasSingleLineContaining("++++++4:Received Thing4:")
-				.hasSingleLineContaining("++++++5:Received Thing5:").hasSingleLineContaining("++++++6:Received Thing6:")
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("++++++1:Received Thing1:")
+				.hasSingleLineContaining("++++++2:Received Thing2:")
+				.hasSingleLineContaining("++++++3:Received Thing3:")
+				.hasSingleLineContaining("++++++4:Received Thing4:")
+				.hasSingleLineContaining("++++++5:Received Thing5:")
+				.hasSingleLineContaining("++++++6:Received Thing6:")
 				.hasSingleLineContaining("++++++7:Received Thing7:")
 				.hasSingleLineContaining("++++++8:Received Thing8:"));
 	}

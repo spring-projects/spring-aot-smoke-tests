@@ -42,8 +42,13 @@ class WebMvcUndertowTlsApplicationAotTests {
 	void stringResponseBody(@ApplicationUrl(scheme = Scheme.HTTPS) URI applicationUrl) throws Exception {
 		WebTestClient client = buildWebClient(applicationUrl);
 
-		client.get().exchange().expectStatus().isOk().expectBody().consumeWith(
-				(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello World TLS"));
+		client.get()
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith(
+					(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello World TLS"));
 	}
 
 	/**
@@ -61,7 +66,7 @@ class WebMvcUndertowTlsApplicationAotTests {
 		}
 
 		TrustManagerFactory trustManagerFactory = TrustManagerFactory
-				.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+			.getInstance(TrustManagerFactory.getDefaultAlgorithm());
 		trustManagerFactory.init(trustStore);
 
 		SSLContext sslContext = SSLContext.getInstance("TLS");

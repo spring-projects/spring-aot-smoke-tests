@@ -31,25 +31,31 @@ class WebSocketStompApplicationAotTests {
 
 	@Test
 	void clientShouldConnect(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("STOMP Client connected"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("STOMP Client connected"));
 	}
 
 	@Test
 	void serverShouldSubscribe(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Server: subscription"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Server: subscription"));
 	}
 
 	@Test
 	void serverShouldReceiveMessage(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> assertThat(output)
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output)
 				.hasSingleLineContaining("Server: Received 'HelloMessage{name='STOMP Client'}'"));
 	}
 
 	@Test
 	void clientShouldReceiveReply(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> assertThat(output)
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output)
 				.hasSingleLineContaining("Client: Received 'GreetingMessage{content='Hello, STOMP Client!'}'"));
 	}
 

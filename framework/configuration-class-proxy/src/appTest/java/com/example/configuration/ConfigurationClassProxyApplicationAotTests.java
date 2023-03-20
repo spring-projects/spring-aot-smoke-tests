@@ -15,8 +15,10 @@ class ConfigurationClassProxyApplicationAotTests {
 
 	@Test
 	void expectedLoggingIsProduced(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> assertThat(output)
-				.hasSingleLineContaining("Main: Hello0 World").hasSingleLineContaining("Nested: Nested Hello0 World"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Main: Hello0 World")
+				.hasSingleLineContaining("Nested: Nested Hello0 World"));
 	}
 
 }

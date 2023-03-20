@@ -23,26 +23,45 @@ class WebfluxApplicationAotTests {
 
 	@Test
 	void stringResponseBody(WebTestClient client) {
-		client.get().exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("hi!"));
+		client.get()
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("hi!"));
 	}
 
 	@Test
 	void anotherStringResponseBody(WebTestClient client) {
-		client.get().uri("x").exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("hix!"));
+		client.get()
+			.uri("x")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("hix!"));
 	}
 
 	@Test
 	void stringMonoResponseBody(WebTestClient client) {
-		client.get().uri("hello").exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("World"));
+		client.get()
+			.uri("hello")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("World"));
 	}
 
 	@Test
 	void jsonResponseFromSerializedRecordMono(WebTestClient client) {
-		client.get().uri("record").exchange().expectStatus().isOk().expectBody()
-				.json("{\"field1\":\"Hello\", \"field2\":\"World\"}");
+		client.get()
+			.uri("record")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.json("{\"field1\":\"Hello\", \"field2\":\"World\"}");
 	}
 
 	@Test
@@ -81,17 +100,28 @@ class WebfluxApplicationAotTests {
 		// We can't use StepVerifier here, as it isn't designed to be used in a reactive
 		// pipeline
 		AtomicReference<List<String>> messages = new AtomicReference<>();
-		client.execute(URI.create(applicationUrl.resolve("/ws/count").toString()), session -> session.receive()
-				.map(WebSocketMessage::getPayloadAsText).collectList().doOnNext(messages::set).then())
-				.block(Duration.ofSeconds(10));
+		client
+			.execute(URI.create(applicationUrl.resolve("/ws/count").toString()),
+					session -> session.receive()
+						.map(WebSocketMessage::getPayloadAsText)
+						.collectList()
+						.doOnNext(messages::set)
+						.then())
+			.block(Duration.ofSeconds(10));
 		assertThat(messages.get()).isNotNull().containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 	}
 
 	@Test
 	void xmlWorks(WebTestClient client) {
-		client.post().uri("/xml").contentType(MediaType.APPLICATION_XML)
-				.bodyValue("<request><message>Hello</message></request>").exchange().expectStatus().isOk().expectBody()
-				.xml("<response><message>Server: Hello</message></response>");
+		client.post()
+			.uri("/xml")
+			.contentType(MediaType.APPLICATION_XML)
+			.bodyValue("<request><message>Hello</message></request>")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.xml("<response><message>Server: Hello</message></response>");
 	}
 
 }

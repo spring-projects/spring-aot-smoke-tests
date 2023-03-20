@@ -31,8 +31,9 @@ class KafkaStreamsApplicationAotTests {
 
 	@Test
 	void kafkaListenerMethodReceivesMessageAndSendsResponse(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30))
-				.untilAsserted(() -> assertThat(output).hasSingleLineContaining("++++++Received:FOO"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("++++++Received:FOO"));
 	}
 
 }

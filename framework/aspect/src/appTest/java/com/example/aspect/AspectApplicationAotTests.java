@@ -15,8 +15,10 @@ class AspectApplicationAotTests {
 
 	@Test
 	void shouldInterceptMethodA(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> assertThat(output)
-				.hasSingleLineContaining("methodA: A-from-aspect").hasSingleLineContaining("methodB: B"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("methodA: A-from-aspect")
+				.hasSingleLineContaining("methodB: B"));
 	}
 
 }

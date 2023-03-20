@@ -21,12 +21,20 @@ public class IntegrationApplicationTests {
 
 		output.assertThat().hasSingleLineContaining("Starting endpoint: dateSourceEndpoint");
 
-		Awaitility.await().atMost(Duration.ofSeconds(30))
-				.untilAsserted(() -> output.assertThat().hasLineContaining("Current seconds:"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> output.assertThat().hasLineContaining("Current seconds:"));
 
-		client.get().uri("/integration-graph").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
-				.expectBody(String.class).value(graph -> assertThat(graph).contains("null-channel")
-						.contains("loggingChannel").contains("dateSourceEndpoint"));
+		client.get()
+			.uri("/integration-graph")
+			.accept(MediaType.APPLICATION_JSON)
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody(String.class)
+			.value(graph -> assertThat(graph).contains("null-channel")
+				.contains("loggingChannel")
+				.contains("dateSourceEndpoint"));
 	}
 
 }

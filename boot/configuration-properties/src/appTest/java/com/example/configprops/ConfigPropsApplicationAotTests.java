@@ -42,7 +42,7 @@ class ConfigPropsApplicationAotTests {
 		void nestedListShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output)
-						.hasSingleLineContaining("appProperties.getNestedList(): [Nested{aInt=1}, Nested{aInt=2}]");
+					.hasSingleLineContaining("appProperties.getNestedList(): [Nested{aInt=1}, Nested{aInt=2}]");
 			});
 		}
 
@@ -57,7 +57,7 @@ class ConfigPropsApplicationAotTests {
 		void nestedMapShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output)
-						.hasSingleLineContaining("appProperties.getNestedMap(): {a=Nested{aInt=5}, b=Nested{aInt=6}}");
+					.hasSingleLineContaining("appProperties.getNestedMap(): {a=Nested{aInt=5}, b=Nested{aInt=6}}");
 			});
 		}
 
@@ -119,7 +119,7 @@ class ConfigPropsApplicationAotTests {
 		void nestedListShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output)
-						.hasSingleLineContaining("appPropertiesCtor.getNestedList(): [Nested{aInt=1}, Nested{aInt=2}]");
+					.hasSingleLineContaining("appPropertiesCtor.getNestedList(): [Nested{aInt=1}, Nested{aInt=2}]");
 			});
 		}
 
@@ -141,7 +141,7 @@ class ConfigPropsApplicationAotTests {
 		void nestedNotInnerShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output)
-						.hasSingleLineContaining("appPropertiesCtor.getNestedNotInner(): NestedNotInner{aInt=4}");
+					.hasSingleLineContaining("appPropertiesCtor.getNestedNotInner(): NestedNotInner{aInt=4}");
 			});
 		}
 
@@ -182,7 +182,7 @@ class ConfigPropsApplicationAotTests {
 		void nestedListShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output)
-						.hasSingleLineContaining("appPropertiesRecord.nestedList(): [Nested[aInt=1], Nested[aInt=2]]");
+					.hasSingleLineContaining("appPropertiesRecord.nestedList(): [Nested[aInt=1], Nested[aInt=2]]");
 			});
 		}
 
@@ -204,7 +204,7 @@ class ConfigPropsApplicationAotTests {
 		void nestedNotInnerShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output)
-						.hasSingleLineContaining("appPropertiesRecord.nestedNotInner(): NestedNotInner{aInt=4}");
+					.hasSingleLineContaining("appPropertiesRecord.nestedNotInner(): NestedNotInner{aInt=4}");
 			});
 		}
 

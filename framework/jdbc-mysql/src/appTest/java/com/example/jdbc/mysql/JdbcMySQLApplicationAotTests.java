@@ -15,10 +15,11 @@ class JdbcMySQLApplicationAotTests {
 
 	@Test
 	void authorsCanBeQueried(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(
-				() -> assertThat(output).hasSingleLineContaining("Found author: Author[id=1, name=mbhave]")
-						.hasSingleLineContaining("Found author: Author[id=2, name=snicoll]")
-						.hasSingleLineContaining("Found author: Author[id=3, name=wilkinsona]"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Found author: Author[id=1, name=mbhave]")
+				.hasSingleLineContaining("Found author: Author[id=2, name=snicoll]")
+				.hasSingleLineContaining("Found author: Author[id=3, name=wilkinsona]"));
 	}
 
 }

@@ -13,16 +13,28 @@ class CloudFunctionWebApplicationAotTests {
 
 	@Test
 	void uppercaseShouldBeInvokable(WebTestClient webTestClient) {
-		webTestClient.post().uri("/uppercase").header("Content-Type", MediaType.TEXT_PLAIN_VALUE).bodyValue("hello")
-				.exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("HELLO"));
+		webTestClient.post()
+			.uri("/uppercase")
+			.header("Content-Type", MediaType.TEXT_PLAIN_VALUE)
+			.bodyValue("hello")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("HELLO"));
 	}
 
 	@Test
 	void lowercaseShouldBeInvokable(WebTestClient webTestClient) {
-		webTestClient.post().uri("/lowercase").header("Content-Type", MediaType.TEXT_PLAIN_VALUE).bodyValue("HELLO")
-				.exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("hello"));
+		webTestClient.post()
+			.uri("/lowercase")
+			.header("Content-Type", MediaType.TEXT_PLAIN_VALUE)
+			.bodyValue("HELLO")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("hello"));
 	}
 
 }

@@ -17,17 +17,27 @@ public class SecurityLdapApplicationAotTests {
 
 	@Test
 	void homeShouldShowUsername(WebTestClient client) {
-		client.get().uri("/").headers((header) -> header.setBasicAuth("user", "password")).exchange().expectStatus()
-				.isOk().expectBody().consumeWith(
-						(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello, user!"));
+		client.get()
+			.uri("/")
+			.headers((header) -> header.setBasicAuth("user", "password"))
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello, user!"));
 	}
 
 	@Test
 	void friendlyShouldShowGivenName(WebTestClient client) {
-		client.get().uri("/friendly").headers((header) -> header.setBasicAuth("user", "password")).exchange()
-				.expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
-						.isEqualTo("Hello, Dianne Emu!"));
+		client.get()
+			.uri("/friendly")
+			.headers((header) -> header.setBasicAuth("user", "password"))
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
+				.isEqualTo("Hello, Dianne Emu!"));
 	}
 
 }

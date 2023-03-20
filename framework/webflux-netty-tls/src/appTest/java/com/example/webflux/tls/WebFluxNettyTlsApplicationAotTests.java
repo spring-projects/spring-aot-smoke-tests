@@ -33,8 +33,13 @@ class WebFluxNettyTlsApplicationAotTests {
 	void stringResponseBody(@ApplicationUrl(scheme = Scheme.HTTPS) URI applicationUrl) throws Exception {
 		WebTestClient client = buildWebClient(applicationUrl);
 
-		client.get().exchange().expectStatus().isOk().expectBody().consumeWith(
-				(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello World TLS"));
+		client.get()
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith(
+					(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello World TLS"));
 	}
 
 	@Test
@@ -44,9 +49,14 @@ class WebFluxNettyTlsApplicationAotTests {
 		// We can't use StepVerifier here, as it isn't designed to be used in a reactive
 		// pipeline
 		AtomicReference<List<String>> messages = new AtomicReference<>();
-		client.execute(URI.create(applicationUrl.resolve("/ws/count").toString()), session -> session.receive()
-				.map(WebSocketMessage::getPayloadAsText).collectList().doOnNext(messages::set).then())
-				.block(Duration.ofSeconds(10));
+		client
+			.execute(URI.create(applicationUrl.resolve("/ws/count").toString()),
+					session -> session.receive()
+						.map(WebSocketMessage::getPayloadAsText)
+						.collectList()
+						.doOnNext(messages::set)
+						.then())
+			.block(Duration.ofSeconds(10));
 		assertThat(messages.get()).isNotNull().containsExactly("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 	}
 
@@ -76,7 +86,7 @@ class WebFluxNettyTlsApplicationAotTests {
 		}
 
 		TrustManagerFactory trustManagerFactory = TrustManagerFactory
-				.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+			.getInstance(TrustManagerFactory.getDefaultAlgorithm());
 		trustManagerFactory.init(trustStore);
 
 		SslContext sslContext = SslContextBuilder.forClient().trustManager(trustManagerFactory).build();

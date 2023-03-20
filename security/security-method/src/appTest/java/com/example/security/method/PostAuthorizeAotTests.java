@@ -16,12 +16,13 @@ public class PostAuthorizeAotTests {
 	@Test
 	void anonymousCanCallOnlyAnonymousMethod(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining(
-					"testPostAuthorizeAnonymous(): postAuthorizeProtectedService.anonymous() worked as anonymous")
-					.hasSingleLineContaining(
-							"testPostAuthorizeUser(): postAuthorizeProtectedService.user() failed as anonymous")
-					.hasSingleLineContaining(
-							"testPostAuthorizeAdmin(): postAuthorizeProtectedService.admin() failed as anonymous");
+			assertThat(output)
+				.hasSingleLineContaining(
+						"testPostAuthorizeAnonymous(): postAuthorizeProtectedService.anonymous() worked as anonymous")
+				.hasSingleLineContaining(
+						"testPostAuthorizeUser(): postAuthorizeProtectedService.user() failed as anonymous")
+				.hasSingleLineContaining(
+						"testPostAuthorizeAdmin(): postAuthorizeProtectedService.admin() failed as anonymous");
 		});
 	}
 
@@ -29,10 +30,9 @@ public class PostAuthorizeAotTests {
 	void userCanCallUserMethod(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining(
-							"testPostAuthorizeUser(): postAuthorizeProtectedService.user() worked as user")
-					.hasSingleLineContaining(
-							"testPostAuthorizeAdmin(): postAuthorizeProtectedService.admin() failed as user");
+				.hasSingleLineContaining("testPostAuthorizeUser(): postAuthorizeProtectedService.user() worked as user")
+				.hasSingleLineContaining(
+						"testPostAuthorizeAdmin(): postAuthorizeProtectedService.admin() failed as user");
 		});
 	}
 

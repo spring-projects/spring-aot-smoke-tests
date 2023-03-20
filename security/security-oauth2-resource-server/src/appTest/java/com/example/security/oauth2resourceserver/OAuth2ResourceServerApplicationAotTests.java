@@ -18,16 +18,28 @@ public class OAuth2ResourceServerApplicationAotTests {
 
 	@Test
 	void shouldRespondWhenTokenPresent(WebTestClient client) {
-		client.get().uri("/").header("Authorization", bearer(NONE_JWT)).exchange().expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
-						.isEqualTo("Hello, subject!"));
+		client.get()
+			.uri("/")
+			.header("Authorization", bearer(NONE_JWT))
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith(
+					(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("Hello, subject!"));
 	}
 
 	@Test
 	void shouldAllowGetWhenTokenWithReadScope(WebTestClient client) {
-		client.get().uri("/message").header("Authorization", bearer(READ_JWT)).exchange().expectStatus().isOk()
-				.expectBody().consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
-						.isEqualTo("secret message"));
+		client.get()
+			.uri("/message")
+			.header("Authorization", bearer(READ_JWT))
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith(
+					(result) -> assertThat(new String(result.getResponseBodyContent())).isEqualTo("secret message"));
 	}
 
 	@Test
@@ -37,16 +49,27 @@ public class OAuth2ResourceServerApplicationAotTests {
 
 	@Test
 	void shouldAllowPostWhenTokenWithScope(WebTestClient client) {
-		client.post().uri("/message").header("Authorization", bearer(WRITE_JWT)).bodyValue("my message").exchange()
-				.expectStatus().isOk().expectBody()
-				.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
-						.isEqualTo("Message was created. Content: my message"));
+		client.post()
+			.uri("/message")
+			.header("Authorization", bearer(WRITE_JWT))
+			.bodyValue("my message")
+			.exchange()
+			.expectStatus()
+			.isOk()
+			.expectBody()
+			.consumeWith((result) -> assertThat(new String(result.getResponseBodyContent()))
+				.isEqualTo("Message was created. Content: my message"));
 	}
 
 	@Test
 	void shouldBlockPostWhenTokenWithBoScope(WebTestClient client) {
-		client.post().uri("/message").header("Authorization", bearer(NONE_JWT)).bodyValue("my message").exchange()
-				.expectStatus().isForbidden();
+		client.post()
+			.uri("/message")
+			.header("Authorization", bearer(NONE_JWT))
+			.bodyValue("my message")
+			.exchange()
+			.expectStatus()
+			.isForbidden();
 	}
 
 	private static String bearer(String token) {

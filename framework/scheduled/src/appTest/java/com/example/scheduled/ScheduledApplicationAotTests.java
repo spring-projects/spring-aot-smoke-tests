@@ -15,20 +15,23 @@ class ScheduledApplicationAotTests {
 
 	@Test
 	void fixedRateShouldBeCalled(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasLineContaining("fixedRate()"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasLineContaining("fixedRate()"));
 	}
 
 	@Test
 	void fixedDelayShouldBeCalled(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasLineContaining("fixedDelay()"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasLineContaining("fixedDelay()"));
 	}
 
 	@Test
 	void cronShouldBeCalled(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10))
-				.untilAsserted(() -> assertThat(output).hasLineContaining("cron()"));
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasLineContaining("cron()"));
 	}
 
 }

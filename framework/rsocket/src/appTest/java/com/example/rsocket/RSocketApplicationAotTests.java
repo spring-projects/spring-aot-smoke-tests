@@ -17,7 +17,7 @@ class RSocketApplicationAotTests {
 	void messageIsReceivedAndAnswered(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("Server: message(): Message{origin='client', message='Hello!'}")
-					.hasSingleLineContaining("Client: message(): Message{origin='server', message='Hello!'}");
+				.hasSingleLineContaining("Client: message(): Message{origin='server', message='Hello!'}");
 		});
 	}
 
@@ -25,8 +25,8 @@ class RSocketApplicationAotTests {
 	void reactiveMessageIsReceivedAndAnswered(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("Server: reactiveMessage: Message{origin='client', message='Hello!'}")
-					.hasSingleLineContaining("Client: reactiveMessage(): Message{origin='server', message='Hello!'}");
+				.hasSingleLineContaining("Server: reactiveMessage: Message{origin='client', message='Hello!'}")
+				.hasSingleLineContaining("Client: reactiveMessage(): Message{origin='server', message='Hello!'}");
 		});
 	}
 
@@ -34,8 +34,8 @@ class RSocketApplicationAotTests {
 	void messageRecordIsReceivedAndAnswered(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("Server: messageRecord(): MessageRecord[origin=client, message=Hello!]")
-					.hasSingleLineContaining("Client: messageRecord(): MessageRecord[origin=server, message=Hello!]");
+				.hasSingleLineContaining("Server: messageRecord(): MessageRecord[origin=client, message=Hello!]")
+				.hasSingleLineContaining("Client: messageRecord(): MessageRecord[origin=server, message=Hello!]");
 		});
 	}
 
@@ -43,7 +43,7 @@ class RSocketApplicationAotTests {
 	void messageExceptionHandler(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("Client: messageExceptionHandler()")
-					.hasSingleLineContaining("Server: handleIllegalStateException()");
+				.hasSingleLineContaining("Server: handleIllegalStateException()");
 		});
 	}
 

@@ -19,7 +19,7 @@ class WebClientApplicationAotTests {
 	void httpWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("http: DataDto{url='http://httpbin.org/anything', method='GET'}");
+				.hasSingleLineContaining("http: DataDto{url='http://httpbin.org/anything', method='GET'}");
 		});
 	}
 
@@ -27,15 +27,15 @@ class WebClientApplicationAotTests {
 	void httpsWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
 			assertThat(output)
-					.hasSingleLineContaining("https: DataDto{url='https://httpbin.org/anything', method='GET'}");
+				.hasSingleLineContaining("https: DataDto{url='https://httpbin.org/anything', method='GET'}");
 		});
 	}
 
 	@Test
 	void serviceWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining(
-					"service: ExchangeDataDto{url='https://httpbin.org/anything', method='GET'}");
+			assertThat(output)
+				.hasSingleLineContaining("service: ExchangeDataDto{url='https://httpbin.org/anything', method='GET'}");
 		});
 	}
 
