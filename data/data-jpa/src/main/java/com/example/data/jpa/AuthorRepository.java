@@ -1,6 +1,7 @@
 package com.example.data.jpa;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.example.data.jpa.model.Author;
 
@@ -13,5 +14,7 @@ public interface AuthorRepository extends ListCrudRepository<Author, Long> {
 
 	@Query("SELECT a FROM Author a WHERE a.name = :name")
 	Optional<Author> queryFindByName(String name);
+
+	Stream<Author> findByNameContaining(String name);
 
 }
