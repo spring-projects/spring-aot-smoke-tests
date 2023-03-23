@@ -15,3 +15,9 @@ spring.cloud:
         destination: graalUppercaseFunction-in-0
       graalLoggingConsumer-in-0:
         destination: graalUppercaseFunction-out-0
+    pulsar:
+      bindings:
+        graalSupplier-out-0:
+          producer:
+            producer-name: graalSupplierOut
+# NOTE: The spring.cloud.stream.pulsar.bindings exercises ext binding props
