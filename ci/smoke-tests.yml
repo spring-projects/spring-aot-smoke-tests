@@ -201,6 +201,9 @@ groups:
      - name: hibernate
        app_test: true
        test: false
+     - name: hibernate-enhancer
+       app_test: true
+       test: false
      - name: jdbc-h2
        app_test: true
        test: true
