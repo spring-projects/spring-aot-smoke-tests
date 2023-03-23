@@ -116,6 +116,9 @@ groups:
      - name: cloud-stream-kafka
        app_test: true
        test: false
+     - name: cloud-stream-pulsar
+       app_test: true
+       test: false
      - name: cloud-stream-rabbit
        app_test: true
        test: false
