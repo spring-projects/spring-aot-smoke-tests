@@ -1,0 +1,25 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'org.springframework.aot.smoke-test'
+	id 'org.graalvm.buildtools.native'
+}
+
+ext {
+	set('springCloudVersion', "2022.0.2-SNAPSHOT")
+	set('springPulsarVersion', "0.1.1-SNAPSHOT")
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.cloud:spring-cloud-stream")
+	implementation("org.springframework.pulsar:spring-pulsar-spring-boot-starter:${springPulsarVersion}")
+	implementation("org.springframework.pulsar:spring-pulsar-spring-cloud-stream-binder:${springPulsarVersion}")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("org.awaitility:awaitility:4.2.0")
+}

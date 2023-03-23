@@ -1,0 +1,17 @@
+spring.main.web-application-type: none
+
+spring.pulsar:
+  client:
+    service-url: "pulsar://${PULSAR_HOST:localhost}:${PULSAR_PORT_6650:6650}"
+  administration:
+    service-url: "http://${PULSAR_HOST:localhost}:${PULSAR_PORT_8080:8080}"
+
+spring.cloud:
+  function:
+    definition: graalSupplier;graalUppercaseFunction;graalLoggingConsumer
+  stream:
+    bindings:
+      graalSupplier-out-0:
+        destination: graalUppercaseFunction-in-0
+      graalLoggingConsumer-in-0:
+        destination: graalUppercaseFunction-out-0

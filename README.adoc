@@ -53,7 +53,7 @@ for example
 === Add a new smoke test
 
 1. Create a new directory for your smoke test in the appropriate group
-2. Include the directory in `settings.gradle`
+2. Include the directory in `settings.gradle` (new groups only)
 3. Run `./gradlew updateInfrastructure` to add the smoke test to the status page and CI pipeline
 
 === Test against local changes
