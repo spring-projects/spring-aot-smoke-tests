@@ -1,0 +1,6 @@
+version: '3'
+services:
+  test-service:
+    image: springcloud/test-service:latest
+    ports:
+      - "8081"

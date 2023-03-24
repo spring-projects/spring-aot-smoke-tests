@@ -113,6 +113,9 @@ groups:
      - name: cloud-loadbalancing-webflux
        app_test: true
        test: false
+     - name: cloud-openfeign
+       app_test: true
+       test: false
      - name: cloud-stream-kafka
        app_test: true
        test: false
