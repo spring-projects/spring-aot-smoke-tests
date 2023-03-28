@@ -1,0 +1,19 @@
+logging:
+  level:
+    com.example.cloud.openfeign.TestServiceClient: DEBUG
+spring:
+  application:
+    name: cloud-openfeign
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            test-service:
+              - uri: http://${TEST-SERVICE_HOST:localhost}:${TEST-SERVICE_PORT_8081:8081}
+    refresh:
+      enabled: false
+    loadbalancer:
+      eager-load:
+        clients:
+          - test-service
