@@ -22,7 +22,6 @@ class CloudOpenFeignApplicationAotTests {
 			assertThat(output).hasLineContaining("---> POST http://test-service/test HTTP/1.1");
 			assertThat(output).hasNoLinesContaining("ERROR");
 		});
-
 	}
 
 }
