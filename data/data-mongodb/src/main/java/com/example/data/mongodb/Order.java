@@ -59,6 +59,9 @@ public class Order {
 	@DBRef(lazy = true) // JdkProxy
 	private PriceReduction reduction;
 
+	@DBRef(lazy = true) // JdkProxy
+	private List<Coupon> allCoupons;
+
 	@DocumentReference
 	private Discount documentRef;
 
@@ -183,6 +186,14 @@ public class Order {
 
 	public void setLazyDocumentRef(Discount lazyDocumentRef) {
 		this.lazyDocumentRef = lazyDocumentRef;
+	}
+
+	public void setAllCoupons(List<Coupon> allCoupons) {
+		this.allCoupons = allCoupons;
+	}
+
+	public List<Coupon> getAllCoupons() {
+		return allCoupons;
 	}
 
 	@Override
