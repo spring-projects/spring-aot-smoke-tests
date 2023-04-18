@@ -259,12 +259,15 @@ class CLR implements CommandLineRunner {
 		order.setCoupon(coupon);
 		order.setReduction(coupon);
 		order.setSimpleRef(coupon);
+		order.setAllCoupons(List.of(coupon));
 		orderRepository.save(order);
 
 		Optional<Order> loaded = orderRepository.findById(order.getId());
 		log("simple ref (no proxy): %s", loaded.get().getSimpleRef().getCode());
 		log("lazyLoading (aot): %s", loaded.get().getCoupon().getCode());
 		log("lazyLoading (jdk): %s", loaded.get().getReduction().getId());
+		log("lazyLoading - lists (jdk): List(%s){ %s }", loaded.get().getAllCoupons(),
+				loaded.get().getAllCoupons().get(0));
 
 		log("-----------------\n\n\n");
 	}

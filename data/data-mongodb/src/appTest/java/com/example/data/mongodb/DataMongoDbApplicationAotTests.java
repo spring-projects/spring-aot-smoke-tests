@@ -48,6 +48,14 @@ class DataMongoDbApplicationAotTests {
 	}
 
 	@Test
+	void lazyDbRef(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasLineMatching(
+					".*List\\(\\d\\$LazyLoadingProxy\\)\\{\\W?com\\.example\\.data\\.mongodb\\.Coupon@.*\\W?\\}.*");
+		});
+	}
+
+	@Test
 	void queryByExample(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("qbe: [Order{id=");
