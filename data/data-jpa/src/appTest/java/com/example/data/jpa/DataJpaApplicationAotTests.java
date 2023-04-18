@@ -57,6 +57,14 @@ class DataJpaApplicationAotTests {
 	}
 
 	@Test
+	void streamingResult(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("streamAuthors(): author = Author{name='Martin Kleppmann'}")
+				.hasNoLinesContaining("streamAuthors(): author = Author{name='Josh Long'}");
+		});
+	}
+
+	@Test
 	void deleteAll(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("deleteAll(): count = 0");

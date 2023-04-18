@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import com.example.data.jpa.model.Author;
 import com.example.data.jpa.model.Book;
@@ -32,6 +33,7 @@ class CLR implements CommandLineRunner {
 		findById(authors);
 		findByPartialName();
 		queryFindByName();
+		streamAuthors();
 		deleteAll();
 		entityGraph();
 	}
@@ -85,6 +87,12 @@ class CLR implements CommandLineRunner {
 				System.out.printf("\t%s%n", book);
 			}
 		}
+	}
+
+	private void streamAuthors() {
+
+		Stream<Author> authors = this.authorRepository.findByNameContaining("Martin");
+		authors.forEach(author -> System.out.printf("streamAuthors(): author = %s%n", author));
 	}
 
 	private List<Author> insertAuthors() {
