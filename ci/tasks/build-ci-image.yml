@@ -5,6 +5,8 @@ image_resource:
   source:
     repository: concourse/oci-build-task
     tag: 0.9.0
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
 inputs:
 - name: ci-images-git-repo
 outputs:
