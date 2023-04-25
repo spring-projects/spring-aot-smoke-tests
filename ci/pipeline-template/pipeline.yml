@@ -6,8 +6,8 @@
 #@ docker_hub = {
 #@   "organization": "springci"
 #@ }
-#@ branch = "main"
-#@ milestone = "1.0.x"
+#@ branch = "3.0.x"
+#@ milestone = "3.0.x"
 #@ task_timeout = "1h00m"
 
 #@ load("@ytt:data", "data")
