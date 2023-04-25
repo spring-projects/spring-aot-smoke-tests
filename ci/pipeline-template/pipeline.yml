@@ -7,7 +7,7 @@
 #@   "organization": "springci"
 #@ }
 #@ branch = "main"
-#@ milestone = "1.0.x"
+#@ milestone = "3.1.x"
 #@ task_timeout = "1h00m"
 
 #@ load("@ytt:data", "data")

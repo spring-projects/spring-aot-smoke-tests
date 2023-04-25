@@ -26,7 +26,7 @@ Deploy the pipeline using the following command:
 
 [source]
 ----
-$ fly -t spring-aot-smoke-tests set-pipeline -p spring-aot-smoke-tests-1.0.x -c ci/pipeline.yml
+$ fly -t spring-aot-smoke-tests set-pipeline -p spring-aot-smoke-tests-3.1.x -c ci/pipeline.yml
 ----
 
 NOTE: This assumes that you have Vault integration configured with the appropriate secrets.
