@@ -163,6 +163,7 @@ jobs:
         BRANCH: #@ branch
         SMOKE_TEST: #@ group.name + ":" + smoke_test.name
         TASK: nativeAppTest
+        DOCKER_HUB_AUTH: ((docker-hub-auth))
         DOCKER_HUB_MIRROR: ((docker-hub-mirror))
         GRADLE_ENTERPRISE_ACCESS_KEY: ((gradle_enterprise_secret_access_key))
         GRADLE_ENTERPRISE_CACHE_USERNAME: ((gradle_enterprise_cache_user.username))
