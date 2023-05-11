@@ -148,6 +148,9 @@ groups:
      - name: data-jpa
        app_test: true
        test: true
+     - name: data-jpa-entityscan
+       app_test: true
+       test: true
      - name: data-jpa-kotlin
        app_test: true
        test: false
