@@ -63,6 +63,7 @@ class AwaitApplication implements BeforeAllCallback {
 			}
 		}
 		message.append("\n");
+		System.err.println(message.toString());
 		throw new IllegalStateException(message.toString());
 	}
 
