@@ -11,3 +11,9 @@ spring.cloud:
         destination: graalUppercaseFunction-in-0
       graalLoggingConsumer-in-0:
         destination: graalUppercaseFunction-out-0
+    kafka:
+      bindings:
+        graalSupplier-out-0:
+          producer:
+            # ensures conversion service set on child context
+            send-timeout-expression: '''5m'''
