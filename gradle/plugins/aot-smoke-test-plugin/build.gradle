@@ -23,9 +23,19 @@ gradlePlugin {
 	}
 }
 
+new File(rootDir.parentFile.parentFile.parentFile, "gradle.properties").withInputStream {
+	def properties = new Properties()
+	properties.load(it)
+	properties.each { key, value ->
+		if (key.endsWith("Version")) {
+			project.ext.set(key, value)
+		}
+	}
+}
+
 dependencies {
 	checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:$javaFormatVersion")
-	
+
 	compileOnly("io.spring.javaformat:spring-javaformat-gradle-plugin:$javaFormatVersion")
 	compileOnly("org.graalvm.buildtools:native-gradle-plugin:$nbtVersion")
 	compileOnly("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")

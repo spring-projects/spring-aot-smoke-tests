@@ -69,13 +69,14 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 
 	@Override
 	public void apply(Project project) {
-		project.getPlugins().withType(JavaPlugin.class, (javaPlugin) -> project.getPlugins()
+		project.getPlugins()
+			.withType(JavaPlugin.class, (javaPlugin) -> project.getPlugins()
 				.withType(SpringBootPlugin.class, (bootPlugin) -> configureBootJavaProject(project)));
 	}
 
 	private void configureBootJavaProject(Project project) {
-		AotSmokeTestExtension extension = project.getExtensions().create("aotSmokeTest", AotSmokeTestExtension.class,
-				project);
+		AotSmokeTestExtension extension = project.getExtensions()
+			.create("aotSmokeTest", AotSmokeTestExtension.class, project);
 		extension.getWebApplication().convention(false);
 		JavaPluginExtension javaExtension = project.getExtensions().getByType(JavaPluginExtension.class);
 		SourceSet appTest = javaExtension.getSourceSets().create("appTest");
@@ -84,8 +85,9 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		if (project.hasProperty("fromMavenLocal")) {
 			String fromMavenLocal = project.property("fromMavenLocal").toString();
 			Stream<String> includedGroups = Stream.of(fromMavenLocal.split(","));
-			project.getRepositories().mavenLocal(
-					(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
+			project.getRepositories()
+				.mavenLocal(
+						(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
 		}
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
@@ -101,8 +103,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		configureKotlin(project, javaExtension);
 		configureJavaFormat(project);
 		Configuration smokeTests = project.getConfigurations().create("smokeTests");
-		TaskProvider<DescribeSmokeTests> describeSmokeTests = project.getTasks().register("describeSmokeTests",
-				DescribeSmokeTests.class);
+		TaskProvider<DescribeSmokeTests> describeSmokeTests = project.getTasks()
+			.register("describeSmokeTests", DescribeSmokeTests.class);
 		describeSmokeTests.configure((task) -> {
 			task.getOutputDirectory().set(project.getLayout().getBuildDirectory().dir(task.getName()));
 			task.setAppTests(appTest.getAllSource());
@@ -128,18 +130,25 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private void configureJavaFormat(Project project) {
-		project.getPlugins().withType(SpringJavaFormatPlugin.class, (javaFormat) -> project.getGradle()
-				.getStartParameter().getExcludedTaskNames().addAll(Set.of("checkFormatAot", "checkFormatAotTest")));
+		project.getPlugins()
+			.withType(SpringJavaFormatPlugin.class,
+					(javaFormat) -> project.getGradle()
+						.getStartParameter()
+						.getExcludedTaskNames()
+						.addAll(Set.of("checkFormatAot", "checkFormatAotTest")));
 	}
 
 	private void configureKotlin(Project project, JavaPluginExtension javaExtension) {
-		project.getTasks().withType(KotlinJvmCompile.class).configureEach((kotlinCompile) -> kotlinCompile
-				.getKotlinOptions().setJvmTarget(javaExtension.getTargetCompatibility().toString()));
+		project.getTasks()
+			.withType(KotlinJvmCompile.class)
+			.configureEach((kotlinCompile) -> kotlinCompile.getKotlinOptions()
+				.setJvmTarget(javaExtension.getTargetCompatibility().toString()));
 	}
 
 	private void configureJvmAppTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
-		Provider<RegularFile> archiveFile = project.getTasks().named(SpringBootPlugin.BOOT_JAR_TASK_NAME, BootJar.class)
-				.flatMap(BootJar::getArchiveFile);
+		Provider<RegularFile> archiveFile = project.getTasks()
+			.named(SpringBootPlugin.BOOT_JAR_TASK_NAME, BootJar.class)
+			.flatMap(BootJar::getArchiveFile);
 		configureTasks(project, aotTest, ApplicationType.JVM, archiveFile, extension);
 	}
 
@@ -148,7 +157,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			GraalVMExtension graalVMExtension = project.getExtensions().getByType(GraalVMExtension.class);
 			graalVMExtension.getAgent().getTasksToInstrumentPredicate().set((task) -> false);
 			GraalVMReachabilityMetadataRepositoryExtension metadataRepositoryExtension = ((ExtensionAware) graalVMExtension)
-					.getExtensions().getByType(GraalVMReachabilityMetadataRepositoryExtension.class);
+				.getExtensions()
+				.getByType(GraalVMReachabilityMetadataRepositoryExtension.class);
 			String reachabilityMetadataVersion = (String) project.getProperties().get("reachabilityMetadataVersion");
 			if (reachabilityMetadataVersion != null) {
 				metadataRepositoryExtension.getVersion().set(reachabilityMetadataVersion);
@@ -158,16 +168,17 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				metadataRepositoryExtension.getUri().set(URI.create(reachabilityMetadataUrl));
 			}
 			Provider<RegularFile> nativeImage = project.getTasks()
-					.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
-					.flatMap(BuildNativeImageTask::getOutputFile);
+				.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
+				.flatMap(BuildNativeImageTask::getOutputFile);
 			configureTasks(project, aotTest, ApplicationType.NATIVE, nativeImage, extension);
 		});
 	}
 
 	private TaskProvider<AppTest> configureTasks(Project project, SourceSet appTest, ApplicationType type,
 			Provider<RegularFile> nativeImage, AotSmokeTestExtension extension) {
-		Provider<Directory> outputDirectory = project.getLayout().getBuildDirectory()
-				.dir(type.name().toLowerCase() + "App");
+		Provider<Directory> outputDirectory = project.getLayout()
+			.getBuildDirectory()
+			.dir(type.name().toLowerCase() + "App");
 		TaskProvider<? extends StartApplication> startTask = createStartApplicationTask(project, type, nativeImage,
 				outputDirectory, extension);
 		TaskProvider<StopApplication> stopTask = createStopApplicationTask(project, type, startTask);
@@ -187,14 +198,15 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		ComposeSettings composeSettings = compose.nested(type.name().toLowerCase());
 		String composeUpTaskName = composeSettings.getNestedName() + "ComposeUp";
 		String composeDownTaskName = composeSettings.getNestedName() + "ComposeDown";
-		project.getTasks().named(composeUpTaskName)
-				.configure((composeUp) -> composeUp.finalizedBy(composeDownTaskName));
+		project.getTasks()
+			.named(composeUpTaskName)
+			.configure((composeUp) -> composeUp.finalizedBy(composeDownTaskName));
 		startTask.configure((start) -> {
 			start.dependsOn(composeUpTaskName);
 			start.getInternalEnvironment().putAll(environment(project, composeSettings));
 		});
 		appTestTask
-				.configure((appTest) -> appTest.getInternalEnvironment().putAll(environment(project, composeSettings)));
+			.configure((appTest) -> appTest.getInternalEnvironment().putAll(environment(project, composeSettings)));
 		project.getTasks().named(composeDownTaskName).configure((composeDown) -> composeDown.mustRunAfter(stopTask));
 	}
 
@@ -204,8 +216,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			settings.getServicesInfos().forEach((serviceName, service) -> {
 				String name = serviceName.toUpperCase(Locale.ENGLISH);
 				environment.put(name + "_HOST", service.getHost());
-				service.getTcpPorts().forEach(
-						(source, target) -> environment.put(name + "_PORT_" + source, Integer.toString(target)));
+				service.getTcpPorts()
+					.forEach((source, target) -> environment.put(name + "_PORT_" + source, Integer.toString(target)));
 			});
 			return environment;
 		});
@@ -217,11 +229,11 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			case JVM -> "stopApp";
 			case NATIVE -> "stopNativeApp";
 		};
-		TaskProvider<StopApplication> stopTask = project.getTasks().register(taskName, StopApplication.class,
-				(stop) -> {
-					stop.getPidFile().set(startTask.flatMap(StartApplication::getPidFile));
-					stop.setDescription("Stops the " + type.description + " application.");
-				});
+		TaskProvider<StopApplication> stopTask = project.getTasks()
+			.register(taskName, StopApplication.class, (stop) -> {
+				stop.getPidFile().set(startTask.flatMap(StartApplication::getPidFile));
+				stop.setDescription("Stops the " + type.description + " application.");
+			});
 		startTask.configure((start) -> start.finalizedBy(stopTask));
 		return stopTask;
 	}
@@ -252,8 +264,9 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			task.useJUnitPlatform();
 			task.setTestClassesDirs(source.getOutput().getClassesDirs());
 			task.setClasspath(source.getRuntimeClasspath());
-			task.getInputs().file(startTask.flatMap(StartApplication::getApplicationBinary))
-					.withPropertyName("applicationBinary");
+			task.getInputs()
+				.file(startTask.flatMap(StartApplication::getApplicationBinary))
+				.withPropertyName("applicationBinary");
 			task.systemProperty("org.springframework.aot.smoketest.standard-output",
 					startTask.get().getOutputFile().get().getAsFile().getAbsolutePath());
 			task.finalizedBy(stopTask);

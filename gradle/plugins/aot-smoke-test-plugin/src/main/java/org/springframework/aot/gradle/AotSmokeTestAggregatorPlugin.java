@@ -35,19 +35,18 @@ public class AotSmokeTestAggregatorPlugin implements Plugin<Project> {
 	@Override
 	public void apply(Project project) {
 		Configuration smokeTests = project.getConfigurations().create("smokeTests");
-		TaskProvider<UpdateStatusPage> updateStatusPage = project.getTasks().register("updateStatusPage",
-				UpdateStatusPage.class, (task) -> {
-					task.setSmokeTests(smokeTests);
-					task.getOutputFile().set(project.file("STATUS.adoc"));
-				});
+		TaskProvider<UpdateStatusPage> updateStatusPage = project.getTasks()
+			.register("updateStatusPage", UpdateStatusPage.class, (task) -> {
+				task.setSmokeTests(smokeTests);
+				task.getOutputFile().set(project.file("STATUS.adoc"));
+			});
 		TaskProvider<UpdateConcoursePipeline> updateConcoursePipeline = project.getTasks()
-				.register("updateConcoursePipeline", UpdateConcoursePipeline.class, (task) -> {
-					task.setSmokeTests(smokeTests);
-					task.getOutputFile().set(project.file("ci/smoke-tests.yml"));
-				});
-		project.getTasks().register("updateInfrastructure", (task) -> {
-			task.dependsOn(updateStatusPage, updateConcoursePipeline);
-		});
+			.register("updateConcoursePipeline", UpdateConcoursePipeline.class, (task) -> {
+				task.setSmokeTests(smokeTests);
+				task.getOutputFile().set(project.file("ci/smoke-tests.yml"));
+			});
+		project.getTasks()
+			.register("updateInfrastructure", (task) -> task.dependsOn(updateStatusPage, updateConcoursePipeline));
 	}
 
 }

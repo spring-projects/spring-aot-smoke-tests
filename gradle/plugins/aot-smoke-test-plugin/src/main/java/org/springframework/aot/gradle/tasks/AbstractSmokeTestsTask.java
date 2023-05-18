@@ -37,7 +37,7 @@ import org.gradle.api.tasks.InputFiles;
  *
  * @author Andy Wilkinson
  */
-abstract class AbstractSmokeTestsTask extends DefaultTask {
+public abstract class AbstractSmokeTestsTask extends DefaultTask {
 
 	private FileCollection smokeTestDescriptions;
 
@@ -51,12 +51,17 @@ abstract class AbstractSmokeTestsTask extends DefaultTask {
 	}
 
 	Map<String, SortedSet<SmokeTest>> smokeTests() {
-		List<SmokeTest> smokeTests = this.smokeTestDescriptions.getFiles().stream().map(this::readProperties)
-				.map(SmokeTest::new).collect(Collectors.toList());
+		List<SmokeTest> smokeTests = this.smokeTestDescriptions.getFiles()
+			.stream()
+			.map(this::readProperties)
+			.map(SmokeTest::new)
+			.collect(Collectors.toList());
 		Map<String, SortedSet<SmokeTest>> groupedSmokeTests = new TreeMap<>();
 		for (SmokeTest smokeTest : smokeTests) {
-			groupedSmokeTests.computeIfAbsent(smokeTest.group(),
-					(group) -> new TreeSet<>((one, two) -> one.name().compareTo(two.name()))).add(smokeTest);
+			groupedSmokeTests
+				.computeIfAbsent(smokeTest.group(),
+						(group) -> new TreeSet<>((one, two) -> one.name().compareTo(two.name())))
+				.add(smokeTest);
 		}
 		return groupedSmokeTests;
 	}
