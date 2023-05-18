@@ -103,7 +103,7 @@ public abstract class StartApplication extends DefaultTask {
 		Files.deleteIfExists(redirectedOutput.toPath());
 		Files.deleteIfExists(pid);
 		ProcessBuilder processBuilder = prepareProcessBuilder(new ProcessBuilder()).redirectError(redirectedError)
-				.redirectOutput(redirectedOutput);
+			.redirectOutput(redirectedOutput);
 		processBuilder.environment().putAll(getInternalEnvironment().get());
 		Process process = processBuilder.start();
 		Files.write(pid, List.of(Long.toString(process.pid())));

@@ -78,8 +78,12 @@ public abstract class DescribeSmokeTests extends DefaultTask {
 	@TaskAction
 	void describeSmokeTests() throws IOException {
 		File smokeTests = getOutputDirectory().file("smoke-tests.properties").get().getAsFile();
-		List<String> lines = getSmokeTestsDescription().get().entrySet().stream()
-				.map((entry) -> entry.getKey() + "=" + entry.getValue()).sorted().toList();
+		List<String> lines = getSmokeTestsDescription().get()
+			.entrySet()
+			.stream()
+			.map((entry) -> entry.getKey() + "=" + entry.getValue())
+			.sorted()
+			.toList();
 		Files.write(smokeTests.toPath(), lines);
 	}
 
