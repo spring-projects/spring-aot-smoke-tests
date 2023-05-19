@@ -35,7 +35,7 @@ class CLR implements CommandLineRunner {
 				.uri("/anything")
 				.retrieve()
 				.bodyToMono(DataDto.class)
-				.timeout(Duration.ofSeconds(5))
+				.timeout(Duration.ofSeconds(10))
 				.block();
 			System.out.printf("http: %s%n", dto);
 		}
@@ -52,7 +52,7 @@ class CLR implements CommandLineRunner {
 				.uri("/anything")
 				.retrieve()
 				.bodyToMono(DataDto.class)
-				.timeout(Duration.ofSeconds(5))
+				.timeout(Duration.ofSeconds(10))
 				.block();
 			System.out.printf("https: %s%n", dto);
 		}
