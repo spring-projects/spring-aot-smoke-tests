@@ -1,9 +1,9 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot'
-	id 'org.springframework.aot.smoke-test'
-	id 'org.graalvm.buildtools.native'
-	id 'org.jetbrains.kotlin.jvm'
+	id "java"
+	id "org.springframework.boot"
+	id "org.springframework.aot.smoke-test"
+	id "org.graalvm.buildtools.native"
+	id "org.jetbrains.kotlin.jvm"
 }
 
 dependencies {
@@ -16,14 +16,14 @@ dependencies {
 		}
 	}
 	// Downgrades for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
-	implementation('jakarta.servlet:jakarta.servlet-api') {
+	implementation("jakarta.servlet:jakarta.servlet-api") {
 		version {
-			strictly '5.0.0'
+			strictly "5.0.0"
 		}
 	}
-	implementation('jakarta.websocket:jakarta.websocket-api') {
+	implementation("jakarta.websocket:jakarta.websocket-api") {
 		version {
-			strictly '2.0.0'
+			strictly "2.0.0"
 		}
 	}
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -41,4 +41,3 @@ dependencies {
 aotSmokeTest {
 	webApplication = true
 }
-

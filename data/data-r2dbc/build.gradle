@@ -1,13 +1,14 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot'
-	id 'org.springframework.aot.smoke-test'
-	id 'org.graalvm.buildtools.native'
+	id "java"
+	id "org.springframework.boot"
+	id "org.springframework.aot.smoke-test"
+	id "org.graalvm.buildtools.native"
 }
 
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+
 	runtimeOnly("io.r2dbc:r2dbc-h2")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

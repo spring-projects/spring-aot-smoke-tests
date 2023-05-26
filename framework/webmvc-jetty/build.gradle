@@ -1,9 +1,9 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot'
-	id 'org.springframework.aot.smoke-test'
-	id 'org.graalvm.buildtools.native'
-	id 'org.jetbrains.kotlin.jvm'
+	id "java"
+	id "org.springframework.boot"
+	id "org.springframework.aot.smoke-test"
+	id "org.graalvm.buildtools.native"
+	id "org.jetbrains.kotlin.jvm"
 }
 
 dependencies {
@@ -16,9 +16,9 @@ dependencies {
 		}
 	}
 	// Downgrade for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
-	implementation('jakarta.servlet:jakarta.servlet-api') {
+	implementation("jakarta.servlet:jakarta.servlet-api") {
 		version {
-			strictly '5.0.0'
+			strictly "5.0.0"
 		}
 	}
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

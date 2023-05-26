@@ -1,27 +1,27 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot'
-	id 'org.springframework.aot.smoke-test'
-	id 'org.graalvm.buildtools.native'
+	id "java"
+	id "org.springframework.boot"
+	id "org.springframework.aot.smoke-test"
+	id "org.graalvm.buildtools.native"
 }
 
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation('org.springframework.boot:spring-boot-starter-integration')
+	implementation("org.springframework.boot:spring-boot-starter-integration")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
-	implementation('org.springframework.boot:spring-boot-starter-webflux')
-	implementation('org.springframework.integration:spring-integration-webflux')
-	implementation('org.springframework.integration:spring-integration-jdbc')
-	implementation('org.springframework.integration:spring-integration-redis')
-	implementation('io.micrometer:micrometer-core')
-	implementation('com.jayway.jsonpath:json-path')
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.integration:spring-integration-webflux")
+	implementation("org.springframework.integration:spring-integration-jdbc")
+	implementation("org.springframework.integration:spring-integration-redis")
+	implementation("io.micrometer:micrometer-core")
+	implementation("com.jayway.jsonpath:json-path")
 
-	runtimeOnly('com.h2database:h2')
+	runtimeOnly("com.h2database:h2")
 
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	appTestImplementation(project(':aot-smoke-test-support'))
-	appTestImplementation('org.awaitility:awaitility:4.2.0')
+	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
 
 aotSmokeTest {
