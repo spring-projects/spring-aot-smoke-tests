@@ -1,24 +1,24 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot'
-    id 'org.springframework.aot.smoke-test'
-    id 'org.graalvm.buildtools.native'
+	id "java"
+	id "org.springframework.boot"
+	id "org.springframework.aot.smoke-test"
+	id "org.graalvm.buildtools.native"
 }
 
 ext {
-    set('springPulsarVersion', "0.1.1-SNAPSHOT")
+	set("springPulsarVersion", "0.1.1-SNAPSHOT")
 }
 
 repositories {
-    maven { url 'https://repository.apache.org/content/repositories/snapshots' }
+	maven { url "https://repository.apache.org/content/repositories/snapshots" }
 }
 
 dependencies {
-    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-    implementation("org.springframework.pulsar:spring-pulsar-reactive-spring-boot-starter:${springPulsarVersion}")
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.pulsar:spring-pulsar-reactive-spring-boot-starter:${springPulsarVersion}")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    appTestImplementation(project(":aot-smoke-test-support"))
-    appTestImplementation("org.awaitility:awaitility:4.2.0")
+	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }

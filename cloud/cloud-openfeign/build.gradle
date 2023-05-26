@@ -1,12 +1,12 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot'
-	id 'org.springframework.aot.smoke-test'
-	id 'org.graalvm.buildtools.native'
+	id "java"
+	id "org.springframework.boot"
+	id "org.springframework.aot.smoke-test"
+	id "org.graalvm.buildtools.native"
 }
 
 ext {
-	set('springCloudVersion', "2022.0.2-SNAPSHOT")
+	set("springCloudVersion", "2022.0.2-SNAPSHOT")
 }
 
 dependencies {
@@ -14,7 +14,7 @@ dependencies {
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
-	implementation ('org.springframework.boot:spring-boot-starter-web')
+	implementation ("org.springframework.boot:spring-boot-starter-web")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

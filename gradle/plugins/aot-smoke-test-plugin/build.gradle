@@ -13,12 +13,12 @@ repositories {
 gradlePlugin {
 	plugins {
 		aotSmokeTestPlugin {
-			id = 'org.springframework.aot.smoke-test'
-			implementationClass = 'org.springframework.aot.gradle.AotSmokeTestPlugin'
+			id = "org.springframework.aot.smoke-test"
+			implementationClass = "org.springframework.aot.gradle.AotSmokeTestPlugin"
 		}
 		aotSmokeTestAggregatorPlugin {
-			id = 'org.springframework.aot.smoke-test-aggregator'
-			implementationClass = 'org.springframework.aot.gradle.AotSmokeTestAggregatorPlugin'
+			id = "org.springframework.aot.smoke-test-aggregator"
+			implementationClass = "org.springframework.aot.gradle.AotSmokeTestAggregatorPlugin"
 		}
 	}
 }
