@@ -2,22 +2,24 @@ package com.example.webclient;
 
 import java.time.Duration;
 
-import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClient.Builder;
 
 @Component
-@RegisterReflectionForBinding(DataDto.class)
 class CLR implements CommandLineRunner {
 
-	private final Builder webClientBuilder;
+	private final WebClient httpWebClient;
+
+	private final WebClient httpsWebClient;
 
 	private final DataService dataService;
 
-	CLR(WebClient.Builder webClientBuilder, DataService dataService) {
-		this.webClientBuilder = webClientBuilder;
+	CLR(@Qualifier("http") WebClient httpWebClient, @Qualifier("https") WebClient httpsWebClient,
+			DataService dataService) {
+		this.httpWebClient = httpWebClient;
+		this.httpsWebClient = httpsWebClient;
 		this.dataService = dataService;
 	}
 
@@ -30,14 +32,13 @@ class CLR implements CommandLineRunner {
 
 	private void http() {
 		try {
-			WebClient webClient = this.webClientBuilder.baseUrl("http://httpbin.org/").build();
-			DataDto dto = webClient.get()
-				.uri("/anything")
+			String response = this.httpWebClient.get()
+				.uri("/")
 				.retrieve()
-				.bodyToMono(DataDto.class)
+				.bodyToMono(String.class)
 				.timeout(Duration.ofSeconds(10))
 				.block();
-			System.out.printf("http: %s%n", dto);
+			System.out.printf("http worked: %s%n", response);
 		}
 		catch (Exception ex) {
 			System.out.println("http failed:");
@@ -47,14 +48,13 @@ class CLR implements CommandLineRunner {
 
 	private void https() {
 		try {
-			WebClient webClient = this.webClientBuilder.baseUrl("https://httpbin.org/").build();
-			DataDto dto = webClient.get()
-				.uri("/anything")
+			String response = this.httpsWebClient.get()
+				.uri("/")
 				.retrieve()
-				.bodyToMono(DataDto.class)
+				.bodyToMono(String.class)
 				.timeout(Duration.ofSeconds(10))
 				.block();
-			System.out.printf("https: %s%n", dto);
+			System.out.printf("https worked: %s%n", response);
 		}
 		catch (Exception ex) {
 			System.out.println("https failed:");
@@ -64,8 +64,8 @@ class CLR implements CommandLineRunner {
 
 	private void service() {
 		try {
-			ExchangeDataDto dto = this.dataService.getData();
-			System.out.printf("service: %s%n", dto);
+			String dto = this.dataService.getData();
+			System.out.printf("service worked: %s%n", dto);
 		}
 		catch (Exception ex) {
 			System.out.println("service failed:");

@@ -1,0 +1,7 @@
+version: '3'
+services:
+  httpecho:
+    image: 'mhalbritter/http-echo:2'
+    ports:
+      - '80'
+      - '443'
