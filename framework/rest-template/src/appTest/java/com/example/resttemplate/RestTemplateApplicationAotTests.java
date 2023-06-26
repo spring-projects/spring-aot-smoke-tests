@@ -17,18 +17,16 @@ class RestTemplateApplicationAotTests {
 	@Test
 	@DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "HTTP is blocked on CI")
 	void httpWorks(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output)
-				.hasSingleLineContaining("http: DataDto{url='http://httpbin.org/anything', method='GET'}");
-		});
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("http worked:"));
 	}
 
 	@Test
 	void httpsWorks(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output)
-				.hasSingleLineContaining("https: DataDto{url='https://httpbin.org/anything', method='GET'}");
-		});
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("https worked:"));
 	}
 
 }

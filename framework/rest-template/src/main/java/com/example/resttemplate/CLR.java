@@ -1,37 +1,41 @@
 package com.example.resttemplate;
 
 import java.net.URI;
-import java.time.Duration;
 
-import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-@RegisterReflectionForBinding(DataDto.class)
 class CLR implements CommandLineRunner {
 
-	private final RestTemplateBuilder restTemplateBuilder;
+	private final RestTemplate restTemplate;
 
-	CLR(RestTemplateBuilder restTemplateBuilder) {
-		this.restTemplateBuilder = restTemplateBuilder;
+	private final String host;
+
+	private final int port;
+
+	private final int tlsPort;
+
+	CLR(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+		this.host = env("HTTPECHO_HOST", "localhost");
+		this.port = env("HTTPECHO_PORT_80", 8080);
+		this.tlsPort = env("HTTPECHO_PORT_443", 8443);
 	}
 
 	@Override
 	public void run(String... args) {
-		RestTemplate restTemplate = this.restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(5))
-			.setReadTimeout(Duration.ofSeconds(5))
-			.build();
-		http(restTemplate);
-		https(restTemplate);
+		http();
+		https();
 	}
 
-	private void http(RestTemplate restTemplate) {
+	private void http() {
 		try {
-			DataDto dto = restTemplate.getForObject(URI.create("http://httpbin.org/anything"), DataDto.class);
-			System.out.printf("http: %s%n", dto);
+			String response = this.restTemplate
+				.getForObject(URI.create("http://%s:%d/".formatted(this.host, this.port)), String.class);
+			System.out.printf("http worked: %s%n", response);
 		}
 		catch (Exception ex) {
 			System.out.println("http failed:");
@@ -39,15 +43,26 @@ class CLR implements CommandLineRunner {
 		}
 	}
 
-	private void https(RestTemplate restTemplate) {
+	private void https() {
 		try {
-			DataDto dto = restTemplate.getForObject(URI.create("https://httpbin.org/anything"), DataDto.class);
-			System.out.printf("https: %s%n", dto);
+			String response = this.restTemplate
+				.getForObject(URI.create("https://%s:%d/".formatted(this.host, this.tlsPort)), String.class);
+			System.out.printf("https worked: %s%n", response);
 		}
 		catch (Exception ex) {
 			System.out.println("https failed:");
 			ex.printStackTrace(System.out);
 		}
+	}
+
+	private static String env(String name, String def) {
+		String value = System.getenv(name);
+		return StringUtils.hasLength(value) ? value : def;
+	}
+
+	private static int env(String name, int def) {
+		String value = System.getenv(name);
+		return StringUtils.hasLength(value) ? Integer.parseInt(value) : def;
 	}
 
 }

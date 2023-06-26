@@ -18,24 +18,21 @@ class WebClientApplicationAotTests {
 	@DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "HTTP is blocked on CI")
 	void httpWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output)
-				.hasSingleLineContaining("http: DataDto{url='http://httpbin.org/anything', method='GET'}");
+			assertThat(output).hasSingleLineContaining("https worked:");
 		});
 	}
 
 	@Test
 	void httpsWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output)
-				.hasSingleLineContaining("https: DataDto{url='https://httpbin.org/anything', method='GET'}");
+			assertThat(output).hasSingleLineContaining("https worked:");
 		});
 	}
 
 	@Test
 	void serviceWorks(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output)
-				.hasSingleLineContaining("service: ExchangeDataDto{url='https://httpbin.org/anything', method='GET'}");
+			assertThat(output).hasSingleLineContaining("service worked:");
 		});
 	}
 
