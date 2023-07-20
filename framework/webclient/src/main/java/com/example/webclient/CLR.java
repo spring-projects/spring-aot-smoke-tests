@@ -2,12 +2,14 @@ package com.example.webclient;
 
 import java.time.Duration;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
+@RegisterReflectionForBinding(DataDto.class)
 class CLR implements CommandLineRunner {
 
 	private final WebClient httpWebClient;
@@ -32,13 +34,13 @@ class CLR implements CommandLineRunner {
 
 	private void http() {
 		try {
-			String response = this.httpWebClient.get()
-				.uri("/")
+			DataDto dto = this.httpWebClient.get()
+				.uri("/anything")
 				.retrieve()
-				.bodyToMono(String.class)
+				.bodyToMono(DataDto.class)
 				.timeout(Duration.ofSeconds(10))
 				.block();
-			System.out.printf("http worked: %s%n", response);
+			System.out.printf("http: %s%n", dto);
 		}
 		catch (Exception ex) {
 			System.out.println("http failed:");
@@ -48,13 +50,13 @@ class CLR implements CommandLineRunner {
 
 	private void https() {
 		try {
-			String response = this.httpsWebClient.get()
-				.uri("/")
+			DataDto dto = this.httpsWebClient.get()
+				.uri("/anything")
 				.retrieve()
-				.bodyToMono(String.class)
+				.bodyToMono(DataDto.class)
 				.timeout(Duration.ofSeconds(10))
 				.block();
-			System.out.printf("https worked: %s%n", response);
+			System.out.printf("https: %s%n", dto);
 		}
 		catch (Exception ex) {
 			System.out.println("https failed:");
@@ -64,8 +66,8 @@ class CLR implements CommandLineRunner {
 
 	private void service() {
 		try {
-			String dto = this.dataService.getData();
-			System.out.printf("service worked: %s%n", dto);
+			ExchangeDataDto dto = this.dataService.getData();
+			System.out.printf("service: %s%n", dto);
 		}
 		catch (Exception ex) {
 			System.out.println("service failed:");

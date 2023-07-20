@@ -19,14 +19,16 @@ class RestTemplateApplicationAotTests {
 	void httpWorks(AssertableOutput output) {
 		Awaitility.await()
 			.atMost(Duration.ofSeconds(30))
-			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("http worked:"));
+			.untilAsserted(() -> assertThat(output)
+				.hasLineMatching("http: DataDto\\{url='http:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 	@Test
 	void httpsWorks(AssertableOutput output) {
 		Awaitility.await()
 			.atMost(Duration.ofSeconds(30))
-			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("https worked:"));
+			.untilAsserted(() -> assertThat(output)
+				.hasLineMatching("https: DataDto\\{url='https:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 }

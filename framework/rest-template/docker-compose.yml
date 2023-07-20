@@ -1,7 +1,22 @@
 version: '3'
 services:
-  httpecho:
-    image: 'mhalbritter/http-echo:2'
+  httpbin:
+    image: 'mccutchen/go-httpbin:v2.10.0'
     ports:
-      - '80'
-      - '443'
+      - '8080'
+  httpbin_tls:
+    image: 'mccutchen/go-httpbin:v2.10.0'
+    environment:
+      - 'PORT=8443'
+      - 'HTTPS_CERT_FILE=/server-certificate'
+      - 'HTTPS_KEY_FILE=/server-key'
+    configs:
+      - 'server-certificate'
+      - 'server-key'
+    ports:
+      - '8443'
+configs:
+  server-certificate:
+    file: './server.crt'
+  server-key:
+    file: './server.key'

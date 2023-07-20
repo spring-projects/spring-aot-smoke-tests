@@ -2,27 +2,32 @@ package com.example.resttemplate;
 
 import java.net.URI;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 @Component
+@RegisterReflectionForBinding(DataDto.class)
 class CLR implements CommandLineRunner {
 
 	private final RestTemplate restTemplate;
 
-	private final String host;
+	private final String httpHost;
 
-	private final int port;
+	private final int httpPort;
 
-	private final int tlsPort;
+	private final String httpsHost;
+
+	private final int httpsPort;
 
 	CLR(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
-		this.host = env("HTTPECHO_HOST", "localhost");
-		this.port = env("HTTPECHO_PORT_80", 8080);
-		this.tlsPort = env("HTTPECHO_PORT_443", 8443);
+		this.httpHost = env("HTTPBIN_HOST", "localhost");
+		this.httpsHost = env("HTTPBIN_TLS_HOST", "localhost");
+		this.httpPort = env("HTTPBIN_PORT_8080", 8080);
+		this.httpsPort = env("HTTPBIN_TLS_PORT_8443", 8443);
 	}
 
 	@Override
@@ -33,9 +38,9 @@ class CLR implements CommandLineRunner {
 
 	private void http() {
 		try {
-			String response = this.restTemplate
-				.getForObject(URI.create("http://%s:%d/".formatted(this.host, this.port)), String.class);
-			System.out.printf("http worked: %s%n", response);
+			DataDto dto = restTemplate.getForObject(
+					URI.create("http://%s:%d/anything".formatted(this.httpHost, this.httpPort)), DataDto.class);
+			System.out.printf("http: %s%n", dto);
 		}
 		catch (Exception ex) {
 			System.out.println("http failed:");
@@ -45,9 +50,9 @@ class CLR implements CommandLineRunner {
 
 	private void https() {
 		try {
-			String response = this.restTemplate
-				.getForObject(URI.create("https://%s:%d/".formatted(this.host, this.tlsPort)), String.class);
-			System.out.printf("https worked: %s%n", response);
+			DataDto dto = restTemplate.getForObject(
+					URI.create("https://%s:%d/anything".formatted(this.httpsHost, this.httpsPort)), DataDto.class);
+			System.out.printf("https: %s%n", dto);
 		}
 		catch (Exception ex) {
 			System.out.println("https failed:");

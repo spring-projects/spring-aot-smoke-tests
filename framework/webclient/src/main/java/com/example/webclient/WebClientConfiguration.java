@@ -20,26 +20,25 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 class WebClientConfiguration {
 
 	@Bean
-	HttpEchoConfig httpEchoConfig() {
-		return HttpEchoConfig.loadFromEnv();
-	}
-
-	@Bean
 	@Qualifier("https")
-	WebClient webClientHttps(HttpEchoConfig httpEchoConfig, WebClient.Builder builder) throws SSLException {
+	WebClient webClientHttps(WebClient.Builder builder) throws SSLException {
 		SslContext sslContext = SslContextBuilder.forClient()
 			.trustManager(InsecureTrustManagerFactory.INSTANCE)
 			.build();
 		HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(sslContext));
-		return builder.baseUrl(httpEchoConfig.httpsBaseUrl())
+		String host = env("HTTPBIN_TLS_HOST", "localhost");
+		int port = env("HTTPBIN_TLS_PORT_8443", 8443);
+		return builder.baseUrl("https://%s:%d/".formatted(host, port))
 			.clientConnector(new ReactorClientHttpConnector(httpClient))
 			.build();
 	}
 
 	@Bean
 	@Qualifier("http")
-	WebClient webClientHttp(HttpEchoConfig httpEchoConfig, WebClient.Builder builder) {
-		return builder.baseUrl(httpEchoConfig.httpBaseUrl()).build();
+	WebClient webClientHttp(WebClient.Builder builder) {
+		String host = env("HTTPBIN_HOST", "localhost");
+		int port = env("HTTPBIN_PORT_8080", 8080);
+		return builder.baseUrl("http://%s:%d/".formatted(host, port)).build();
 	}
 
 	@Bean
@@ -49,31 +48,14 @@ class WebClientConfiguration {
 		return factory.createClient(DataService.class);
 	}
 
-	record HttpEchoConfig(String host, int port, int tlsPort) {
-		public static HttpEchoConfig loadFromEnv() {
-			String host = env("HTTPECHO_HOST", "localhost");
-			int port = env("HTTPECHO_PORT_80", 8080);
-			int tlsPort = env("HTTPECHO_PORT_443", 8443);
-			return new HttpEchoConfig(host, port, tlsPort);
-		}
+	private static String env(String name, String def) {
+		String value = System.getenv(name);
+		return StringUtils.hasLength(value) ? value : def;
+	}
 
-		String httpsBaseUrl() {
-			return "https://%s:%d/".formatted(this.host, this.tlsPort);
-		}
-
-		String httpBaseUrl() {
-			return "http://%s:%d/".formatted(this.host, this.port);
-		}
-
-		private static String env(String name, String def) {
-			String value = System.getenv(name);
-			return StringUtils.hasLength(value) ? value : def;
-		}
-
-		private static int env(String name, int def) {
-			String value = System.getenv(name);
-			return StringUtils.hasLength(value) ? Integer.parseInt(value) : def;
-		}
+	private static int env(String name, int def) {
+		String value = System.getenv(name);
+		return StringUtils.hasLength(value) ? Integer.parseInt(value) : def;
 	}
 
 }

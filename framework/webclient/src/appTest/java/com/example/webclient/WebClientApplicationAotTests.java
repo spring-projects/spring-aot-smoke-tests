@@ -17,23 +17,26 @@ class WebClientApplicationAotTests {
 	@Test
 	@DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "HTTP is blocked on CI")
 	void httpWorks(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("https worked:");
-		});
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output)
+				.hasLineMatching("http: DataDto\\{url='http:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 	@Test
 	void httpsWorks(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("https worked:");
-		});
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output)
+				.hasLineMatching("https: DataDto\\{url='https:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 	@Test
 	void serviceWorks(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("service worked:");
-		});
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(30))
+			.untilAsserted(() -> assertThat(output)
+				.hasLineMatching("service: ExchangeDataDto\\{url='http:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 }
