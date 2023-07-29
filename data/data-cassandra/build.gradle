@@ -9,6 +9,11 @@ dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-cassandra")
 
+	// The workaround for Spring Data Cassandra 4.1.x users to use 'nativeCompile'
+	constraints {
+		implementation('com.datastax.oss:java-driver-core:4.17.0')
+	}
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 	appTestImplementation(project(":aot-smoke-test-support"))
