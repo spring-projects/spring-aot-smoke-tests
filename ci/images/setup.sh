@@ -48,7 +48,8 @@ entrykit --symlink
 # DOCKER COMPOSE
 ###########################################################
 mkdir -p /opt/docker-compose/bin
-curl --location https://github.com/docker/compose/releases/download/1.29.2/docker-compose-linux-x86_64 > /opt/docker-compose/bin/docker-compose
+DOCKER_COMPOSE_URL=$( ./get-docker-compose-url.sh )
+curl --location "${DOCKER_COMPOSE_URL}" > /opt/docker-compose/bin/docker-compose
 chmod +x /opt/docker-compose/bin/docker-compose
 
 ###########################################################
