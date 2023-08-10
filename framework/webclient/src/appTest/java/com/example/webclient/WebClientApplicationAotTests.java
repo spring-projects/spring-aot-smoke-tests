@@ -20,7 +20,7 @@ class WebClientApplicationAotTests {
 		Awaitility.await()
 			.atMost(Duration.ofSeconds(30))
 			.untilAsserted(() -> assertThat(output)
-				.hasLineMatching("http: DataDto\\{url='http:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
+					.hasLineMatching("http: DataDto\\{url='http:\\/\\/[\\w.]+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 	@Test
@@ -28,7 +28,7 @@ class WebClientApplicationAotTests {
 		Awaitility.await()
 			.atMost(Duration.ofSeconds(30))
 			.untilAsserted(() -> assertThat(output)
-				.hasLineMatching("https: DataDto\\{url='https:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
+					.hasLineMatching("https: DataDto\\{url='https:\\/\\/[\\w.]+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 	@Test
@@ -36,7 +36,7 @@ class WebClientApplicationAotTests {
 		Awaitility.await()
 			.atMost(Duration.ofSeconds(30))
 			.untilAsserted(() -> assertThat(output)
-				.hasLineMatching("service: ExchangeDataDto\\{url='http:\\/\\/\\w+:\\d+\\/anything', method='GET'\\}"));
+					.hasLineMatching("service: ExchangeDataDto\\{url='http:\\/\\/[\\w.]+:\\d+\\/anything', method='GET'\\}"));
 	}
 
 }
