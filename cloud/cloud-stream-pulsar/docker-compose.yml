@@ -1,4 +1,3 @@
-version: '3'
 services:
   pulsar:
     image: apachepulsar/pulsar:2.11.0
