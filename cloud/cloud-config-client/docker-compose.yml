@@ -1,4 +1,3 @@
-version: '3'
 services:
   demo-config-server:
     image: springcloud/demo-config-server:latest
