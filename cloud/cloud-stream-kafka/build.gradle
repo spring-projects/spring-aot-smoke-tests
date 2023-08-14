@@ -6,7 +6,7 @@ plugins {
 }
 
 ext {
-	set("springCloudVersion", "2022.0.2-SNAPSHOT")
+	set("springCloudVersion", "2022.0.5-SNAPSHOT")
 }
 
 dependencies {
