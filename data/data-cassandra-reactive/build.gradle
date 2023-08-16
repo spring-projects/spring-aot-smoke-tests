@@ -9,7 +9,7 @@ dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-cassandra-reactive")
 
-	// The workaround for Spring Data Cassandra Reactive 4.1.x users to use 'nativeCompile'
+	// See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-with-GraalVM#cassandra
 	constraints {
 		implementation('com.datastax.oss:java-driver-core:4.17.0')
 	}
