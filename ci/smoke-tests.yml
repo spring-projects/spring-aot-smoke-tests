@@ -63,6 +63,9 @@ groups:
      - name: mustache-webmvc
        app_test: true
        test: false
+     - name: servlet-component-scan
+       app_test: true
+       test: false
      - name: servlet-jetty
        app_test: true
        test: false
