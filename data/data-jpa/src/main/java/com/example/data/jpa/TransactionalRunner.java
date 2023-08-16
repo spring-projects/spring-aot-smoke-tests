@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-class CLR implements CommandLineRunner {
+class TransactionalRunner implements CommandLineRunner {
 
 	private final AuthorRepository authorRepository;
 
@@ -23,7 +23,8 @@ class CLR implements CommandLineRunner {
 
 	private final PublisherRepository publisherRepository;
 
-	CLR(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
+	TransactionalRunner(AuthorRepository authorRepository, BookRepository bookRepository,
+			PublisherRepository publisherRepository) {
 		this.authorRepository = authorRepository;
 		this.bookRepository = bookRepository;
 		this.publisherRepository = publisherRepository;

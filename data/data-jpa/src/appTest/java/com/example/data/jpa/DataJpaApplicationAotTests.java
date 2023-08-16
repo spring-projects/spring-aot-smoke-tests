@@ -96,4 +96,16 @@ class DataJpaApplicationAotTests {
 		});
 	}
 
+	@Test
+	void listVouchers(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output)
+				.hasSingleLineContaining(
+						"listVouchers(): voucher = Voucher{id=1, msisdn='0810000000', status=0, dateCreated")
+				.hasSingleLineContaining(
+						"listVouchers(): voucher = Voucher{id=2, msisdn='0810000000', status=1, dateCreated=");
+
+		});
+	}
+
 }
