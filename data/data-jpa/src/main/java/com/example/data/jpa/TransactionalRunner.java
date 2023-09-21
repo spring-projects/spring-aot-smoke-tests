@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-class CLR implements CommandLineRunner {
+class TransactionalRunner implements CommandLineRunner {
 
 	private final AuthorRepository authorRepository;
 
@@ -23,7 +23,8 @@ class CLR implements CommandLineRunner {
 
 	private final PublisherRepository publisherRepository;
 
-	CLR(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
+	TransactionalRunner(AuthorRepository authorRepository, BookRepository bookRepository,
+			PublisherRepository publisherRepository) {
 		this.authorRepository = authorRepository;
 		this.bookRepository = bookRepository;
 		this.publisherRepository = publisherRepository;
@@ -51,7 +52,7 @@ class CLR implements CommandLineRunner {
 
 	private void queryFindByName() {
 		Author author1 = this.authorRepository.queryFindByName("Josh Long").orElse(null);
-		Author author2 = this.authorRepository.queryFindByName("Martin Kleppmann").orElse(null);
+		Author author2 = this.authorRepository.nativeQueryFindByName("Martin Kleppmann").orElse(null);
 
 		System.out.printf("queryFindByName(): author1 = %s%n", author1);
 		System.out.printf("queryFindByName(): author2 = %s%n", author2);
