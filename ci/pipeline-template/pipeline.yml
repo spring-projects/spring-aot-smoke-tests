@@ -6,7 +6,7 @@
 #@ docker_hub = {
 #@   "organization": "springci"
 #@ }
-#@ branch = "main"
+#@ branch = "3.1.x"
 #@ milestone = "3.1.x"
 #@ task_timeout = "1h00m"
 
