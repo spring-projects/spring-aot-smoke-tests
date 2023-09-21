@@ -145,8 +145,8 @@ h|nativeTest
 |
 
 |servlet-component-scan
-|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.0.x/jobs/servlet-component-scan-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.0.x/jobs/servlet-component-scan-app-test]
-|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.0.x/jobs/servlet-component-scan-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.0.x/jobs/servlet-component-scan-native-app-test]
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.1.x/jobs/servlet-component-scan-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.1.x/jobs/servlet-component-scan-app-test]
+|image:https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.1.x/jobs/servlet-component-scan-native-app-test/badge[link=https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.1.x/jobs/servlet-component-scan-native-app-test]
 |
 |
 
