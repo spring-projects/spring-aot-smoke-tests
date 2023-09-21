@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2022-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,12 +105,12 @@ public abstract class UpdateStatusPage extends AbstractSmokeTestsTask {
 		}
 
 		private String badgeUrl(String name, String suffix) {
-			return "https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.1.x/jobs/"
+			return "https://ci.spring.io/api/v1/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.2.x/jobs/"
 					+ name + suffix + "/badge";
 		}
 
 		private String jobUrl(String name, String suffix) {
-			return "https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.1.x/jobs/"
+			return "https://ci.spring.io/teams/spring-aot-smoke-tests/pipelines/spring-aot-smoke-tests-3.2.x/jobs/"
 					+ name + suffix;
 		}
 
