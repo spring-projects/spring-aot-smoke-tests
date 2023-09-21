@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2022-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,10 +46,10 @@ final class ApplicationUnderTest {
 		if (this.port != -1) {
 			return this.port;
 		}
-		List<Pattern> portPatterns = List.of(Pattern.compile("Tomcat started on port\\(s\\): ([0-9]+)"),
+		List<Pattern> portPatterns = List.of(Pattern.compile("Tomcat started on port ([0-9]+)"),
 				Pattern.compile("Netty started on port ([0-9]+)"),
-				Pattern.compile("Jetty started on port\\(s\\) ([0-9]+)"),
-				Pattern.compile("Undertow started on port\\(s\\) ([0-9]+)"));
+				Pattern.compile("Jetty started on port ([0-9]+)"),
+				Pattern.compile("Undertow started on port ([0-9]+)"));
 		List<String> lines = Output.current().lines();
 		for (String line : lines) {
 			for (Pattern portPattern : portPatterns) {
