@@ -14,12 +14,6 @@ dependencies {
 			replacedBy("org.springframework.boot:spring-boot-starter-jetty", "Use Jetty instead of Tomcat")
 		}
 	}
-	// Downgrade for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
-	implementation("jakarta.servlet:jakarta.servlet-api") {
-		version {
-			strictly "5.0.0"
-		}
-	}
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
