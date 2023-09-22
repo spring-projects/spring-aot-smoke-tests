@@ -9,10 +9,6 @@ repositories {
 	maven { url "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates" }
 }
 
-ext {
-	set("springCloudVersion", "2022.0.2-SNAPSHOT")
-}
-
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))

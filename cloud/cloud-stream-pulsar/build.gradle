@@ -6,7 +6,6 @@ plugins {
 }
 
 ext {
-	set("springCloudVersion", "2022.0.2-SNAPSHOT")
 	set("springPulsarVersion", "0.2.1-SNAPSHOT")
 }
 

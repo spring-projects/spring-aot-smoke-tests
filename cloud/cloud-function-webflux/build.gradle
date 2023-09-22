@@ -5,10 +5,6 @@ plugins {
 	id "org.graalvm.buildtools.native"
 }
 
-ext {
-	set("springCloudVersion", "2022.0.2-SNAPSHOT")
-}
-
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
