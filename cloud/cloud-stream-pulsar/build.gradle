@@ -5,17 +5,16 @@ plugins {
 	id "org.graalvm.buildtools.native"
 }
 
-ext {
-	set("springPulsarVersion", "0.2.1-SNAPSHOT")
-}
-
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.cloud:spring-cloud-stream")
-	implementation("org.springframework.pulsar:spring-pulsar-spring-boot-starter:${springPulsarVersion}")
-	implementation("org.springframework.pulsar:spring-pulsar-spring-cloud-stream-binder:${springPulsarVersion}")
+	implementation("org.springframework.boot:spring-boot-starter-pulsar")
+	// TODO remove constraints once Boot goes back to snapshots
+	constraints {
+		implementation('org.springframework.pulsar:spring-pulsar:1.0.0-SNAPSHOT')
+	}
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

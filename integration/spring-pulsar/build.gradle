@@ -5,13 +5,14 @@ plugins {
 	id "org.graalvm.buildtools.native"
 }
 
-ext {
-	set("springPulsarVersion", "0.2.1-SNAPSHOT")
-}
-
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.pulsar:spring-pulsar-spring-boot-starter:${springPulsarVersion}")
+
+	implementation("org.springframework.boot:spring-boot-starter-pulsar")
+	// TODO remove once Boot goes back to snapshots
+	constraints {
+		implementation('org.springframework.pulsar:spring-pulsar:1.0.0-SNAPSHOT')
+	}
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
