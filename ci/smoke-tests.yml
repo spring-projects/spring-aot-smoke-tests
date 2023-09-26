@@ -163,6 +163,9 @@ groups:
      - name: data-mongodb-reactive
        app_test: true
        test: false
+     - name: data-neo4j
+       app_test: true
+       test: false
      - name: data-r2dbc
        app_test: true
        test: false
