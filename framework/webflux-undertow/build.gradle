@@ -22,7 +22,7 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	appTestImplementation("org.eclipse.jetty.websocket:websocket-jetty-client")
+	appTestImplementation("org.springframework.boot:spring-boot-starter-websocket")
 	appTestImplementation(project(":aot-smoke-test-support"))
 }
 
