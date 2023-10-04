@@ -1,5 +1,5 @@
 services:
   consul:
-    image: consul:latest
+    image: hashicorp/consul:latest
     ports:
       - "8500"
