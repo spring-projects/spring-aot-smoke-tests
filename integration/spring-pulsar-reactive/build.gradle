@@ -17,9 +17,9 @@ dependencies {
 		// TODO remove once Boot goes back to snapshots
 		implementation("org.springframework.pulsar:spring-pulsar:1.0.0-SNAPSHOT")
 		implementation("org.springframework.pulsar:spring-pulsar-reactive:1.0.0-SNAPSHOT")
-		// TODO remove once reactive client releases 0.4.0 goes back to snapshots
-		implementation("org.apache.pulsar:pulsar-client-reactive-adapter:0.3.1-SNAPSHOT")
-		implementation("org.apache.pulsar:pulsar-client-reactive-producer-cache-caffeine-shaded:0.3.1-SNAPSHOT")
+		// TODO remove once Boot udpdates BOM to 0.4.0
+		implementation("org.apache.pulsar:pulsar-client-reactive-adapter:0.4.0")
+		implementation("org.apache.pulsar:pulsar-client-reactive-producer-cache-caffeine-shaded:0.4.0")
 	}
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
