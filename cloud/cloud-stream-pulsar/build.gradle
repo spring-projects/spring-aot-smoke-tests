@@ -10,8 +10,6 @@ dependencies {
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.cloud:spring-cloud-stream")
-	// TODO remove version once https://github.com/spring-cloud/spring-cloud-stream/pull/2816 is merged
-	implementation("org.springframework.cloud:spring-cloud-stream-binder-pulsar:4.1.0-SNAPSHOT")
 	implementation("org.springframework.boot:spring-boot-starter-pulsar")
 	// TODO remove constraints once Boot goes back to snapshots
 	constraints {
