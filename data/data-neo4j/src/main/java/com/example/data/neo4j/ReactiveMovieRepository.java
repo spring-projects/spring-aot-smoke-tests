@@ -15,13 +15,11 @@
  */
 package com.example.data.neo4j;
 
-import java.util.UUID;
-
 import org.springframework.data.neo4j.repository.ReactiveNeo4jRepository;
 import org.springframework.data.neo4j.repository.support.ReactiveCypherdslConditionExecutor;
 import org.springframework.data.repository.query.ReactiveQueryByExampleExecutor;
 
-public interface ReactiveMovieRepository extends ReactiveNeo4jRepository<Movie, UUID>,
+public interface ReactiveMovieRepository extends ReactiveNeo4jRepository<Movie, Long>,
 		ReactiveCypherdslConditionExecutor<Movie>, ReactiveQueryByExampleExecutor<Movie> {
 
 }

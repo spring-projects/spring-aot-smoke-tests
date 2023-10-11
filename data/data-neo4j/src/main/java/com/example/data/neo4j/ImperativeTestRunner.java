@@ -17,8 +17,10 @@ package com.example.data.neo4j;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 
 import org.neo4j.cypherdsl.core.Cypher;
+import org.neo4j.cypherdsl.core.Property;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Example;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
@@ -43,7 +45,6 @@ public class ImperativeTestRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-
 		annotatedTypesShouldHaveBeenRegistered();
 		externallyGeneratedFieldsShouldBePopulated();
 		internallyGeneratedIdsShouldBePopulated();
@@ -52,19 +53,18 @@ public class ImperativeTestRunner implements CommandLineRunner {
 	}
 
 	private void qbeShouldWork() {
-
 		log("---- Neo4j Query By Example (QBE) ----");
-		var optionalMovie = movieRepository.findOne(Example.of(new Movie("A movie")));
+		Optional<Movie> optionalMovie = this.movieRepository.findOne(Example.of(new Movie("A movie")));
 		optionalMovie.ifPresent((movie) -> {
 			log("Found one movie by example with id %s", movie.getId());
 		});
 	}
 
 	private void cypherDSLIntegrationShouldWork() {
-
 		log("---- Neo4j Cypher-DSL integration and relationship population ----");
-		var title = Cypher.node("Movie").named("movie").property("title");
-		var movies = new ArrayList<>(movieRepository.findAll(title.contains(Cypher.literalOf("A movie"))));
+		Property title = Cypher.node("Movie").named("movie").property("title");
+		ArrayList<Movie> movies = new ArrayList<>(
+				this.movieRepository.findAll(title.contains(Cypher.literalOf("A movie"))));
 
 		log("Loaded %d movies", movies.size());
 		if (!(movies.isEmpty() || movies.get(0).getActors().isEmpty())) {
@@ -74,19 +74,17 @@ public class ImperativeTestRunner implements CommandLineRunner {
 	}
 
 	private void internallyGeneratedIdsShouldBePopulated() {
-
 		log("---- Neo4j internally generated values ----");
-		var person = new Person();
+		Person person = new Person();
 		person.setName("Jane Doe");
-		person = neo4jTemplate.save(person);
+		person = this.neo4jTemplate.save(person);
 		log("Internal element id is present: %s", person.getId());
 	}
 
 	private void externallyGeneratedFieldsShouldBePopulated() {
-
 		log("---- Neo4j externally generated values ----");
-		var movie = transactionTemplate
-			.execute(tx -> movieRepository.save(new Movie("One Flew Over the Cuckoos Nest")));
+		Movie movie = this.transactionTemplate
+			.execute(tx -> this.movieRepository.save(new Movie("One Flew Over the Cuckoos Nest")));
 
 		log("Generated id is present: %s", movie.getId());
 		log("CreatedAt is present: %s", DataNeo4jApplication.FIXED_DATE.equals(movie.getCreatedAt()));
@@ -96,7 +94,7 @@ public class ImperativeTestRunner implements CommandLineRunner {
 		log("Version is %d", movie.getVersion());
 
 		movie.setTitle("One Flew Over the Cuckoo's Nest");
-		var updatedMovie = transactionTemplate.execute(tx -> movieRepository.save(movie));
+		Movie updatedMovie = this.transactionTemplate.execute(tx -> this.movieRepository.save(movie));
 
 		log("UpdatedAt is now present: %s", DataNeo4jApplication.FIXED_DATE.equals(updatedMovie.getUpdatedAt()));
 		log("UpdatedBy is now present: %s", "Some person".equals(updatedMovie.getUpdatedBy()));
@@ -104,10 +102,9 @@ public class ImperativeTestRunner implements CommandLineRunner {
 	}
 
 	private void annotatedTypesShouldHaveBeenRegistered() {
-
 		log("---- Neo4j Managed types ----");
 
-		var optionalResult = this.neo4jTemplate.findOne("MATCH (t:ParentLabel {name: $name}) RETURN t",
+		Optional<ParentNode> optionalResult = this.neo4jTemplate.findOne("MATCH (t:ParentLabel {name: $name}) RETURN t",
 				Map.of("name", "BothLabelsMustBeManagedTypes"), ParentNode.class);
 		optionalResult.ifPresent(node -> {
 

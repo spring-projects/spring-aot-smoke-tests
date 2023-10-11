@@ -30,18 +30,16 @@ class DataNeo4jApplicationAotTests {
 
 	@Test
 	void annotatedTypesShouldHaveBeenRegistered(AssertableOutput output) {
-		var expectedLines = List.of("All types are present: ChildNode",
-				"Id has been populated from DB: \\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}");
+		List<String> expectedLines = List.of("All types are present: ChildNode", "Id has been populated from DB: \\d+");
 
 		assertExpectedLines(output, expectedLines);
 	}
 
 	@Test
 	void externallyGeneratedFieldsShouldBePopulated(AssertableOutput output) {
-		var expectedLines = List.of("Generated id is present: \\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}",
-				"CreatedAt is present: true", "CreatedBy is present: true", "UpdatedAt is absent: false",
-				"UpdatedBy is absent: false", "Version is 0", "UpdatedAt is now present: true",
-				"UpdatedBy is now present: true", "Version is now 1");
+		List<String> expectedLines = List.of("Generated id is present: \\d+", "CreatedAt is present: true",
+				"CreatedBy is present: true", "UpdatedAt is absent: false", "UpdatedBy is absent: false",
+				"Version is 0", "UpdatedAt is now present: true", "UpdatedBy is now present: true", "Version is now 1");
 
 		assertExpectedLines(output, expectedLines);
 	}
@@ -49,14 +47,14 @@ class DataNeo4jApplicationAotTests {
 	@Test
 	void internallyGeneratedIdsShouldBePopulated(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasLineMatching("Internal element id is present: \\d:[\\w\\-]+:\\d")
-				.hasLineMatching("\\[Reactive\\] Internal element id is present: \\d:[\\w\\-]+:\\d");
+			assertThat(output).hasLineMatching("Internal element id is present: \\d+")
+				.hasLineMatching("\\[Reactive\\] Internal element id is present: \\d+");
 		});
 	}
 
 	@Test
 	void cypherDSLIntegrationShouldWork(AssertableOutput output) {
-		var expectedLines = List.of("Loaded 1 movies", "With 1 actors, first named An Actor");
+		List<String> expectedLines = List.of("Loaded 1 movies", "With 1 actors, first named An Actor");
 
 		assertExpectedLines(output, expectedLines);
 	}
@@ -70,11 +68,10 @@ class DataNeo4jApplicationAotTests {
 
 	@Test
 	void qbeShouldWork(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasLineMatching("Found one movie by example with id \\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}")
-				.hasLineMatching(
-						"\\[Reactive\\] Found one movie by example with id \\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}");
-		});
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasLineMatching("Found one movie by example with id \\d+")
+				.hasLineMatching("\\[Reactive\\] Found one movie by example with id \\d+"));
 	}
 
 }

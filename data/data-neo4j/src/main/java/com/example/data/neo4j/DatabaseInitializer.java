@@ -16,6 +16,8 @@
 package com.example.data.neo4j;
 
 import org.neo4j.driver.Driver;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.Transaction;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.stereotype.Component;
 
@@ -32,14 +34,14 @@ public class DatabaseInitializer implements SmartLifecycle {
 
 	@Override
 	public void start() {
-		if (running) {
+		if (this.running) {
 			return;
 		}
 
-		try (var session = driver.session(); var tx = session.beginTransaction()) {
+		try (Session session = this.driver.session(); Transaction tx = session.beginTransaction()) {
 			tx.run("MATCH (n:ParentLabel:ChildLabel) DETACH DELETE n");
-			tx.run("CREATE (:ParentLabel:ChildLabel {id: randomUuid(), name: 'BothLabelsMustBeManagedTypes'})");
-			tx.run("CREATE (:Movie {id: randomUuid(), version: 0, title: 'A movie', updatedBy: 'A person', updatedAt: localdatetime()}) <-[:ACTED_IN]-(:Person {name: 'An Actor'})");
+			tx.run("CREATE (:ParentLabel:ChildLabel {id: 1, name: 'BothLabelsMustBeManagedTypes'})");
+			tx.run("CREATE (:Movie {id: 1, version: 0, title: 'A movie', updatedBy: 'A person', updatedAt: localdatetime()}) <-[:ACTED_IN]-(:Person {name: 'An Actor'})");
 			tx.commit();
 			this.running = true;
 		}
@@ -51,7 +53,7 @@ public class DatabaseInitializer implements SmartLifecycle {
 
 	@Override
 	public boolean isRunning() {
-		return running;
+		return this.running;
 	}
 
 }

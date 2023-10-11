@@ -17,7 +17,6 @@ package com.example.data.neo4j;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -35,7 +34,7 @@ public class Movie {
 
 	@Id
 	@GeneratedValue
-	private final UUID id;
+	private final Long id;
 
 	@Version
 	private final Long version;
@@ -62,7 +61,7 @@ public class Movie {
 	}
 
 	@PersistenceCreator
-	Movie(UUID id, Long version, String title, List<Person> actors, LocalDateTime createdAt, String createdBy,
+	Movie(Long id, Long version, String title, List<Person> actors, LocalDateTime createdAt, String createdBy,
 			LocalDateTime updatedAt, String updatedBy) {
 		this.id = id;
 		this.version = version;
@@ -74,16 +73,16 @@ public class Movie {
 		this.updatedBy = updatedBy;
 	}
 
-	public UUID getId() {
-		return id;
+	public Long getId() {
+		return this.id;
 	}
 
 	public Long getVersion() {
-		return version;
+		return this.version;
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
@@ -91,23 +90,39 @@ public class Movie {
 	}
 
 	public List<Person> getActors() {
-		return actors;
+		return this.actors;
 	}
 
 	public LocalDateTime getCreatedAt() {
-		return createdAt;
+		return this.createdAt;
 	}
 
 	public String getCreatedBy() {
-		return createdBy;
+		return this.createdBy;
 	}
 
 	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
+		return this.updatedAt;
 	}
 
 	public String getUpdatedBy() {
-		return updatedBy;
+		return this.updatedBy;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 }

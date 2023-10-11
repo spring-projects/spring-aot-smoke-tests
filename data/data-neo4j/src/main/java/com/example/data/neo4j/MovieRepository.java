@@ -15,13 +15,11 @@
  */
 package com.example.data.neo4j;
 
-import java.util.UUID;
-
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.support.CypherdslConditionExecutor;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 
 public interface MovieRepository
-		extends Neo4jRepository<Movie, UUID>, CypherdslConditionExecutor<Movie>, QueryByExampleExecutor<Movie> {
+		extends Neo4jRepository<Movie, Long>, CypherdslConditionExecutor<Movie>, QueryByExampleExecutor<Movie> {
 
 }

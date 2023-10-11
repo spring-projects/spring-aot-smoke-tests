@@ -16,8 +16,6 @@
 
 package com.example.data.neo4j;
 
-import java.util.UUID;
-
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
@@ -32,11 +30,11 @@ public abstract sealed class ParentNode permits ParentNode.ChildNode {
 
 	@Id
 	@GeneratedValue
-	private UUID id;
+	private Long id;
 
 	private String name;
 
-	public UUID getId() {
+	public Long getId() {
 		return this.id;
 	}
 

@@ -22,20 +22,20 @@ public class Person {
 
 	@Id
 	@GeneratedValue
-	private String id;
+	private Long id;
 
 	private String name;
 
-	public String getId() {
-		return id;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
