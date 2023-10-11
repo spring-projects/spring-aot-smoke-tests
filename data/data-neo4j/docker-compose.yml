@@ -1,0 +1,16 @@
+services:
+  neo4j:
+    image: 'neo4j:5'
+    ports:
+      - '7687'
+    expose:
+      - '7687'
+    hostname: 'neo4j'
+    container_name: 'neo4j'
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider localhost:7474 || exit 1" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    environment:
+      - NEO4J_AUTH=neo4j/verysecret
