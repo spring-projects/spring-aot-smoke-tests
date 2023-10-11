@@ -5,17 +5,22 @@ plugins {
 	id "org.graalvm.buildtools.native"
 }
 
-ext {
-	set("springPulsarVersion", "0.2.1-SNAPSHOT")
-}
-
 repositories {
 	maven { url "https://repository.apache.org/content/repositories/snapshots" }
 }
 
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.pulsar:spring-pulsar-reactive-spring-boot-starter:${springPulsarVersion}")
+
+	implementation("org.springframework.boot:spring-boot-starter-pulsar-reactive")
+	constraints {
+		// TODO remove once Boot goes back to snapshots
+		implementation("org.springframework.pulsar:spring-pulsar:1.0.0-SNAPSHOT")
+		implementation("org.springframework.pulsar:spring-pulsar-reactive:1.0.0-SNAPSHOT")
+		// TODO remove once Boot udpdates BOM to 0.4.0
+		implementation("org.apache.pulsar:pulsar-client-reactive-adapter:0.4.0")
+		implementation("org.apache.pulsar:pulsar-client-reactive-producer-cache-caffeine-shaded:0.4.0")
+	}
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

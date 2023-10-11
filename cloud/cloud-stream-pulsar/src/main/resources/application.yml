@@ -3,7 +3,7 @@ spring.main.web-application-type: none
 spring.pulsar:
   client:
     service-url: "pulsar://${PULSAR_HOST:localhost}:${PULSAR_PORT_6650:6650}"
-  administration:
+  admin:
     service-url: "http://${PULSAR_HOST:localhost}:${PULSAR_PORT_8080:8080}"
 
 spring.cloud:
