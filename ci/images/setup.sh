@@ -51,9 +51,3 @@ mkdir -p /opt/docker-compose/bin
 DOCKER_COMPOSE_URL=$( ./get-docker-compose-url.sh )
 curl --location "${DOCKER_COMPOSE_URL}" > /opt/docker-compose/bin/docker-compose
 chmod +x /opt/docker-compose/bin/docker-compose
-
-###########################################################
-# GRADLE ENTERPRISE
-###########################################################
-mkdir ~/.gradle
-echo 'systemProp.user.name=concourse' > ~/.gradle/gradle.properties
