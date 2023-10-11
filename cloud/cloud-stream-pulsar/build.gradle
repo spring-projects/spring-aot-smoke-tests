@@ -10,6 +10,7 @@ dependencies {
 	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.cloud:spring-cloud-stream")
+	implementation("org.springframework.cloud:spring-cloud-stream-binder-pulsar")
 	implementation("org.springframework.boot:spring-boot-starter-pulsar")
 	// TODO remove constraints once Boot goes back to snapshots
 	constraints {
