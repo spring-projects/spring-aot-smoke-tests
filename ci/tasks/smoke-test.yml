@@ -5,9 +5,6 @@ inputs:
 outputs:
 - name: distribution-repository
 - name: git-repo
-caches:
-- path: maven
-- path: gradle
 params:
   BRANCH:
   CI: true
