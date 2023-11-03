@@ -1,0 +1,1 @@
+Tests if Spring Cloud Stream with Kafka Streams is working.

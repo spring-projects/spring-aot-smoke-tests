@@ -1,0 +1,24 @@
+spring.kafka:
+  bootstrap-servers: "localhost:${KAFKA_PORT_9092:9092}"
+  consumer.auto-offset-reset: earliest
+
+spring.cloud:
+  function:
+    definition: graalSupplier;process;graalLoggingConsumer
+  stream:
+    bindings:
+      graalSupplier-out-0:
+        binder: kafka
+        destination: process-in-0
+      graalLoggingConsumer-in-0:
+        binder: kafka
+        destination: process-out-0
+    kafka:
+      streams:
+        binder:
+          applicationId: hello-word-count-sample
+          configuration:
+            commit.interval.ms: 100
+            default:
+              key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
