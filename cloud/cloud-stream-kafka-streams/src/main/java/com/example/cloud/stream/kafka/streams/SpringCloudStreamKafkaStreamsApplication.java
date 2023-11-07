@@ -45,14 +45,13 @@ public class SpringCloudStreamKafkaStreamsApplication {
 	@Bean
 	public Function<KStream<Bytes, String>, KStream<Bytes, String>> process() {
 
-		return input -> input
-				.flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
-				.map((key, value) -> new KeyValue<>(value, value))
-				.groupByKey(Grouped.with(Serdes.String(), Serdes.String()))
-				.windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMillis(30_000)))
-				.count(Materialized.as("WordCounts-1"))
-				.toStream()
-				.map((key, value) -> new KeyValue<>(null, key.key() + " : " + value));
+		return input -> input.flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
+			.map((key, value) -> new KeyValue<>(value, value))
+			.groupByKey(Grouped.with(Serdes.String(), Serdes.String()))
+			.windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMillis(30_000)))
+			.count(Materialized.as("WordCounts-1"))
+			.toStream()
+			.map((key, value) -> new KeyValue<>(null, key.key() + " : " + value));
 	}
 
 	@Bean
