@@ -122,6 +122,9 @@ groups:
      - name: cloud-stream-kafka
        app_test: true
        test: false
+     - name: cloud-stream-kafka-streams
+       app_test: true
+       test: false
      - name: cloud-stream-pulsar
        app_test: true
        test: false
