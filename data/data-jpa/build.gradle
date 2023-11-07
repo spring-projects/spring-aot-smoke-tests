@@ -7,6 +7,9 @@ plugins {
 
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	constraints {
+		implementation("org.springframework:spring-orm:6.1.0-SNAPSHOT")
+	}
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
 	runtimeOnly("com.h2database:h2")
