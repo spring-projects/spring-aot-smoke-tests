@@ -99,3 +99,19 @@ dependencies {
 ----
 
 This works for direct and transitive dependencies.
+
+=== Force Snapshots
+
+If you want to force the use of snapshots for `org.springframework.*` dependencies, you can use the `forceSnapshots` property:
+
+[source,]
+----
+./gradlew :boot:actuator-webmvc:build -PforceSnapshots
+----
+
+It resolves the versions using the following rules:
+
+- *x.y.z-SNAPSHOT* is left as-is
+- *x.y.z* is changed to *x.y.z+1-SNAPSHOT*
+- *x.y.z-Mk* is changed to *x.y.z-SNAPSHOT*
+- *x.y.z-RCk* is changed to *x.y.z-SNAPSHOT*
