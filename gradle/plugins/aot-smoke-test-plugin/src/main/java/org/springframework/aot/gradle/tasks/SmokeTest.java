@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2022-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,27 @@ import java.util.Properties;
  * @param path path of the smoke test project
  * @param tests whether the smoke test contains any unit tests
  * @param appTests whether the smoke test contains any app tests
+ * @param slackNotifications configuration for Slack notifications
  */
-record SmokeTest(String name, String group, String path, boolean tests, boolean appTests) {
+record SmokeTest(String name, String group, String path, boolean tests, boolean appTests,
+		SmokeTest.SlackNotifications slackNotifications) {
 
 	SmokeTest(Properties properties) {
 		this(properties.getProperty("name"), properties.getProperty("group"), properties.getProperty("path"),
-				Boolean.valueOf(properties.getProperty("tests")), Boolean.valueOf(properties.getProperty("appTests")));
+				Boolean.valueOf(properties.getProperty("tests")), Boolean.valueOf(properties.getProperty("appTests")),
+				SmokeTest.SlackNotifications.from(properties));
+	}
+
+	record SlackNotifications(String channel, boolean onSuccess, boolean onFailure) {
+
+		private static SlackNotifications from(Properties properties) {
+			String channel = properties.getProperty("slack.channel");
+			if (channel == null || channel.isBlank()) {
+				return null;
+			}
+			return new SlackNotifications(channel, Boolean.valueOf(properties.getProperty("slack.on-success")),
+					Boolean.valueOf(properties.getProperty("slack.on-failure")));
+		}
 	}
 
 }
