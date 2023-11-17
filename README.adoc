@@ -84,7 +84,10 @@ The preceding example will run the `rest-template` smoke test, resolving Spring 
 === Using snapshots
 
 By default, the smoke tests will use snapshots of `org.springframework.*` dependencies.
-The exact version is derived from the version in Spring Boot's dependency management using the following rules:
+Note that `org.springframework.boot` and `org.springframework.cloud` dependencies are not affected.
+Their versions are controlled by the `springBootVersion` and `springCloudVersion` properties defined in `gradle.properties`.
+
+For each eligible dependency, the snapshot version that is used is derived from the dependency's default version:
 
 - `x.y.z-SNAPSHOT` is left as-is
 - `x.y.z` is changed to `x.y.z+1-SNAPSHOT`

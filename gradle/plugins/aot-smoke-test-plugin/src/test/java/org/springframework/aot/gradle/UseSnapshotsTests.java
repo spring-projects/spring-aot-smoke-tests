@@ -70,6 +70,12 @@ class UseSnapshotsTests {
 	}
 
 	@Test
+	void springCloudDependenciesAreNotAffected() {
+		DependencyResolveDetails dependency = dependency("org.springframework.cloud", "3.1.5");
+		then(dependency).shouldHaveNoMoreInteractions();
+	}
+
+	@Test
 	void thirdPartyDependenciesAreNotAffected() {
 		DependencyResolveDetails dependency = dependency("org.apache.tomcat", "10.1.5");
 		then(dependency).shouldHaveNoMoreInteractions();

@@ -45,7 +45,8 @@ final class UseSnapshots implements Action<DependencyResolveDetails> {
 			return;
 		}
 		String group = requested.getGroup();
-		if (group.startsWith("org.springframework") && !group.equals("org.springframework.boot")) {
+		if (group.startsWith("org.springframework") && !group.equals("org.springframework.boot")
+				&& !group.equals("org.springframework.cloud")) {
 			dependency.useVersion(snapshotOf(version));
 		}
 	}
