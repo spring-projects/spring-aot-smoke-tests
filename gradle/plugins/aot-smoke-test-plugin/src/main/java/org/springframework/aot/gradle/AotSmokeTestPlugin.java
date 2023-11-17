@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2022-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,18 +89,10 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.mavenLocal(
 						(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
 		}
-		if (project.hasProperty("forceSnapshots")) {
-			project.getConfigurations().all((configuration) ->
-					configuration.getResolutionStrategy().eachDependency(dependency -> {
-						String version = dependency.getRequested().getVersion() != null ? dependency.getRequested().getVersion() : "";
-						if (dependency.getRequested().getGroup().startsWith("org.springframework")
-								&& !dependency.getRequested().getGroup().equals("org.springframework.boot")
-								&& !version.isBlank()) {
-							String resolvedVersion = resolveSnapshotVersion(version);
-							dependency.useVersion(resolvedVersion);
-						}
-					})
-			);
+		if ((!project.hasProperty("useSnapshots")) || Boolean.valueOf(project.property("useSnapshots").toString())) {
+			UseSnapshots useSnapshots = new UseSnapshots();
+			project.getConfigurations()
+				.all((configuration) -> configuration.getResolutionStrategy().eachDependency(useSnapshots));
 		}
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
@@ -127,32 +119,6 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		DependencyHandler dependencies = project.getRootProject().getDependencies();
 		dependencies.add("smokeTests",
 				dependencies.project(Map.of("path", project.getPath(), "configuration", smokeTests.getName())));
-	}
-
-	/**
-	 * Resolves the snapshot version of a dependency with the following rules:
-	 * <ul>
-	 *     <li>x.y.z-SNAPSHOT is left as-is</li>
-	 *     <li>x.y.z is changed to x.y.z+1-SNAPSHOT</li>
-	 *     <li>x.y.z-Mk is changed to x.y.z-SNAPSHOT</li>
-	 *     <li>x.y.z-RCk is changed to x.y.z-SNAPSHOT</li>
-	 * </ul>
-	 * @param originalVersion the original version
-	 * @return the resolved snapshot version
-	 */
-	String resolveSnapshotVersion(String originalVersion) {
-		if (originalVersion.endsWith("-SNAPSHOT")) {
-			return originalVersion;
-		}
-		boolean isMilestone = originalVersion.matches(".*-(M|RC)\\d+$");
-		String rawVersion = originalVersion.split("-")[0];
-		if (isMilestone) {
-			return rawVersion + "-SNAPSHOT";
-		}
-		String[] parts = rawVersion.split("\\.");
-		int nextPatchVersion = Integer.parseInt(parts[2]) + 1;
-		parts[2] = nextPatchVersion + "-SNAPSHOT";
-		return String.join(".", parts);
 	}
 
 	private void configureAppTests(Project project, AotSmokeTestExtension extension, SourceSet appTest) {

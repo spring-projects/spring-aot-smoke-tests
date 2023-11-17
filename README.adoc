@@ -81,6 +81,23 @@ You can now consume those snapshots using `-PfromMavenLocal` which takes a comma
 
 The preceding example will run the `rest-template` smoke test, resolving Spring Framework and Spring Data modules from your local Maven cache.
 
+=== Using snapshots
+
+By default, the smoke tests will use snapshots of `org.springframework.*` dependencies.
+The exact version is derived from the version in Spring Boot's dependency management using the following rules:
+
+- `x.y.z-SNAPSHOT` is left as-is
+- `x.y.z` is changed to `x.y.z+1-SNAPSHOT`
+- `x.y.z-Mn` is changed to `x.y.z-SNAPSHOT`
+- `x.y.z-RCn` is changed to `x.y.z-SNAPSHOT`
+
+To disable this behavior set the `useSnapshots` property to `false`, as shown in the following example:
+
+[source,]
+----
+./gradlew :boot:actuator-webmvc:build -PuseSnapshots=false
+----
+
 === Override a dependency version
 
 As the test doesn't use the Spring Dependency Management Plugin, you can't use the `ext['...'] = '...'` method.
@@ -99,19 +116,3 @@ dependencies {
 ----
 
 This works for direct and transitive dependencies.
-
-=== Force Snapshots
-
-If you want to force the use of snapshots for `org.springframework.*` dependencies, you can use the `forceSnapshots` property:
-
-[source,]
-----
-./gradlew :boot:actuator-webmvc:build -PforceSnapshots
-----
-
-It resolves the versions using the following rules:
-
-- *x.y.z-SNAPSHOT* is left as-is
-- *x.y.z* is changed to *x.y.z+1-SNAPSHOT*
-- *x.y.z-Mk* is changed to *x.y.z-SNAPSHOT*
-- *x.y.z-RCk* is changed to *x.y.z-SNAPSHOT*
