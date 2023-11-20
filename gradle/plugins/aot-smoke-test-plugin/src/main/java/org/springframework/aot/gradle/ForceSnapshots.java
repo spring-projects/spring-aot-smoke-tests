@@ -23,7 +23,7 @@ import org.gradle.api.artifacts.ResolutionStrategy;
 
 /**
  * {@link ResolutionStrategy#eachDependency(Action) Resolution strategy action} that
- * configures dependencies to use snapshots. The version that is used is derived from a
+ * forces dependencies to use snapshots. The version that is used is derived from a
  * dependency's current version:
  * <ul>
  * <li>{@code x.y.z-SNAPSHOT} is used as-is</li>
@@ -40,7 +40,7 @@ import org.gradle.api.artifacts.ResolutionStrategy;
  * @author Marcus Hert Da Coregio
  * @author Andy Wilkinson
  */
-final class UseSnapshots implements Action<DependencyResolveDetails> {
+final class ForceSnapshots implements Action<DependencyResolveDetails> {
 
 	@Override
 	public void execute(DependencyResolveDetails dependency) {

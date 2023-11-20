@@ -89,10 +89,11 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.mavenLocal(
 						(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
 		}
-		if ((!project.hasProperty("useSnapshots")) || Boolean.valueOf(project.property("useSnapshots").toString())) {
-			UseSnapshots useSnapshots = new UseSnapshots();
+		if ((!project.hasProperty("forceSnapshots"))
+				|| Boolean.valueOf(project.property("forceSnapshots").toString())) {
+			ForceSnapshots forceSnapshots = new ForceSnapshots();
 			project.getConfigurations()
-				.all((configuration) -> configuration.getResolutionStrategy().eachDependency(useSnapshots));
+				.all((configuration) -> configuration.getResolutionStrategy().eachDependency(forceSnapshots));
 		}
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
