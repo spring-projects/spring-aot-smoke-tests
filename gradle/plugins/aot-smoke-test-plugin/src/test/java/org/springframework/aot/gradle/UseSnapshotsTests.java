@@ -19,6 +19,8 @@ package org.springframework.aot.gradle;
 import org.gradle.api.artifacts.DependencyResolveDetails;
 import org.gradle.api.artifacts.ModuleVersionSelector;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -33,34 +35,54 @@ class UseSnapshotsTests {
 
 	private final UseSnapshots useSnapshots = new UseSnapshots();
 
-	@Test
-	void snapshotVersionIsUsedAsIs() {
-		DependencyResolveDetails dependency = dependency("org.springframework", "6.0.12-SNAPSHOT");
-		then(dependency).should().useVersion("6.0.12-SNAPSHOT");
+	@ParameterizedTest
+	@CsvSource(textBlock = """
+				6.0.12-SNAPSHOT, 6.0.12-SNAPSHOT
+				5.2.26.BUILD-SNAPSHOT, 5.2.26.BUILD-SNAPSHOT
+			""")
+	void snapshotVersionIsUsedAsIs(String version, String derivedVersion) {
+		DependencyResolveDetails dependency = dependency("org.springframework", version);
+		then(dependency).should().useVersion(derivedVersion);
 	}
 
-	@Test
-	void milestoneUsesSnapshotOfSameVersion() {
-		DependencyResolveDetails dependency = dependency("org.springframework", "6.1.0-M2");
-		then(dependency).should().useVersion("6.1.0-SNAPSHOT");
+	@ParameterizedTest
+	@CsvSource(textBlock = """
+				6.1.0-M2, 6.1.0-SNAPSHOT
+				5.2.0.M2, 5.2.0.BUILD-SNAPSHOT
+			""")
+	void milestoneUsesSnapshotOfSameVersion(String version, String derivedVersion) {
+		DependencyResolveDetails dependency = dependency("org.springframework", version);
+		then(dependency).should().useVersion(derivedVersion);
 	}
 
-	@Test
-	void releaseCandidateUsesSnapshotOfSameVersion() {
-		DependencyResolveDetails dependency = dependency("org.springframework", "6.1.0-RC2");
-		then(dependency).should().useVersion("6.1.0-SNAPSHOT");
+	@ParameterizedTest
+	@CsvSource(textBlock = """
+				6.1.0-RC1, 6.1.0-SNAPSHOT
+				5.2.0.RC1, 5.2.0.BUILD-SNAPSHOT
+			""")
+	void releaseCandidateUsesSnapshotOfSameVersion(String version, String derivedVersion) {
+		DependencyResolveDetails dependency = dependency("org.springframework", version);
+		then(dependency).should().useVersion(derivedVersion);
 	}
 
-	@Test
-	void gaReleaseUsesSnapshotOfNextPatch() {
-		DependencyResolveDetails dependency = dependency("org.springframework", "6.1.0");
-		then(dependency).should().useVersion("6.1.1-SNAPSHOT");
+	@ParameterizedTest
+	@CsvSource(textBlock = """
+				6.1.0, 6.1.1-SNAPSHOT
+				5.2.0.RELEASE, 5.2.1.BUILD-SNAPSHOT
+			""")
+	void gaReleaseUsesSnapshotOfNextPatch(String version, String derivedVersion) {
+		DependencyResolveDetails dependency = dependency("org.springframework", version);
+		then(dependency).should().useVersion(derivedVersion);
 	}
 
-	@Test
-	void maintenanceReleaseUsesSnapshotOfNextPatch() {
-		DependencyResolveDetails dependency = dependency("org.springframework", "6.1.3");
-		then(dependency).should().useVersion("6.1.4-SNAPSHOT");
+	@ParameterizedTest
+	@CsvSource(textBlock = """
+				6.1.1, 6.1.2-SNAPSHOT
+				5.2.1.RELEASE, 5.2.2.BUILD-SNAPSHOT
+			""")
+	void maintenanceReleaseUsesSnapshotOfNextPatch(String version, String derivedVersion) {
+		DependencyResolveDetails dependency = dependency("org.springframework", version);
+		then(dependency).should().useVersion(derivedVersion);
 	}
 
 	@Test
