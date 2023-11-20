@@ -27,13 +27,13 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link UseSnapshots}.
+ * Tests for {@link ForceSnapshots}.
  *
  * @author Andy Wilkinson
  */
-class UseSnapshotsTests {
+class ForceSnapshotsTests {
 
-	private final UseSnapshots useSnapshots = new UseSnapshots();
+	private final ForceSnapshots useSnapshots = new ForceSnapshots();
 
 	@ParameterizedTest
 	@CsvSource(textBlock = """

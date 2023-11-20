@@ -94,11 +94,11 @@ For each eligible dependency, the snapshot version that is used is derived from 
 - `x.y.z-Mn` is changed to `x.y.z-SNAPSHOT`
 - `x.y.z-RCn` is changed to `x.y.z-SNAPSHOT`
 
-To disable this behavior set the `useSnapshots` property to `false`, as shown in the following example:
+To disable this behavior, set the `forceSnapshots` property to `false`, as shown in the following example:
 
 [source,]
 ----
-./gradlew :boot:actuator-webmvc:build -PuseSnapshots=false
+./gradlew :boot:actuator-webmvc:build -PforceSnapshots=false
 ----
 
 === Override a dependency version
