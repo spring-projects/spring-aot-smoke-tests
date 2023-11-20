@@ -27,9 +27,14 @@ import org.gradle.api.artifacts.ResolutionStrategy;
  * dependency's current version:
  * <ul>
  * <li>{@code x.y.z-SNAPSHOT} is used as-is</li>
- * <li>{@code x.y.z} is changed to {@code x.y.z+1-SNAPSHOT}</li>
+ * <li>{@code x.y.z.BUILD-SNAPSHOT} is used as-is</li>
  * <li>{@code x.y.z-Mn} is changed to {@code to x.y.z-SNAPSHOT}</li>
+ * <li>{@code x.y.z.Mn} is changed to {@code to x.y.z.BUILD-SNAPSHOT}</li>
  * <li>{@code x.y.z-RCn} is changed to {@code to x.y.z-SNAPSHOT}</li>
+ * <li>{@code x.y.z.RCn} is changed to {@code to x.y.z.BUILD-SNAPSHOT}</li>
+ * <li>{@code x.y.z} is changed to {@code x.y.z+1-SNAPSHOT}</li>
+ * <li>{@code x.y.z.RELEASE} is changed to {@code x.y.z+1.BUILD-SNAPSHOT}</li>
+ *
  * </ul>
  *
  * @author Marcus Hert Da Coregio
@@ -55,6 +60,10 @@ final class UseSnapshots implements Action<DependencyResolveDetails> {
 		if (version.endsWith("-SNAPSHOT")) {
 			return version;
 		}
+		boolean oldVersionFormat = version.matches(".*\\.(((M|RC)\\d+)|RELEASE)$");
+		if (oldVersionFormat) {
+			return buildSnapshotOf(version);
+		}
 		boolean isMilestone = version.matches(".*-(M|RC)\\d+$");
 		String rawVersion = version.split("-")[0];
 		if (isMilestone) {
@@ -63,6 +72,18 @@ final class UseSnapshots implements Action<DependencyResolveDetails> {
 		String[] parts = rawVersion.split("\\.");
 		int nextPatchVersion = Integer.parseInt(parts[2]) + 1;
 		parts[2] = nextPatchVersion + "-SNAPSHOT";
+		return String.join(".", parts);
+	}
+
+	private String buildSnapshotOf(String version) {
+		boolean isMilestone = !version.endsWith(".RELEASE");
+		String rawVersion = version.substring(0, version.lastIndexOf("."));
+		if (isMilestone) {
+			return rawVersion + ".BUILD-SNAPSHOT";
+		}
+		String[] parts = rawVersion.split("\\.");
+		int nextPatchVersion = Integer.parseInt(parts[2]) + 1;
+		parts[2] = nextPatchVersion + ".BUILD-SNAPSHOT";
 		return String.join(".", parts);
 	}
 
