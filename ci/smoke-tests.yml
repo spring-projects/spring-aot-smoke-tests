@@ -354,6 +354,10 @@ groups:
      - name: security-ldap
        app_test: true
        test: true
+       slack:
+         channel: spring-security-ci
+         on_success: true
+         on_failure: true
      - name: security-method
        app_test: true
        test: false
