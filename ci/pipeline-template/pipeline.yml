@@ -172,7 +172,7 @@ jobs:
   #@       if smoke_test.slack.on_failure:
     on_failure:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-failed: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} failed!>"
           silent: true
@@ -182,7 +182,7 @@ jobs:
   #@       if smoke_test.slack.on_success:
     on_success:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} succeeded!>"
           silent: true
@@ -219,7 +219,7 @@ jobs:
   #@       if smoke_test.slack.on_failure:
     on_failure:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-failed: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} failed!>"
           silent: true
@@ -229,7 +229,7 @@ jobs:
   #@       if smoke_test.slack.on_success:
     on_success:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} succeeded!>"
           silent: true
@@ -267,7 +267,7 @@ jobs:
 #@         if smoke_test.slack.on_failure:
     on_failure:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-failed: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} failed!>"
           silent: true
@@ -277,7 +277,7 @@ jobs:
   #@       if smoke_test.slack.on_success:
     on_success:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} succeeded!>"
           silent: true
@@ -313,7 +313,7 @@ jobs:
   #@       if smoke_test.slack.on_failure:
     on_failure:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-failed: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} failed!>"
           silent: true
@@ -323,7 +323,7 @@ jobs:
   #@       if smoke_test.slack.on_success:
     on_success:
       do:
-      - put: #@ smoke_test.name + "-slack-alert"
+      - put: #@ "slack-alert-" + smoke_test.name
         params:
           text: ":concourse-succeeded: <https://ci.spring.io/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}|${BUILD_PIPELINE_NAME} ${BUILD_JOB_NAME} succeeded!>"
           silent: true
