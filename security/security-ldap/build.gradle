@@ -22,7 +22,6 @@ aotSmokeTest {
 	webApplication = true
 	slackNotifications {
 		channel = "spring-security-ci"
-		onSuccess = true
 		onFailure = true
 	}
 }

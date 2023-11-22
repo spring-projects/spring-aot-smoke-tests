@@ -348,31 +348,59 @@ groups:
      - name: ldap-odm
        app_test: true
        test: true
+       slack:
+         channel: spring-security-ci
+         on_success: false
+         on_failure: true
      - name: security-ldap
        app_test: true
        test: true
        slack:
          channel: spring-security-ci
-         on_success: true
+         on_success: false
          on_failure: true
      - name: security-method
        app_test: true
        test: false
+       slack:
+         channel: spring-security-ci
+         on_success: false
+         on_failure: true
      - name: security-oauth2-authorization-server
        app_test: true
        test: false
+       slack:
+         channel: spring-security-ci
+         on_success: false
+         on_failure: true
      - name: security-oauth2-resource-server
        app_test: true
        test: false
+       slack:
+         channel: spring-security-ci
+         on_success: false
+         on_failure: true
      - name: security-thymeleaf
        app_test: true
        test: true
+       slack:
+         channel: spring-security-ci
+         on_success: false
+         on_failure: true
      - name: security-webflux
        app_test: true
        test: false
+       slack:
+         channel: spring-security-ci
+         on_success: false
+         on_failure: true
      - name: security-webmvc
        app_test: true
        test: false
+       slack:
+         channel: spring-security-ci
+         on_success: false
+         on_failure: true
   - name: session
     smoke_tests:
      - name: session-jdbc
