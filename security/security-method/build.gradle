@@ -14,3 +14,10 @@ dependencies {
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
+
+aotSmokeTest {
+	slackNotifications {
+		channel = "spring-security-ci"
+		onFailure = true
+	}
+}
