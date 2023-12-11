@@ -1,0 +1,1 @@
+Tests if @Resource is applied properly
