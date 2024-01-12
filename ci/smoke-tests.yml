@@ -213,6 +213,9 @@ groups:
      - name: configuration-class-proxy
        app_test: true
        test: false
+     - name: disposable
+       app_test: true
+       test: false
      - name: event-listener
        app_test: true
        test: false
@@ -244,6 +247,9 @@ groups:
        app_test: true
        test: false
      - name: quartz
+       app_test: true
+       test: false
+     - name: resource
        app_test: true
        test: false
      - name: rest-template
