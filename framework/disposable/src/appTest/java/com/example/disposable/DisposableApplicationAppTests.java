@@ -20,4 +20,11 @@ class DisposableApplicationAppTests {
 		});
 	}
 
+	@Test
+	void inheritedDisposableInterfaceIsInvoked(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("Invoking AbstractDisposableBean#shutdown");
+		});
+	}
+
 }
