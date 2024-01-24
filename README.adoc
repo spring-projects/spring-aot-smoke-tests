@@ -1,4 +1,4 @@
-= Spring AOT Smoke Tests
+= Spring AOT Smoke Tests image:https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A["Revved up by Develocity", link="https://ge.spring.io/scans?search.rootProjectNames=spring-aot-smoke-tests"]
 
 A suite of tests for applications using AOT on the JVM and in GraalVM native images.
 There are two types of tests: unit tests and application tests.
