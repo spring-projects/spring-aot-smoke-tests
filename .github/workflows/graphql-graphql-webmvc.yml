@@ -1,8 +1,7 @@
 name: Graphql Smoke Tests | Graphql Webmvc
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   graphql_webmvc_app_test:
     name: Graphql Webmvc App Test

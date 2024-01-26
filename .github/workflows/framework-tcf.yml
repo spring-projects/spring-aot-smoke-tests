@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Tcf
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   tcf_test:
     name: Tcf Test

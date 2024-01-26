@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Loadbalancing Webflux
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_loadbalancing_webflux_app_test:
     name: Cloud Loadbalancing Webflux App Test

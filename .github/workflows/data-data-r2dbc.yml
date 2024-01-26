@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data R2dbc
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_r2dbc_app_test:
     name: Data R2dbc App Test

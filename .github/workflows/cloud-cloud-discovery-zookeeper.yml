@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Discovery Zookeeper
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_discovery_zookeeper_app_test:
     name: Cloud Discovery Zookeeper App Test

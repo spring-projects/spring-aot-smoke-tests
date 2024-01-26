@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Task
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_task_app_test:
     name: Cloud Task App Test

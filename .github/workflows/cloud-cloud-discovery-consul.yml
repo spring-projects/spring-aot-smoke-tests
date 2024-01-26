@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Discovery Consul
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_discovery_consul_app_test:
     name: Cloud Discovery Consul App Test

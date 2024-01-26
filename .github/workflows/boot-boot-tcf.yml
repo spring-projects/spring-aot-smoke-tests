@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Boot Tcf
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   boot_tcf_test:
     name: Boot Tcf Test

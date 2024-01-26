@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data Jpa Kotlin
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_jpa_kotlin_app_test:
     name: Data Jpa Kotlin App Test

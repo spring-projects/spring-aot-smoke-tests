@@ -1,8 +1,7 @@
 name: Security Smoke Tests | Security Webmvc
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   security_webmvc_app_test:
     name: Security Webmvc App Test

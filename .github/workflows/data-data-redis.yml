@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data Redis
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_redis_app_test:
     name: Data Redis App Test

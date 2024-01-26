@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Configuration Class Proxy
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   configuration_class_proxy_app_test:
     name: Configuration Class Proxy App Test

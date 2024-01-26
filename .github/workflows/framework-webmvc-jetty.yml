@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Webmvc Jetty
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   webmvc_jetty_app_test:
     name: Webmvc Jetty App Test

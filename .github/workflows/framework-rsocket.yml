@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Rsocket
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   rsocket_app_test:
     name: Rsocket App Test

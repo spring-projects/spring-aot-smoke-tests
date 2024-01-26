@@ -1,8 +1,7 @@
 name: Security Smoke Tests | Security Method
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   security_method_app_test:
     name: Security Method App Test

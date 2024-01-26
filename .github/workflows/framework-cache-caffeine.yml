@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Cache Caffeine
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cache_caffeine_app_test:
     name: Cache Caffeine App Test

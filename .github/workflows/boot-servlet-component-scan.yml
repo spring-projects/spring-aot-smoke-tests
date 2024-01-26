@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Servlet Component Scan
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   servlet_component_scan_app_test:
     name: Servlet Component Scan App Test

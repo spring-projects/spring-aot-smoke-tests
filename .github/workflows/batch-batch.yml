@@ -1,8 +1,7 @@
 name: Batch Smoke Tests | Batch
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   batch_app_test:
     name: Batch App Test

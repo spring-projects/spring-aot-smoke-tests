@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Actuator Webmvc Mgmt Port
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   actuator_webmvc_mgmt_port_app_test:
     name: Actuator Webmvc Mgmt Port App Test

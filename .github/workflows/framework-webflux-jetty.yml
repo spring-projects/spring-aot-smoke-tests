@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Webflux Jetty
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   webflux_jetty_app_test:
     name: Webflux Jetty App Test

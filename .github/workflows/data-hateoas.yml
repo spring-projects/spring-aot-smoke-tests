@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Hateoas
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   hateoas_app_test:
     name: Hateoas App Test

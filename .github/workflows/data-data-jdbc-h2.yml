@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data Jdbc H2
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_jdbc_h2_app_test:
     name: Data Jdbc H2 App Test

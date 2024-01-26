@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Stream Kafka
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_stream_kafka_app_test:
     name: Cloud Stream Kafka App Test

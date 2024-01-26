@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Thymeleaf Webflux
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   thymeleaf_webflux_app_test:
     name: Thymeleaf Webflux App Test

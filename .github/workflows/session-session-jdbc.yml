@@ -1,8 +1,7 @@
 name: Session Smoke Tests | Session Jdbc
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   session_jdbc_app_test:
     name: Session Jdbc App Test

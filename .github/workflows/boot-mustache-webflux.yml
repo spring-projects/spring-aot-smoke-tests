@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Mustache Webflux
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   mustache_webflux_app_test:
     name: Mustache Webflux App Test

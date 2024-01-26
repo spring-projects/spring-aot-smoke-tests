@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Xml Config
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   xml_config_app_test:
     name: Xml Config App Test

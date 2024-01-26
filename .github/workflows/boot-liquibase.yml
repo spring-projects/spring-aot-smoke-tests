@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Liquibase
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   liquibase_app_test:
     name: Liquibase App Test

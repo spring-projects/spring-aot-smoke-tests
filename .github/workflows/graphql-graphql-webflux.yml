@@ -1,8 +1,7 @@
 name: Graphql Smoke Tests | Graphql Webflux
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   graphql_webflux_app_test:
     name: Graphql Webflux App Test

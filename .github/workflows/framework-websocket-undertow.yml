@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Websocket Undertow
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   websocket_undertow_app_test:
     name: Websocket Undertow App Test

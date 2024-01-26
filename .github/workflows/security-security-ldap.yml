@@ -1,8 +1,7 @@
 name: Security Smoke Tests | Security Ldap
 on:
-  push:
-    branches:
-      - '3.0.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   security_ldap_app_test:
     name: Security Ldap App Test
