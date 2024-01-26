@@ -32,3 +32,9 @@ include "aot-smoke-test-third-party-hints"
 		include "$group:${smokeTest.name}"
 	}
 }
+
+gradleEnterprise {
+	buildScan {
+		value("Spring Boot generation", "3.2.x")
+	}
+}
