@@ -1,0 +1,20 @@
+name: Cloud Smoke Tests | Cloud Discovery Eureka
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  cloud_discovery_eureka_app_test:
+    name: Cloud Discovery Eureka App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-discovery-eureka
+      task: appTest
+  cloud_discovery_eureka_native_app_test:
+    name: Cloud Discovery Eureka Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-discovery-eureka
+      task: nativeAppTest

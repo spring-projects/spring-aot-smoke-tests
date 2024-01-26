@@ -1,0 +1,20 @@
+name: Data Smoke Tests | Data Mongodb
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  data_mongodb_app_test:
+    name: Data Mongodb App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-mongodb
+      task: appTest
+  data_mongodb_native_app_test:
+    name: Data Mongodb Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-mongodb
+      task: nativeAppTest

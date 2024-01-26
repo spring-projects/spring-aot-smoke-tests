@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Configuration Properties
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  configuration_properties_app_test:
+    name: Configuration Properties App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:configuration-properties
+      task: appTest
+  configuration_properties_native_app_test:
+    name: Configuration Properties Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:configuration-properties
+      task: nativeAppTest

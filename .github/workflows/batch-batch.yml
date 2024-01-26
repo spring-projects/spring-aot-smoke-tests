@@ -1,0 +1,20 @@
+name: Batch Smoke Tests | Batch
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  batch_app_test:
+    name: Batch App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: batch:batch
+      task: appTest
+  batch_native_app_test:
+    name: Batch Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: batch:batch
+      task: nativeAppTest

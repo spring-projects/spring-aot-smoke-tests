@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Cache Simple
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  cache_simple_app_test:
+    name: Cache Simple App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:cache-simple
+      task: appTest
+  cache_simple_native_app_test:
+    name: Cache Simple Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:cache-simple
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Cloud Smoke Tests | Cloud Loadbalancing Webflux
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  cloud_loadbalancing_webflux_app_test:
+    name: Cloud Loadbalancing Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-loadbalancing-webflux
+      task: appTest
+  cloud_loadbalancing_webflux_native_app_test:
+    name: Cloud Loadbalancing Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-loadbalancing-webflux
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Cache Cache2k
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  cache_cache2k_app_test:
+    name: Cache Cache2k App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:cache-cache2k
+      task: appTest
+  cache_cache2k_native_app_test:
+    name: Cache Cache2k Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:cache-cache2k
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Cloud Smoke Tests | Cloud Task
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  cloud_task_app_test:
+    name: Cloud Task App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-task
+      task: appTest
+  cloud_task_native_app_test:
+    name: Cloud Task Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-task
+      task: nativeAppTest

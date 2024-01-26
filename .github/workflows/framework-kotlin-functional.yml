@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Kotlin Functional
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  kotlin_functional_app_test:
+    name: Kotlin Functional App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:kotlin-functional
+      task: appTest
+  kotlin_functional_native_app_test:
+    name: Kotlin Functional Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:kotlin-functional
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Conditional
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  conditional_app_test:
+    name: Conditional App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:conditional
+      task: appTest
+  conditional_native_app_test:
+    name: Conditional Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:conditional
+      task: nativeAppTest

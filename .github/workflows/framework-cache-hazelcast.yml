@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Cache Hazelcast
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  cache_hazelcast_app_test:
+    name: Cache Hazelcast App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:cache-hazelcast
+      task: appTest
+  cache_hazelcast_native_app_test:
+    name: Cache Hazelcast Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:cache-hazelcast
+      task: nativeAppTest

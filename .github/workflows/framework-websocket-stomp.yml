@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Websocket Stomp
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  websocket_stomp_app_test:
+    name: Websocket Stomp App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:websocket-stomp
+      task: appTest
+  websocket_stomp_native_app_test:
+    name: Websocket Stomp Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:websocket-stomp
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Rest Template
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  rest_template_app_test:
+    name: Rest Template App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:rest-template
+      task: appTest
+  rest_template_native_app_test:
+    name: Rest Template Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:rest-template
+      task: nativeAppTest

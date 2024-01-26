@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Webclient
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  webclient_app_test:
+    name: Webclient App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webclient
+      task: appTest
+  webclient_native_app_test:
+    name: Webclient Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webclient
+      task: nativeAppTest

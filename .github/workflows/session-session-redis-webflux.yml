@@ -1,0 +1,20 @@
+name: Session Smoke Tests | Session Redis Webflux
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  session_redis_webflux_app_test:
+    name: Session Redis Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: session:session-redis-webflux
+      task: appTest
+  session_redis_webflux_native_app_test:
+    name: Session Redis Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: session:session-redis-webflux
+      task: nativeAppTest

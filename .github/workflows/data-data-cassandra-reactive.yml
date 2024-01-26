@@ -1,0 +1,20 @@
+name: Data Smoke Tests | Data Cassandra Reactive
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  data_cassandra_reactive_app_test:
+    name: Data Cassandra Reactive App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-cassandra-reactive
+      task: appTest
+  data_cassandra_reactive_native_app_test:
+    name: Data Cassandra Reactive Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-cassandra-reactive
+      task: nativeAppTest

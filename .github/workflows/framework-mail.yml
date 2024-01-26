@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Mail
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  mail_app_test:
+    name: Mail App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:mail
+      task: appTest
+  mail_native_app_test:
+    name: Mail Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:mail
+      task: nativeAppTest

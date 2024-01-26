@@ -1,0 +1,20 @@
+name: Cloud Smoke Tests | Cloud Gateway
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  cloud_gateway_app_test:
+    name: Cloud Gateway App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-gateway
+      task: appTest
+  cloud_gateway_native_app_test:
+    name: Cloud Gateway Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-gateway
+      task: nativeAppTest

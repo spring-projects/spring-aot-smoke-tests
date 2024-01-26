@@ -1,0 +1,20 @@
+name: Data Smoke Tests | Data R2dbc
+on:
+  push:
+    branches:
+      - '3.1.x'
+jobs:
+  data_r2dbc_app_test:
+    name: Data R2dbc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-r2dbc
+      task: appTest
+  data_r2dbc_native_app_test:
+    name: Data R2dbc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-r2dbc
+      task: nativeAppTest

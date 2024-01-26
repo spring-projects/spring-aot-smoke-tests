@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2022-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,8 @@ package org.springframework.aot.gradle;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.tasks.Sync;
 import org.gradle.api.tasks.TaskProvider;
-
-import org.springframework.aot.gradle.tasks.UpdateConcoursePipeline;
-import org.springframework.aot.gradle.tasks.UpdateStatusPage;
 
 /**
  * Plugin for a project that aggregates the smoke tests to provide status and a CI
@@ -34,19 +32,20 @@ public class AotSmokeTestAggregatorPlugin implements Plugin<Project> {
 
 	@Override
 	public void apply(Project project) {
-		Configuration smokeTests = project.getConfigurations().create("smokeTests");
-		TaskProvider<UpdateStatusPage> updateStatusPage = project.getTasks()
-			.register("updateStatusPage", UpdateStatusPage.class, (task) -> {
-				task.setSmokeTests(smokeTests);
-				task.getOutputFile().set(project.file("STATUS.adoc"));
+		Configuration workflows = project.getConfigurations().create("workflows");
+		TaskProvider<Sync> updateGitHubActionWorkflows = project.getTasks()
+			.register("updateGitHubActionWorkflows", Sync.class, (sync) -> {
+				sync.into(".github/workflows");
+				sync.from(workflows);
+				syncFromClasspath("smoke-test-jvm.yml", sync);
+				syncFromClasspath("smoke-test-native.yml", sync);
 			});
-		TaskProvider<UpdateConcoursePipeline> updateConcoursePipeline = project.getTasks()
-			.register("updateConcoursePipeline", UpdateConcoursePipeline.class, (task) -> {
-				task.setSmokeTests(smokeTests);
-				task.getOutputFile().set(project.file("ci/smoke-tests.yml"));
-			});
-		project.getTasks()
-			.register("updateInfrastructure", (task) -> task.dependsOn(updateStatusPage, updateConcoursePipeline));
+		project.getTasks().register("updateInfrastructure", (task) -> task.dependsOn(updateGitHubActionWorkflows));
+	}
+
+	private void syncFromClasspath(String name, Sync sync) {
+		sync.from(sync.getProject().getResources().getText().fromUri(getClass().getClassLoader().getResource(name)),
+				(spec) -> spec.rename((temp) -> name));
 	}
 
 }
