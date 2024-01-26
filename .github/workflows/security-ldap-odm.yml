@@ -1,8 +1,7 @@
 name: Security Smoke Tests | Ldap Odm
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   ldap_odm_app_test:
     name: Ldap Odm App Test

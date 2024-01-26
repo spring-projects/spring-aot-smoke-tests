@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Kotlin Functional
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   kotlin_functional_app_test:
     name: Kotlin Functional App Test

@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Transactional
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   transactional_app_test:
     name: Transactional App Test

@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Servlet Tomcat
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   servlet_tomcat_app_test:
     name: Servlet Tomcat App Test

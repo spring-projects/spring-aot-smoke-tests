@@ -1,8 +1,7 @@
 name: Integration Smoke Tests | Spring Kafka Avro
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   spring_kafka_avro_app_test:
     name: Spring Kafka Avro App Test

@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Hibernate Enhancer
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   hibernate_enhancer_app_test:
     name: Hibernate Enhancer App Test

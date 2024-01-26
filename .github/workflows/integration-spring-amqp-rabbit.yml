@@ -1,8 +1,7 @@
 name: Integration Smoke Tests | Spring Amqp Rabbit
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   spring_amqp_rabbit_app_test:
     name: Spring Amqp Rabbit App Test

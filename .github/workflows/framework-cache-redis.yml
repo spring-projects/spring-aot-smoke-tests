@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Cache Redis
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cache_redis_app_test:
     name: Cache Redis App Test

@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Function Webflux
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_function_webflux_app_test:
     name: Cloud Function Webflux App Test

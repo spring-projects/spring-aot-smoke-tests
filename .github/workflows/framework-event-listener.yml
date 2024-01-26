@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Event Listener
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   event_listener_app_test:
     name: Event Listener App Test

@@ -59,9 +59,8 @@ public abstract class GenerateGitHubActionsWorkflow extends DefaultTask {
 		try (PrintWriter writer = new PrintWriter(new FileWriter(workflowFile))) {
 			writer.println("name: " + workflowName);
 			writer.println("on:");
-			writer.println("  push:");
-			writer.println("    branches:");
-			writer.println("      - 'main'");
+			writer.println("  schedule:");
+			writer.println("    - cron : '0 0 * * *'");
 			writer.println("jobs:");
 			if (smokeTest.appTests()) {
 				writer.println("  " + jobId(smokeTest.name() + "_app_test") + ":");

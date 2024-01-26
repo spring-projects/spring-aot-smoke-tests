@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Custom Banner
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   custom_banner_app_test:
     name: Custom Banner App Test

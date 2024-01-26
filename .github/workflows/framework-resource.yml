@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Resource
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   resource_app_test:
     name: Resource App Test

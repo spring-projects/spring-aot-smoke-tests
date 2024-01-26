@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Transactional Event Listener
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   transactional_event_listener_app_test:
     name: Transactional Event Listener App Test

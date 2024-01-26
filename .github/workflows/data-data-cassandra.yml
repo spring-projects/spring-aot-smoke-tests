@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data Cassandra
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_cassandra_app_test:
     name: Data Cassandra App Test

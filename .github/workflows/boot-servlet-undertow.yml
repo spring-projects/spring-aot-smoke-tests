@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Servlet Undertow
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   servlet_undertow_app_test:
     name: Servlet Undertow App Test

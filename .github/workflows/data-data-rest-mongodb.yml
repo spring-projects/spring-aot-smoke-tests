@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data Rest Mongodb
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_rest_mongodb_app_test:
     name: Data Rest Mongodb App Test

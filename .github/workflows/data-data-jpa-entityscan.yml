@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data Jpa Entityscan
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_jpa_entityscan_app_test:
     name: Data Jpa Entityscan App Test

@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Gateway
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_gateway_app_test:
     name: Cloud Gateway App Test

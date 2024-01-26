@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Validation
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   validation_app_test:
     name: Validation App Test

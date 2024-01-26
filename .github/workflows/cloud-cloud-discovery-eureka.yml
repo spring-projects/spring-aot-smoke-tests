@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Discovery Eureka
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_discovery_eureka_app_test:
     name: Cloud Discovery Eureka App Test

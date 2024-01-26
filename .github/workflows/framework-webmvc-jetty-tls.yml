@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Webmvc Jetty Tls
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   webmvc_jetty_tls_app_test:
     name: Webmvc Jetty Tls App Test

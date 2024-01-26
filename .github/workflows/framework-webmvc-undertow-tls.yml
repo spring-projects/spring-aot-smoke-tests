@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Webmvc Undertow Tls
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   webmvc_undertow_tls_app_test:
     name: Webmvc Undertow Tls App Test

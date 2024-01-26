@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Thymeleaf Webmvc
 on:
-  push:
-    branches:
-      - 'main'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   thymeleaf_webmvc_app_test:
     name: Thymeleaf Webmvc App Test
