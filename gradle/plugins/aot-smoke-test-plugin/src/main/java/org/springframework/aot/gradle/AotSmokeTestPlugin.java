@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 the original author or authors.
+ * Copyright 2022-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,7 +115,6 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			task.getOutputDirectory().set(project.getLayout().getBuildDirectory().dir(task.getName()));
 			task.setAppTests(appTest.getAllSource());
 			task.setTests(javaExtension.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME).getAllSource());
-			task.setSlackNotifications(extension.getSlackNotifications());
 		});
 		project.artifacts((artifacts) -> artifacts.add(smokeTests.getName(), describeSmokeTests));
 		DependencyHandler dependencies = project.getRootProject().getDependencies();

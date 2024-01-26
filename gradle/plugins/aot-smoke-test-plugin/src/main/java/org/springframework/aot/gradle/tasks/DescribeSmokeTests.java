@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 the original author or authors.
+ * Copyright 2022-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,8 @@ import org.gradle.api.file.FileCollection;
 import org.gradle.api.provider.MapProperty;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
-import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.TaskAction;
-
-import org.springframework.aot.gradle.dsl.AotSmokeTestExtension.SlackNotifications;
 
 /**
  * {@link Task} that describes a project's smoke tests.
@@ -45,8 +42,6 @@ public abstract class DescribeSmokeTests extends DefaultTask {
 
 	private FileCollection tests;
 
-	private SlackNotifications slackNotifications;
-
 	public DescribeSmokeTests() {
 		getSmokeTestsDescription().put("appTests",
 				getProject().provider(() -> Boolean.toString(!this.appTests.isEmpty())));
@@ -54,12 +49,6 @@ public abstract class DescribeSmokeTests extends DefaultTask {
 		getSmokeTestsDescription().put("path", getProject().provider(getProject()::getPath));
 		getSmokeTestsDescription().put("group", getProject().provider(getProject().getParent()::getName));
 		getSmokeTestsDescription().put("name", getProject().provider(getProject()::getName));
-		getSmokeTestsDescription().put("slack.channel",
-				getProject().provider(() -> getSlackNotifications().getChannel().getOrElse("")));
-		getSmokeTestsDescription().put("slack.on-failure",
-				getProject().provider(() -> getSlackNotifications().getOnFailure().get().toString()));
-		getSmokeTestsDescription().put("slack.on-success",
-				getProject().provider(() -> getSlackNotifications().getOnSuccess().get().toString()));
 	}
 
 	@Input
@@ -67,15 +56,6 @@ public abstract class DescribeSmokeTests extends DefaultTask {
 
 	@OutputDirectory
 	public abstract DirectoryProperty getOutputDirectory();
-
-	@Nested
-	public SlackNotifications getSlackNotifications() {
-		return this.slackNotifications;
-	}
-
-	public void setSlackNotifications(SlackNotifications slackNotifications) {
-		this.slackNotifications = slackNotifications;
-	}
 
 	@InputFiles
 	public FileCollection getAppTests() {
