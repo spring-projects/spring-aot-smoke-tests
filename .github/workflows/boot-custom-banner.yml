@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Custom Banner
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  custom_banner_app_test:
+    name: Custom Banner App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:custom-banner
+      task: appTest
+  custom_banner_native_app_test:
+    name: Custom Banner Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:custom-banner
+      task: nativeAppTest

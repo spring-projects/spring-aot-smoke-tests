@@ -1,0 +1,20 @@
+name: Integration Smoke Tests | Spring Pulsar Reactive
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  spring_pulsar_reactive_app_test:
+    name: Spring Pulsar Reactive App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: integration:spring-pulsar-reactive
+      task: appTest
+  spring_pulsar_reactive_native_app_test:
+    name: Spring Pulsar Reactive Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: integration:spring-pulsar-reactive
+      task: nativeAppTest

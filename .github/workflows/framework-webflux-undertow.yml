@@ -1,0 +1,34 @@
+name: Framework Smoke Tests | Webflux Undertow
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  webflux_undertow_app_test:
+    name: Webflux Undertow App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webflux-undertow
+      task: appTest
+  webflux_undertow_native_app_test:
+    name: Webflux Undertow Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webflux-undertow
+      task: nativeAppTest
+  webflux_undertow_test:
+    name: Webflux Undertow Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webflux-undertow
+      task: test
+  webflux_undertow_native_test:
+    name: Webflux Undertow Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webflux-undertow
+      task: nativeTest

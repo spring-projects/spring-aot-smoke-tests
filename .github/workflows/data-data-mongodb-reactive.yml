@@ -1,0 +1,20 @@
+name: Data Smoke Tests | Data Mongodb Reactive
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  data_mongodb_reactive_app_test:
+    name: Data Mongodb Reactive App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-mongodb-reactive
+      task: appTest
+  data_mongodb_reactive_native_app_test:
+    name: Data Mongodb Reactive Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-mongodb-reactive
+      task: nativeAppTest

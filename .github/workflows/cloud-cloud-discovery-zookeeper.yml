@@ -1,0 +1,20 @@
+name: Cloud Smoke Tests | Cloud Discovery Zookeeper
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  cloud_discovery_zookeeper_app_test:
+    name: Cloud Discovery Zookeeper App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-discovery-zookeeper
+      task: appTest
+  cloud_discovery_zookeeper_native_app_test:
+    name: Cloud Discovery Zookeeper Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-discovery-zookeeper
+      task: nativeAppTest

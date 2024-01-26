@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Liquibase
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  liquibase_app_test:
+    name: Liquibase App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:liquibase
+      task: appTest
+  liquibase_native_app_test:
+    name: Liquibase Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:liquibase
+      task: nativeAppTest

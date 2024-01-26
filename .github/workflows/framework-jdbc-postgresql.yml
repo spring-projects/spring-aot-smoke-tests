@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Jdbc Postgresql
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  jdbc_postgresql_app_test:
+    name: Jdbc Postgresql App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-postgresql
+      task: appTest
+  jdbc_postgresql_native_app_test:
+    name: Jdbc Postgresql Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-postgresql
+      task: nativeAppTest

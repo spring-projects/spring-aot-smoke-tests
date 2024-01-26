@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Jdbc Mysql
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  jdbc_mysql_app_test:
+    name: Jdbc Mysql App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-mysql
+      task: appTest
+  jdbc_mysql_native_app_test:
+    name: Jdbc Mysql Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-mysql
+      task: nativeAppTest

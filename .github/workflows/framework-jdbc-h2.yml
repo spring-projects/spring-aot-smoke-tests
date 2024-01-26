@@ -1,0 +1,34 @@
+name: Framework Smoke Tests | Jdbc H2
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  jdbc_h2_app_test:
+    name: Jdbc H2 App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-h2
+      task: appTest
+  jdbc_h2_native_app_test:
+    name: Jdbc H2 Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-h2
+      task: nativeAppTest
+  jdbc_h2_test:
+    name: Jdbc H2 Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-h2
+      task: test
+  jdbc_h2_native_test:
+    name: Jdbc H2 Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-h2
+      task: nativeTest

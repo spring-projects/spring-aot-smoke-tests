@@ -1,0 +1,34 @@
+name: Framework Smoke Tests | Webmvc Tomcat
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  webmvc_tomcat_app_test:
+    name: Webmvc Tomcat App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-tomcat
+      task: appTest
+  webmvc_tomcat_native_app_test:
+    name: Webmvc Tomcat Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-tomcat
+      task: nativeAppTest
+  webmvc_tomcat_test:
+    name: Webmvc Tomcat Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-tomcat
+      task: test
+  webmvc_tomcat_native_test:
+    name: Webmvc Tomcat Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-tomcat
+      task: nativeTest

@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Transactional Event Listener
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  transactional_event_listener_app_test:
+    name: Transactional Event Listener App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:transactional-event-listener
+      task: appTest
+  transactional_event_listener_native_app_test:
+    name: Transactional Event Listener Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:transactional-event-listener
+      task: nativeAppTest

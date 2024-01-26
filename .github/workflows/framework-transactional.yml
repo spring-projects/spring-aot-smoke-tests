@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Transactional
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  transactional_app_test:
+    name: Transactional App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:transactional
+      task: appTest
+  transactional_native_app_test:
+    name: Transactional Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:transactional
+      task: nativeAppTest

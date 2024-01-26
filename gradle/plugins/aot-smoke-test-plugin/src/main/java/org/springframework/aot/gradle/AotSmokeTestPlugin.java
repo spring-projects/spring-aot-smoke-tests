@@ -49,7 +49,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
 import org.springframework.aot.gradle.dsl.AotSmokeTestExtension;
 import org.springframework.aot.gradle.tasks.AppTest;
-import org.springframework.aot.gradle.tasks.DescribeSmokeTests;
+import org.springframework.aot.gradle.tasks.GenerateGitHubActionsWorkflow;
 import org.springframework.aot.gradle.tasks.StartApplication;
 import org.springframework.aot.gradle.tasks.StartJvmApplication;
 import org.springframework.aot.gradle.tasks.StartNativeApplication;
@@ -108,18 +108,24 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		configureTests(project);
 		configureKotlin(project, javaExtension);
 		configureJavaFormat(project);
-		Configuration smokeTests = project.getConfigurations().create("smokeTests");
-		TaskProvider<DescribeSmokeTests> describeSmokeTests = project.getTasks()
-			.register("describeSmokeTests", DescribeSmokeTests.class);
-		describeSmokeTests.configure((task) -> {
-			task.getOutputDirectory().set(project.getLayout().getBuildDirectory().dir(task.getName()));
-			task.setAppTests(appTest.getAllSource());
-			task.setTests(javaExtension.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME).getAllSource());
+		TaskProvider<GenerateGitHubActionsWorkflow> generateGitHubActionsWorkflow = project.getTasks()
+			.register("generateGitHubActionsWorkflow", GenerateGitHubActionsWorkflow.class);
+		generateGitHubActionsWorkflow.configure((task) -> {
+			task.getSmokeTest().set(project.provider(() -> {
+				boolean tests = !javaExtension.getSourceSets()
+					.getByName(SourceSet.TEST_SOURCE_SET_NAME)
+					.getAllSource()
+					.isEmpty();
+				boolean appTests = !appTest.getAllSource().isEmpty();
+				return new SmokeTest(project.getName(), project.getParent().getName(), project.getPath(), tests,
+						appTests);
+			}));
 		});
-		project.artifacts((artifacts) -> artifacts.add(smokeTests.getName(), describeSmokeTests));
+		Configuration workflows = project.getConfigurations().create("workflows");
+		project.artifacts((artifacts) -> artifacts.add(workflows.getName(), generateGitHubActionsWorkflow));
 		DependencyHandler dependencies = project.getRootProject().getDependencies();
-		dependencies.add("smokeTests",
-				dependencies.project(Map.of("path", project.getPath(), "configuration", smokeTests.getName())));
+		dependencies.add(workflows.getName(),
+				dependencies.project(Map.of("path", project.getPath(), "configuration", workflows.getName())));
 	}
 
 	private void configureAppTests(Project project, AotSmokeTestExtension extension, SourceSet appTest) {

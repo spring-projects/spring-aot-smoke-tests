@@ -1,0 +1,34 @@
+name: Data Smoke Tests | Data Jdbc H2
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  data_jdbc_h2_app_test:
+    name: Data Jdbc H2 App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-jdbc-h2
+      task: appTest
+  data_jdbc_h2_native_app_test:
+    name: Data Jdbc H2 Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-jdbc-h2
+      task: nativeAppTest
+  data_jdbc_h2_test:
+    name: Data Jdbc H2 Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-jdbc-h2
+      task: test
+  data_jdbc_h2_native_test:
+    name: Data Jdbc H2 Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-jdbc-h2
+      task: nativeTest

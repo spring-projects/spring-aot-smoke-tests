@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Webflux Netty Tls
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  webflux_netty_tls_app_test:
+    name: Webflux Netty Tls App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webflux-netty-tls
+      task: appTest
+  webflux_netty_tls_native_app_test:
+    name: Webflux Netty Tls Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webflux-netty-tls
+      task: nativeAppTest

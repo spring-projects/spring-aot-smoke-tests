@@ -1,0 +1,34 @@
+name: Security Smoke Tests | Security Thymeleaf
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  security_thymeleaf_app_test:
+    name: Security Thymeleaf App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-thymeleaf
+      task: appTest
+  security_thymeleaf_native_app_test:
+    name: Security Thymeleaf Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-thymeleaf
+      task: nativeAppTest
+  security_thymeleaf_test:
+    name: Security Thymeleaf Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-thymeleaf
+      task: test
+  security_thymeleaf_native_test:
+    name: Security Thymeleaf Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-thymeleaf
+      task: nativeTest

@@ -1,0 +1,20 @@
+name: Security Smoke Tests | Security Webmvc
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  security_webmvc_app_test:
+    name: Security Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-webmvc
+      task: appTest
+  security_webmvc_native_app_test:
+    name: Security Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-webmvc
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Data Smoke Tests | Data Jpa Kotlin
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  data_jpa_kotlin_app_test:
+    name: Data Jpa Kotlin App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-jpa-kotlin
+      task: appTest
+  data_jpa_kotlin_native_app_test:
+    name: Data Jpa Kotlin Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-jpa-kotlin
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Websocket Jetty
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  websocket_jetty_app_test:
+    name: Websocket Jetty App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:websocket-jetty
+      task: appTest
+  websocket_jetty_native_app_test:
+    name: Websocket Jetty Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:websocket-jetty
+      task: nativeAppTest

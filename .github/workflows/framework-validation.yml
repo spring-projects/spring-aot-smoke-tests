@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Validation
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  validation_app_test:
+    name: Validation App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:validation
+      task: appTest
+  validation_native_app_test:
+    name: Validation Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:validation
+      task: nativeAppTest

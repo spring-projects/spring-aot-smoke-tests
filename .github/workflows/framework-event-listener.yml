@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Event Listener
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  event_listener_app_test:
+    name: Event Listener App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:event-listener
+      task: appTest
+  event_listener_native_app_test:
+    name: Event Listener Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:event-listener
+      task: nativeAppTest

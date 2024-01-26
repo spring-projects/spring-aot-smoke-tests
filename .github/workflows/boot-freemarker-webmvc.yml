@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Freemarker Webmvc
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  freemarker_webmvc_app_test:
+    name: Freemarker Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:freemarker-webmvc
+      task: appTest
+  freemarker_webmvc_native_app_test:
+    name: Freemarker Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:freemarker-webmvc
+      task: nativeAppTest

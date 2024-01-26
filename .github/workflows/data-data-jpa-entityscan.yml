@@ -1,0 +1,34 @@
+name: Data Smoke Tests | Data Jpa Entityscan
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  data_jpa_entityscan_app_test:
+    name: Data Jpa Entityscan App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-jpa-entityscan
+      task: appTest
+  data_jpa_entityscan_native_app_test:
+    name: Data Jpa Entityscan Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-jpa-entityscan
+      task: nativeAppTest
+  data_jpa_entityscan_test:
+    name: Data Jpa Entityscan Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: data:data-jpa-entityscan
+      task: test
+  data_jpa_entityscan_native_test:
+    name: Data Jpa Entityscan Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: data:data-jpa-entityscan
+      task: nativeTest

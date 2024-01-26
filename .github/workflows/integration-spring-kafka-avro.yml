@@ -1,0 +1,20 @@
+name: Integration Smoke Tests | Spring Kafka Avro
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  spring_kafka_avro_app_test:
+    name: Spring Kafka Avro App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: integration:spring-kafka-avro
+      task: appTest
+  spring_kafka_avro_native_app_test:
+    name: Spring Kafka Avro Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: integration:spring-kafka-avro
+      task: nativeAppTest

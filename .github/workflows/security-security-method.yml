@@ -1,0 +1,20 @@
+name: Security Smoke Tests | Security Method
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  security_method_app_test:
+    name: Security Method App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-method
+      task: appTest
+  security_method_native_app_test:
+    name: Security Method Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-method
+      task: nativeAppTest

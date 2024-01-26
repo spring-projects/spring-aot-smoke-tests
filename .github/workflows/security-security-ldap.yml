@@ -1,0 +1,34 @@
+name: Security Smoke Tests | Security Ldap
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  security_ldap_app_test:
+    name: Security Ldap App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-ldap
+      task: appTest
+  security_ldap_native_app_test:
+    name: Security Ldap Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-ldap
+      task: nativeAppTest
+  security_ldap_test:
+    name: Security Ldap Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-ldap
+      task: test
+  security_ldap_native_test:
+    name: Security Ldap Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-ldap
+      task: nativeTest

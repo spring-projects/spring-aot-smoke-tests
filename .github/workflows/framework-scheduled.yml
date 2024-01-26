@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Scheduled
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  scheduled_app_test:
+    name: Scheduled App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:scheduled
+      task: appTest
+  scheduled_native_app_test:
+    name: Scheduled Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:scheduled
+      task: nativeAppTest

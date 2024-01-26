@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Aspect
+on:
+  push:
+    branches:
+      - '3.0.x'
+jobs:
+  aspect_app_test:
+    name: Aspect App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:aspect
+      task: appTest
+  aspect_native_app_test:
+    name: Aspect Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:aspect
+      task: nativeAppTest
