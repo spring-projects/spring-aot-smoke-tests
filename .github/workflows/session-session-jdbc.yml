@@ -1,0 +1,20 @@
+name: Session Smoke Tests | Session Jdbc
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  session_jdbc_app_test:
+    name: Session Jdbc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: session:session-jdbc
+      task: appTest
+  session_jdbc_native_app_test:
+    name: Session Jdbc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: session:session-jdbc
+      task: nativeAppTest

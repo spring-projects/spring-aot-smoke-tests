@@ -1,0 +1,34 @@
+name: Graphql Smoke Tests | Graphql Webflux
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  graphql_webflux_app_test:
+    name: Graphql Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: graphql:graphql-webflux
+      task: appTest
+  graphql_webflux_native_app_test:
+    name: Graphql Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: graphql:graphql-webflux
+      task: nativeAppTest
+  graphql_webflux_test:
+    name: Graphql Webflux Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: graphql:graphql-webflux
+      task: test
+  graphql_webflux_native_test:
+    name: Graphql Webflux Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: graphql:graphql-webflux
+      task: nativeTest

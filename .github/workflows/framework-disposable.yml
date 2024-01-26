@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Disposable
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  disposable_app_test:
+    name: Disposable App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:disposable
+      task: appTest
+  disposable_native_app_test:
+    name: Disposable Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:disposable
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Security Smoke Tests | Security Oauth2 Resource Server
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  security_oauth2_resource_server_app_test:
+    name: Security Oauth2 Resource Server App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-oauth2-resource-server
+      task: appTest
+  security_oauth2_resource_server_native_app_test:
+    name: Security Oauth2 Resource Server Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-oauth2-resource-server
+      task: nativeAppTest

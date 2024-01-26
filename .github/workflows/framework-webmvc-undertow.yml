@@ -1,0 +1,34 @@
+name: Framework Smoke Tests | Webmvc Undertow
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  webmvc_undertow_app_test:
+    name: Webmvc Undertow App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-undertow
+      task: appTest
+  webmvc_undertow_native_app_test:
+    name: Webmvc Undertow Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-undertow
+      task: nativeAppTest
+  webmvc_undertow_test:
+    name: Webmvc Undertow Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-undertow
+      task: test
+  webmvc_undertow_native_test:
+    name: Webmvc Undertow Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-undertow
+      task: nativeTest

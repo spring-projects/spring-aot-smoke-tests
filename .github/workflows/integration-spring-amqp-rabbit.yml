@@ -1,0 +1,20 @@
+name: Integration Smoke Tests | Spring Amqp Rabbit
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  spring_amqp_rabbit_app_test:
+    name: Spring Amqp Rabbit App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: integration:spring-amqp-rabbit
+      task: appTest
+  spring_amqp_rabbit_native_app_test:
+    name: Spring Amqp Rabbit Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: integration:spring-amqp-rabbit
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Servlet Jetty
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  servlet_jetty_app_test:
+    name: Servlet Jetty App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:servlet-jetty
+      task: appTest
+  servlet_jetty_native_app_test:
+    name: Servlet Jetty Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:servlet-jetty
+      task: nativeAppTest

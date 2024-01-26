@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Configuration Class Proxy
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  configuration_class_proxy_app_test:
+    name: Configuration Class Proxy App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:configuration-class-proxy
+      task: appTest
+  configuration_class_proxy_native_app_test:
+    name: Configuration Class Proxy Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:configuration-class-proxy
+      task: nativeAppTest

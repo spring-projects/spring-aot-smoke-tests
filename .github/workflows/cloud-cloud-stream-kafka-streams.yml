@@ -1,0 +1,20 @@
+name: Cloud Smoke Tests | Cloud Stream Kafka Streams
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  cloud_stream_kafka_streams_app_test:
+    name: Cloud Stream Kafka Streams App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-stream-kafka-streams
+      task: appTest
+  cloud_stream_kafka_streams_native_app_test:
+    name: Cloud Stream Kafka Streams Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: cloud:cloud-stream-kafka-streams
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Integration Smoke Tests | Integration
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  integration_app_test:
+    name: Integration App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: integration:integration
+      task: appTest
+  integration_native_app_test:
+    name: Integration Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: integration:integration
+      task: nativeAppTest

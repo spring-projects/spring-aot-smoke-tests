@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Thymeleaf Webmvc
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  thymeleaf_webmvc_app_test:
+    name: Thymeleaf Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:thymeleaf-webmvc
+      task: appTest
+  thymeleaf_webmvc_native_app_test:
+    name: Thymeleaf Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:thymeleaf-webmvc
+      task: nativeAppTest

@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Tracing Brave Zipkin
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  tracing_brave_zipkin_app_test:
+    name: Tracing Brave Zipkin App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:tracing-brave-zipkin
+      task: appTest
+  tracing_brave_zipkin_native_app_test:
+    name: Tracing Brave Zipkin Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:tracing-brave-zipkin
+      task: nativeAppTest

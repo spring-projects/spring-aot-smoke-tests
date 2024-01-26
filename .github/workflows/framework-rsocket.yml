@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Rsocket
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  rsocket_app_test:
+    name: Rsocket App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:rsocket
+      task: appTest
+  rsocket_native_app_test:
+    name: Rsocket Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:rsocket
+      task: nativeAppTest

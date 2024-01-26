@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Resource
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  resource_app_test:
+    name: Resource App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:resource
+      task: appTest
+  resource_native_app_test:
+    name: Resource Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:resource
+      task: nativeAppTest

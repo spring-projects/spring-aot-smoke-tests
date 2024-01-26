@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Command Line Runner
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  command_line_runner_app_test:
+    name: Command Line Runner App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:command-line-runner
+      task: appTest
+  command_line_runner_native_app_test:
+    name: Command Line Runner Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:command-line-runner
+      task: nativeAppTest

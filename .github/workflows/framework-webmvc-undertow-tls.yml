@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Webmvc Undertow Tls
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  webmvc_undertow_tls_app_test:
+    name: Webmvc Undertow Tls App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-undertow-tls
+      task: appTest
+  webmvc_undertow_tls_native_app_test:
+    name: Webmvc Undertow Tls Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:webmvc-undertow-tls
+      task: nativeAppTest

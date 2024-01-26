@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Async
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  async_app_test:
+    name: Async App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:async
+      task: appTest
+  async_native_app_test:
+    name: Async Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:async
+      task: nativeAppTest

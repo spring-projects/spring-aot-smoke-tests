@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Order
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  order_app_test:
+    name: Order App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:order
+      task: appTest
+  order_native_app_test:
+    name: Order Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:order
+      task: nativeAppTest

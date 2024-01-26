@@ -1,0 +1,20 @@
+name: Framework Smoke Tests | Jdbc Mariadb
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  jdbc_mariadb_app_test:
+    name: Jdbc Mariadb App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-mariadb
+      task: appTest
+  jdbc_mariadb_native_app_test:
+    name: Jdbc Mariadb Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: framework:jdbc-mariadb
+      task: nativeAppTest

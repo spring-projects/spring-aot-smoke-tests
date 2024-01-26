@@ -1,0 +1,20 @@
+name: Security Smoke Tests | Security Webflux
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  security_webflux_app_test:
+    name: Security Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: security:security-webflux
+      task: appTest
+  security_webflux_native_app_test:
+    name: Security Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: security:security-webflux
+      task: nativeAppTest

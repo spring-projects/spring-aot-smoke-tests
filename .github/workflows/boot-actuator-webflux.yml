@@ -1,0 +1,20 @@
+name: Boot Smoke Tests | Actuator Webflux
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  actuator_webflux_app_test:
+    name: Actuator Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      project: boot:actuator-webflux
+      task: appTest
+  actuator_webflux_native_app_test:
+    name: Actuator Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      project: boot:actuator-webflux
+      task: nativeAppTest
