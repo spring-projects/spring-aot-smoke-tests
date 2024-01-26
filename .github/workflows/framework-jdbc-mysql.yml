@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Jdbc Mysql
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   jdbc_mysql_app_test:
     name: Jdbc Mysql App Test

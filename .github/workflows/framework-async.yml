@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Async
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   async_app_test:
     name: Async App Test

@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Websocket Tomcat
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   websocket_tomcat_app_test:
     name: Websocket Tomcat App Test

@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Flyway
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   flyway_app_test:
     name: Flyway App Test

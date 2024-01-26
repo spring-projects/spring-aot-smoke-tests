@@ -1,8 +1,7 @@
 name: Session Smoke Tests | Session Redis Webflux
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   session_redis_webflux_app_test:
     name: Session Redis Webflux App Test

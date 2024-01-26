@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Websocket Stomp
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   websocket_stomp_app_test:
     name: Websocket Stomp App Test

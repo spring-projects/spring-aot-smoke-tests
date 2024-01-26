@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Conditional
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   conditional_app_test:
     name: Conditional App Test

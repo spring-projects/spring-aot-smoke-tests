@@ -1,8 +1,7 @@
 name: Cloud Smoke Tests | Cloud Loadbalancing Web
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cloud_loadbalancing_web_app_test:
     name: Cloud Loadbalancing Web App Test

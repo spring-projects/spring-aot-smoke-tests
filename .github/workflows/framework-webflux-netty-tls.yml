@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Webflux Netty Tls
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   webflux_netty_tls_app_test:
     name: Webflux Netty Tls App Test

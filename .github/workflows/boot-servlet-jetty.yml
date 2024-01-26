@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Servlet Jetty
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   servlet_jetty_app_test:
     name: Servlet Jetty App Test

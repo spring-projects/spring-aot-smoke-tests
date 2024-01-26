@@ -1,8 +1,7 @@
 name: Integration Smoke Tests | Spring Kafka
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   spring_kafka_app_test:
     name: Spring Kafka App Test

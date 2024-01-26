@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Actuator Webmvc
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   actuator_webmvc_app_test:
     name: Actuator Webmvc App Test

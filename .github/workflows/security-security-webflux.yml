@@ -1,8 +1,7 @@
 name: Security Smoke Tests | Security Webflux
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   security_webflux_app_test:
     name: Security Webflux App Test

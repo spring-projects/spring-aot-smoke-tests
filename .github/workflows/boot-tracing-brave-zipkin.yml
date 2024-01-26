@@ -1,8 +1,7 @@
 name: Boot Smoke Tests | Tracing Brave Zipkin
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   tracing_brave_zipkin_app_test:
     name: Tracing Brave Zipkin App Test

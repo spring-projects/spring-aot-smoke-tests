@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Cache Cache2k
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   cache_cache2k_app_test:
     name: Cache Cache2k App Test

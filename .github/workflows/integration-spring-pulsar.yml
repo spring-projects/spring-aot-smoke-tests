@@ -1,8 +1,7 @@
 name: Integration Smoke Tests | Spring Pulsar
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   spring_pulsar_app_test:
     name: Spring Pulsar App Test

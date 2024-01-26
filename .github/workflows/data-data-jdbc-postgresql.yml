@@ -1,8 +1,7 @@
 name: Data Smoke Tests | Data Jdbc Postgresql
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   data_jdbc_postgresql_app_test:
     name: Data Jdbc Postgresql App Test

@@ -1,8 +1,7 @@
 name: Framework Smoke Tests | Rest Template
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   rest_template_app_test:
     name: Rest Template App Test

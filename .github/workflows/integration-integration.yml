@@ -1,8 +1,7 @@
 name: Integration Smoke Tests | Integration
 on:
-  push:
-    branches:
-      - '3.1.x'
+  schedule:
+    - cron : '0 0 * * *'
 jobs:
   integration_app_test:
     name: Integration App Test
