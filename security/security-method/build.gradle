@@ -16,8 +16,4 @@ dependencies {
 }
 
 aotSmokeTest {
-	slackNotifications {
-		channel = "spring-security-ci"
-		onFailure = true
-	}
 }
