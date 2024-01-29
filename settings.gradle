@@ -35,6 +35,6 @@ include "aot-smoke-test-third-party-hints"
 
 gradleEnterprise {
 	buildScan {
-		value("Spring Boot generation", "3.1.x")
+		value("Spring Boot generation", "${springBootGeneration}")
 	}
 }

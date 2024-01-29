@@ -23,8 +23,7 @@ import org.gradle.api.tasks.Sync;
 import org.gradle.api.tasks.TaskProvider;
 
 /**
- * Plugin for a project that aggregates the smoke tests to provide status and a CI
- * pipeline.
+ * Plugin for a project that aggregates descriptions of the smoke tests.
  *
  * @author Andy Wilkinson
  */
@@ -32,20 +31,11 @@ public class AotSmokeTestAggregatorPlugin implements Plugin<Project> {
 
 	@Override
 	public void apply(Project project) {
-		Configuration workflows = project.getConfigurations().create("workflows");
-		TaskProvider<Sync> updateGitHubActionWorkflows = project.getTasks()
-			.register("updateGitHubActionWorkflows", Sync.class, (sync) -> {
-				sync.into(".github/workflows");
-				sync.from(workflows);
-				syncFromClasspath("smoke-test-jvm.yml", sync);
-				syncFromClasspath("smoke-test-native.yml", sync);
-			});
-		project.getTasks().register("updateInfrastructure", (task) -> task.dependsOn(updateGitHubActionWorkflows));
-	}
-
-	private void syncFromClasspath(String name, Sync sync) {
-		sync.from(sync.getProject().getResources().getText().fromUri(getClass().getClassLoader().getResource(name)),
-				(spec) -> spec.rename((temp) -> name));
+		Configuration smokeTests = project.getConfigurations().create("smokeTests");
+		project.getTasks().register("describeSmokeTests", Sync.class, (sync) -> {
+			sync.into(project.getLayout().getBuildDirectory().dir("smoke-tests"));
+			sync.from(smokeTests);
+		});
 	}
 
 }
