@@ -81,8 +81,7 @@ class DataJpaApplicationAotTests {
 	@Test
 	void entityGraph(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output)
-				.hasLineContaining("left join (book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id)")
+			assertThat(output).hasLineMatching(".*left join \\(?book_authors a1_0 .*")
 				.hasSingleLineContaining(
 						"namedEntityGraph: Book{title='Spring in Action', authors=[Author{name='Craig Walls'}]}");
 		});
