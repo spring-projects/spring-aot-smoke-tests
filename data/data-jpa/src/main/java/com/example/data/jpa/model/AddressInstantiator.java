@@ -12,7 +12,7 @@ public class AddressInstantiator implements EmbeddableInstantiator {
 		final String city = (String) values[0];
 		final String postalCode = (String) values[1];
 		final String street = (String) values[2];
-		return new Address( street, city, postalCode );
+		return new Address(street, city, postalCode);
 	}
 
 	@Override
@@ -24,4 +24,5 @@ public class AddressInstantiator implements EmbeddableInstantiator {
 	public boolean isSameClass(Object object, SessionFactoryImplementor sessionFactory) {
 		return object.getClass().equals(Address.class);
 	}
+
 }

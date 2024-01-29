@@ -110,9 +110,8 @@ class DataJpaApplicationAotTests {
 	@Test
 	void listRecipients(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output)
-					.hasSingleLineContaining(
-							"listRecipients(): recipient = Recipient{id=1, address=Address[street=Paul Bert, city=Lyon, postalCode=69003]}");
+			assertThat(output).hasSingleLineContaining(
+					"listRecipients(): recipient = Recipient{id=1, address=Address[street=Paul Bert, city=Lyon, postalCode=69003]}");
 
 		});
 	}

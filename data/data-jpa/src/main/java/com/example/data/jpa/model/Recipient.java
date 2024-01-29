@@ -43,8 +43,10 @@ public class Recipient {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 		Recipient recipient = (Recipient) o;
 		return Objects.equals(id, recipient.id) && Objects.equals(address, recipient.address);
 	}
@@ -56,10 +58,7 @@ public class Recipient {
 
 	@Override
 	public String toString() {
-		return "Recipient{" +
-				"id=" + id +
-				", address=" + address +
-				'}';
+		return "Recipient{" + "id=" + id + ", address=" + address + '}';
 	}
 
 }
