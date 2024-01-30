@@ -1,0 +1,23 @@
+name: 3.0.x | Framework Smoke Tests | Async
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  async_app_test:
+    name: Async App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:async
+      task: appTest
+  async_native_app_test:
+    name: Async Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:async
+      task: nativeAppTest

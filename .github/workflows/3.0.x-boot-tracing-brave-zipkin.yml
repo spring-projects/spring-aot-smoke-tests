@@ -1,0 +1,23 @@
+name: 3.0.x | Boot Smoke Tests | Tracing Brave Zipkin
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  tracing_brave_zipkin_app_test:
+    name: Tracing Brave Zipkin App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: boot:tracing-brave-zipkin
+      task: appTest
+  tracing_brave_zipkin_native_app_test:
+    name: Tracing Brave Zipkin Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: boot:tracing-brave-zipkin
+      task: nativeAppTest

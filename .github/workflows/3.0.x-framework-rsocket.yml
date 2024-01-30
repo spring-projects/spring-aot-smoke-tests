@@ -1,0 +1,23 @@
+name: 3.0.x | Framework Smoke Tests | Rsocket
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  rsocket_app_test:
+    name: Rsocket App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:rsocket
+      task: appTest
+  rsocket_native_app_test:
+    name: Rsocket Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:rsocket
+      task: nativeAppTest

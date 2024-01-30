@@ -1,0 +1,23 @@
+name: 3.2.x | Framework Smoke Tests | Event Listener
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  event_listener_app_test:
+    name: Event Listener App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:event-listener
+      task: appTest
+  event_listener_native_app_test:
+    name: Event Listener Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:event-listener
+      task: nativeAppTest

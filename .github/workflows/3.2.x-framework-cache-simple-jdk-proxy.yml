@@ -1,0 +1,23 @@
+name: 3.2.x | Framework Smoke Tests | Cache Simple Jdk Proxy
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  cache_simple_jdk_proxy_app_test:
+    name: Cache Simple Jdk Proxy App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:cache-simple-jdk-proxy
+      task: appTest
+  cache_simple_jdk_proxy_native_app_test:
+    name: Cache Simple Jdk Proxy Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:cache-simple-jdk-proxy
+      task: nativeAppTest

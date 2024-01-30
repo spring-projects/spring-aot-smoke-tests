@@ -1,0 +1,10 @@
+.settings/
+.project
+.classpath
+build/
+bin/
+.gradle/
+.idea/
+out/
+ci/pipeline.yml
+

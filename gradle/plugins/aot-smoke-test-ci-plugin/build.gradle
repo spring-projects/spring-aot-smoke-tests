@@ -1,0 +1,25 @@
+plugins {
+	id "checkstyle"
+	id "io.spring.javaformat" version "0.0.41"
+	id "java-gradle-plugin"
+}
+
+repositories {
+	mavenCentral()
+}
+
+gradlePlugin {
+	plugins {
+		aotSmokeTestCiPlugin {
+			id = "org.springframework.aot.smoke-test-ci"
+			implementationClass = "org.springframework.aot.gradle.AotSmokeTestCiPlugin"
+		}
+	}
+}
+
+dependencies {
+	checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:0.0.41")
+}
+
+sourceCompatibility = "17"
+targetCompatibility = "17"

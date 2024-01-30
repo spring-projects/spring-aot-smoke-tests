@@ -1,0 +1,23 @@
+name: 3.0.x | Cloud Smoke Tests | Cloud Discovery Consul
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  cloud_discovery_consul_app_test:
+    name: Cloud Discovery Consul App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: cloud:cloud-discovery-consul
+      task: appTest
+  cloud_discovery_consul_native_app_test:
+    name: Cloud Discovery Consul Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: cloud:cloud-discovery-consul
+      task: nativeAppTest

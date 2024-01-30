@@ -1,0 +1,23 @@
+name: 3.2.x | Integration Smoke Tests | Spring Pulsar
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  spring_pulsar_app_test:
+    name: Spring Pulsar App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: integration:spring-pulsar
+      task: appTest
+  spring_pulsar_native_app_test:
+    name: Spring Pulsar Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: integration:spring-pulsar
+      task: nativeAppTest

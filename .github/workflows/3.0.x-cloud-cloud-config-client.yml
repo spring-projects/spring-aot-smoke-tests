@@ -1,0 +1,23 @@
+name: 3.0.x | Cloud Smoke Tests | Cloud Config Client
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  cloud_config_client_app_test:
+    name: Cloud Config Client App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: cloud:cloud-config-client
+      task: appTest
+  cloud_config_client_native_app_test:
+    name: Cloud Config Client Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: cloud:cloud-config-client
+      task: nativeAppTest

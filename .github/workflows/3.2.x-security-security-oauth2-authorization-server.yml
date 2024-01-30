@@ -1,0 +1,23 @@
+name: 3.2.x | Security Smoke Tests | Security Oauth2 Authorization Server
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  security_oauth2_authorization_server_app_test:
+    name: Security Oauth2 Authorization Server App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:security-oauth2-authorization-server
+      task: appTest
+  security_oauth2_authorization_server_native_app_test:
+    name: Security Oauth2 Authorization Server Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:security-oauth2-authorization-server
+      task: nativeAppTest

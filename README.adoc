@@ -1,0 +1,66 @@
+= Spring AOT Smoke Tests image:https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A["Revved up by Develocity", link="https://ge.spring.io/scans?search.rootProjectNames=spring-aot-smoke-tests"]
+
+This branch contains only GitHub Actions workflows.
+It is the default branch in the repository to work around a limitation of GitHub Actions' https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule[scheduling support]:
+
+> Scheduled workflows run on the latest commit on the default or base branch.
+
+Additionally, scheduling will only work for a workflow that exists in the default branch.
+To overcome this limitation, this branch contains workflows for every smoke test found in the `3.0.x`, `3.1.x`, and `main` branches.
+If you're looking for the smoke tests themselves, please take a look at one of those other branches:
+
+- https://github.com/spring-projects/spring-aot-smoke-tests/tree/3.0.x[3.0.x]
+- https://github.com/spring-projects/spring-aot-smoke-tests/tree/3.1.x[3.1.x]
+- https://github.com/spring-projects/spring-aot-smoke-tests/tree/main[main]
+
+
+
+== Managing the Workflows
+
+The workflows can be updated automatically but doing so relies upon a particular directory structure using Git's worktree support:
+
+[source,]
+----
+spring-aot-smoke-tests
+├── 3.0.x
+├── 3.1.x
+├── ci
+└── main
+----
+
+
+
+=== Initial Setup
+
+To create this directory structure, first clone the repository into a directory named `ci`:
+
+[source,]
+----
+mkdir spring-aot-smoke-tests
+cd spring-aot-smoke-tests
+git clone https://github.com/spring-projects/spring-aot-smoke-tests ci
+cd ci
+----
+
+Now, create worktrees for the `3.0.x`, `3.1.x`, and `main` branches:
+
+[source,]
+----
+git worktree add ../3.0.x 3.0.x
+git worktree add ../3.1.x 3.1.x
+git worktree add ../main main
+----
+
+
+
+=== Updating the Workflows
+
+To sync the workflows, make sure you're in the `ci` worktree on the `ci` branch and execute the following Gradle build:
+
+[source,]
+----
+./gradlew syncGitHubActionsWorkflows
+----
+
+This will update the workflows in the `ci` branch based on the smoke tests in each of the repository's other branches.
+Commit and push any changes.

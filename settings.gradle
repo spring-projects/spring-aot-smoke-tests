@@ -1,0 +1,3 @@
+pluginManagement {
+	includeBuild "gradle/plugins/aot-smoke-test-ci-plugin"
+}

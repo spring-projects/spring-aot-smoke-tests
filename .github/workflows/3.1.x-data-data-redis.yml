@@ -1,0 +1,23 @@
+name: 3.1.x | Data Smoke Tests | Data Redis
+on:
+  schedule:
+    - cron : '20 0 * * *'
+jobs:
+  data_redis_app_test:
+    name: Data Redis App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: data:data-redis
+      task: appTest
+  data_redis_native_app_test:
+    name: Data Redis Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: data:data-redis
+      task: nativeAppTest

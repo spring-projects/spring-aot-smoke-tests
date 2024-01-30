@@ -1,0 +1,23 @@
+name: 3.1.x | Framework Smoke Tests | Cache Hazelcast
+on:
+  schedule:
+    - cron : '20 0 * * *'
+jobs:
+  cache_hazelcast_app_test:
+    name: Cache Hazelcast App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: framework:cache-hazelcast
+      task: appTest
+  cache_hazelcast_native_app_test:
+    name: Cache Hazelcast Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: framework:cache-hazelcast
+      task: nativeAppTest

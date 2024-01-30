@@ -1,0 +1,23 @@
+name: 3.0.x | Framework Smoke Tests | Rest Template
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  rest_template_app_test:
+    name: Rest Template App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:rest-template
+      task: appTest
+  rest_template_native_app_test:
+    name: Rest Template Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:rest-template
+      task: nativeAppTest

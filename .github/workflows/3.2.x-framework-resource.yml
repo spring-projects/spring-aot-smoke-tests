@@ -1,0 +1,23 @@
+name: 3.2.x | Framework Smoke Tests | Resource
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  resource_app_test:
+    name: Resource App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:resource
+      task: appTest
+  resource_native_app_test:
+    name: Resource Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:resource
+      task: nativeAppTest

@@ -1,0 +1,47 @@
+name: Native Smoke Test
+on:
+  workflow_call:
+    inputs:
+      project:
+        required: true
+        type: string
+      task:
+        required: true
+        type: string
+      checkout_repository:
+        required: true
+        type: string
+      checkout_ref:
+        required: true
+        type: string
+jobs:
+  native_smoke_test:
+    name: ${{ inputs.task }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.checkout_repository }}
+          ref: ${{ inputs.checkout_ref }}
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@b8dc5fccfbc65b21dd26e8341e7b21c86547f61b
+        with:
+          java-version: '17'
+          version: '22.3.3'
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4
+
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2
+
+      - name: Configure Gradle user.name
+        run: |
+           mkdir -p ~/.gradle
+           echo 'systemProp.user.name=spring-builds+github' >> ~/.gradle/gradle.properties
+      - name: Build
+        env:
+          GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USER }}
+          GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_SECRET_ACCESS_KEY }}
+        run: ./gradlew ${{ inputs.project }}:${{ inputs.task }}

@@ -1,0 +1,19 @@
+plugins {
+	id "org.springframework.aot.smoke-test-ci"
+}
+
+smokeTests {
+	'3.0.x' {
+		location = "../3.0.x"
+		cronSchedule = "10 0 * * *"
+	}
+	'3.1.x' {
+		location = "../3.1.x"
+		cronSchedule = "20 0 * * *"
+	}
+	'3.2.x' {
+		branch = 'main'
+		location = "../main"
+		cronSchedule = "30 0 * * *"
+	}
+}

@@ -1,0 +1,23 @@
+name: 3.1.x | Boot Smoke Tests | Conditional
+on:
+  schedule:
+    - cron : '20 0 * * *'
+jobs:
+  conditional_app_test:
+    name: Conditional App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:conditional
+      task: appTest
+  conditional_native_app_test:
+    name: Conditional Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:conditional
+      task: nativeAppTest

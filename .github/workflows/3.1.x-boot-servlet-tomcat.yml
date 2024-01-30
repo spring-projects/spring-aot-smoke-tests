@@ -1,0 +1,23 @@
+name: 3.1.x | Boot Smoke Tests | Servlet Tomcat
+on:
+  schedule:
+    - cron : '20 0 * * *'
+jobs:
+  servlet_tomcat_app_test:
+    name: Servlet Tomcat App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:servlet-tomcat
+      task: appTest
+  servlet_tomcat_native_app_test:
+    name: Servlet Tomcat Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:servlet-tomcat
+      task: nativeAppTest

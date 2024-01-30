@@ -1,0 +1,23 @@
+name: 3.0.x | Security Smoke Tests | Security Webmvc
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  security_webmvc_app_test:
+    name: Security Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: security:security-webmvc
+      task: appTest
+  security_webmvc_native_app_test:
+    name: Security Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: security:security-webmvc
+      task: nativeAppTest

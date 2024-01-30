@@ -1,0 +1,23 @@
+name: 3.2.x | Cloud Smoke Tests | Cloud Function Web
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  cloud_function_web_app_test:
+    name: Cloud Function Web App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-function-web
+      task: appTest
+  cloud_function_web_native_app_test:
+    name: Cloud Function Web Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-function-web
+      task: nativeAppTest

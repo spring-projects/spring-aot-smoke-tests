@@ -1,0 +1,23 @@
+name: 3.1.x | Boot Smoke Tests | Mustache Webflux
+on:
+  schedule:
+    - cron : '20 0 * * *'
+jobs:
+  mustache_webflux_app_test:
+    name: Mustache Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:mustache-webflux
+      task: appTest
+  mustache_webflux_native_app_test:
+    name: Mustache Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:mustache-webflux
+      task: nativeAppTest

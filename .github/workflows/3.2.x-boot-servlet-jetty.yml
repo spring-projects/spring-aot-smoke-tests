@@ -1,0 +1,23 @@
+name: 3.2.x | Boot Smoke Tests | Servlet Jetty
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  servlet_jetty_app_test:
+    name: Servlet Jetty App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:servlet-jetty
+      task: appTest
+  servlet_jetty_native_app_test:
+    name: Servlet Jetty Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:servlet-jetty
+      task: nativeAppTest

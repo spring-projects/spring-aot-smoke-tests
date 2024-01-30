@@ -1,0 +1,23 @@
+name: 3.2.x | Framework Smoke Tests | Tcf
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  tcf_test:
+    name: Tcf Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:tcf
+      task: test
+  tcf_native_test:
+    name: Tcf Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:tcf
+      task: nativeTest

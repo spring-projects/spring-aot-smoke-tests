@@ -1,0 +1,23 @@
+name: 3.2.x | Framework Smoke Tests | Webmvc Undertow Tls
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  webmvc_undertow_tls_app_test:
+    name: Webmvc Undertow Tls App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webmvc-undertow-tls
+      task: appTest
+  webmvc_undertow_tls_native_app_test:
+    name: Webmvc Undertow Tls Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webmvc-undertow-tls
+      task: nativeAppTest

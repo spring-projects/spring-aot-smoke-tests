@@ -1,0 +1,23 @@
+name: 3.2.x | Security Smoke Tests | Security Method
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  security_method_app_test:
+    name: Security Method App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:security-method
+      task: appTest
+  security_method_native_app_test:
+    name: Security Method Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:security-method
+      task: nativeAppTest

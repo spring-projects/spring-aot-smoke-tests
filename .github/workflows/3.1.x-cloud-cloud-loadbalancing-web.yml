@@ -1,0 +1,23 @@
+name: 3.1.x | Cloud Smoke Tests | Cloud Loadbalancing Web
+on:
+  schedule:
+    - cron : '20 0 * * *'
+jobs:
+  cloud_loadbalancing_web_app_test:
+    name: Cloud Loadbalancing Web App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: cloud:cloud-loadbalancing-web
+      task: appTest
+  cloud_loadbalancing_web_native_app_test:
+    name: Cloud Loadbalancing Web Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: cloud:cloud-loadbalancing-web
+      task: nativeAppTest

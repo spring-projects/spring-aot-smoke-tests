@@ -1,0 +1,23 @@
+name: 3.1.x | Boot Smoke Tests | Custom Banner
+on:
+  schedule:
+    - cron : '20 0 * * *'
+jobs:
+  custom_banner_app_test:
+    name: Custom Banner App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:custom-banner
+      task: appTest
+  custom_banner_native_app_test:
+    name: Custom Banner Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.1.x
+      project: boot:custom-banner
+      task: nativeAppTest

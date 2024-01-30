@@ -1,0 +1,23 @@
+name: 3.0.x | Framework Smoke Tests | Configuration Class Proxy
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  configuration_class_proxy_app_test:
+    name: Configuration Class Proxy App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:configuration-class-proxy
+      task: appTest
+  configuration_class_proxy_native_app_test:
+    name: Configuration Class Proxy Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: framework:configuration-class-proxy
+      task: nativeAppTest

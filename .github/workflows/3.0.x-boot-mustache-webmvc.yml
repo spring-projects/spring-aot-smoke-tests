@@ -1,0 +1,23 @@
+name: 3.0.x | Boot Smoke Tests | Mustache Webmvc
+on:
+  schedule:
+    - cron : '10 0 * * *'
+jobs:
+  mustache_webmvc_app_test:
+    name: Mustache Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: boot:mustache-webmvc
+      task: appTest
+  mustache_webmvc_native_app_test:
+    name: Mustache Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.0.x
+      project: boot:mustache-webmvc
+      task: nativeAppTest

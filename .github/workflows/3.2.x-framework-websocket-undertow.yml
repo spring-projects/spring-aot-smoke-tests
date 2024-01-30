@@ -1,0 +1,23 @@
+name: 3.2.x | Framework Smoke Tests | Websocket Undertow
+on:
+  schedule:
+    - cron : '30 0 * * *'
+jobs:
+  websocket_undertow_app_test:
+    name: Websocket Undertow App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:websocket-undertow
+      task: appTest
+  websocket_undertow_native_app_test:
+    name: Websocket Undertow Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:websocket-undertow
+      task: nativeAppTest
