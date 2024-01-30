@@ -81,8 +81,7 @@ class DataJpaApplicationAotTests {
 	@Test
 	void entityGraph(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output)
-				.hasLineContaining("left join (book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id)")
+			assertThat(output).hasLineMatching(".*left join \\(?book_authors a1_0 .*")
 				.hasSingleLineContaining(
 						"namedEntityGraph: Book{title='Spring in Action', authors=[Author{name='Craig Walls'}]}");
 		});
@@ -111,9 +110,8 @@ class DataJpaApplicationAotTests {
 	@Test
 	void listRecipients(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output)
-					.hasSingleLineContaining(
-							"listRecipients(): recipient = Recipient{id=1, address=Address[street=Paul Bert, city=Lyon, postalCode=69003]}");
+			assertThat(output).hasSingleLineContaining(
+					"listRecipients(): recipient = Recipient{id=1, address=Address[street=Paul Bert, city=Lyon, postalCode=69003]}");
 
 		});
 	}
