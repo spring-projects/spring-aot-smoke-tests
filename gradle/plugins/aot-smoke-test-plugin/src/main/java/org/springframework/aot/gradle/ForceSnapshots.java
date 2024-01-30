@@ -44,7 +44,8 @@ import org.gradle.api.artifacts.ResolutionStrategy;
  */
 final class ForceSnapshots implements Action<DependencyResolveDetails> {
 
-	private static final Set<String> NO_SNAPSHOT = Set.of("org.springframework.boot", "org.springframework.cloud", "org.springframework.plugin");
+	private static final Set<String> NO_SNAPSHOT = Set.of("org.springframework.boot", "org.springframework.cloud",
+			"org.springframework.plugin");
 
 	@Override
 	public void execute(DependencyResolveDetails dependency) {
