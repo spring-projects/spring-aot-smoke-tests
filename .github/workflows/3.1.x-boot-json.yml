@@ -2,6 +2,7 @@ name: 3.1.x | Boot Smoke Tests | Json
 on:
   schedule:
     - cron : '20 0 * * *'
+  workflow_dispatch:
 jobs:
   json_app_test:
     name: Json App Test

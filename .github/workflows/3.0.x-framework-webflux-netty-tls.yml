@@ -2,6 +2,7 @@ name: 3.0.x | Framework Smoke Tests | Webflux Netty Tls
 on:
   schedule:
     - cron : '10 0 * * *'
+  workflow_dispatch:
 jobs:
   webflux_netty_tls_app_test:
     name: Webflux Netty Tls App Test

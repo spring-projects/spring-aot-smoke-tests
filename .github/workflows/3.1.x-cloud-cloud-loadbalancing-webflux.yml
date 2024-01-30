@@ -2,6 +2,7 @@ name: 3.1.x | Cloud Smoke Tests | Cloud Loadbalancing Webflux
 on:
   schedule:
     - cron : '20 0 * * *'
+  workflow_dispatch:
 jobs:
   cloud_loadbalancing_webflux_app_test:
     name: Cloud Loadbalancing Webflux App Test

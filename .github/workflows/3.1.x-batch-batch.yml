@@ -2,6 +2,7 @@ name: 3.1.x | Batch Smoke Tests | Batch
 on:
   schedule:
     - cron : '20 0 * * *'
+  workflow_dispatch:
 jobs:
   batch_app_test:
     name: Batch App Test

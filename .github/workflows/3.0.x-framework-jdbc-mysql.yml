@@ -2,6 +2,7 @@ name: 3.0.x | Framework Smoke Tests | Jdbc Mysql
 on:
   schedule:
     - cron : '10 0 * * *'
+  workflow_dispatch:
 jobs:
   jdbc_mysql_app_test:
     name: Jdbc Mysql App Test

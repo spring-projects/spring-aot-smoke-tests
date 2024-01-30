@@ -2,6 +2,7 @@ name: 3.1.x | Cloud Smoke Tests | Cloud Discovery Zookeeper
 on:
   schedule:
     - cron : '20 0 * * *'
+  workflow_dispatch:
 jobs:
   cloud_discovery_zookeeper_app_test:
     name: Cloud Discovery Zookeeper App Test

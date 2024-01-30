@@ -2,6 +2,7 @@ name: 3.1.x | Framework Smoke Tests | Cache Hazelcast
 on:
   schedule:
     - cron : '20 0 * * *'
+  workflow_dispatch:
 jobs:
   cache_hazelcast_app_test:
     name: Cache Hazelcast App Test

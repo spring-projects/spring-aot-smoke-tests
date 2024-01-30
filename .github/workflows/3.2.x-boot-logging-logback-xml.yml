@@ -2,6 +2,7 @@ name: 3.2.x | Boot Smoke Tests | Logging Logback Xml
 on:
   schedule:
     - cron : '30 0 * * *'
+  workflow_dispatch:
 jobs:
   logging_logback_xml_app_test:
     name: Logging Logback Xml App Test

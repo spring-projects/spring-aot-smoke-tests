@@ -2,6 +2,7 @@ name: 3.1.x | Cloud Smoke Tests | Cloud Openfeign
 on:
   schedule:
     - cron : '20 0 * * *'
+  workflow_dispatch:
 jobs:
   cloud_openfeign_app_test:
     name: Cloud Openfeign App Test

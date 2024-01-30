@@ -2,6 +2,7 @@ name: 3.0.x | Security Smoke Tests | Security Oauth2 Resource Server
 on:
   schedule:
     - cron : '10 0 * * *'
+  workflow_dispatch:
 jobs:
   security_oauth2_resource_server_app_test:
     name: Security Oauth2 Resource Server App Test

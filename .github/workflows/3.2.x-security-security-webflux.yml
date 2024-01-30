@@ -2,6 +2,7 @@ name: 3.2.x | Security Smoke Tests | Security Webflux
 on:
   schedule:
     - cron : '30 0 * * *'
+  workflow_dispatch:
 jobs:
   security_webflux_app_test:
     name: Security Webflux App Test

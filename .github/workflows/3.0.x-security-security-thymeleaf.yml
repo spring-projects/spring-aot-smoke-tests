@@ -2,6 +2,7 @@ name: 3.0.x | Security Smoke Tests | Security Thymeleaf
 on:
   schedule:
     - cron : '10 0 * * *'
+  workflow_dispatch:
 jobs:
   security_thymeleaf_app_test:
     name: Security Thymeleaf App Test

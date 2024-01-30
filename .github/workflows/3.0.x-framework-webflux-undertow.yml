@@ -2,6 +2,7 @@ name: 3.0.x | Framework Smoke Tests | Webflux Undertow
 on:
   schedule:
     - cron : '10 0 * * *'
+  workflow_dispatch:
 jobs:
   webflux_undertow_app_test:
     name: Webflux Undertow App Test

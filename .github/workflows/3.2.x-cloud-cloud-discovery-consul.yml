@@ -2,6 +2,7 @@ name: 3.2.x | Cloud Smoke Tests | Cloud Discovery Consul
 on:
   schedule:
     - cron : '30 0 * * *'
+  workflow_dispatch:
 jobs:
   cloud_discovery_consul_app_test:
     name: Cloud Discovery Consul App Test

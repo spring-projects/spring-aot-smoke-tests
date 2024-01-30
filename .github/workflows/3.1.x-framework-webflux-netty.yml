@@ -2,6 +2,7 @@ name: 3.1.x | Framework Smoke Tests | Webflux Netty
 on:
   schedule:
     - cron : '20 0 * * *'
+  workflow_dispatch:
 jobs:
   webflux_netty_app_test:
     name: Webflux Netty App Test

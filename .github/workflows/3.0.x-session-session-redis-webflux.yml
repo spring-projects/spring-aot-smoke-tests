@@ -2,6 +2,7 @@ name: 3.0.x | Session Smoke Tests | Session Redis Webflux
 on:
   schedule:
     - cron : '10 0 * * *'
+  workflow_dispatch:
 jobs:
   session_redis_webflux_app_test:
     name: Session Redis Webflux App Test
