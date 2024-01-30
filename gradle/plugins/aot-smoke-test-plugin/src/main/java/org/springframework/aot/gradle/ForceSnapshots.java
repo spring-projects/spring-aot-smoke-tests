@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 the original author or authors.
+ * Copyright 2022-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 
 package org.springframework.aot.gradle;
+
+import java.util.Set;
 
 import org.gradle.api.Action;
 import org.gradle.api.artifacts.DependencyResolveDetails;
@@ -42,6 +44,8 @@ import org.gradle.api.artifacts.ResolutionStrategy;
  */
 final class ForceSnapshots implements Action<DependencyResolveDetails> {
 
+	private static final Set<String> NO_SNAPSHOT = Set.of("org.springframework.boot", "org.springframework.cloud", "org.springframework.plugin");
+
 	@Override
 	public void execute(DependencyResolveDetails dependency) {
 		ModuleVersionSelector requested = dependency.getRequested();
@@ -50,8 +54,7 @@ final class ForceSnapshots implements Action<DependencyResolveDetails> {
 			return;
 		}
 		String group = requested.getGroup();
-		if (group.startsWith("org.springframework") && !group.equals("org.springframework.boot")
-				&& !group.equals("org.springframework.cloud")) {
+		if (group.startsWith("org.springframework") && !NO_SNAPSHOT.contains(group)) {
 			dependency.useVersion(snapshotOf(version));
 		}
 	}
