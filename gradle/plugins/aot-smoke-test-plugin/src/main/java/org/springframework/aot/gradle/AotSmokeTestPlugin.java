@@ -229,6 +229,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				service.getTcpPorts()
 					.forEach((source, target) -> environment.put(name + "_PORT_" + source, Integer.toString(target)));
 			});
+			System.out.println("Application environment from Docker Compose: " + environment);
 			return environment;
 		});
 	}
