@@ -16,4 +16,9 @@ public class DisposableApplication {
 		return new DisposableBean();
 	}
 
+	@Bean
+	DisposableInterface inheritedDisposableInterface() {
+		return new ActualDisposableBean();
+	}
+
 }
