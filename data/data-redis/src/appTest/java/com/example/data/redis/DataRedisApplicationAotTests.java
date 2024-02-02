@@ -41,6 +41,19 @@ class DataRedisApplicationAotTests {
 	}
 
 	@Test
+	void jackson2hashMapper(AssertableOutput output) {
+
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasLineMatching("hash-mapper-default-raw: .*firstname=hashed-fn.*");
+			assertThat(output).hasSingleLineContaining(
+					"hash-mapper-default-mapped: Person{firstname='hashed-fn', lastname='hashed-ln'}");
+			assertThat(output).hasLineMatching("hash-mapper-flat-raw: .*firstname=hashed-fn.*");
+			assertThat(output).hasSingleLineContaining(
+					"hash-mapper-flat-mapped: Person{firstname='hashed-fn', lastname='hashed-ln'}");
+		});
+	}
+
+	@Test
 	void jsonSerializer(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output)
