@@ -17,5 +17,12 @@ plugins {
 subprojects {
 	plugins.withType(JavaPlugin) {
 		plugins.apply("io.spring.javaformat")
+		configurations {
+			all {
+				resolutionStrategy {
+					cacheChangingModulesFor(0, "seconds");
+				}
+			}
+		}
 	}
 }
