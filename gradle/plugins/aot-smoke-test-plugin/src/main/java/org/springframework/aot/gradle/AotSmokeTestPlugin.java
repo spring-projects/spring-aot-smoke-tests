@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import com.avast.gradle.dockercompose.ComposeExtension;
@@ -105,9 +104,6 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			repo.setName("Spring Snapshot");
 			repo.setUrl("https://repo.spring.io/snapshot");
 		});
-		project.getConfigurations()
-			.all((configuration) -> configuration
-				.resolutionStrategy((strategy) -> strategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)));
 
 		configureAppTests(project, extension, appTest);
 		configureTests(project);
