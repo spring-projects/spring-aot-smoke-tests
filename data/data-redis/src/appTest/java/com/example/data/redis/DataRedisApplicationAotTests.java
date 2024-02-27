@@ -72,4 +72,11 @@ class DataRedisApplicationAotTests {
 		});
 	}
 
+	@Test
+	void findWithProjection(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("findProjectionByLastname(): first-2");
+		});
+	}
+
 }

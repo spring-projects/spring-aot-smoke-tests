@@ -49,6 +49,10 @@ class CLR implements CommandLineRunner {
 		for (Person person : this.personRepository.findByLastname("last-3")) {
 			System.out.printf("findByLastname(): %s%n", person);
 		}
+
+		for (PersonProjection person : this.personRepository.findProjectionByLastname("last-2")) {
+			System.out.printf("findProjectionByLastname(): %s%n", person.getFirstname());
+		}
 	}
 
 	private void jsonSerializer() {

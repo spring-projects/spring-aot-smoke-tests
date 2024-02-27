@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 the original author or authors.
+ * Copyright 2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,8 @@
  */
 package com.example.data.redis;
 
-import java.util.List;
+public interface PersonProjection {
 
-import org.springframework.data.repository.ListCrudRepository;
-
-public interface PersonRepository extends ListCrudRepository<Person, String> {
-
-	List<Person> findByLastname(String lastname);
-
-	List<PersonProjection> findProjectionByLastname(String lastname);
+	String getFirstname();
 
 }
