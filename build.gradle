@@ -3,7 +3,10 @@ buildscript {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
 	}
 	configurations.classpath {
-		resolutionStrategy.useGlobalDependencySubstitutionRules = false
+		resolutionStrategy {
+			useGlobalDependencySubstitutionRules = false
+			cacheChangingModulesFor(0, "seconds")
+		}
 	}
 }
 
@@ -20,7 +23,7 @@ subprojects {
 		configurations {
 			all {
 				resolutionStrategy {
-					cacheChangingModulesFor(0, "seconds");
+					cacheChangingModulesFor(0, "seconds")
 				}
 			}
 		}
