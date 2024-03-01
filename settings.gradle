@@ -1,6 +1,20 @@
 pluginManagement {
 	includeBuild "gradle/plugins/aot-smoke-test-plugin"
 	repositories {
+		maven {
+			url "https://repo.spring.vmware.com/artifactory/spring-commercial-snapshot-local"
+			credentials {
+				username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
+				password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
+			}
+		}
+		maven {
+			url "https://repo.spring.vmware.com/artifactory/spring-commercial-release-local"
+			credentials {
+				username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
+				password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
+			}
+		}
 		gradlePluginPortal()
 		maven {
 			url "https://repo.spring.io/snapshot"
