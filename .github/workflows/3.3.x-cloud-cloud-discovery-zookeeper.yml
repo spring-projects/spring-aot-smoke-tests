@@ -1,0 +1,24 @@
+name: 3.3.x | Cloud Smoke Tests | Cloud Discovery Zookeeper
+on:
+  schedule:
+    - cron : '40 0 * * *'
+  workflow_dispatch:
+jobs:
+  cloud_discovery_zookeeper_app_test:
+    name: Cloud Discovery Zookeeper App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-discovery-zookeeper
+      task: appTest
+  cloud_discovery_zookeeper_native_app_test:
+    name: Cloud Discovery Zookeeper Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-discovery-zookeeper
+      task: nativeAppTest

@@ -12,8 +12,12 @@ smokeTests {
 		cronSchedule = "20 0 * * *"
 	}
 	'3.2.x' {
+		location = "../3.2.x"
+		cronSchedule = "30 0 * * *"
+	}
+	'3.3.x' {
 		branch = 'main'
 		location = "../main"
-		cronSchedule = "30 0 * * *"
+		cronSchedule = "40 0 * * *"
 	}
 }

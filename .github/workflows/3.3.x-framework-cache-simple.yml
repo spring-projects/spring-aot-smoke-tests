@@ -1,0 +1,24 @@
+name: 3.3.x | Framework Smoke Tests | Cache Simple
+on:
+  schedule:
+    - cron : '40 0 * * *'
+  workflow_dispatch:
+jobs:
+  cache_simple_app_test:
+    name: Cache Simple App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:cache-simple
+      task: appTest
+  cache_simple_native_app_test:
+    name: Cache Simple Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:cache-simple
+      task: nativeAppTest

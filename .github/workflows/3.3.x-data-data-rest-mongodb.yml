@@ -1,0 +1,24 @@
+name: 3.3.x | Data Smoke Tests | Data Rest Mongodb
+on:
+  schedule:
+    - cron : '40 0 * * *'
+  workflow_dispatch:
+jobs:
+  data_rest_mongodb_app_test:
+    name: Data Rest Mongodb App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-rest-mongodb
+      task: appTest
+  data_rest_mongodb_native_app_test:
+    name: Data Rest Mongodb Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-rest-mongodb
+      task: nativeAppTest

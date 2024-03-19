@@ -1,0 +1,24 @@
+name: 3.3.x | Boot Smoke Tests | Actuator Webflux Mgmt Port
+on:
+  schedule:
+    - cron : '40 0 * * *'
+  workflow_dispatch:
+jobs:
+  actuator_webflux_mgmt_port_app_test:
+    name: Actuator Webflux Mgmt Port App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:actuator-webflux-mgmt-port
+      task: appTest
+  actuator_webflux_mgmt_port_native_app_test:
+    name: Actuator Webflux Mgmt Port Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:actuator-webflux-mgmt-port
+      task: nativeAppTest

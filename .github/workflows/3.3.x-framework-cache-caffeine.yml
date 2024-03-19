@@ -1,0 +1,24 @@
+name: 3.3.x | Framework Smoke Tests | Cache Caffeine
+on:
+  schedule:
+    - cron : '40 0 * * *'
+  workflow_dispatch:
+jobs:
+  cache_caffeine_app_test:
+    name: Cache Caffeine App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:cache-caffeine
+      task: appTest
+  cache_caffeine_native_app_test:
+    name: Cache Caffeine Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:cache-caffeine
+      task: nativeAppTest

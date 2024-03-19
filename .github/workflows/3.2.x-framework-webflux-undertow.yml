@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.2.x
       project: framework:webflux-undertow
       task: appTest
   webflux_undertow_native_app_test:
@@ -19,7 +19,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.2.x
       project: framework:webflux-undertow
       task: nativeAppTest
   webflux_undertow_test:
@@ -28,7 +28,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.2.x
       project: framework:webflux-undertow
       task: test
   webflux_undertow_native_test:
@@ -37,6 +37,6 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.2.x
       project: framework:webflux-undertow
       task: nativeTest
