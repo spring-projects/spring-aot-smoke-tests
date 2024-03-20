@@ -6,13 +6,8 @@ plugins {
 }
 
 dependencies {
-	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-
-	implementation("org.springframework.boot:spring-boot-starter-pulsar")
-	// TODO remove once Boot goes back to snapshots
-	constraints {
-		implementation('org.springframework.pulsar:spring-pulsar:1.0.0-SNAPSHOT')
-	}
+	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.pulsar:spring-pulsar-spring-boot-starter:${springPulsarVersion}")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
