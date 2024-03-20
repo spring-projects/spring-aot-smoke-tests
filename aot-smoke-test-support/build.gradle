@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-	api(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	api(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	runtimeOnly("io.projectreactor.netty:reactor-netty-http")
 	api("org.springframework:spring-webflux")
 	api("org.springframework.boot:spring-boot-starter-test")
