@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-cassandra-reactive")
 
 	// See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-with-GraalVM#cassandra
