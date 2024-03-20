@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 
 	runtimeOnly("io.r2dbc:r2dbc-h2")

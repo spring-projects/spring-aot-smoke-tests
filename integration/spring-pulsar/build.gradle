@@ -10,7 +10,7 @@ ext {
 }
 
 dependencies {
-	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.pulsar:spring-pulsar-spring-boot-starter:${springPulsarVersion}")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
