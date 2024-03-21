@@ -9,11 +9,6 @@ dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-cassandra")
 
-	// See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-with-GraalVM#cassandra
-	constraints {
-		implementation('com.datastax.oss:java-driver-core:4.17.0')
-	}
-
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 	appTestImplementation(project(":aot-smoke-test-support"))
