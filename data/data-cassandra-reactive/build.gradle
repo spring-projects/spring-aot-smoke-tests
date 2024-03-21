@@ -5,14 +5,22 @@ plugins {
 	id "org.graalvm.buildtools.native"
 }
 
+configurations {
+	all {
+		resolutionStrategy {
+			eachDependency { dependency ->
+				// See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-with-GraalVM#cassandra
+				if (dependency.requested.group == ' com.datastax.oss' && dependency.requested.name == 'java-driver-core') {
+					details.useVersion '4.17.0'
+				}
+			}
+		}
+	}
+}
+
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-cassandra-reactive")
-
-	// See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-with-GraalVM#cassandra
-	constraints {
-		implementation('com.datastax.oss:java-driver-core:4.17.0')
-	}
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
