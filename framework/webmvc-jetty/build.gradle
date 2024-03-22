@@ -6,6 +6,11 @@ plugins {
 	id "org.jetbrains.kotlin.jvm"
 }
 
+configurations.all {
+	// Downgrade for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
+	resolutionStrategy.force("jakarta.servlet:jakarta.servlet-api:5.0.0")
+}
+
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -13,12 +18,6 @@ dependencies {
 	modules {
 		module("org.springframework.boot:spring-boot-starter-tomcat") {
 			replacedBy("org.springframework.boot:spring-boot-starter-jetty", "Use Jetty instead of Tomcat")
-		}
-	}
-	// Downgrade for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
-	implementation("jakarta.servlet:jakarta.servlet-api") {
-		version {
-			strictly "5.0.0"
 		}
 	}
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
