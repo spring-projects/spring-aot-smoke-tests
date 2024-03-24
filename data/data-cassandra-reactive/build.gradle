@@ -10,8 +10,9 @@ configurations {
 		resolutionStrategy {
 			eachDependency { dependency ->
 				// See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-with-GraalVM#cassandra
-				if (dependency.requested.group == ' com.datastax.oss' && dependency.requested.name == 'java-driver-core') {
-					details.useVersion '4.17.0'
+				if (dependency.requested.group == 'com.datastax.oss' &&
+					(dependency.requested.name == 'java-driver-core' || dependency.requested.name == 'java-driver-query-builder')) {
+					dependency.useVersion '4.17.0'
 				}
 			}
 		}
