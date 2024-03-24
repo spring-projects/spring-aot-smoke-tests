@@ -6,9 +6,17 @@ plugins {
 	id "org.jetbrains.kotlin.jvm"
 }
 
-configurations.all {
-	// Downgrade for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
-	resolutionStrategy.force("jakarta.servlet:jakarta.servlet-api:5.0.0")
+configurations {
+	all {
+		resolutionStrategy {
+			eachDependency { dependency ->
+				if (dependency.requested.group == "jakarta.servlet" && dependency.requested.name == "jakarta.servlet-api") {
+					// Downgrade for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
+					dependency.useVersion("5.0.0")
+				}
+			}
+		}
+	}
 }
 
 dependencies {
