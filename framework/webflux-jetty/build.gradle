@@ -6,6 +6,22 @@ plugins {
 	id "org.jetbrains.kotlin.jvm"
 }
 
+configurations {
+	all {
+		resolutionStrategy {
+			eachDependency { dependency ->
+				// Downgrades for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
+				if (dependency.requested.group == "jakarta.servlet" && dependency.requested.name == "jakarta.servlet-api") {
+					dependency.useVersion("5.0.0")
+				}
+				if (dependency.requested.group == "jakarta.websocket" && dependency.requested.name == "jakarta.websocket-api") {
+					dependency.useVersion("2.0.0")
+				}
+			}
+		}
+	}
+}
+
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -13,17 +29,6 @@ dependencies {
 	modules {
 		module("org.springframework.boot:spring-boot-starter-reactor-netty") {
 			replacedBy("org.springframework.boot:spring-boot-starter-jetty", "Use Jetty instead of Netty")
-		}
-	}
-	// Downgrades for Jetty, see https://github.com/spring-projects/spring-boot/issues/33044
-	implementation("jakarta.servlet:jakarta.servlet-api") {
-		version {
-			strictly "5.0.0"
-		}
-	}
-	implementation("jakarta.websocket:jakarta.websocket-api") {
-		version {
-			strictly "2.0.0"
 		}
 	}
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
