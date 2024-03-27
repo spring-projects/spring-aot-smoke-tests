@@ -1,5 +1,10 @@
 = Spring AOT Smoke Tests image:https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A["Revved up by Develocity", link="https://ge.spring.io/scans?search.rootProjectNames=spring-aot-smoke-tests"]
 
+Smoke tests for Spring's ahead-of-time (AOT) and GraalVM native image support.
+Results are published to a https://spring-team-aot-smoke-tests-dashboard.azuremicroservices.io/[dashboard].
+
+== Repository Structure
+
 This branch contains only GitHub Actions workflows.
 It is the default branch in the repository to work around a limitation of GitHub Actions' https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule[scheduling support]:
 
