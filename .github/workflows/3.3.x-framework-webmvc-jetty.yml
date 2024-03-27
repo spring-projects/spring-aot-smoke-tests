@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: framework:webmvc-jetty
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBMVC_JETTY_OWNER_IDS
   webmvc_jetty_native_app_test:
     name: Webmvc Jetty Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: main
       project: framework:webmvc-jetty
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBMVC_JETTY_OWNER_IDS
   webmvc_jetty_test:
     name: Webmvc Jetty Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: main
       project: framework:webmvc-jetty
       task: test
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBMVC_JETTY_OWNER_IDS
   webmvc_jetty_native_test:
     name: Webmvc Jetty Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: main
       project: framework:webmvc-jetty
       task: nativeTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBMVC_JETTY_OWNER_IDS

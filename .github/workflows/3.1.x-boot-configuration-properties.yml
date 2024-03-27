@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:configuration-properties
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: CONFIGURATION_PROPERTIES_OWNER_IDS
   configuration_properties_native_app_test:
     name: Configuration Properties Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:configuration-properties
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: CONFIGURATION_PROPERTIES_OWNER_IDS

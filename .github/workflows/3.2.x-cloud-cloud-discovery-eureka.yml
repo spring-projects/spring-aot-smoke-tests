@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: cloud:cloud-discovery-eureka
       task: appTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_DISCOVERY_EUREKA_OWNER_IDS
   cloud_discovery_eureka_native_app_test:
     name: Cloud Discovery Eureka Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: cloud:cloud-discovery-eureka
       task: nativeAppTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_DISCOVERY_EUREKA_OWNER_IDS

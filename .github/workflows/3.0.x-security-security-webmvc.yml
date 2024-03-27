@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: security:security-webmvc
       task: appTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_WEBMVC_OWNER_IDS
   security_webmvc_native_app_test:
     name: Security Webmvc Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: security:security-webmvc
       task: nativeAppTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_WEBMVC_OWNER_IDS

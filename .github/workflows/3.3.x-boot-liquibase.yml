@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: boot:liquibase
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: LIQUIBASE_OWNER_IDS
   liquibase_native_app_test:
     name: Liquibase Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: boot:liquibase
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: LIQUIBASE_OWNER_IDS

@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:cache-redis
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CACHE_REDIS_OWNER_IDS
   cache_redis_native_app_test:
     name: Cache Redis Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:cache-redis
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CACHE_REDIS_OWNER_IDS

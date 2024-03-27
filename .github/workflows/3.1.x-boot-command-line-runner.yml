@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:command-line-runner
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: COMMAND_LINE_RUNNER_OWNER_IDS
   command_line_runner_native_app_test:
     name: Command Line Runner Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:command-line-runner
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: COMMAND_LINE_RUNNER_OWNER_IDS

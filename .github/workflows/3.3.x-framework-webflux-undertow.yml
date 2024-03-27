@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: framework:webflux-undertow
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBFLUX_UNDERTOW_OWNER_IDS
   webflux_undertow_native_app_test:
     name: Webflux Undertow Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: main
       project: framework:webflux-undertow
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBFLUX_UNDERTOW_OWNER_IDS
   webflux_undertow_test:
     name: Webflux Undertow Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: main
       project: framework:webflux-undertow
       task: test
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBFLUX_UNDERTOW_OWNER_IDS
   webflux_undertow_native_test:
     name: Webflux Undertow Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: main
       project: framework:webflux-undertow
       task: nativeTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBFLUX_UNDERTOW_OWNER_IDS

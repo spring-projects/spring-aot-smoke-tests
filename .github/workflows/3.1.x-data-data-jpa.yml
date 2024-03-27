@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-jpa
       task: appTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JPA_OWNER_IDS
   data_jpa_native_app_test:
     name: Data Jpa Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-jpa
       task: nativeAppTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JPA_OWNER_IDS
   data_jpa_test:
     name: Data Jpa Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-jpa
       task: test
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JPA_OWNER_IDS
   data_jpa_native_test:
     name: Data Jpa Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-jpa
       task: nativeTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JPA_OWNER_IDS

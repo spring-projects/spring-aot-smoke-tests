@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: security:ldap-odm
       task: appTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: LDAP_ODM_OWNER_IDS
   ldap_odm_native_app_test:
     name: Ldap Odm Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: 3.1.x
       project: security:ldap-odm
       task: nativeAppTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: LDAP_ODM_OWNER_IDS
   ldap_odm_test:
     name: Ldap Odm Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: 3.1.x
       project: security:ldap-odm
       task: test
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: LDAP_ODM_OWNER_IDS
   ldap_odm_native_test:
     name: Ldap Odm Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: 3.1.x
       project: security:ldap-odm
       task: nativeTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: LDAP_ODM_OWNER_IDS

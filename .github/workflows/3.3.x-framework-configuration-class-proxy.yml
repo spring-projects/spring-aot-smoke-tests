@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: framework:configuration-class-proxy
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CONFIGURATION_CLASS_PROXY_OWNER_IDS
   configuration_class_proxy_native_app_test:
     name: Configuration Class Proxy Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: framework:configuration-class-proxy
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CONFIGURATION_CLASS_PROXY_OWNER_IDS

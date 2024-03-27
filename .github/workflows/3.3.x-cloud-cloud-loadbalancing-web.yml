@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: cloud:cloud-loadbalancing-web
       task: appTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_LOADBALANCING_WEB_OWNER_IDS
   cloud_loadbalancing_web_native_app_test:
     name: Cloud Loadbalancing Web Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: cloud:cloud-loadbalancing-web
       task: nativeAppTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_LOADBALANCING_WEB_OWNER_IDS

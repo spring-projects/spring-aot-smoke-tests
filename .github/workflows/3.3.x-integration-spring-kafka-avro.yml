@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: integration:spring-kafka-avro
       task: appTest
+      group_owners_secret_name: INTEGRATION_OWNER_IDS
+      test_owners_secret_name: SPRING_KAFKA_AVRO_OWNER_IDS
   spring_kafka_avro_native_app_test:
     name: Spring Kafka Avro Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: integration:spring-kafka-avro
       task: nativeAppTest
+      group_owners_secret_name: INTEGRATION_OWNER_IDS
+      test_owners_secret_name: SPRING_KAFKA_AVRO_OWNER_IDS

@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: security:security-oauth2-resource-server
       task: appTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_OAUTH2_RESOURCE_SERVER_OWNER_IDS
   security_oauth2_resource_server_native_app_test:
     name: Security Oauth2 Resource Server Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: security:security-oauth2-resource-server
       task: nativeAppTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_OAUTH2_RESOURCE_SERVER_OWNER_IDS

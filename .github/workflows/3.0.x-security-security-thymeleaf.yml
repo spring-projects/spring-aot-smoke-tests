@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: security:security-thymeleaf
       task: appTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_THYMELEAF_OWNER_IDS
   security_thymeleaf_native_app_test:
     name: Security Thymeleaf Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: 3.0.x
       project: security:security-thymeleaf
       task: nativeAppTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_THYMELEAF_OWNER_IDS
   security_thymeleaf_test:
     name: Security Thymeleaf Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: 3.0.x
       project: security:security-thymeleaf
       task: test
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_THYMELEAF_OWNER_IDS
   security_thymeleaf_native_test:
     name: Security Thymeleaf Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: 3.0.x
       project: security:security-thymeleaf
       task: nativeTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_THYMELEAF_OWNER_IDS

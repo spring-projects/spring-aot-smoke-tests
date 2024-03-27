@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: boot:xml-config
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: XML_CONFIG_OWNER_IDS
   xml_config_native_app_test:
     name: Xml Config Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: boot:xml-config
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: XML_CONFIG_OWNER_IDS

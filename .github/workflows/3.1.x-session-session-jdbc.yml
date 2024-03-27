@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: session:session-jdbc
       task: appTest
+      group_owners_secret_name: SESSION_OWNER_IDS
+      test_owners_secret_name: SESSION_JDBC_OWNER_IDS
   session_jdbc_native_app_test:
     name: Session Jdbc Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: session:session-jdbc
       task: nativeAppTest
+      group_owners_secret_name: SESSION_OWNER_IDS
+      test_owners_secret_name: SESSION_JDBC_OWNER_IDS

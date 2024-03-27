@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: boot:tracing-brave-zipkin
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: TRACING_BRAVE_ZIPKIN_OWNER_IDS
   tracing_brave_zipkin_native_app_test:
     name: Tracing Brave Zipkin Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: boot:tracing-brave-zipkin
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: TRACING_BRAVE_ZIPKIN_OWNER_IDS

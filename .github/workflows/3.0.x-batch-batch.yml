@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: batch:batch
       task: appTest
+      group_owners_secret_name: BATCH_OWNER_IDS
+      test_owners_secret_name: BATCH_OWNER_IDS
   batch_native_app_test:
     name: Batch Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: batch:batch
       task: nativeAppTest
+      group_owners_secret_name: BATCH_OWNER_IDS
+      test_owners_secret_name: BATCH_OWNER_IDS

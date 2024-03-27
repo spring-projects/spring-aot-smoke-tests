@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: framework:cache-hazelcast
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CACHE_HAZELCAST_OWNER_IDS
   cache_hazelcast_native_app_test:
     name: Cache Hazelcast Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: framework:cache-hazelcast
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CACHE_HAZELCAST_OWNER_IDS

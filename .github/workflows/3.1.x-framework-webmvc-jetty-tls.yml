@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:webmvc-jetty-tls
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBMVC_JETTY_TLS_OWNER_IDS
   webmvc_jetty_tls_native_app_test:
     name: Webmvc Jetty Tls Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:webmvc-jetty-tls
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBMVC_JETTY_TLS_OWNER_IDS

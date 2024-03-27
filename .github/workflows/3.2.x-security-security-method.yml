@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: security:security-method
       task: appTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_METHOD_OWNER_IDS
   security_method_native_app_test:
     name: Security Method Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: security:security-method
       task: nativeAppTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_METHOD_OWNER_IDS

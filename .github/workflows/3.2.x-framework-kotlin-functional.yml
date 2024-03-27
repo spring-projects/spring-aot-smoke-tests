@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:kotlin-functional
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: KOTLIN_FUNCTIONAL_OWNER_IDS
   kotlin_functional_native_app_test:
     name: Kotlin Functional Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:kotlin-functional
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: KOTLIN_FUNCTIONAL_OWNER_IDS

@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: boot:boot-tcf
       task: test
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: BOOT_TCF_OWNER_IDS
   boot_tcf_native_test:
     name: Boot Tcf Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: boot:boot-tcf
       task: nativeTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: BOOT_TCF_OWNER_IDS

@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:order
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: ORDER_OWNER_IDS
   order_native_app_test:
     name: Order Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:order
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: ORDER_OWNER_IDS

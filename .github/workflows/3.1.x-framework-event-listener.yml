@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:event-listener
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: EVENT_LISTENER_OWNER_IDS
   event_listener_native_app_test:
     name: Event Listener Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:event-listener
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: EVENT_LISTENER_OWNER_IDS

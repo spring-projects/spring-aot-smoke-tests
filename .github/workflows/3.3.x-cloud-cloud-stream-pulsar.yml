@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: cloud:cloud-stream-pulsar
       task: appTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_STREAM_PULSAR_OWNER_IDS
   cloud_stream_pulsar_native_app_test:
     name: Cloud Stream Pulsar Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: cloud:cloud-stream-pulsar
       task: nativeAppTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_STREAM_PULSAR_OWNER_IDS

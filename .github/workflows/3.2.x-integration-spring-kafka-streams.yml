@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: integration:spring-kafka-streams
       task: appTest
+      group_owners_secret_name: INTEGRATION_OWNER_IDS
+      test_owners_secret_name: SPRING_KAFKA_STREAMS_OWNER_IDS
   spring_kafka_streams_native_app_test:
     name: Spring Kafka Streams Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: integration:spring-kafka-streams
       task: nativeAppTest
+      group_owners_secret_name: INTEGRATION_OWNER_IDS
+      test_owners_secret_name: SPRING_KAFKA_STREAMS_OWNER_IDS

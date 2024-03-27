@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webflux
       task: appTest
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBFLUX_OWNER_IDS
   graphql_webflux_native_app_test:
     name: Graphql Webflux Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webflux
       task: nativeAppTest
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBFLUX_OWNER_IDS
   graphql_webflux_test:
     name: Graphql Webflux Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webflux
       task: test
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBFLUX_OWNER_IDS
   graphql_webflux_native_test:
     name: Graphql Webflux Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webflux
       task: nativeTest
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBFLUX_OWNER_IDS

@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:logging-logback-spring-xml
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: LOGGING_LOGBACK_SPRING_XML_OWNER_IDS
   logging_logback_spring_xml_native_app_test:
     name: Logging Logback Spring Xml Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:logging-logback-spring-xml
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: LOGGING_LOGBACK_SPRING_XML_OWNER_IDS

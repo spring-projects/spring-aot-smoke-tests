@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:actuator-webmvc-mgmt-port
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: ACTUATOR_WEBMVC_MGMT_PORT_OWNER_IDS
   actuator_webmvc_mgmt_port_native_app_test:
     name: Actuator Webmvc Mgmt Port Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:actuator-webmvc-mgmt-port
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: ACTUATOR_WEBMVC_MGMT_PORT_OWNER_IDS

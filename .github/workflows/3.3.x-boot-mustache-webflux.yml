@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: boot:mustache-webflux
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: MUSTACHE_WEBFLUX_OWNER_IDS
   mustache_webflux_native_app_test:
     name: Mustache Webflux Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: boot:mustache-webflux
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: MUSTACHE_WEBFLUX_OWNER_IDS

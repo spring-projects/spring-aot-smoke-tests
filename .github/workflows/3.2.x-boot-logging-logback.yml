@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: boot:logging-logback
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: LOGGING_LOGBACK_OWNER_IDS
   logging_logback_native_app_test:
     name: Logging Logback Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: boot:logging-logback
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: LOGGING_LOGBACK_OWNER_IDS

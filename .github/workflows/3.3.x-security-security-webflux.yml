@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: security:security-webflux
       task: appTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_WEBFLUX_OWNER_IDS
   security_webflux_native_app_test:
     name: Security Webflux Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: security:security-webflux
       task: nativeAppTest
+      group_owners_secret_name: SECURITY_OWNER_IDS
+      test_owners_secret_name: SECURITY_WEBFLUX_OWNER_IDS

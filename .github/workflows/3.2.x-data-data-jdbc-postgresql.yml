@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: data:data-jdbc-postgresql
       task: appTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JDBC_POSTGRESQL_OWNER_IDS
   data_jdbc_postgresql_native_app_test:
     name: Data Jdbc Postgresql Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: data:data-jdbc-postgresql
       task: nativeAppTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JDBC_POSTGRESQL_OWNER_IDS

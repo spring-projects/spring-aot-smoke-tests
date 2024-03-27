@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: boot:servlet-undertow
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: SERVLET_UNDERTOW_OWNER_IDS
   servlet_undertow_native_app_test:
     name: Servlet Undertow Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: boot:servlet-undertow
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: SERVLET_UNDERTOW_OWNER_IDS

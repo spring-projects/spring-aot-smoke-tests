@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webmvc
       task: appTest
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBMVC_OWNER_IDS
   graphql_webmvc_native_app_test:
     name: Graphql Webmvc Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webmvc
       task: nativeAppTest
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBMVC_OWNER_IDS
   graphql_webmvc_test:
     name: Graphql Webmvc Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webmvc
       task: test
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBMVC_OWNER_IDS
   graphql_webmvc_native_test:
     name: Graphql Webmvc Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: 3.1.x
       project: graphql:graphql-webmvc
       task: nativeTest
+      group_owners_secret_name: GRAPHQL_OWNER_IDS
+      test_owners_secret_name: GRAPHQL_WEBMVC_OWNER_IDS

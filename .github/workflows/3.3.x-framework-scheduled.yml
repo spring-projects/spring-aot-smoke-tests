@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: framework:scheduled
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: SCHEDULED_OWNER_IDS
   scheduled_native_app_test:
     name: Scheduled Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: framework:scheduled
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: SCHEDULED_OWNER_IDS

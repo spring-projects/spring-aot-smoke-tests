@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:jdbc-mariadb
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: JDBC_MARIADB_OWNER_IDS
   jdbc_mariadb_native_app_test:
     name: Jdbc Mariadb Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:jdbc-mariadb
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: JDBC_MARIADB_OWNER_IDS

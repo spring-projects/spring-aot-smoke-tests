@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:rest-template
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: REST_TEMPLATE_OWNER_IDS
   rest_template_native_app_test:
     name: Rest Template Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:rest-template
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: REST_TEMPLATE_OWNER_IDS

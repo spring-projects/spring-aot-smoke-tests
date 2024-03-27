@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:cache-simple-jdk-proxy
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CACHE_SIMPLE_JDK_PROXY_OWNER_IDS
   cache_simple_jdk_proxy_native_app_test:
     name: Cache Simple Jdk Proxy Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:cache-simple-jdk-proxy
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: CACHE_SIMPLE_JDK_PROXY_OWNER_IDS

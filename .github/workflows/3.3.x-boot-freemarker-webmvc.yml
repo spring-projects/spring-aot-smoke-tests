@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: boot:freemarker-webmvc
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: FREEMARKER_WEBMVC_OWNER_IDS
   freemarker_webmvc_native_app_test:
     name: Freemarker Webmvc Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: boot:freemarker-webmvc
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: FREEMARKER_WEBMVC_OWNER_IDS

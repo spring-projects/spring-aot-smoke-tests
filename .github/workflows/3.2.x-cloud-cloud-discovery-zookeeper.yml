@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: cloud:cloud-discovery-zookeeper
       task: appTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_DISCOVERY_ZOOKEEPER_OWNER_IDS
   cloud_discovery_zookeeper_native_app_test:
     name: Cloud Discovery Zookeeper Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: cloud:cloud-discovery-zookeeper
       task: nativeAppTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_DISCOVERY_ZOOKEEPER_OWNER_IDS

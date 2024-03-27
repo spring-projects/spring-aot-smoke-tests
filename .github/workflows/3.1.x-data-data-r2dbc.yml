@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-r2dbc
       task: appTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_R2DBC_OWNER_IDS
   data_r2dbc_native_app_test:
     name: Data R2dbc Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-r2dbc
       task: nativeAppTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_R2DBC_OWNER_IDS

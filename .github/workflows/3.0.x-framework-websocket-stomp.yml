@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:websocket-stomp
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBSOCKET_STOMP_OWNER_IDS
   websocket_stomp_native_app_test:
     name: Websocket Stomp Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:websocket-stomp
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBSOCKET_STOMP_OWNER_IDS

@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:hibernate
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: HIBERNATE_OWNER_IDS
   hibernate_native_app_test:
     name: Hibernate Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: framework:hibernate
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: HIBERNATE_OWNER_IDS

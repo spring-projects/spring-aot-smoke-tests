@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: integration:spring-pulsar-reactive
       task: appTest
+      group_owners_secret_name: INTEGRATION_OWNER_IDS
+      test_owners_secret_name: SPRING_PULSAR_REACTIVE_OWNER_IDS
   spring_pulsar_reactive_native_app_test:
     name: Spring Pulsar Reactive Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: integration:spring-pulsar-reactive
       task: nativeAppTest
+      group_owners_secret_name: INTEGRATION_OWNER_IDS
+      test_owners_secret_name: SPRING_PULSAR_REACTIVE_OWNER_IDS

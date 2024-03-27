@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: cloud:cloud-function-web
       task: appTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_FUNCTION_WEB_OWNER_IDS
   cloud_function_web_native_app_test:
     name: Cloud Function Web Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: cloud:cloud-function-web
       task: nativeAppTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_FUNCTION_WEB_OWNER_IDS

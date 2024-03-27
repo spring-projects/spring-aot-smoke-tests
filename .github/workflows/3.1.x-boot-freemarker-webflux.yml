@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:freemarker-webflux
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: FREEMARKER_WEBFLUX_OWNER_IDS
   freemarker_webflux_native_app_test:
     name: Freemarker Webflux Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:freemarker-webflux
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: FREEMARKER_WEBFLUX_OWNER_IDS

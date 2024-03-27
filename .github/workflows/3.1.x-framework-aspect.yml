@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:aspect
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: ASPECT_OWNER_IDS
   aspect_native_app_test:
     name: Aspect Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: framework:aspect
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: ASPECT_OWNER_IDS

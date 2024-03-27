@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: framework:jdbc-mysql
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: JDBC_MYSQL_OWNER_IDS
   jdbc_mysql_native_app_test:
     name: Jdbc Mysql Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: framework:jdbc-mysql
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: JDBC_MYSQL_OWNER_IDS

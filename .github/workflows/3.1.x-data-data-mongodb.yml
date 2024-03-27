@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-mongodb
       task: appTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_MONGODB_OWNER_IDS
   data_mongodb_native_app_test:
     name: Data Mongodb Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: data:data-mongodb
       task: nativeAppTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_MONGODB_OWNER_IDS

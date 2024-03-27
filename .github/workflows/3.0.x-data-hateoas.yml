@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: data:hateoas
       task: appTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: HATEOAS_OWNER_IDS
   hateoas_native_app_test:
     name: Hateoas Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: data:hateoas
       task: nativeAppTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: HATEOAS_OWNER_IDS

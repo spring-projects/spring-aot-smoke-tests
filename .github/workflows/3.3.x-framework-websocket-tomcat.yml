@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: framework:websocket-tomcat
       task: appTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBSOCKET_TOMCAT_OWNER_IDS
   websocket_tomcat_native_app_test:
     name: Websocket Tomcat Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: framework:websocket-tomcat
       task: nativeAppTest
+      group_owners_secret_name: FRAMEWORK_OWNER_IDS
+      test_owners_secret_name: WEBSOCKET_TOMCAT_OWNER_IDS

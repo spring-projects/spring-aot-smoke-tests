@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: data:data-jdbc-h2-kotlin
       task: appTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JDBC_H2_KOTLIN_OWNER_IDS
   data_jdbc_h2_kotlin_native_app_test:
     name: Data Jdbc H2 Kotlin Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: 3.0.x
       project: data:data-jdbc-h2-kotlin
       task: nativeAppTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JDBC_H2_KOTLIN_OWNER_IDS
   data_jdbc_h2_kotlin_test:
     name: Data Jdbc H2 Kotlin Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: 3.0.x
       project: data:data-jdbc-h2-kotlin
       task: test
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JDBC_H2_KOTLIN_OWNER_IDS
   data_jdbc_h2_kotlin_native_test:
     name: Data Jdbc H2 Kotlin Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: 3.0.x
       project: data:data-jdbc-h2-kotlin
       task: nativeTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JDBC_H2_KOTLIN_OWNER_IDS

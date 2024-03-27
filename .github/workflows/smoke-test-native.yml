@@ -14,6 +14,12 @@ on:
       checkout_ref:
         required: true
         type: string
+      group_owners:
+        required: true
+        type: string
+      test_owners:
+        required: true
+        type: string
 jobs:
   native_smoke_test:
     name: ${{ inputs.task }}
@@ -47,3 +53,18 @@ jobs:
           REPO_SPRING_VMWARE_COM_USERNAME: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_USERNAME }}
           REPO_SPRING_VMWARE_COM_PASSWORD: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_PASSWORD }}
         run: ./gradlew ${{ inputs.project }}:${{ inputs.task }}
+      - name: Check out send notification action
+        uses: actions/checkout@v4
+        if: always()
+        with:
+          path: ci
+          ref: ci
+          sparse-checkout: .github/actions/send-notification
+      - name: Send notification
+        uses: ./ci/.github/actions/send-notification
+        if: always()
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          status: ${{ job.status }}
+          group-owners: ${{ inputs.group_owners }}
+          test-owners: ${{ inputs.test_owners }}

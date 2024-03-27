@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:custom-banner
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: CUSTOM_BANNER_OWNER_IDS
   custom_banner_native_app_test:
     name: Custom Banner Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:custom-banner
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: CUSTOM_BANNER_OWNER_IDS

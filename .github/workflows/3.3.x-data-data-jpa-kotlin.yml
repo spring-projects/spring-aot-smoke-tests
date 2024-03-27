@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: data:data-jpa-kotlin
       task: appTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JPA_KOTLIN_OWNER_IDS
   data_jpa_kotlin_native_app_test:
     name: Data Jpa Kotlin Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: main
       project: data:data-jpa-kotlin
       task: nativeAppTest
+      group_owners_secret_name: DATA_OWNER_IDS
+      test_owners_secret_name: DATA_JPA_KOTLIN_OWNER_IDS

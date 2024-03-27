@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.0.x
       project: session:session-redis-webflux
       task: appTest
+      group_owners_secret_name: SESSION_OWNER_IDS
+      test_owners_secret_name: SESSION_REDIS_WEBFLUX_OWNER_IDS
   session_redis_webflux_native_app_test:
     name: Session Redis Webflux Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.0.x
       project: session:session-redis-webflux
       task: nativeAppTest
+      group_owners_secret_name: SESSION_OWNER_IDS
+      test_owners_secret_name: SESSION_REDIS_WEBFLUX_OWNER_IDS

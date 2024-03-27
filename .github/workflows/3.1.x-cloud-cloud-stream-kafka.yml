@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.1.x
       project: cloud:cloud-stream-kafka
       task: appTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_STREAM_KAFKA_OWNER_IDS
   cloud_stream_kafka_native_app_test:
     name: Cloud Stream Kafka Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.1.x
       project: cloud:cloud-stream-kafka
       task: nativeAppTest
+      group_owners_secret_name: CLOUD_OWNER_IDS
+      test_owners_secret_name: CLOUD_STREAM_KAFKA_OWNER_IDS

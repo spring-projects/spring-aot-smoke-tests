@@ -13,6 +13,8 @@ jobs:
       checkout_ref: main
       project: boot:json
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: JSON_OWNER_IDS
   json_native_app_test:
     name: Json Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,6 +24,8 @@ jobs:
       checkout_ref: main
       project: boot:json
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: JSON_OWNER_IDS
   json_test:
     name: Json Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -31,6 +35,8 @@ jobs:
       checkout_ref: main
       project: boot:json
       task: test
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: JSON_OWNER_IDS
   json_native_test:
     name: Json Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -40,3 +46,5 @@ jobs:
       checkout_ref: main
       project: boot:json
       task: nativeTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: JSON_OWNER_IDS

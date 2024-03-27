@@ -1,0 +1,26 @@
+name: Send notification
+description: Sends a Google Chat message as a notification of the job's outcome
+inputs:
+  webhook-url:
+    description: 'Google Chat Webhook URL'
+    required: true
+  status:
+    description: 'Status of the job'
+    required: true
+  test-owners:
+    description: 'List of test owners to tag when the build fails'
+    required: true
+  group-owners:
+    description: 'List of group owners to tag when the build fails. Fallback when test owners is empty'
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        echo "RUN_URL=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> "$GITHUB_ENV"
+        echo "USERS_TO_TAG=$([ ! -z "${{ inputs.test-owners }}" ] && echo "${{ inputs.test-owners }}" || echo "${{ inputs.group-owners }}")" >> "$GITHUB_ENV"
+    - shell: bash
+      if: ${{ inputs.status == 'failure' }}
+      run: |
+        curl -s -o /dev/null -X POST '${{ inputs.webhook-url }}' -H 'Content-Type: application/json' -d '{ text: "${{ env.USERS_TO_TAG }} *<${{ env.RUN_URL }}> failed* "}' || true

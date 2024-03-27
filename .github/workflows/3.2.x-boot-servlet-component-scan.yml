@@ -13,6 +13,8 @@ jobs:
       checkout_ref: 3.2.x
       project: boot:servlet-component-scan
       task: appTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: SERVLET_COMPONENT_SCAN_OWNER_IDS
   servlet_component_scan_native_app_test:
     name: Servlet Component Scan Native App Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +24,5 @@ jobs:
       checkout_ref: 3.2.x
       project: boot:servlet-component-scan
       task: nativeAppTest
+      group_owners_secret_name: BOOT_OWNER_IDS
+      test_owners_secret_name: SERVLET_COMPONENT_SCAN_OWNER_IDS
