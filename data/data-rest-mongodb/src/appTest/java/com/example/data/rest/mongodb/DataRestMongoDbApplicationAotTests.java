@@ -20,7 +20,7 @@ class DataRestMongoDbApplicationAotTests {
 	void indexHasLinks(WebTestClient client) {
 		client.get().uri("/").exchange().expectBody().jsonPath("$._links.persons.href").value((href) -> {
 			assertThat(href).asInstanceOf(InstanceOfAssertFactories.STRING)
-				.matches(Pattern.compile("http://localhost:\\d+/person\\{\\?page,size,sort}"));
+				.matches(Pattern.compile("http://localhost:\\d+/person\\{\\?page,size,sort\\*}"));
 		}).jsonPath("$._links.profile.href").value((href) -> {
 			assertThat(href).asInstanceOf(InstanceOfAssertFactories.STRING)
 				.matches(Pattern.compile("http://localhost:\\d+/profile"));
