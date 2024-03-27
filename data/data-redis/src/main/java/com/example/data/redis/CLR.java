@@ -1,6 +1,7 @@
 package com.example.data.redis;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -8,6 +9,7 @@ import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.hash.Jackson2HashMapper;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
@@ -35,6 +37,8 @@ class CLR implements CommandLineRunner {
 		templateOperations();
 		keyBoundOperations();
 		redisBackedSet();
+		hashMapper(HashStructure.DEFAULT);
+		hashMapper(HashStructure.FLAT);
 		jsonSerializer();
 		pubSub();
 
@@ -69,6 +73,16 @@ class CLR implements CommandLineRunner {
 		RedisSet<String> redisSet = new DefaultRedisSet<>("redis-set", template);
 		redisSet.add("OK");
 		System.out.printf("redis set: %s%n", redisSet.iterator().next());
+	}
+
+	private void hashMapper(HashStructure structure) {
+
+		Jackson2HashMapper hashMapper = new Jackson2HashMapper(HashStructure.FLAT.equals(structure));
+		template.opsForHash().putAll("hash", hashMapper.toHash(new Person("hashed-fn", "hashed-ln")));
+
+		Map<String, Object> hashedEntry = template.<String, Object>opsForHash().entries("hash");
+		System.out.printf("hash-mapper-%s-raw: %s%n", structure, hashedEntry);
+		System.out.printf("hash-mapper-%s-mapped: %s%n", structure, hashMapper.fromHash(hashedEntry));
 	}
 
 	private void keyBoundOperations() {
@@ -109,6 +123,17 @@ class CLR implements CommandLineRunner {
 
 		Thread.sleep(100);
 		System.out.printf("pub/sub: %s%n", messageHandler.receivedMessages());
+	}
+
+	enum HashStructure {
+
+		DEFAULT, FLAT;
+
+		@Override
+		public String toString() {
+			return name().toLowerCase();
+		}
+
 	}
 
 }
