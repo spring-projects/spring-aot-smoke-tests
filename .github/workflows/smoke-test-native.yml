@@ -17,33 +17,11 @@ on:
 jobs:
   native_smoke_test:
     name: ${{ inputs.task }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ inputs.checkout_repository }}
-          ref: ${{ inputs.checkout_ref }}
-      - name: Set up GraalVM
-        uses: graalvm/setup-graalvm@2f25c0caae5b220866f732832d5e3e29ff493338 # v1.2.1
-        with:
-          java-version: '17'
-          distribution: 'liberica'
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4
-
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2
-
-      - name: Configure Gradle user.name
-        run: |
-           mkdir -p ~/.gradle
-           echo 'systemProp.user.name=spring-builds+github' >> ~/.gradle/gradle.properties
-      - name: Build
-        env:
-          GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USER }}
-          GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
-          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_SECRET_ACCESS_KEY }}
-          REPO_SPRING_VMWARE_COM_USERNAME: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_USERNAME }}
-          REPO_SPRING_VMWARE_COM_PASSWORD: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_PASSWORD }}
-        run: ./gradlew ${{ inputs.project }}:${{ inputs.task }}
+    uses: ./.github/workflows/smoke-test.yml
+    secrets: inherit
+    with:
+      project: ${{ inputs.project }}
+      task: ${{ inputs.task }}
+      type: 'native'
+      checkout_repository: ${{ inputs.checkout_repository }}
+      checkout_ref: ${{ inputs.checkout_ref }}
