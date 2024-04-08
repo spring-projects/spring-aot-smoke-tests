@@ -1,0 +1,21 @@
+name: Send notification
+description: Sends a Google Chat message as a notification of the job's outcome
+inputs:
+  branch:
+    description: 'The branch on which the failure occured'
+    required: true
+  owner-ids:
+    description: 'IDs of the owners to notify'
+    required: true
+  task:
+    description: 'The task that has failed'
+    required: true
+  webhook-url:
+    description: 'Google Chat Webhook URL'
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        curl -s -o /dev/null -X POST '${{ inputs.webhook-url }}' -H 'Content-Type: application/json' -d "{ text: \"${{ inputs.owner-ids }} ${{ inputs.task }} <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|failed> on ${{ inputs.branch }} \"}" || true

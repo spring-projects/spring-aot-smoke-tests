@@ -60,3 +60,24 @@ jobs:
           REPO_SPRING_VMWARE_COM_PASSWORD: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_PASSWORD }}
         run: ./gradlew ${{ inputs.project }}:${{ inputs.task }}
         continue-on-error: ${{ inputs.expected_to_fail }}
+      - name: Check out send notification action
+        uses: actions/checkout@v4
+        if: ${{ failure() }}
+        with:
+          path: ci
+          ref: notifications
+          sparse-checkout: .github/actions/send-notification
+      - name: Determine owner ID secret names
+        if: ${{ failure() }}
+        run: |
+          projectName=$(echo ${{ inputs.project }} | tr '[:lower:]:-' '[:upper:]__')
+          groupName=$(echo $projectName | awk '{print substr($1, 0, index($1, "_") - 1)}')
+          echo SECRET_NAME_OWNER_IDS_PROJECT=OWNER_IDS_${projectName} >> $GITHUB_ENV
+          echo SECRET_NAME_OWNER_IDS_GROUP=OWNER_IDS_${groupName} >> $GITHUB_ENV
+      - name: Send notification
+        uses: ./ci/.github/actions/send-notification
+        if: ${{ failure() }}
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          task: ${{ inputs.project }}:${{ inputs.task }}
+          owner-ids: ${{ secrets[env.SECRET_NAME_OWNER_IDS_PROJECT] || secrets[env.SECRET_NAME_OWNER_IDS_GROUP]}}
