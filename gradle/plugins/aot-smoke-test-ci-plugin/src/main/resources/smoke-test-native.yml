@@ -28,7 +28,6 @@ jobs:
         uses: graalvm/setup-graalvm@2f25c0caae5b220866f732832d5e3e29ff493338 # v1.2.1
         with:
           java-version: '17'
-          version: '22.3.3'
           distribution: 'liberica'
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4
