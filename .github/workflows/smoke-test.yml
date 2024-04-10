@@ -65,7 +65,7 @@ jobs:
         if: ${{ failure() }}
         with:
           path: ci
-          ref: notifications
+          ref: ci
           sparse-checkout: .github/actions/send-notification
       - name: Determine owner ID secret names
         if: ${{ failure() }}
