@@ -18,7 +18,9 @@ package org.springframework.aot.gradle.dsl;
 
 import javax.inject.Inject;
 
+import org.gradle.api.Action;
 import org.gradle.api.Project;
+import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
 
 /**
@@ -30,9 +32,22 @@ public class AotSmokeTestExtension {
 
 	private final Property<Boolean> webApplication;
 
+	private final Expectation appTest;
+
+	private final Expectation nativeAppTest;
+
+	private final Expectation test;
+
+	private final Expectation nativeTest;
+
 	@Inject
 	public AotSmokeTestExtension(Project project) {
-		this.webApplication = project.getObjects().property(Boolean.class);
+		ObjectFactory objects = project.getObjects();
+		this.webApplication = objects.property(Boolean.class);
+		this.appTest = objects.newInstance(Expectation.class, project);
+		this.nativeAppTest = objects.newInstance(Expectation.class, project);
+		this.test = objects.newInstance(Expectation.class, project);
+		this.nativeTest = objects.newInstance(Expectation.class, project);
 	}
 
 	/**
@@ -41,6 +56,102 @@ public class AotSmokeTestExtension {
 	 */
 	public Property<Boolean> getWebApplication() {
 		return this.webApplication;
+	}
+
+	/**
+	 * Expectations for {@code appTest}.
+	 */
+	public Expectation getAppTest() {
+		return this.appTest;
+	}
+
+	/**
+	 * Configure expectations for {@code appTest}.
+	 */
+	public void appTest(Action<Expectation> action) {
+		action.execute(this.appTest);
+	}
+
+	/**
+	 * Expectations for {@code nativeAppTest}.
+	 */
+	public Expectation getNativeAppTest() {
+		return this.nativeAppTest;
+	}
+
+	/**
+	 * Configure expectations for {@code nativeAppTest}.
+	 */
+	public void nativeAppTest(Action<Expectation> action) {
+		action.execute(this.nativeAppTest);
+	}
+
+	/**
+	 * Expectations for {@code test}.
+	 */
+	public Expectation getTest() {
+		return this.test;
+	}
+
+	/**
+	 * Configure expectations for {@code test}.
+	 */
+	public void test(Action<Expectation> action) {
+		action.execute(this.test);
+	}
+
+	/**
+	 * Expectations for {@code nativeTest}.
+	 */
+	public Expectation getNativeTest() {
+		return this.nativeTest;
+	}
+
+	/**
+	 * Configure expectations for {@code nativeTest}.
+	 */
+	public void nativeTest(Action<Expectation> action) {
+		action.execute(this.nativeTest);
+	}
+
+	public static class Expectation {
+
+		private final Property<Outcome> outcome;
+
+		@Inject
+		public Expectation(Project project) {
+			this.outcome = project.getObjects().property(Outcome.class);
+			this.outcome.convention(Outcome.SUCCESS);
+		}
+
+		/**
+		 * The expected outcome.
+		 */
+		public Property<Outcome> getOutcome() {
+			return this.outcome;
+		}
+
+		/**
+		 * Note that expected outcome is failure
+		 */
+		public void expectedToFail(Action<Object> action) {
+			this.outcome.set(Outcome.FAILURE);
+		}
+
+	}
+
+	public static enum Outcome {
+
+		/**
+		 * The expected outcome is failure.
+		 */
+		FAILURE,
+
+		/**
+		 * The expected outcome is success.
+		 */
+		SUCCESS
+
 	}
 
 }

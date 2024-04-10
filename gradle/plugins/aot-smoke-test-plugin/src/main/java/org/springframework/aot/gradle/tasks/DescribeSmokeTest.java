@@ -61,6 +61,7 @@ public abstract class DescribeSmokeTest extends DefaultTask {
 		properties.add("name=" + smokeTest.name());
 		properties.add("path=" + smokeTest.path());
 		properties.add("tests=" + smokeTest.tests());
+		properties.add("expectedToFail=" + String.join(",", smokeTest.expectedToFail()));
 		Files.write(propertiesFile.toPath(), properties);
 	}
 
