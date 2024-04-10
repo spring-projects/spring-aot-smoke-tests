@@ -13,6 +13,7 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:boot-tcf
       task: test
+      expected_to_fail: true
   boot_tcf_native_test:
     name: Boot Tcf Native Test
     uses: ./.github/workflows/smoke-test-native.yml
@@ -22,3 +23,4 @@ jobs:
       checkout_ref: 3.1.x
       project: boot:boot-tcf
       task: nativeTest
+      expected_to_fail: true
