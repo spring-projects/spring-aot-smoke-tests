@@ -17,6 +17,7 @@
 package org.springframework.aot.gradle;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -28,13 +29,9 @@ import java.util.Properties;
  * @param path path of the smoke test project
  * @param tests whether the smoke test contains any unit tests
  * @param appTests whether the smoke test contains any app tests
+ * @param expectedToFail names of tasks that are expected to fail
  */
 public record SmokeTest(String name, String group, String path, boolean tests,
-		boolean appTests) implements Serializable {
-
-	SmokeTest(Properties properties) {
-		this(properties.getProperty("name"), properties.getProperty("group"), properties.getProperty("path"),
-				Boolean.valueOf(properties.getProperty("tests")), Boolean.valueOf(properties.getProperty("appTests")));
-	}
+		boolean appTests, List<String> expectedToFail) implements Serializable {
 
 }

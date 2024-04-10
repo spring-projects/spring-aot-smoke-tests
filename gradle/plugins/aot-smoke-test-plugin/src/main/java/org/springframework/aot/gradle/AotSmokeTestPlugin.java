@@ -17,7 +17,9 @@
 package org.springframework.aot.gradle;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -48,6 +50,7 @@ import org.gradle.api.tasks.testing.Test;
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
 import org.springframework.aot.gradle.dsl.AotSmokeTestExtension;
+import org.springframework.aot.gradle.dsl.AotSmokeTestExtension.Outcome;
 import org.springframework.aot.gradle.tasks.AppTest;
 import org.springframework.aot.gradle.tasks.DescribeSmokeTest;
 import org.springframework.aot.gradle.tasks.StartApplication;
@@ -115,7 +118,20 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.getAllSource()
 				.isEmpty();
 			boolean appTests = !appTest.getAllSource().isEmpty();
-			return new SmokeTest(project.getName(), project.getParent().getName(), project.getPath(), tests, appTests);
+			List<String> expectedToFail = new ArrayList<String>();
+			if (extension.getAppTest().getOutcome().get() == Outcome.FAILURE) {
+				expectedToFail.add("appTest");
+			}
+			if (extension.getNativeAppTest().getOutcome().get() == Outcome.FAILURE) {
+				expectedToFail.add("nativeAppTest");
+			}
+			if (extension.getTest().getOutcome().get() == Outcome.FAILURE) {
+				expectedToFail.add("test");
+			}
+			if (extension.getNativeTest().getOutcome().get() == Outcome.FAILURE) {
+				expectedToFail.add("nativeTest");
+			}
+			return new SmokeTest(project.getName(), project.getParent().getName(), project.getPath(), tests, appTests, expectedToFail);
 		});
 		TaskProvider<DescribeSmokeTest> describeSmokeTest = project.getTasks()
 			.register("describeSmokeTest", DescribeSmokeTest.class);
