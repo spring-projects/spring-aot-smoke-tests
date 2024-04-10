@@ -4,6 +4,9 @@ inputs:
   branch:
     description: 'The branch on which the failure occured'
     required: true
+  build-scan-url:
+    description: 'The URL of the build scan for the failure'
+    required: true
   owner-ids:
     description: 'IDs of the owners to notify'
     required: true
@@ -18,4 +21,4 @@ runs:
   steps:
     - shell: bash
       run: |
-        curl -s -o /dev/null -X POST '${{ inputs.webhook-url }}' -H 'Content-Type: application/json' -d "{ text: \"${{ inputs.owner-ids }} ${{ inputs.task }} <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|failed> on ${{ inputs.branch }} \"}" || true
+        curl -s -o /dev/null -X POST '${{ inputs.webhook-url }}' -H 'Content-Type: application/json' -d "{ text: \"${{ inputs.owner-ids }} ${{ inputs.task }} <${{ inputs.build-scan-url }}|failed> on ${{ inputs.branch }} \"}" || true
