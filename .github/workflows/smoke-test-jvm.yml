@@ -14,6 +14,10 @@ on:
       checkout_ref:
         required: true
         type: string
+      expected_to_fail:
+        required: false
+        type: boolean
+        default: false
 jobs:
   jvm_smoke_test:
     name: ${{ inputs.task }}
@@ -25,3 +29,4 @@ jobs:
       type: 'jvm'
       checkout_repository: ${{ inputs.checkout_repository }}
       checkout_ref: ${{ inputs.checkout_ref }}
+      expected_to_fail: ${{ inputs.expected_to_fail }}

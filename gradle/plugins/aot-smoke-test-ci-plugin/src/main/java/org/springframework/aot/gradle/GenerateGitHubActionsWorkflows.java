@@ -91,6 +91,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				writer.println("      checkout_ref: " + getGitBranch().get());
 				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
 				writer.println("      task: appTest");
+				if (smokeTest.expectedToFail().contains("appTest")) {
+					writer.println("      expected_to_fail: true");
+				}
 				writer.println("  " + jobId(smokeTest.name() + "_native_app_test") + ":");
 				writer.println("    name: " + name(smokeTest.name()) + " Native App Test");
 				writer.println("    uses: ./.github/workflows/smoke-test-native.yml");
@@ -100,6 +103,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				writer.println("      checkout_ref: " + getGitBranch().get());
 				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
 				writer.println("      task: nativeAppTest");
+				if (smokeTest.expectedToFail().contains("nativeAppTest")) {
+					writer.println("      expected_to_fail: true");
+				}
 			}
 			if (smokeTest.tests()) {
 				writer.println("  " + jobId(smokeTest.name() + "_test") + ":");
@@ -111,6 +117,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				writer.println("      checkout_ref: " + getGitBranch().get());
 				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
 				writer.println("      task: test");
+				if (smokeTest.expectedToFail().contains("test")) {
+					writer.println("      expected_to_fail: true");
+				}
 				writer.println("  " + jobId(smokeTest.name() + "_native_test") + ":");
 				writer.println("    name: " + name(smokeTest.name()) + " Native Test");
 				writer.println("    uses: ./.github/workflows/smoke-test-native.yml");
@@ -120,6 +129,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				writer.println("      checkout_ref: " + getGitBranch().get());
 				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
 				writer.println("      task: nativeTest");
+				if (smokeTest.expectedToFail().contains("nativeTest")) {
+					writer.println("      expected_to_fail: true");
+				}
 			}
 		}
 		catch (IOException ex) {

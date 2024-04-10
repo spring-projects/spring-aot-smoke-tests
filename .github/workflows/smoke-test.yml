@@ -17,6 +17,10 @@ on:
       checkout_ref:
         required: true
         type: string
+      expected_to_fail:
+        required: false
+        type: boolean
+        default: false
 jobs:
   smoke_test:
     name: ${{ inputs.task }}
@@ -55,3 +59,4 @@ jobs:
           REPO_SPRING_VMWARE_COM_USERNAME: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_USERNAME }}
           REPO_SPRING_VMWARE_COM_PASSWORD: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_PASSWORD }}
         run: ./gradlew ${{ inputs.project }}:${{ inputs.task }}
+        continue-on-error: ${{ inputs.expected_to_fail }}
