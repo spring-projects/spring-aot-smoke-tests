@@ -81,3 +81,4 @@ jobs:
           webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
           task: ${{ inputs.project }}:${{ inputs.task }}
           owner-ids: ${{ secrets[env.SECRET_NAME_OWNER_IDS_PROJECT] || secrets[env.SECRET_NAME_OWNER_IDS_GROUP]}}
+          branch: ${{ inputs.checkout_ref }}
