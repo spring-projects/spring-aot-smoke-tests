@@ -83,4 +83,4 @@ jobs:
           task: ${{ inputs.project }}:${{ inputs.task }}
           owner-ids: ${{ secrets[env.SECRET_NAME_OWNER_IDS_PROJECT] || secrets[env.SECRET_NAME_OWNER_IDS_GROUP]}}
           branch: ${{ inputs.checkout_ref }}
-          build-scan-url: ${{ steps.build.outputs.build-scan-url }}
+          failure-url: ${{ steps.build.outputs.build-scan-url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
