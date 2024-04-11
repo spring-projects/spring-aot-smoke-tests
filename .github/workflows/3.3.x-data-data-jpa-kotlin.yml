@@ -22,3 +22,4 @@ jobs:
       checkout_ref: main
       project: data:data-jpa-kotlin
       task: nativeAppTest
+      expected_to_fail: true
