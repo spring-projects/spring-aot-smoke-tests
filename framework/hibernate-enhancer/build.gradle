@@ -25,3 +25,11 @@ dependencies {
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
+
+aotSmokeTest {
+	nativeAppTest {
+		expectedToFail {
+			becauseOf "https://github.com/oracle/graalvm-reachability-metadata/issues/477"
+		}
+	}
+}
