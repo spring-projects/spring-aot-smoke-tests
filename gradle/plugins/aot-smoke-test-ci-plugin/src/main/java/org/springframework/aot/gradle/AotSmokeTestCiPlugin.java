@@ -49,6 +49,7 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 			syncFromClasspath("smoke-test.yml", sync);
 			syncFromClasspath("smoke-test-jvm.yml", sync);
 			syncFromClasspath("smoke-test-native.yml", sync);
+			syncFromClasspath("validate-gradle-wrapper.yml", sync);
 		});
 		smokeTests.configureEach((tests) -> {
 			TaskProvider<Exec> describeSmokeTestsForBranch = project.getTasks()
