@@ -42,7 +42,6 @@ class DataRedisApplicationAotTests {
 
 	@Test
 	void jackson2hashMapper(AssertableOutput output) {
-
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasLineMatching("hash-mapper-default-raw: .*firstname=hashed-fn.*");
 			assertThat(output).hasSingleLineContaining(

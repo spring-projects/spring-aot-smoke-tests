@@ -1,9 +1,8 @@
 package com.example.data.redis;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisCallback;
@@ -21,14 +20,17 @@ import org.springframework.stereotype.Component;
 @Component
 class CLR implements CommandLineRunner {
 
-	@Autowired
-	StringRedisTemplate template;
+	final StringRedisTemplate template;
 
-	@Autowired
-	private PersonRepository personRepository;
+	private final PersonRepository personRepository;
 
-	@Autowired
-	private PubSubMessageHandler messageHandler;
+	private final PubSubMessageHandler messageHandler;
+
+	CLR(StringRedisTemplate template, PersonRepository personRepository, PubSubMessageHandler messageHandler) {
+		this.template = template;
+		this.personRepository = personRepository;
+		this.messageHandler = messageHandler;
+	}
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -57,7 +59,7 @@ class CLR implements CommandLineRunner {
 
 	private void jsonSerializer() {
 		RedisTemplate<String, Person> t = new RedisTemplate<>();
-		t.setConnectionFactory(template.getConnectionFactory());
+		t.setConnectionFactory(this.template.getConnectionFactory());
 		t.setKeySerializer(RedisSerializer.string());
 		t.setValueSerializer(RedisSerializer.json());
 		t.afterPropertiesSet();
@@ -66,23 +68,22 @@ class CLR implements CommandLineRunner {
 	}
 
 	private void redisBackedSet() {
-		RedisSet<String> redisSet = new DefaultRedisSet<>("redis-set", template);
+		RedisSet<String> redisSet = new DefaultRedisSet<>("redis-set", this.template);
 		redisSet.add("OK");
 		System.out.printf("redis set: %s%n", redisSet.iterator().next());
 	}
 
 	private void hashMapper(HashStructure structure) {
-
 		Jackson2HashMapper hashMapper = new Jackson2HashMapper(HashStructure.FLAT.equals(structure));
-		template.opsForHash().putAll("hash", hashMapper.toHash(new Person("hashed-fn", "hashed-ln")));
+		this.template.opsForHash().putAll("hash", hashMapper.toHash(new Person("hashed-fn", "hashed-ln")));
 
-		Map<String, Object> hashedEntry = template.<String, Object>opsForHash().entries("hash");
+		Map<String, Object> hashedEntry = this.template.<String, Object>opsForHash().entries("hash");
 		System.out.printf("hash-mapper-%s-raw: %s%n", structure, hashedEntry);
 		System.out.printf("hash-mapper-%s-mapped: %s%n", structure, hashMapper.fromHash(hashedEntry));
 	}
 
 	private void keyBoundOperations() {
-		BoundValueOperations<String, String> keyBoundOps = template.boundValueOps("bound-key");
+		BoundValueOperations<String, String> keyBoundOps = this.template.boundValueOps("bound-key");
 		keyBoundOps.set("OK");
 		System.out.printf("key bound ops: %s%n", keyBoundOps.get());
 	}
@@ -104,21 +105,21 @@ class CLR implements CommandLineRunner {
 
 		String channel = "pubsub::test";
 
-		MessageListenerAdapter adapter = new MessageListenerAdapter(messageHandler);
-		adapter.setSerializer(template.getValueSerializer());
+		MessageListenerAdapter adapter = new MessageListenerAdapter(this.messageHandler);
+		adapter.setSerializer(this.template.getValueSerializer());
 		adapter.afterPropertiesSet();
 
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-		container.setConnectionFactory(template.getConnectionFactory());
+		container.setConnectionFactory(this.template.getConnectionFactory());
 		container.setBeanName("container");
-		container.addMessageListener(adapter, Arrays.asList(new ChannelTopic(channel)));
+		container.addMessageListener(adapter, List.of(new ChannelTopic(channel)));
 		container.afterPropertiesSet();
 		container.start();
 
-		template.convertAndSend(channel, "payload");
+		this.template.convertAndSend(channel, "payload");
 
 		Thread.sleep(100);
-		System.out.printf("pub/sub: %s%n", messageHandler.receivedMessages());
+		System.out.printf("pub/sub: %s%n", this.messageHandler.receivedMessages());
 	}
 
 	enum HashStructure {
