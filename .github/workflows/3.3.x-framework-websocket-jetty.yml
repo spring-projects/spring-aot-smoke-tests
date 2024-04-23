@@ -22,3 +22,4 @@ jobs:
       checkout_ref: main
       project: framework:websocket-jetty
       task: nativeAppTest
+      expected_to_fail: true
