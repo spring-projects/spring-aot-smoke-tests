@@ -22,4 +22,9 @@ dependencies {
 
 aotSmokeTest {
 	webApplication = true
+	nativeAppTest {
+    		expectedToFail {
+    			becauseOf "https://github.com/jetty/jetty.project/issues/11683"
+    		}
+    	}
 }
