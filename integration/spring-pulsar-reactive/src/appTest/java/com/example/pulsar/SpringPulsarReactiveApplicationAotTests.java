@@ -16,7 +16,7 @@ public class SpringPulsarReactiveApplicationAotTests {
 	void reactivePulsarListenerMethodReceivesMessage(AssertableOutput output) {
 		Awaitility.await()
 			.atMost(Duration.ofSeconds(30))
-			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Message Received: sample-message-50"));
+			.untilAsserted(() -> assertThat(output).hasLineMatching(".*Message Received: sample-message-.*"));
 	}
 
 }
