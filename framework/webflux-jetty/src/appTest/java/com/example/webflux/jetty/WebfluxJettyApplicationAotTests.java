@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.aot.smoketest.support.junit.ApplicationTest;
@@ -107,6 +108,7 @@ class WebfluxJettyApplicationAotTests {
 	}
 
 	@Test
+	@Disabled("https://github.com/jetty/jetty.project/issues/11683")
 	void websocket(@ApplicationUrl(scheme = Scheme.WEBSOCKET) URI applicationUrl) {
 		StandardWebSocketClient client = new StandardWebSocketClient();
 		// We can't use StepVerifier here, as it isn't designed to be used in a
