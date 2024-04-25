@@ -1,1 +1,0 @@
-Tests if Spring Cloud Stream with Pulsar is working.
