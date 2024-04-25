@@ -75,7 +75,7 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 
 	private List<SmokeTest> loadSmokeTests(String location) {
 		File[] smokeTests = new File(location + "/build/smoke-tests").listFiles();
-		return Stream.of(smokeTests).map(this::load).map(SmokeTest::new).toList();
+		return Stream.of(smokeTests).map(this::load).map(SmokeTest::from).toList();
 	}
 
 	private Properties load(File file) {

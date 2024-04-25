@@ -17,8 +17,10 @@
 package org.springframework.aot.gradle;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
-import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * A smoke test.
@@ -27,16 +29,39 @@ import java.util.Set;
  * @param name name of the smoke test
  * @param group group of the smoke test
  * @param path path of the smoke test project
- * @param tests whether the smoke test contains any unit tests
- * @param appTests whether the smoke test contains any app tests
- * @param expectedToFail names of tasks that are expected to fail
+ * @param tests the smoke test's individual tests
  */
-public record SmokeTest(String name, String group, String path, boolean tests, boolean appTests, Set<String> expectedToFail) implements Serializable {
+public record SmokeTest(String name, String group, String path, List<SmokeTest.Test> tests) implements Serializable {
 
-	SmokeTest(Properties properties) {
-		this(properties.getProperty("name"), properties.getProperty("group"), properties.getProperty("path"),
-				Boolean.valueOf(properties.getProperty("tests")), Boolean.valueOf(properties.getProperty("appTests")),
-				Set.of(properties.getProperty("expectedToFail").split(",")));
+	public static SmokeTest from(Properties properties) {
+		return new SmokeTest(properties.getProperty("name"), properties.getProperty("group"),
+				properties.getProperty("path"), testsFrom(properties));
+	}
+
+	private static List<SmokeTest.Test> testsFrom(Properties properties) {
+		List<SmokeTest.Test> tests = new ArrayList<>();
+		testFrom(properties, "appTest", tests::add);
+		testFrom(properties, "nativeAppTest", tests::add);
+		testFrom(properties, "test", tests::add);
+		testFrom(properties, "nativeTest", tests::add);
+		return tests;
+	}
+
+	private static void testFrom(Properties properties, String name, Consumer<SmokeTest.Test> consumer) {
+		if (properties.containsKey("tests.%s.expectedToFail".formatted(name))) {
+			consumer.accept(new SmokeTest.Test(name,
+					Boolean.valueOf(properties.getProperty("tests.%s.expectedToFail".formatted(name)))));
+		}
+	}
+
+	/**
+	 * An individual test within a smoke test.
+	 *
+	 * @param taskName the name of the task that runs the test
+	 * @param expectedToFail whether to task is expected to fail
+	 */
+	public record Test(String taskName, boolean expectedToFail) implements Serializable {
+
 	}
 
 }

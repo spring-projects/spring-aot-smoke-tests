@@ -81,66 +81,41 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("    - cron : '" + getCronSchedule().get() + "'");
 			writer.println("  workflow_dispatch:");
 			writer.println("jobs:");
-			if (smokeTest.appTests()) {
-				writer.println("  " + jobId(smokeTest.name() + "_app_test") + ":");
-				writer.println("    name: " + name(smokeTest.name()) + " App Test");
-				writer.println("    uses: ./.github/workflows/smoke-test-jvm.yml");
+			smokeTest.tests().forEach((test) -> {
+				writer.println("  " + jobId(smokeTest.name(), test.taskName()) + ":");
+				writer.println("    name: " + name(smokeTest.name() + " " + test.taskName()));
+				writer.println("    uses: ./.github/workflows/smoke-test-%s.yml"
+					.formatted(test.taskName().startsWith("native") ? "native" : "jvm"));
 				writer.println("    secrets: inherit");
 				writer.println("    with:");
 				writer.println("      checkout_repository: " + GITHUB_REPOSITORY);
 				writer.println("      checkout_ref: " + getGitBranch().get());
 				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
-				writer.println("      task: appTest");
-				if (smokeTest.expectedToFail().contains("appTest")) {
+				writer.println("      task: " + test.taskName());
+				if (test.expectedToFail()) {
 					writer.println("      expected_to_fail: true");
 				}
-				writer.println("  " + jobId(smokeTest.name() + "_native_app_test") + ":");
-				writer.println("    name: " + name(smokeTest.name()) + " Native App Test");
-				writer.println("    uses: ./.github/workflows/smoke-test-native.yml");
-				writer.println("    secrets: inherit");
-				writer.println("    with:");
-				writer.println("      checkout_repository: " + GITHUB_REPOSITORY);
-				writer.println("      checkout_ref: " + getGitBranch().get());
-				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
-				writer.println("      task: nativeAppTest");
-				if (smokeTest.expectedToFail().contains("nativeAppTest")) {
-					writer.println("      expected_to_fail: true");
-				}
-			}
-			if (smokeTest.tests()) {
-				writer.println("  " + jobId(smokeTest.name() + "_test") + ":");
-				writer.println("    name: " + name(smokeTest.name()) + " Test");
-				writer.println("    uses: ./.github/workflows/smoke-test-jvm.yml");
-				writer.println("    secrets: inherit");
-				writer.println("    with:");
-				writer.println("      checkout_repository: " + GITHUB_REPOSITORY);
-				writer.println("      checkout_ref: " + getGitBranch().get());
-				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
-				writer.println("      task: test");
-				if (smokeTest.expectedToFail().contains("test")) {
-					writer.println("      expected_to_fail: true");
-				}
-				writer.println("  " + jobId(smokeTest.name() + "_native_test") + ":");
-				writer.println("    name: " + name(smokeTest.name()) + " Native Test");
-				writer.println("    uses: ./.github/workflows/smoke-test-native.yml");
-				writer.println("    secrets: inherit");
-				writer.println("    with:");
-				writer.println("      checkout_repository: " + GITHUB_REPOSITORY);
-				writer.println("      checkout_ref: " + getGitBranch().get());
-				writer.println("      project: " + smokeTest.group() + ":" + smokeTest.name());
-				writer.println("      task: nativeTest");
-				if (smokeTest.expectedToFail().contains("nativeTest")) {
-					writer.println("      expected_to_fail: true");
-				}
-			}
+			});
 		}
 		catch (IOException ex) {
 			throw new GradleException("Failed to write workflow file '" + workflowFile + "'", ex);
 		}
 	}
 
-	private String jobId(String input) {
-		return input.replace("-", "_");
+	private String jobId(String smokeTestName, String taskName) {
+		StringBuilder output = new StringBuilder();
+		output.append(smokeTestName.replace("-", "_"));
+		output.append("_");
+		for (char c : taskName.toCharArray()) {
+			if (Character.isUpperCase(c)) {
+				output.append("_");
+				output.append(Character.toLowerCase(c));
+			}
+			else {
+				output.append(c);
+			}
+		}
+		return output.toString();
 	}
 
 	private String name(String input) {
@@ -151,6 +126,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				output.append(Character.toUpperCase(c));
 			}
 			else {
+				if (Character.isUpperCase(c)) {
+					output.append(' ');
+				}
 				output.append(c);
 			}
 			previous = c;
