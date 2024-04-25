@@ -26,11 +26,18 @@ import java.util.List;
  * @param name name of the smoke test
  * @param group group of the smoke test
  * @param path path of the smoke test project
- * @param tests whether the smoke test contains any unit tests
- * @param appTests whether the smoke test contains any app tests
- * @param expectedToFail names of tasks that are expected to fail
+ * @param tests the smoke test's individual tests
  */
-public record SmokeTest(String name, String group, String path, boolean tests, boolean appTests,
-		List<String> expectedToFail) implements Serializable {
+public record SmokeTest(String name, String group, String path, List<SmokeTest.Test> tests) implements Serializable {
+
+	/**
+	 * An individual test within a smoke test.
+	 *
+	 * @param taskName the name of the task that runs the test
+	 * @param expectedToFail whether to task is expected to fail
+	 */
+	public record Test(String taskName, boolean expectedToFail) implements Serializable {
+
+	}
 
 }
