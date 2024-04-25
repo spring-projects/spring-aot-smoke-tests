@@ -32,22 +32,22 @@ public class AotSmokeTestExtension {
 
 	private final Property<Boolean> webApplication;
 
-	private final Expectation appTest;
+	private final TestConfiguration appTest;
 
-	private final Expectation nativeAppTest;
+	private final TestConfiguration nativeAppTest;
 
-	private final Expectation test;
+	private final TestConfiguration test;
 
-	private final Expectation nativeTest;
+	private final TestConfiguration nativeTest;
 
 	@Inject
 	public AotSmokeTestExtension(Project project) {
 		ObjectFactory objects = project.getObjects();
 		this.webApplication = objects.property(Boolean.class);
-		this.appTest = objects.newInstance(Expectation.class, project);
-		this.nativeAppTest = objects.newInstance(Expectation.class, project);
-		this.test = objects.newInstance(Expectation.class, project);
-		this.nativeTest = objects.newInstance(Expectation.class, project);
+		this.appTest = objects.newInstance(TestConfiguration.class, project);
+		this.nativeAppTest = objects.newInstance(TestConfiguration.class, project);
+		this.test = objects.newInstance(TestConfiguration.class, project);
+		this.nativeTest = objects.newInstance(TestConfiguration.class, project);
 	}
 
 	/**
@@ -59,75 +59,75 @@ public class AotSmokeTestExtension {
 	}
 
 	/**
-	 * Expectations for {@code appTest}.
-	 * @return the expectations
+	 * Configuration for {@code appTest}.
+	 * @return the configuration
 	 */
-	public Expectation getAppTest() {
+	public TestConfiguration getAppTest() {
 		return this.appTest;
 	}
 
 	/**
-	 * Configure expectations for {@code appTest}.
-	 * @param action the action to configure the expectations
+	 * Configuration for {@code appTest}.
+	 * @param action the action to customize the configuration
 	 */
-	public void appTest(Action<Expectation> action) {
+	public void appTest(Action<TestConfiguration> action) {
 		action.execute(this.appTest);
 	}
 
 	/**
-	 * Expectations for {@code nativeAppTest}.
-	 * @return the expectations
+	 * Configuration for {@code nativeAppTest}.
+	 * @return the configuration
 	 */
-	public Expectation getNativeAppTest() {
+	public TestConfiguration getNativeAppTest() {
 		return this.nativeAppTest;
 	}
 
 	/**
-	 * Configure expectations for {@code nativeAppTest}.
-	 * @param action the action to configure the expectations
+	 * Configure {@code nativeAppTest}.
+	 * @param action the action to customize the configuration
 	 */
-	public void nativeAppTest(Action<Expectation> action) {
+	public void nativeAppTest(Action<TestConfiguration> action) {
 		action.execute(this.nativeAppTest);
 	}
 
 	/**
-	 * Expectations for {@code test}.
-	 * @return the expectations
+	 * Configuration for {@code test}.
+	 * @return the configuration
 	 */
-	public Expectation getTest() {
+	public TestConfiguration getTest() {
 		return this.test;
 	}
 
 	/**
-	 * Configure expectations for {@code test}.
-	 * @param action the action to configure the expectations
+	 * Configure {@code test}.
+	 * @param action the action to customize the configuration
 	 */
-	public void test(Action<Expectation> action) {
+	public void test(Action<TestConfiguration> action) {
 		action.execute(this.test);
 	}
 
 	/**
-	 * Expectations for {@code nativeTest}.
-	 * @return the expectations
+	 * Configuration for {@code nativeTest}.
+	 * @return the configuration
 	 */
-	public Expectation getNativeTest() {
+	public TestConfiguration getNativeTest() {
 		return this.nativeTest;
 	}
 
 	/**
-	 * Configure expectations for {@code nativeTest}.
-	 * @param action the action to configure the expectations
+	 * Configure {@code nativeTest}.
+	 * @param action the action to customize the configuration
 	 */
-	public void nativeTest(Action<Expectation> action) {
+	public void nativeTest(Action<TestConfiguration> action) {
 		action.execute(this.nativeTest);
 	}
 
-	public static class Expectation {
+	public static class TestConfiguration {
 
 		private final Property<Outcome> outcome;
 
 		@Inject
-		public Expectation(Project project) {
+		public TestConfiguration(Project project) {
 			this.outcome = project.getObjects().property(Outcome.class);
 			this.outcome.convention(Outcome.SUCCESS);
 		}
@@ -141,7 +141,7 @@ public class AotSmokeTestExtension {
 		}
 
 		/**
-		 * Note that expected outcome is failure
+		 * Note that the expected outcome is failure.
 		 * @param action the action to further configure the expectation
 		 */
 		public void expectedToFail(Action<Object> action) {
