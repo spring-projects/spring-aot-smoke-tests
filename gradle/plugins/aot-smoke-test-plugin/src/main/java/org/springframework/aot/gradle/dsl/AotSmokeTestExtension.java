@@ -60,6 +60,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Expectations for {@code appTest}.
+	 * @return the expectations
 	 */
 	public Expectation getAppTest() {
 		return this.appTest;
@@ -67,6 +68,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Configure expectations for {@code appTest}.
+	 * @param action the action to configure the expectations
 	 */
 	public void appTest(Action<Expectation> action) {
 		action.execute(this.appTest);
@@ -74,6 +76,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Expectations for {@code nativeAppTest}.
+	 * @return the expectations
 	 */
 	public Expectation getNativeAppTest() {
 		return this.nativeAppTest;
@@ -81,6 +84,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Configure expectations for {@code nativeAppTest}.
+	 * @param action the action to configure the expectations
 	 */
 	public void nativeAppTest(Action<Expectation> action) {
 		action.execute(this.nativeAppTest);
@@ -88,6 +92,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Expectations for {@code test}.
+	 * @return the expectations
 	 */
 	public Expectation getTest() {
 		return this.test;
@@ -95,6 +100,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Configure expectations for {@code test}.
+	 * @param action the action to configure the expectations
 	 */
 	public void test(Action<Expectation> action) {
 		action.execute(this.test);
@@ -102,6 +108,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Expectations for {@code nativeTest}.
+	 * @return the expectations
 	 */
 	public Expectation getNativeTest() {
 		return this.nativeTest;
@@ -109,6 +116,7 @@ public class AotSmokeTestExtension {
 
 	/**
 	 * Configure expectations for {@code nativeTest}.
+	 * @param action the action to configure the expectations
 	 */
 	public void nativeTest(Action<Expectation> action) {
 		action.execute(this.nativeTest);
@@ -126,6 +134,7 @@ public class AotSmokeTestExtension {
 
 		/**
 		 * The expected outcome.
+		 * @return the excepted outcome
 		 */
 		public Property<Outcome> getOutcome() {
 			return this.outcome;
@@ -133,6 +142,7 @@ public class AotSmokeTestExtension {
 
 		/**
 		 * Note that expected outcome is failure
+		 * @param action the action to further configure the expectation
 		 */
 		public void expectedToFail(Action<Object> action) {
 			this.outcome.set(Outcome.FAILURE);
@@ -140,7 +150,7 @@ public class AotSmokeTestExtension {
 
 	}
 
-	public static enum Outcome {
+	public enum Outcome {
 
 		/**
 		 * The expected outcome is failure.
