@@ -51,6 +51,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
 import org.springframework.aot.gradle.dsl.AotSmokeTestExtension;
 import org.springframework.aot.gradle.dsl.AotSmokeTestExtension.Outcome;
+import org.springframework.aot.gradle.dsl.AotSmokeTestExtension.TestConfiguration;
 import org.springframework.aot.gradle.tasks.AppTest;
 import org.springframework.aot.gradle.tasks.DescribeSmokeTest;
 import org.springframework.aot.gradle.tasks.StartApplication;
@@ -113,25 +114,16 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		configureKotlin(project, javaExtension);
 		configureJavaFormat(project);
 		Provider<SmokeTest> smokeTestProvider = project.provider(() -> {
-			boolean tests = !javaExtension.getSourceSets()
-				.getByName(SourceSet.TEST_SOURCE_SET_NAME)
-				.getAllSource()
-				.isEmpty();
-			boolean appTests = !appTest.getAllSource().isEmpty();
-			List<String> expectedToFail = new ArrayList<String>();
-			if (extension.getAppTest().getOutcome().get() == Outcome.FAILURE) {
-				expectedToFail.add("appTest");
+			List<SmokeTest.Test> tests = new ArrayList<>();
+			if (!javaExtension.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME).getAllSource().isEmpty()) {
+				tests.add(createTest("test", extension.getTest()));
+				tests.add(createTest("nativeTest", extension.getNativeTest()));
 			}
-			if (extension.getNativeAppTest().getOutcome().get() == Outcome.FAILURE) {
-				expectedToFail.add("nativeAppTest");
+			if (!appTest.getAllSource().isEmpty()) {
+				tests.add(createTest("appTest", extension.getAppTest()));
+				tests.add(createTest("nativeAppTest", extension.getNativeAppTest()));
 			}
-			if (extension.getTest().getOutcome().get() == Outcome.FAILURE) {
-				expectedToFail.add("test");
-			}
-			if (extension.getNativeTest().getOutcome().get() == Outcome.FAILURE) {
-				expectedToFail.add("nativeTest");
-			}
-			return new SmokeTest(project.getName(), project.getParent().getName(), project.getPath(), tests, appTests, expectedToFail);
+			return new SmokeTest(project.getName(), project.getParent().getName(), project.getPath(), tests);
 		});
 		TaskProvider<DescribeSmokeTest> describeSmokeTest = project.getTasks()
 			.register("describeSmokeTest", DescribeSmokeTest.class);
@@ -141,6 +133,10 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		DependencyHandler dependencies = project.getRootProject().getDependencies();
 		dependencies.add(smokeTests.getName(),
 				dependencies.project(Map.of("path", project.getPath(), "configuration", smokeTests.getName())));
+	}
+
+	private SmokeTest.Test createTest(String taskName, TestConfiguration configuration) {
+		return new SmokeTest.Test(taskName, configuration.getOutcome().get() == Outcome.FAILURE);
 	}
 
 	private void configureAppTests(Project project, AotSmokeTestExtension extension, SourceSet appTest) {

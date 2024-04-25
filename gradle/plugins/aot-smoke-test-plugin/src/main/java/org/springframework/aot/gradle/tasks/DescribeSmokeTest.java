@@ -56,12 +56,11 @@ public abstract class DescribeSmokeTest extends DefaultTask {
 		SmokeTest smokeTest = getSmokeTest().get();
 		File propertiesFile = getOutputFile().getAsFile().get();
 		List<String> properties = new ArrayList<>();
-		properties.add("appTests=" + smokeTest.appTests());
 		properties.add("group=" + smokeTest.group());
 		properties.add("name=" + smokeTest.name());
 		properties.add("path=" + smokeTest.path());
-		properties.add("tests=" + smokeTest.tests());
-		properties.add("expectedToFail=" + String.join(",", smokeTest.expectedToFail()));
+		smokeTest.tests()
+			.forEach((test) -> properties.add("tests." + test.taskName() + ".expectedToFail=" + test.expectedToFail()));
 		Files.write(propertiesFile.toPath(), properties);
 	}
 
