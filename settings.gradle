@@ -4,14 +4,14 @@ pluginManagement {
 		gradlePluginPortal()
 		maven {
 			url "https://repo.spring.io/snapshot"
+			mavenContent {
+				snapshotsOnly()
+			}
 		}
 		maven {
-			url 'https://repo.spring.io/milestone'
-		}
-		maven {
-			url "https://repo.spring.io/release"
-			content {
-				includeGroup "io.spring.ge.conventions"
+			url "https://repo.spring.io/milestone"
+			mavenContent {
+				releasesOnly()
 			}
 		}
 	}
