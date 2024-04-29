@@ -106,6 +106,11 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				credentials.setUsername(System.getenv().get("REPO_SPRING_VMWARE_COM_USERNAME"));
 				credentials.setPassword(System.getenv().get("REPO_SPRING_VMWARE_COM_PASSWORD"));
 			});
+			repo.mavenContent((mavenContent) -> {
+				mavenContent.snapshotsOnly();
+				mavenContent.includeGroupByRegex("io.micrometer.*");
+				mavenContent.includeGroupByRegex("org.springframework.*");
+			});
 		});
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Commercial Release");
@@ -114,15 +119,22 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				credentials.setUsername(System.getenv().get("REPO_SPRING_VMWARE_COM_USERNAME"));
 				credentials.setPassword(System.getenv().get("REPO_SPRING_VMWARE_COM_PASSWORD"));
 			});
+			repo.mavenContent((mavenContent) -> {
+				mavenContent.releasesOnly();
+				mavenContent.includeGroupByRegex("io.micrometer.*");
+				mavenContent.includeGroupByRegex("org.springframework.*");
+			});
 		});
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
-			repo.setName("Spring Milestone");
-			repo.setUrl("https://repo.spring.io/milestone");
-		});
-		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Snapshot");
 			repo.setUrl("https://repo.spring.io/snapshot");
+			repo.mavenContent((mavenContent) -> mavenContent.snapshotsOnly());
+		});
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Milestone");
+			repo.setUrl("https://repo.spring.io/milestone");
+			repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
 		});
 		configureAppTests(project, extension, appTest);
 		configureTests(project);

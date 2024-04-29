@@ -7,6 +7,10 @@ pluginManagement {
 				username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
 				password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
 			}
+			mavenContent {
+				snapshotsOnly()
+				includeGroupByRegex("org.springframework.*")
+			}
 		}
 		maven {
 			url "https://repo.spring.vmware.com/artifactory/spring-commercial-release-local"
@@ -14,18 +18,22 @@ pluginManagement {
 				username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
 				password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
 			}
+			mavenContent {
+				releasesOnly()
+				includeGroupByRegex("org.springframework.*")
+			}
 		}
 		gradlePluginPortal()
 		maven {
 			url "https://repo.spring.io/snapshot"
+			mavenContent {
+				snapshotsOnly()
+			}
 		}
 		maven {
-			url 'https://repo.spring.io/milestone'
-		}
-		maven {
-			url "https://repo.spring.io/release"
-			content {
-				includeGroup "io.spring.ge.conventions"
+			url "https://repo.spring.io/milestone"
+			mavenContent {
+				releasesOnly()
 			}
 		}
 	}

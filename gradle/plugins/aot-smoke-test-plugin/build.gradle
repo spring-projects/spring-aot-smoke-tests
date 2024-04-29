@@ -11,6 +11,11 @@ repositories {
 			username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
 			password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
 		}
+		mavenContent {
+			snapshotsOnly()
+			includeGroupByRegex("io.micrometer.*")
+			includeGroupByRegex("org.springframework.*")
+		}
 	}
 	maven {
 		url "https://repo.spring.vmware.com/artifactory/spring-commercial-release-local"
@@ -18,10 +23,25 @@ repositories {
 			username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
 			password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
 		}
+		mavenContent {
+			releasesOnly()
+			includeGroupByRegex("io.micrometer.*")
+			includeGroupByRegex("org.springframework.*")
+		}
 	}
 	mavenCentral()
-	maven { url "https://repo.spring.io/milestone" }
-	maven { url "https://repo.spring.io/snapshot" }
+	maven {
+		url "https://repo.spring.io/snapshot"
+		mavenContent {
+			snapshotsOnly()
+		}
+	}
+	maven {
+		url "https://repo.spring.io/milestone"
+		mavenContent {
+			releasesOnly()
+		}
+	}
 }
 
 configurations {
