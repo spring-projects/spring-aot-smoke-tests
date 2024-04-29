@@ -101,12 +101,14 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		}
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
-			repo.setName("Spring Milestone");
-			repo.setUrl("https://repo.spring.io/milestone");
-		});
-		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Snapshot");
 			repo.setUrl("https://repo.spring.io/snapshot");
+			repo.mavenContent((mavenContent) -> mavenContent.snapshotsOnly());
+		});
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Milestone");
+			repo.setUrl("https://repo.spring.io/milestone");
+			repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
 		});
 
 		configureAppTests(project, extension, appTest);
