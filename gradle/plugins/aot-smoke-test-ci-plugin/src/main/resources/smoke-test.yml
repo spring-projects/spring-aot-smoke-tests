@@ -44,7 +44,7 @@ jobs:
           java-version: '17'
           distribution: 'liberica'
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2
+        uses: gradle/actions/setup-gradle@db19848a5fa7950289d3668fb053140cf3028d43 # v3.3.2
       - name: Configure Gradle user.name
         run: |
            mkdir -p ~/.gradle
