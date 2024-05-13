@@ -61,13 +61,13 @@ jobs:
         continue-on-error: ${{ inputs.expected_to_fail }}
       - name: Check out send notification action
         uses: actions/checkout@v4
-        if: ${{ failure() }}
+        if: ${{ failure() || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
         with:
           path: ci
           ref: ci
           sparse-checkout: .github/actions/send-notification
       - name: Determine owner ID secret names
-        if: ${{ failure() }}
+        if: ${{ failure() || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
         run: |
           projectName=$(echo ${{ inputs.project }} | tr '[:lower:]:-' '[:upper:]__')
           groupName=$(echo $projectName | awk '{print substr($1, 0, index($1, "_") - 1)}')
@@ -75,10 +75,11 @@ jobs:
           echo SECRET_NAME_OWNER_IDS_GROUP=OWNER_IDS_${groupName} >> $GITHUB_ENV
       - name: Send notification
         uses: ./ci/.github/actions/send-notification
-        if: ${{ failure() }}
+        if: ${{ failure() || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
         with:
           webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
           task: ${{ inputs.project }}:${{ inputs.task }}
           owner-ids: ${{ secrets[env.SECRET_NAME_OWNER_IDS_PROJECT] || secrets[env.SECRET_NAME_OWNER_IDS_GROUP]}}
           branch: ${{ inputs.checkout_ref }}
           failure-url: ${{ steps.build.outputs.build-scan-url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
+          outcome-description: ${{ inputs.expected_to_fail && 'passed unexpectedly' || 'failed' }}
