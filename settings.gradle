@@ -18,8 +18,8 @@ pluginManagement {
 }
 
 plugins {
-	id "com.gradle.enterprise" version "3.16.2"
-	id "io.spring.ge.conventions" version "0.0.16"
+	id "com.gradle.develocity" version "3.17.3"
+	id "io.spring.ge.conventions" version "0.0.17"
 }
 
 rootProject.name="spring-aot-smoke-tests"
@@ -33,7 +33,7 @@ include "aot-smoke-test-third-party-hints"
 	}
 }
 
-gradleEnterprise {
+develocity {
 	buildScan {
 		value("Spring Boot generation", "${springBootGeneration}")
 	}
