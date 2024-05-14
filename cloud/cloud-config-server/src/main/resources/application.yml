@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    refresh:
+      enabled: false
+    config:
+      server:
+        git:
+          clone-on-start: true
+          uri: https://github.com/spring-cloud-samples/spring-cloud-intro-demo-config
