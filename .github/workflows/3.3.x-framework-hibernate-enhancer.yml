@@ -22,4 +22,3 @@ jobs:
       checkout_ref: main
       project: framework:hibernate-enhancer
       task: nativeAppTest
-      expected_to_fail: true

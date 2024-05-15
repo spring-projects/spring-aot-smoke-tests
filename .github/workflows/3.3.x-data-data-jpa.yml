@@ -22,7 +22,6 @@ jobs:
       checkout_ref: main
       project: data:data-jpa
       task: nativeAppTest
-      expected_to_fail: true
   data_jpa_test:
     name: Data Jpa Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -41,4 +40,3 @@ jobs:
       checkout_ref: main
       project: data:data-jpa
       task: nativeTest
-      expected_to_fail: true
