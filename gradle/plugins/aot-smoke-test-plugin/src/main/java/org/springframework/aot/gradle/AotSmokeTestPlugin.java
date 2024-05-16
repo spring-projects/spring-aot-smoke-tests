@@ -163,7 +163,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	}
 
 	private SmokeTest.Test createTest(String taskName, TestConfiguration configuration) {
-		return new SmokeTest.Test(taskName, configuration.getOutcome().get() == Outcome.FAILURE);
+		return new SmokeTest.Test(taskName, configuration.getOutcome().get() == Outcome.FAILURE,
+				configuration.getJavaVersion().getOrNull());
 	}
 
 	private void configureAppTests(Project project, AotSmokeTestExtension extension, SourceSet appTest) {

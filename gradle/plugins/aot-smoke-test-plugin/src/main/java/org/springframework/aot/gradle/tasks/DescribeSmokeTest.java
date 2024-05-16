@@ -59,8 +59,12 @@ public abstract class DescribeSmokeTest extends DefaultTask {
 		properties.add("group=" + smokeTest.group());
 		properties.add("name=" + smokeTest.name());
 		properties.add("path=" + smokeTest.path());
-		smokeTest.tests()
-			.forEach((test) -> properties.add("tests." + test.taskName() + ".expectedToFail=" + test.expectedToFail()));
+		smokeTest.tests().forEach((test) -> {
+			properties.add("tests." + test.taskName() + ".expectedToFail=" + test.expectedToFail());
+			if (test.javaVersion() != null) {
+				properties.add("tests." + test.taskName() + ".javaVersion=" + test.javaVersion());
+			}
+		});
 		Files.write(propertiesFile.toPath(), properties);
 	}
 
