@@ -20,6 +20,9 @@ dependencies {
 
 aotSmokeTest {
 	webApplication = true
+	nativeAppTest {
+		javaVersion = '21'
+	}
 }
 
 graalvmNative {
