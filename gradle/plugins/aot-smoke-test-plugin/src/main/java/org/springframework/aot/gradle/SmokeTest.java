@@ -35,8 +35,10 @@ public record SmokeTest(String name, String group, String path, List<SmokeTest.T
 	 *
 	 * @param taskName the name of the task that runs the test
 	 * @param expectedToFail whether to task is expected to fail
+	 * @param javaVersion the version of Java that the test requires. May be {@code null}
+	 * to use the default version.
 	 */
-	public record Test(String taskName, boolean expectedToFail) implements Serializable {
+	public record Test(String taskName, boolean expectedToFail, String javaVersion) implements Serializable {
 
 	}
 
