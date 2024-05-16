@@ -43,12 +43,12 @@ jobs:
         uses: graalvm/setup-graalvm@2f25c0caae5b220866f732832d5e3e29ff493338 # v1.2.1
         if: ${{ inputs.type == 'native' }}
         with:
-          java-version: ${{ inputs.graal-java-version }}
+          java-version: ${{ inputs.graal_version }}
           distribution: 'liberica'
       - name: Set up Java
         uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4.2.1
         with:
-          java-version: '17'
+          java-version: ${{ inputs.java_version }}
           distribution: 'liberica'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@db19848a5fa7950289d3668fb053140cf3028d43 # v3.3.2
