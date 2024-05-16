@@ -126,10 +126,13 @@ public class AotSmokeTestExtension {
 
 		private final Property<Outcome> outcome;
 
+		private final Property<String> javaVersion;
+
 		@Inject
 		public TestConfiguration(Project project) {
 			this.outcome = project.getObjects().property(Outcome.class);
 			this.outcome.convention(Outcome.SUCCESS);
+			this.javaVersion = project.getObjects().property(String.class);
 		}
 
 		/**
@@ -146,6 +149,14 @@ public class AotSmokeTestExtension {
 		 */
 		public void expectedToFail(Action<Object> action) {
 			this.outcome.set(Outcome.FAILURE);
+		}
+
+		/**
+		 * The Java version required by the test.
+		 * @return the required Java version
+		 */
+		public Property<String> getJavaVersion() {
+			return this.javaVersion;
 		}
 
 	}
