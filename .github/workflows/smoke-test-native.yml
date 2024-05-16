@@ -18,6 +18,10 @@ on:
         required: false
         type: boolean
         default: false
+      java_version:
+        required: false
+        type: string
+        default: '17'
 jobs:
   native_smoke_test:
     name: ${{ inputs.task }}
@@ -30,3 +34,4 @@ jobs:
       checkout_repository: ${{ inputs.checkout_repository }}
       checkout_ref: ${{ inputs.checkout_ref }}
       expected_to_fail: ${{ inputs.expected_to_fail }}
+      graal_version: ${{ inputs.java_version }}

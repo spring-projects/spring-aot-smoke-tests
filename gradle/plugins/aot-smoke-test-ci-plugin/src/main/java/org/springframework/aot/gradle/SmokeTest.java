@@ -48,10 +48,20 @@ public record SmokeTest(String name, String group, String path, List<SmokeTest.T
 	}
 
 	private static void testFrom(Properties properties, String name, Consumer<SmokeTest.Test> consumer) {
-		if (properties.containsKey("tests.%s.expectedToFail".formatted(name))) {
-			consumer.accept(new SmokeTest.Test(name,
-					Boolean.valueOf(properties.getProperty("tests.%s.expectedToFail".formatted(name)))));
+		if (configuresTest(properties, name)) {
+			boolean expectedToFail = Boolean.valueOf(properties.getProperty("tests.%s.expectedToFail".formatted(name)));
+			String javaVersion = properties.getProperty("tests.%s.javaVersion".formatted(name));
+			consumer.accept(new SmokeTest.Test(name, expectedToFail, javaVersion));
 		}
+	}
+
+	private static boolean configuresTest(Properties properties, String name) {
+		for (Object key : properties.keySet()) {
+			if (key instanceof String string && string.startsWith("tests." + name + ".")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -59,8 +69,10 @@ public record SmokeTest(String name, String group, String path, List<SmokeTest.T
 	 *
 	 * @param taskName the name of the task that runs the test
 	 * @param expectedToFail whether to task is expected to fail
+	 * @param javaVersion the required Java version for the test. May be {@code null} to
+	 * use the default version
 	 */
-	public record Test(String taskName, boolean expectedToFail) implements Serializable {
+	public record Test(String taskName, boolean expectedToFail, String javaVersion) implements Serializable {
 
 	}
 

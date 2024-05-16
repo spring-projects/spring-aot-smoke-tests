@@ -95,6 +95,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				if (test.expectedToFail()) {
 					writer.println("      expected_to_fail: true");
 				}
+				if (test.javaVersion() != null) {
+					writer.println("      java_version: " + test.javaVersion());
+				}
 			});
 		}
 		catch (IOException ex) {
