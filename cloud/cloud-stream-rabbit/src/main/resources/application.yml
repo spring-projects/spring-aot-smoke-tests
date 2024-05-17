@@ -1,13 +1,34 @@
 spring.main.web-application-type: none
-spring.rabbitmq:
-  host: "${RABBITMQ_HOST:localhost}"
-  port: "${RABBITMQ_PORT_5672:5672}"
-spring.cloud:
-  function:
-    definition: graalSupplier;graalUppercaseFunction;graalLoggingConsumer
-  stream:
-    bindings:
-      graalSupplier-out-0:
-        destination: graalUppercaseFunction-in-0
-      graalLoggingConsumer-in-0:
-        destination: graalUppercaseFunction-out-0
+
+spring:
+  cloud:
+    function:
+      definition: graalSupplier;graalUppercaseFunction;graalLoggingConsumer
+    stream:
+      binders:
+        binder1:
+          type: rabbit
+          environment:
+            spring.rabbitmq:
+              host: "${RABBITMQ_HOST:localhost}"
+              port: "${RABBITMQ_PORT_5672:5672}"
+        binder2:
+          type: rabbit
+          environment:
+            spring.rabbitmq:
+              host: "${RABBITMQ_HOST:localhost}"
+              port: "${RABBITMQ_PORT_5672:5672}"
+      default-binder: binder1
+      bindings:
+        graalSupplier-out-0:
+          destination: graalUppercaseFunction-in-0
+          binder: binder1
+        graalLoggingConsumer-in-0:
+          destination: graalUppercaseFunction-out-0
+          binder: binder2
+      rabbit:
+        bindings:
+          graalSupplier-out-0:
+            producer:
+              # ensures conversion service set on child context
+              routing-key-expression: '''events.in'''
