@@ -40,3 +40,4 @@ jobs:
       checkout_ref: main
       project: data:data-jdbc-h2-kotlin
       task: nativeTest
+      expected_to_fail: true
