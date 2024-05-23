@@ -20,3 +20,11 @@ dependencies {
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
+
+aotSmokeTest {
+	nativeTest {
+		expectedToFail {
+			becauseOf "https://github.com/graalvm/native-build-tools/issues/598"
+		}
+	}
+}
