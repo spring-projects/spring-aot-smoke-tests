@@ -1,0 +1,1 @@
+Tests if database migrations with Flyway 10 works
