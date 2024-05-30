@@ -99,6 +99,32 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			project.getConfigurations()
 				.all((configuration) -> configuration.getResolutionStrategy().eachDependency(forceSnapshots));
 		}
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Commercial Snapshot");
+			repo.setUrl("https://repo.spring.vmware.com/artifactory/spring-commercial-snapshot-local");
+			repo.credentials((credentials) -> {
+				credentials.setUsername(System.getenv().get("REPO_SPRING_VMWARE_COM_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_VMWARE_COM_PASSWORD"));
+			});
+			repo.mavenContent((mavenContent) -> {
+				mavenContent.snapshotsOnly();
+				mavenContent.includeGroupByRegex("io.micrometer.*");
+				mavenContent.includeGroupByRegex("org.springframework.*");
+			});
+		});
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Commercial Release");
+			repo.setUrl("https://repo.spring.vmware.com/artifactory/spring-commercial-release-local");
+			repo.credentials((credentials) -> {
+				credentials.setUsername(System.getenv().get("REPO_SPRING_VMWARE_COM_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_VMWARE_COM_PASSWORD"));
+			});
+			repo.mavenContent((mavenContent) -> {
+				mavenContent.releasesOnly();
+				mavenContent.includeGroupByRegex("io.micrometer.*");
+				mavenContent.includeGroupByRegex("org.springframework.*");
+			});
+		});
 		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Snapshot");
