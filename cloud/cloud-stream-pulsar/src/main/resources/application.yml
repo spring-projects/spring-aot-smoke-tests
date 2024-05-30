@@ -21,3 +21,8 @@ spring.cloud:
           producer:
             producer-name: graalSupplierOut
 # NOTE: The spring.cloud.stream.pulsar.bindings exercises ext binding props
+
+logging.level:
+  org.apache.pulsar.common.util.netty.DnsResolverUtil: ERROR
+  org.springframework.pulsar: DEBUG
+  org.springframework.pulsar.function: WARN
