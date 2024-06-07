@@ -1,7 +1,5 @@
 name: 3.0.x | Boot Smoke Tests | Conditional
 on:
-  schedule:
-    - cron : '10 0 * * *'
   workflow_dispatch:
 jobs:
   conditional_app_test:

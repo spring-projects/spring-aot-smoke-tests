@@ -1,7 +1,5 @@
 name: 3.1.x | Framework Smoke Tests | Jdbc Mariadb
 on:
-  schedule:
-    - cron : '20 0 * * *'
   workflow_dispatch:
 jobs:
   jdbc_mariadb_app_test:

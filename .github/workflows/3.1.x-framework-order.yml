@@ -1,7 +1,5 @@
 name: 3.1.x | Framework Smoke Tests | Order
 on:
-  schedule:
-    - cron : '20 0 * * *'
   workflow_dispatch:
 jobs:
   order_app_test:

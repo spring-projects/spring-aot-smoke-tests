@@ -67,6 +67,7 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 	}
 
 	void generateWorkflow(SmokeTest smokeTest) {
+		String springBootGeneration = getSpringBootGeneration().get();
 		File workflowFile = getOutputDirectory()
 			.file(getSpringBootGeneration().get() + "-" + smokeTest.group() + "-" + smokeTest.name() + ".yml")
 			.get()
@@ -77,8 +78,10 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 		try (PrintWriter writer = new PrintWriter(new FileWriter(workflowFile))) {
 			writer.println("name: " + workflowName);
 			writer.println("on:");
-			writer.println("  schedule:");
-			writer.println("    - cron : '" + getCronSchedule().get() + "'");
+			if (!springBootGeneration.equals("3.0.x") && !springBootGeneration.equals("3.1.x")) {
+				writer.println("  schedule:");
+				writer.println("    - cron : '" + getCronSchedule().get() + "'");
+			}
 			writer.println("  workflow_dispatch:");
 			writer.println("jobs:");
 			smokeTest.tests().forEach((test) -> {

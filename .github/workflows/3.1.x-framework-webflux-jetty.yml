@@ -1,7 +1,5 @@
 name: 3.1.x | Framework Smoke Tests | Webflux Jetty
 on:
-  schedule:
-    - cron : '20 0 * * *'
   workflow_dispatch:
 jobs:
   webflux_jetty_app_test:

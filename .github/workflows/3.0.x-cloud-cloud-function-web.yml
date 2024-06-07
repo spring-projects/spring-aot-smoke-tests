@@ -1,7 +1,5 @@
 name: 3.0.x | Cloud Smoke Tests | Cloud Function Web
 on:
-  schedule:
-    - cron : '10 0 * * *'
   workflow_dispatch:
 jobs:
   cloud_function_web_app_test:

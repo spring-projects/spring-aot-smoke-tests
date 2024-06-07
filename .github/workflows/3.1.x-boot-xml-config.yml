@@ -1,7 +1,5 @@
 name: 3.1.x | Boot Smoke Tests | Xml Config
 on:
-  schedule:
-    - cron : '20 0 * * *'
   workflow_dispatch:
 jobs:
   xml_config_app_test:

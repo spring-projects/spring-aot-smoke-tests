@@ -1,7 +1,5 @@
 name: 3.0.x | Framework Smoke Tests | Webmvc Undertow Tls
 on:
-  schedule:
-    - cron : '10 0 * * *'
   workflow_dispatch:
 jobs:
   webmvc_undertow_tls_app_test:
