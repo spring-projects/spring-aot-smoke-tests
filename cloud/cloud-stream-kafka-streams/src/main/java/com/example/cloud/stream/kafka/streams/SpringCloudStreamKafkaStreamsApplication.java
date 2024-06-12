@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 the original author or authors.
+ * Copyright 2023-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import org.apache.kafka.streams.kstream.TimeWindows;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.core.CleanupConfig;
 
 @SpringBootApplication
 public class SpringCloudStreamKafkaStreamsApplication {
@@ -48,7 +49,7 @@ public class SpringCloudStreamKafkaStreamsApplication {
 		return input -> input.flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
 			.map((key, value) -> new KeyValue<>(value, value))
 			.groupByKey(Grouped.with(Serdes.String(), Serdes.String()))
-			.windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMillis(30_000)))
+			.windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMillis(10_000)))
 			.count(Materialized.as("WordCounts-1"))
 			.toStream()
 			.map((key, value) -> new KeyValue<>(null, key.key() + " : " + value));
@@ -64,6 +65,11 @@ public class SpringCloudStreamKafkaStreamsApplication {
 	@Bean
 	public Supplier<String> graalSupplier() {
 		return () -> "woodchuck";
+	}
+
+	@Bean
+	public CleanupConfig cleanupConfig() {
+		return new CleanupConfig(true, true);
 	}
 
 }
