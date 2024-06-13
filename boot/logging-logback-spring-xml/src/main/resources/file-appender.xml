@@ -1,0 +1,14 @@
+<included>
+	<springProperty scope="context" name="logFilename" source="application.log-filename" defaultValue="spring-boot.log"/>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>${java.io.tmpdir}/${logFilename}</file>
+		<append>false</append>
+		<encoder>
+			<pattern>%thread | %-5level | %logger{36} | %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="debug">
+		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="FILE"/>
+	</root>
+</included>
