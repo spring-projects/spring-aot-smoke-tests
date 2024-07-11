@@ -60,8 +60,8 @@ jobs:
         id: build
         env:
           DEVELOCITY_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_SECRET_ACCESS_KEY }}
-          REPO_SPRING_VMWARE_COM_USERNAME: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_USERNAME }}
-          REPO_SPRING_VMWARE_COM_PASSWORD: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_PASSWORD }}
+          REPO_SPRING_IO_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+          REPO_SPRING_IO_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
         run: ./gradlew ${{ inputs.project }}:${{ inputs.task }}
         continue-on-error: ${{ inputs.expected_to_fail }}
       - name: Check out send notification action

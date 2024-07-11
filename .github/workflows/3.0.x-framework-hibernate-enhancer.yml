@@ -1,5 +1,7 @@
 name: 3.0.x | Framework Smoke Tests | Hibernate Enhancer
 on:
+  schedule:
+    - cron : '10 0 * * *'
   workflow_dispatch:
 jobs:
   hibernate_enhancer_app_test:

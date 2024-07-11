@@ -1,5 +1,7 @@
 name: 3.0.x | Boot Smoke Tests | Configuration Properties
 on:
+  schedule:
+    - cron : '10 0 * * *'
   workflow_dispatch:
 jobs:
   configuration_properties_app_test:
