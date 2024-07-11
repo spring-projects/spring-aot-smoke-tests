@@ -6,10 +6,10 @@ plugins {
 
 repositories {
 	maven {
-		url "https://repo.spring.vmware.com/artifactory/spring-commercial-snapshot-local"
+		url "https://repo.spring.io/artifactory/spring-commercial-snapshot-remote"
 		credentials {
-			username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
-			password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
+			username System.env['REPO_SPRING_IO_USERNAME']
+			password System.env['REPO_SPRING_IO_PASSWORD']
 		}
 		mavenContent {
 			snapshotsOnly()
@@ -18,10 +18,10 @@ repositories {
 		}
 	}
 	maven {
-		url "https://repo.spring.vmware.com/artifactory/spring-commercial-release-local"
+		url "https://repo.spring.io/artifactory/spring-commercial-release-remote"
 		credentials {
-			username System.env['REPO_SPRING_VMWARE_COM_USERNAME']
-			password System.env['REPO_SPRING_VMWARE_COM_PASSWORD']
+			username System.env['REPO_SPRING_IO_USERNAME']
+			password System.env['REPO_SPRING_IO_PASSWORD']
 		}
 		mavenContent {
 			releasesOnly()
