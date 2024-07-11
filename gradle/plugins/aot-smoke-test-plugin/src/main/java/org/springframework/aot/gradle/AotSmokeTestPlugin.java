@@ -101,10 +101,10 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		}
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Commercial Snapshot");
-			repo.setUrl("https://repo.spring.vmware.com/artifactory/spring-commercial-snapshot-local");
+			repo.setUrl("https://repo.spring.io/artifactory/spring-commercial-snapshot-remote");
 			repo.credentials((credentials) -> {
-				credentials.setUsername(System.getenv().get("REPO_SPRING_VMWARE_COM_USERNAME"));
-				credentials.setPassword(System.getenv().get("REPO_SPRING_VMWARE_COM_PASSWORD"));
+				credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
 			});
 			repo.mavenContent((mavenContent) -> {
 				mavenContent.snapshotsOnly();
@@ -114,10 +114,10 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		});
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Commercial Release");
-			repo.setUrl("https://repo.spring.vmware.com/artifactory/spring-commercial-release-local");
+			repo.setUrl("https://repo.spring.io/artifactory/spring-commercial-release-remote");
 			repo.credentials((credentials) -> {
-				credentials.setUsername(System.getenv().get("REPO_SPRING_VMWARE_COM_USERNAME"));
-				credentials.setPassword(System.getenv().get("REPO_SPRING_VMWARE_COM_PASSWORD"));
+				credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
 			});
 			repo.mavenContent((mavenContent) -> {
 				mavenContent.releasesOnly();

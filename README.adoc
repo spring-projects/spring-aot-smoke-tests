@@ -13,6 +13,11 @@ The `appTest` task tests the application running on the JVM.The `nativeAppTest` 
 
 Please read and follow the link:CONTRIBUTING.adoc[contributing guide].
 
+== Initial Setup
+
+The smoke tests resolve commercial dependencies from https://repo.spring.io which requires authentication.
+Use the `REPO_SPRING_IO_USERNAME` and `REPO_SPRING_IO_PASSWORD` environment variables to provide the necessary credentials.
+
 == How to
 
 === Run all of a project's smoke tests
