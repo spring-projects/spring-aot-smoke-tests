@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,18 +62,12 @@ class CLR implements CommandLineRunner {
 		runQueryByExample(product1);
 		runInTransaction(product1);
 
-		personRepository.save(new Person("first-1", "last-1"));
-		personRepository.save(new Person("first-2", "last-2"));
-		personRepository.save(new Person("first-3", "last-3"));
+		Person person1 = new Person("first-1", "last-1");
+		Person person2 = new Person("first-2", "last-2");
+		Person person3 = new Person("first-3", "last-3");
 
-		for (Person person : this.personRepository.findAll()) {
-			System.out.printf("findAll(): %s%n", person);
-		}
-
-		for (Person person : this.personRepository.findByLastname("last-3")) {
-			System.out.printf("findByLastname(): %s%n", person);
-		}
-
+		runDerivedFinder(person1, person2, person3);
+		runQueriesWithDefaultSort(person1, person2, person3);
 	}
 
 	// Prepare Collections to avoid timeouts on slow ci/docker/...
@@ -321,6 +316,39 @@ class CLR implements CommandLineRunner {
 			System.out.printf("transactional-status: %s%n", e.getMessage());
 			System.out.printf("after-transaction: %s%n", orderRepository.findByCustomerId("within-tx"));
 		}
+		log("-----------------\n\n\n");
+	}
+
+	private void runDerivedFinder(Person person1, Person person2, Person person3) {
+
+		log("---- DERIVED FINDER ----");
+		personRepository.deleteAll();
+		personRepository.saveAll(List.of(person1, person2, person3));
+
+		for (Person person : this.personRepository.findAll()) {
+			System.out.printf("findAll(): %s%n", person);
+		}
+
+		for (Person person : this.personRepository.findByLastname("last-3")) {
+			System.out.printf("findByLastname(): %s%n", person);
+		}
+		log("-----------------\n\n\n");
+	}
+
+	private void runQueriesWithDefaultSort(Person person1, Person person2, Person person3) {
+
+		log("---- DEFAULT SORT ----");
+		personRepository.deleteAll();
+		personRepository.saveAll(List.of(person1, person2, person3));
+
+		List<Person> annotatedQueryResult = this.personRepository.findAndSortPersonsDescByLastnameViaAnnotation("last");
+		System.out.printf("annotated-query-default-sort(): %s",
+				annotatedQueryResult.stream().map(Person::getLastname).collect(Collectors.toList()));
+
+		List<Person> derivedQueryResult = this.personRepository.findWithDefaultSortByLastnameStartingWith("last");
+		System.out.printf("derived-query-default-sort(): %s",
+				derivedQueryResult.stream().map(Person::getLastname).collect(Collectors.toList()));
+
 		log("-----------------\n\n\n");
 	}
 
