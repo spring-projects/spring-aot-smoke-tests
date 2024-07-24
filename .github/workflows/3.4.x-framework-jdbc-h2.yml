@@ -1,0 +1,42 @@
+name: 3.4.x | Framework Smoke Tests | Jdbc H2
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  jdbc_h2_app_test:
+    name: Jdbc H2 App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:jdbc-h2
+      task: appTest
+  jdbc_h2_native_app_test:
+    name: Jdbc H2 Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:jdbc-h2
+      task: nativeAppTest
+  jdbc_h2_test:
+    name: Jdbc H2 Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:jdbc-h2
+      task: test
+  jdbc_h2_native_test:
+    name: Jdbc H2 Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:jdbc-h2
+      task: nativeTest

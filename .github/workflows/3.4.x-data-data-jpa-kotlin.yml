@@ -1,0 +1,24 @@
+name: 3.4.x | Data Smoke Tests | Data Jpa Kotlin
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  data_jpa_kotlin_app_test:
+    name: Data Jpa Kotlin App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: data:data-jpa-kotlin
+      task: appTest
+  data_jpa_kotlin_native_app_test:
+    name: Data Jpa Kotlin Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: data:data-jpa-kotlin
+      task: nativeAppTest

@@ -1,0 +1,24 @@
+name: 3.4.x | Framework Smoke Tests | Scheduled
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  scheduled_app_test:
+    name: Scheduled App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:scheduled
+      task: appTest
+  scheduled_native_app_test:
+    name: Scheduled Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:scheduled
+      task: nativeAppTest

@@ -1,0 +1,24 @@
+name: 3.4.x | Cloud Smoke Tests | Cloud Function Webflux
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  cloud_function_webflux_app_test:
+    name: Cloud Function Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: cloud:cloud-function-webflux
+      task: appTest
+  cloud_function_webflux_native_app_test:
+    name: Cloud Function Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: cloud:cloud-function-webflux
+      task: nativeAppTest

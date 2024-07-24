@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: boot:boot-tcf
       task: test
       expected_to_fail: true
@@ -20,7 +20,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: boot:boot-tcf
       task: nativeTest
       expected_to_fail: true

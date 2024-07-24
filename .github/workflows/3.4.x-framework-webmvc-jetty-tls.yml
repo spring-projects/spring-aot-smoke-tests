@@ -1,0 +1,25 @@
+name: 3.4.x | Framework Smoke Tests | Webmvc Jetty Tls
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  webmvc_jetty_tls_app_test:
+    name: Webmvc Jetty Tls App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:webmvc-jetty-tls
+      task: appTest
+  webmvc_jetty_tls_native_app_test:
+    name: Webmvc Jetty Tls Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:webmvc-jetty-tls
+      task: nativeAppTest
+      expected_to_fail: true

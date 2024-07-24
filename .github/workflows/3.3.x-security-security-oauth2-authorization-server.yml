@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: security:security-oauth2-authorization-server
       task: appTest
   security_oauth2_authorization_server_native_app_test:
@@ -19,6 +19,6 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: security:security-oauth2-authorization-server
       task: nativeAppTest

@@ -1,0 +1,24 @@
+name: 3.4.x | Framework Smoke Tests | Websocket Stomp
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  websocket_stomp_app_test:
+    name: Websocket Stomp App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:websocket-stomp
+      task: appTest
+  websocket_stomp_native_app_test:
+    name: Websocket Stomp Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: framework:websocket-stomp
+      task: nativeAppTest

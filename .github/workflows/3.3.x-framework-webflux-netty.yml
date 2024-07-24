@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: framework:webflux-netty
       task: appTest
   webflux_netty_native_app_test:
@@ -19,7 +19,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: framework:webflux-netty
       task: nativeAppTest
   webflux_netty_test:
@@ -28,7 +28,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: framework:webflux-netty
       task: test
   webflux_netty_native_test:
@@ -37,6 +37,6 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: framework:webflux-netty
       task: nativeTest

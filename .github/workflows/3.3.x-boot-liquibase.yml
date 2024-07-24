@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: boot:liquibase
       task: appTest
   liquibase_native_app_test:
@@ -19,7 +19,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.3.x
       project: boot:liquibase
       task: nativeAppTest
       expected_to_fail: true

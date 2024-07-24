@@ -1,0 +1,24 @@
+name: 3.4.x | Integration Smoke Tests | Spring Kafka Streams
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  spring_kafka_streams_app_test:
+    name: Spring Kafka Streams App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: integration:spring-kafka-streams
+      task: appTest
+  spring_kafka_streams_native_app_test:
+    name: Spring Kafka Streams Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: 3.4.x
+      project: integration:spring-kafka-streams
+      task: nativeAppTest
