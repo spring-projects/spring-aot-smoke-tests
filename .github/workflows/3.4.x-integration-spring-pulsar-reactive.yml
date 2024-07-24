@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: 3.4.x
+      checkout_ref: main
       project: integration:spring-pulsar-reactive
       task: appTest
   spring_pulsar_reactive_native_app_test:
@@ -19,6 +19,6 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: 3.4.x
+      checkout_ref: main
       project: integration:spring-pulsar-reactive
       task: nativeAppTest
