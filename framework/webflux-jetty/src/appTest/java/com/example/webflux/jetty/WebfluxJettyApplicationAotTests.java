@@ -109,13 +109,13 @@ class WebfluxJettyApplicationAotTests {
 
 	@Test
 	@Disabled("https://github.com/spring-projects/spring-boot/issues/33347")
+	@SuppressWarnings({ "deprecation", "removal" })
 	void websocket(@ApplicationUrl(scheme = Scheme.WEBSOCKET) URI applicationUrl) {
 		JettyWebSocketClient client = new JettyWebSocketClient();
 		client.start();
 		try {
 			// We can't use StepVerifier here, as it isn't designed to be used in a
-			// reactive
-			// pipeline
+			// reactive pipeline
 			AtomicReference<List<String>> messages = new AtomicReference<>();
 			client
 				.execute(URI.create(applicationUrl.resolve("/ws/count").toString()),
