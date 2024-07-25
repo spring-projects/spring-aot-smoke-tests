@@ -108,7 +108,7 @@ class WebfluxUndertowApplicationAotTests {
 	}
 
 	@Test
-	@Disabled("https://github.com/spring-projects/spring-boot/issues/33347")
+	@SuppressWarnings({ "deprecation", "removal" })
 	void websocket(@ApplicationUrl(scheme = Scheme.WEBSOCKET) URI applicationUrl) {
 		JettyWebSocketClient client = new JettyWebSocketClient();
 		client.start();

@@ -29,6 +29,7 @@ public class WebSecurityConfig {
 	}
 
 	@Bean
+	@SuppressWarnings("deprecation")
 	public UserDetailsService userDetailsService() {
 		UserDetails user = User.withDefaultPasswordEncoder()
 			.username("user")

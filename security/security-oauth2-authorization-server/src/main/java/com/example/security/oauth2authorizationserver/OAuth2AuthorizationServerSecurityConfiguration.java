@@ -136,6 +136,7 @@ public class OAuth2AuthorizationServerSecurityConfiguration {
 	}
 
 	@Bean
+	@SuppressWarnings("deprecation")
 	public UserDetailsService userDetailsService() {
 		// @formatter:off
 		UserDetails userDetails = User.withDefaultPasswordEncoder()
