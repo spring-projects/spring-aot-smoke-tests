@@ -1,7 +1,5 @@
 name: 3.4.x | Cloud Smoke Tests | Cloud Stream Kafka Streams
 on:
-  schedule:
-    - cron : '50 0 * * *'
   workflow_dispatch:
 jobs:
   cloud_stream_kafka_streams_app_test:
