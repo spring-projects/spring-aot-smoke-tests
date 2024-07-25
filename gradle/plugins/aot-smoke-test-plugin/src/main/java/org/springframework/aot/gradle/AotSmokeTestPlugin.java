@@ -46,6 +46,7 @@ import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskProvider;
+import org.gradle.api.tasks.compile.JavaCompile;
 import org.gradle.api.tasks.testing.Test;
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
 
@@ -86,6 +87,18 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		SourceSet appTest = javaExtension.getSourceSets().create("appTest");
 		javaExtension.setSourceCompatibility(JavaVersion.VERSION_17);
 		javaExtension.setTargetCompatibility(JavaVersion.VERSION_17);
+		project.getTasks().withType(JavaCompile.class, (javaCompile) -> {
+			if (!"compileAotTestJava".equals(javaCompile.getName())) {
+				javaCompile.getOptions()
+					.getCompilerArgs()
+					.addAll(List.of("-Werror", "-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:rawtypes",
+							"-Xlint:varargs"));
+			}
+		});
+		project.getDependencies()
+			.add(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
+		project.getDependencies()
+			.add(JavaPlugin.TEST_COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
 		if (project.hasProperty("fromMavenLocal")) {
 			String fromMavenLocal = project.property("fromMavenLocal").toString();
 			Stream<String> includedGroups = Stream.of(fromMavenLocal.split(","));

@@ -28,7 +28,7 @@ public class CLR implements CommandLineRunner {
 
 	public void entityGraph(Long id) {
 
-		EntityGraph entityGraph = entityManager.getEntityGraph("Book.authors");
+		EntityGraph<?> entityGraph = entityManager.getEntityGraph("Book.authors");
 
 		System.out.println("entityGraph: " + entityGraph);
 

@@ -43,7 +43,7 @@ class WebClientConfiguration {
 
 	@Bean
 	DataService dataService(@Qualifier("http") WebClient webClient) {
-		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient))
+		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(webClient))
 			.build();
 		return factory.createClient(DataService.class);
 	}
