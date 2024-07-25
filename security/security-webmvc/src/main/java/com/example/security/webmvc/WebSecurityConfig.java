@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -23,12 +25,12 @@ public class WebSecurityConfig {
 				.hasRole("ADMIN")
 				.anyRequest()
 				.authenticated())
-			.httpBasic()
-			.and()
+			.httpBasic(withDefaults())
 			.build();
 	}
 
 	@Bean
+	@SuppressWarnings("deprecation")
 	public UserDetailsService userDetailsService() {
 		UserDetails user = User.withDefaultPasswordEncoder()
 			.username("user")

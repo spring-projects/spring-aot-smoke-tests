@@ -53,6 +53,8 @@ import org.springframework.security.oauth2.server.authorization.settings.ClientS
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 /**
  * OAuth Authorization Server Configuration.
  *
@@ -66,7 +68,7 @@ public class OAuth2AuthorizationServerSecurityConfiguration {
 	@Order(1)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
 		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-		return http.formLogin(Customizer.withDefaults()).build();
+		return http.formLogin(withDefaults()).build();
 	}
 
 	@Bean
@@ -77,7 +79,7 @@ public class OAuth2AuthorizationServerSecurityConfiguration {
 			.authorizeHttpRequests((authorize) -> authorize
 				.anyRequest().authenticated()
 			)
-			.formLogin(Customizer.withDefaults());
+			.formLogin(withDefaults());
 		// @formatter:on
 
 		return http.build();
@@ -136,6 +138,7 @@ public class OAuth2AuthorizationServerSecurityConfiguration {
 	}
 
 	@Bean
+	@SuppressWarnings("deprecation")
 	public UserDetailsService userDetailsService() {
 		// @formatter:off
 		UserDetails userDetails = User.withDefaultPasswordEncoder()

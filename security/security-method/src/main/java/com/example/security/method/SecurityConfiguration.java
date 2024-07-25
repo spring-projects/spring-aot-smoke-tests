@@ -13,6 +13,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 class SecurityConfiguration {
 
 	@Bean
+	@SuppressWarnings("deprecation")
 	UserDetailsManager userDetailsManager() {
 		UserDetails user = User.withDefaultPasswordEncoder()
 			.username("user")

@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebFluxSecurity
 public class WebSecurityConfig {
@@ -23,12 +25,12 @@ public class WebSecurityConfig {
 				.hasRole("ADMIN")
 				.anyExchange()
 				.authenticated())
-			.httpBasic()
-			.and()
+			.httpBasic(withDefaults())
 			.build();
 	}
 
 	@Bean
+	@SuppressWarnings("deprecation")
 	public ReactiveUserDetailsService userDetailsService() {
 		UserDetails user = User.withDefaultPasswordEncoder()
 			.username("user")
