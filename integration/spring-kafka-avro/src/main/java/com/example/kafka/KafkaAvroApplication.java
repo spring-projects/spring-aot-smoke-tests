@@ -51,7 +51,7 @@ public class KafkaAvroApplication {
 
 	@Bean
 	public ConcurrentMessageListenerContainer<Object, Object> container3(NotAComponentMessageListener listener,
-			ConsumerFactory cf, ProducerFactory pf, ConcurrentKafkaListenerContainerFactory<Object, Object> factory) {
+			ConsumerFactory<Object, Object> cf, ProducerFactory<Object, SpecificRecord> pf, ConcurrentKafkaListenerContainerFactory<Object, Object> factory) {
 
 		((DefaultKafkaConsumerFactory<Object, Object>) cf).setValueDeserializer(new ThingAvroSerde());
 		((DefaultKafkaProducerFactory<Object, SpecificRecord>) pf).setValueSerializer(new ThingAvroSerde());
@@ -63,8 +63,8 @@ public class KafkaAvroApplication {
 	}
 
 	@Bean
-	public ConcurrentMessageListenerContainer<Object, Object> container6(BML6 listener, ConsumerFactory cf,
-			ProducerFactory pf, ConcurrentKafkaListenerContainerFactory<Object, Object> factory) {
+	public ConcurrentMessageListenerContainer<Object, Object> container6(BML6 listener, ConsumerFactory<Object, Object> cf,
+			ProducerFactory<Object, Object> pf, ConcurrentKafkaListenerContainerFactory<Object, Object> factory) {
 
 		factory.setCommonErrorHandler(new CommonContainerStoppingErrorHandler());
 		ConcurrentMessageListenerContainer<Object, Object> container = factory.createContainer("graal6");
@@ -74,8 +74,8 @@ public class KafkaAvroApplication {
 	}
 
 	@Bean
-	public ConcurrentMessageListenerContainer<Object, Object> container7(BML7 listener, ConsumerFactory cf,
-			ProducerFactory pf, ConcurrentKafkaListenerContainerFactory<Object, Object> factory) {
+	public ConcurrentMessageListenerContainer<Object, Object> container7(BML7 listener, ConsumerFactory<Object, Object> cf,
+			ProducerFactory<Object, Object> pf, ConcurrentKafkaListenerContainerFactory<Object, Object> factory) {
 
 		factory.setCommonErrorHandler(new CommonContainerStoppingErrorHandler());
 		ConcurrentMessageListenerContainer<Object, Object> container = factory.createContainer("graal7");

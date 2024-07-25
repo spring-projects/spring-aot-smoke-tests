@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2022-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package com.example.data.mongodb.reactive;
 
-import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.PersistenceCreator;
 
 public class LineItem {
 
@@ -31,7 +31,7 @@ public class LineItem {
 		this.price = price;
 	}
 
-	@PersistenceConstructor
+	@PersistenceCreator
 	public LineItem(String caption, double price, int quantity) {
 
 		this(caption, price);
