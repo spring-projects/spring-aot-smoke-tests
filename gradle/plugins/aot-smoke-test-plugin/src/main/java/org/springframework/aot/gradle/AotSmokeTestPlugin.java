@@ -60,6 +60,7 @@ import org.springframework.aot.gradle.tasks.StartApplication;
 import org.springframework.aot.gradle.tasks.StartJvmApplication;
 import org.springframework.aot.gradle.tasks.StartNativeApplication;
 import org.springframework.aot.gradle.tasks.StopApplication;
+import org.springframework.boot.gradle.plugin.SpringBootAotPlugin;
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
 import org.springframework.boot.gradle.tasks.bundling.BootJar;
 
@@ -147,6 +148,12 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		Stream.of(SourceSet.MAIN_SOURCE_SET_NAME, SourceSet.TEST_SOURCE_SET_NAME, APP_TEST_SOURCE_SET_NAME)
 			.map((sourceSetName) -> sourceSets.getByName(sourceSetName).getCompileJavaTaskName())
 			.forEach((taskName) -> project.getTasks().named(taskName, JavaCompile.class, this::enableLinting));
+		project.getPlugins().withType(SpringBootAotPlugin.class, (aotPlugin) -> {
+			Stream.of(SpringBootAotPlugin.AOT_SOURCE_SET_NAME, SpringBootAotPlugin.AOT_TEST_SOURCE_SET_NAME)
+				.map((sourceSetName) -> sourceSets.getByName(sourceSetName).getCompileJavaTaskName())
+				.forEach((taskName) -> project.getTasks()
+					.named(taskName, JavaCompile.class, this::enableDeprecationLinting));
+		});
 		project.getDependencies()
 			.add(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
 		project.getDependencies()
@@ -157,6 +164,10 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		javaCompile.getOptions()
 			.getCompilerArgs()
 			.addAll(List.of("-Werror", "-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:rawtypes", "-Xlint:varargs"));
+	}
+
+	private void enableDeprecationLinting(JavaCompile javaCompile) {
+		javaCompile.getOptions().getCompilerArgs().addAll(List.of("-Werror", "-Xlint:deprecation"));
 	}
 
 	private SmokeTest.Test createTest(String taskName, TestConfiguration configuration) {
