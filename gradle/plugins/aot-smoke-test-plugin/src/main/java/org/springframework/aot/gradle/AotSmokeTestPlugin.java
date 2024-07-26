@@ -45,6 +45,7 @@ import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.SourceSet;
+import org.gradle.api.tasks.SourceSetContainer;
 import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.compile.JavaCompile;
 import org.gradle.api.tasks.testing.Test;
@@ -72,6 +73,8 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar;
  */
 public class AotSmokeTestPlugin implements Plugin<Project> {
 
+	private static final String APP_TEST_SOURCE_SET_NAME = "appTest";
+
 	@Override
 	public void apply(Project project) {
 		project.getPlugins()
@@ -84,19 +87,11 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			.create("aotSmokeTest", AotSmokeTestExtension.class, project);
 		extension.getWebApplication().convention(false);
 		JavaPluginExtension javaExtension = project.getExtensions().getByType(JavaPluginExtension.class);
-		SourceSet appTest = javaExtension.getSourceSets().create("appTest");
 		javaExtension.setSourceCompatibility(JavaVersion.VERSION_17);
 		javaExtension.setTargetCompatibility(JavaVersion.VERSION_17);
-		project.getTasks()
-			.withType(JavaCompile.class,
-					(javaCompile) -> javaCompile.getOptions()
-						.getCompilerArgs()
-						.addAll(List.of("-Werror", "-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:rawtypes",
-								"-Xlint:varargs")));
-		project.getDependencies()
-			.add(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
-		project.getDependencies()
-			.add(JavaPlugin.TEST_COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
+		SourceSetContainer sourceSets = javaExtension.getSourceSets();
+		SourceSet appTest = sourceSets.create(APP_TEST_SOURCE_SET_NAME);
+		enableJavaCompileLinting(project, sourceSets);
 		if (project.hasProperty("fromMavenLocal")) {
 			String fromMavenLocal = project.property("fromMavenLocal").toString();
 			Stream<String> includedGroups = Stream.of(fromMavenLocal.split(","));
@@ -128,7 +123,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		configureJavaFormat(project);
 		Provider<SmokeTest> smokeTestProvider = project.provider(() -> {
 			List<SmokeTest.Test> tests = new ArrayList<>();
-			if (!javaExtension.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME).getAllSource().isEmpty()) {
+			if (!sourceSets.getByName(SourceSet.TEST_SOURCE_SET_NAME).getAllSource().isEmpty()) {
 				tests.add(createTest("test", extension.getTest()));
 				tests.add(createTest("nativeTest", extension.getNativeTest()));
 			}
@@ -146,6 +141,22 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		DependencyHandler dependencies = project.getRootProject().getDependencies();
 		dependencies.add(smokeTests.getName(),
 				dependencies.project(Map.of("path", project.getPath(), "configuration", smokeTests.getName())));
+	}
+
+	private void enableJavaCompileLinting(Project project, SourceSetContainer sourceSets) {
+		Stream.of(SourceSet.MAIN_SOURCE_SET_NAME, SourceSet.TEST_SOURCE_SET_NAME, APP_TEST_SOURCE_SET_NAME)
+			.map((sourceSetName) -> sourceSets.getByName(sourceSetName).getCompileJavaTaskName())
+			.forEach((taskName) -> project.getTasks().named(taskName, JavaCompile.class, this::enableLinting));
+		project.getDependencies()
+			.add(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
+		project.getDependencies()
+			.add(JavaPlugin.TEST_COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
+	}
+
+	private void enableLinting(JavaCompile javaCompile) {
+		javaCompile.getOptions()
+			.getCompilerArgs()
+			.addAll(List.of("-Werror", "-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:rawtypes", "-Xlint:varargs"));
 	}
 
 	private SmokeTest.Test createTest(String taskName, TestConfiguration configuration) {
