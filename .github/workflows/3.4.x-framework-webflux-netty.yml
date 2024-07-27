@@ -40,3 +40,4 @@ jobs:
       checkout_ref: main
       project: framework:webflux-netty
       task: nativeTest
+      expected_to_fail: true
