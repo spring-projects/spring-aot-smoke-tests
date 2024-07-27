@@ -34,7 +34,7 @@ aotSmokeTest {
 	}
 	nativeTest {
 		expectedToFail {
-			becauseOf "https://github.com/oracle/graalvm-reachability-metadata/pull/495"
+			becauseOf "https://github.com/oracle/graalvm-reachability-metadata/pull/495 and https://github.com/spring-projects/spring-framework/issues/33272"
 		}
 	}
 }
