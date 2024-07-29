@@ -24,8 +24,5 @@ dependencies {
 aotSmokeTest {
 	nativeTest {
 		javaVersion = '22'
-		expectedToFail {
-			becauseOf "https://github.com/spring-projects/spring-framework/issues/33272"
-		}
 	}
 }
