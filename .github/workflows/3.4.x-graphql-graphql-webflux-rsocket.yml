@@ -40,4 +40,3 @@ jobs:
       checkout_ref: main
       project: graphql:graphql-webflux-rsocket
       task: nativeTest
-      expected_to_fail: true

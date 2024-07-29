@@ -22,4 +22,3 @@ jobs:
       checkout_ref: main
       project: framework:tcf
       task: nativeTest
-      expected_to_fail: true
