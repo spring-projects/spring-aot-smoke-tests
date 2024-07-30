@@ -17,10 +17,17 @@ package com.example.data.mongodb;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
 public interface PersonRepository extends ListCrudRepository<Person, String> {
 
 	List<Person> findByLastname(String lastname);
+
+	@Query(value = "{ 'lastname' : { '$regex' : '?0.*'} }", sort = "{ 'lastname' : -1 }")
+	List<Person> findAndSortPersonsDescByLastnameViaAnnotation(String lastname);
+
+	@Query(sort = "{ 'lastname' : -1 }")
+	List<Person> findWithDefaultSortByLastnameStartingWith(String lastname);
 
 }

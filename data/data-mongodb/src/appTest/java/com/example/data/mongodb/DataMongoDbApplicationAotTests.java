@@ -88,4 +88,12 @@ class DataMongoDbApplicationAotTests {
 		});
 	}
 
+	@Test
+	void findWithDefaultSort(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("annotated-query-default-sort(): [last-3, last-2, last-1]");
+			assertThat(output).hasSingleLineContaining("derived-query-default-sort(): [last-3, last-2, last-1]");
+		});
+	}
+
 }
