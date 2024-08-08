@@ -42,6 +42,7 @@ class TransactionalRunner implements CommandLineRunner {
 		deleteAll();
 		entityGraph();
 		insertPublishers(); // uses AbstractPersistable
+		fragmentsApi();
 	}
 
 	private void deleteAll() {
@@ -117,6 +118,10 @@ class TransactionalRunner implements CommandLineRunner {
 		Publisher publisher1 = this.publisherRepository.save(new Publisher("independently published"));
 		System.out.printf("insertPublishers(): publisher1 - %s%n", publisher1);
 		return List.of(publisher1);
+	}
+
+	private void fragmentsApi() {
+		System.out.printf("fragmentsApi(): %s%n", this.bookRepository.extensionMethod("hello"));
 	}
 
 }
