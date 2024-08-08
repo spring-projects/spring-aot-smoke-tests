@@ -116,4 +116,11 @@ class DataJpaApplicationAotTests {
 		});
 	}
 
+	@Test
+	void fragmentsApi(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("fragmentsApi(): RepositoryExtension says hello to Book");
+		});
+	}
+
 }
