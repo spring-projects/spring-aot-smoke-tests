@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022-2024 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.integration;
 
 import java.util.Calendar;
@@ -8,13 +24,9 @@ import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.http.HttpMethod;
-import org.springframework.integration.annotation.Gateway;
-import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.interceptor.WireTap;
 import org.springframework.integration.config.EnableIntegrationManagement;
@@ -22,15 +34,14 @@ import org.springframework.integration.config.EnableMessageHistory;
 import org.springframework.integration.config.GlobalChannelInterceptor;
 import org.springframework.integration.config.IntegrationConverter;
 import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlowDefinition;
 import org.springframework.integration.handler.LoggingHandler;
 import org.springframework.integration.handler.advice.RequestHandlerRetryAdvice;
+import org.springframework.integration.http.config.EnableControlBusController;
 import org.springframework.integration.http.config.EnableIntegrationGraphController;
 import org.springframework.integration.jdbc.store.JdbcChannelMessageStore;
 import org.springframework.integration.jdbc.store.channel.H2ChannelMessageStoreQueryProvider;
 import org.springframework.integration.redis.store.RedisChannelMessageStore;
 import org.springframework.integration.support.json.JacksonJsonUtils;
-import org.springframework.integration.webflux.dsl.WebFlux;
 import org.springframework.messaging.MessageHandler;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -40,6 +51,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 @EnableMessageHistory("dateChannel")
 @EnableIntegrationManagement
 @EnableIntegrationGraphController("/integration-graph")
+@EnableControlBusController
 public class IntegrationApplication {
 
 	public static void main(String[] args) {
@@ -107,30 +119,6 @@ public class IntegrationApplication {
 			}
 
 		};
-	}
-
-	@Bean
-	public IntegrationFlow controlBus() {
-		return IntegrationFlowDefinition::controlBus;
-	}
-
-	@Bean
-	public IntegrationFlow controlBusControllerFlow(ControlBusGateway controlBusGateway) {
-		return IntegrationFlow
-			.from(WebFlux.inboundChannelAdapter("/control-bus/{endpointId}")
-				.payloadExpression("#pathVariables.endpointId")
-				.requestMapping(mapping -> mapping.methods(HttpMethod.GET)))
-			.wireTap(subflow -> subflow.handle(m -> System.out.println("Starting endpoint: " + m.getPayload())))
-			.handle(controlBusGateway, "startEndpoint")
-			.get();
-	}
-
-	@MessagingGateway(defaultRequestChannel = "controlBus.input")
-	public interface ControlBusGateway {
-
-		@Gateway(payloadExpression = "'@' + args[0] + '.start()'")
-		void startEndpoint(String id);
-
 	}
 
 }
