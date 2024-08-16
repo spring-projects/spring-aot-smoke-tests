@@ -26,3 +26,6 @@ dependencies {
 	api("org.springframework:spring-webflux")
 	api("org.springframework.boot:spring-boot-starter-test")
 }
+
+sourceCompatibility = "17"
+targetCompatibility = "17"
