@@ -40,7 +40,7 @@ public class NonTransactionalRunner implements CommandLineRunner {
 	}
 
 	private void insertRecipients() {
-		this.recipientRepository.save(new Recipient(1L, new Address("Paul Bert", "Lyon", "69003")));
+		this.recipientRepository.save(new Recipient(null, new Address("Paul Bert", "Lyon", "69003")));
 	}
 
 	private void listRecipients() {
