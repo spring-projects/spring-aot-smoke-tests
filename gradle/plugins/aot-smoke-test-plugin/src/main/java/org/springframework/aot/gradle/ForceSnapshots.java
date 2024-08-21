@@ -44,8 +44,8 @@ import org.gradle.api.artifacts.ResolutionStrategy;
  */
 final class ForceSnapshots implements Action<DependencyResolveDetails> {
 
-	private static final Set<String> NO_SNAPSHOT = Set.of("org.springframework.boot", "org.springframework.cloud",
-			"org.springframework.plugin");
+	private static final Set<String> IGNORED_GROUPS = Set.of("org.springframework.boot", "org.springframework.cloud",
+			"org.springframework.plugin", "org.springframework");
 
 	@Override
 	public void execute(DependencyResolveDetails dependency) {
@@ -55,7 +55,8 @@ final class ForceSnapshots implements Action<DependencyResolveDetails> {
 			return;
 		}
 		String group = requested.getGroup();
-		if (group.startsWith("org.springframework") && !NO_SNAPSHOT.contains(group)) {
+		if (group.startsWith("org.springframework") && !IGNORED_GROUPS.contains(group)
+				&& !requested.getName().equals("spring-security-rsa")) {
 			dependency.useVersion(snapshotOf(version));
 		}
 	}
