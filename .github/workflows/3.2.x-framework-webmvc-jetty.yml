@@ -22,7 +22,6 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:webmvc-jetty
       task: nativeAppTest
-      expected_to_fail: true
   webmvc_jetty_test:
     name: Webmvc Jetty Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -41,4 +40,3 @@ jobs:
       checkout_ref: 3.2.x
       project: framework:webmvc-jetty
       task: nativeTest
-      expected_to_fail: true

@@ -22,4 +22,3 @@ jobs:
       checkout_ref: 3.3.x
       project: boot:servlet-jetty
       task: nativeAppTest
-      expected_to_fail: true
