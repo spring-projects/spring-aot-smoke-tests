@@ -41,13 +41,13 @@ public class DataWebApplication {
 	static class DefaultController {
 
 		@GetMapping("/paged")
-		public Page paged() {
-			return new PageImpl(List.of("spring", "data", "web", "support", "paged"), PageRequest.of(2, 5), 100);
+		public Page<String> paged() {
+			return new PageImpl<>(List.of("spring", "data", "web", "support", "paged"), PageRequest.of(2, 5), 100);
 		}
 
 		@GetMapping("/unpaged")
-		public Page unpaged() {
-			return new PageImpl(List.of("spring", "data", "web", "support", "unpaged"), Pageable.unpaged(), 5);
+		public Page<String> unpaged() {
+			return new PageImpl<>(List.of("spring", "data", "web", "support", "unpaged"), Pageable.unpaged(), 5);
 		}
 
 	}
