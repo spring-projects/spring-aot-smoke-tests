@@ -1,0 +1,24 @@
+name: 3.4.x | Data Smoke Tests | Data Web Support
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+jobs:
+  data_web_support_app_test:
+    name: Data Web Support App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-web-support
+      task: appTest
+  data_web_support_native_app_test:
+    name: Data Web Support Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-web-support
+      task: nativeAppTest
