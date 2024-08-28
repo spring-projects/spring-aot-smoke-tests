@@ -225,4 +225,12 @@ class ConfigPropsApplicationAotTests {
 
 	}
 
+	@Test
+	void shouldNotPrintBanner(AssertableOutput output) {
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Started ConfigPropsApplication in"));
+		assertThat(output).hasNoLinesContaining(":: Spring Boot ::");
+	}
+
 }
