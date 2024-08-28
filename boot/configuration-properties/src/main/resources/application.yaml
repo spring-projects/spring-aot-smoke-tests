@@ -45,3 +45,5 @@ app.record:
 spring:
   config:
     import: test.yaml
+  main:
+    banner-mode: off
