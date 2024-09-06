@@ -24,5 +24,8 @@ dependencies {
 aotSmokeTest {
 	nativeTest {
 		javaVersion = '22'
+		expectedToFail {
+			becauseOf "https://github.com/graalvm/native-build-tools/issues/602"
+		}
 	}
 }
