@@ -148,12 +148,13 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		Stream.of(SourceSet.MAIN_SOURCE_SET_NAME, SourceSet.TEST_SOURCE_SET_NAME, APP_TEST_SOURCE_SET_NAME)
 			.map((sourceSetName) -> sourceSets.getByName(sourceSetName).getCompileJavaTaskName())
 			.forEach((taskName) -> project.getTasks().named(taskName, JavaCompile.class, this::enableLinting));
-		project.getPlugins().withType(SpringBootAotPlugin.class, (aotPlugin) -> {
-			Stream.of(SpringBootAotPlugin.AOT_SOURCE_SET_NAME, SpringBootAotPlugin.AOT_TEST_SOURCE_SET_NAME)
-				.map((sourceSetName) -> sourceSets.getByName(sourceSetName).getCompileJavaTaskName())
-				.forEach((taskName) -> project.getTasks()
-					.named(taskName, JavaCompile.class, this::enableDeprecationLinting));
-		});
+		project.getPlugins()
+			.withType(SpringBootAotPlugin.class,
+					(aotPlugin) -> Stream
+						.of(SpringBootAotPlugin.AOT_SOURCE_SET_NAME, SpringBootAotPlugin.AOT_TEST_SOURCE_SET_NAME)
+						.map((sourceSetName) -> sourceSets.getByName(sourceSetName).getCompileJavaTaskName())
+						.forEach((taskName) -> project.getTasks()
+							.named(taskName, JavaCompile.class, this::enableDeprecationLinting)));
 		project.getDependencies()
 			.add(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME, "com.google.code.findbugs:jsr305:3.0.2");
 		project.getDependencies()
