@@ -11,6 +11,10 @@ pluginManagement {
 	plugins {
 		id "io.spring.javaformat" version gradle.extensions.extraProperties.get("javaFormatVersion")
 	}
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+	}
 }
 
 rootProject.name="aot-smoke-test-plugin"
