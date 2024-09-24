@@ -106,15 +106,29 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			project.getConfigurations()
 				.all((configuration) -> configuration.getResolutionStrategy().eachDependency(forceSnapshots));
 		}
-		project.getRepositories().mavenCentral();
+		if (System.getenv().containsKey("REPO_SPRING_IO_USERNAME")
+				&& System.getenv().containsKey("REPO_SPRING_IO_PASSWORD")) {
+			project.getRepositories().maven((repo) -> {
+				repo.setName("Maven Central Mirror");
+				repo.setUrl("https://repo.spring.io/artifactory/repo1");
+				repo.credentials((credentials) -> {
+					credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
+					credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
+				});
+				repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
+			});
+		}
+		else {
+			project.getRepositories().mavenCentral();
+		}
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Snapshot");
-			repo.setUrl("https://repo.spring.io/snapshot");
+			repo.setUrl("https://repo.spring.io/artifactory/snapshot");
 			repo.mavenContent((mavenContent) -> mavenContent.snapshotsOnly());
 		});
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Milestone");
-			repo.setUrl("https://repo.spring.io/milestone");
+			repo.setUrl("https://repo.spring.io/artifactory/milestone");
 			repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
 		});
 

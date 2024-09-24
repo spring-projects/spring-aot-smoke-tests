@@ -1,15 +1,33 @@
 pluginManagement {
 	includeBuild "gradle/plugins/aot-smoke-test-plugin"
 	repositories {
+		if (System.env['REPO_SPRING_IO_USERNAME'] != null && System.env['REPO_SPRING_IO_PASSWORD'] != null) {
+			maven {
+				name "Maven Central Mirror"
+				url "https://repo.spring.io/artifactory/repo1"
+				credentials {
+					username System.env['REPO_SPRING_IO_USERNAME']
+					password System.env['REPO_SPRING_IO_PASSWORD']
+				}
+				mavenContent {
+					releasesOnly()
+				}
+			}
+		}
+		else {
+			mavenCentral()
+		}
 		gradlePluginPortal()
 		maven {
-			url "https://repo.spring.io/snapshot"
+			name "Spring Snapshot"
+			url "https://repo.spring.io/artifactory/snapshot"
 			mavenContent {
 				snapshotsOnly()
 			}
 		}
 		maven {
-			url "https://repo.spring.io/milestone"
+			name "Spring Milestone"
+			url "https://repo.spring.io/artifactory/milestone"
 			mavenContent {
 				releasesOnly()
 			}
@@ -25,7 +43,6 @@ plugins {
 rootProject.name="spring-aot-smoke-tests"
 
 include "aot-smoke-test-support"
-include "aot-smoke-test-third-party-hints"
 
 ["batch", "boot", "cloud", "data", "framework", "graphql", "integration", "security", "session"].each { group ->
 	file(group).eachDirMatch(~/[a-z].*/) { smokeTest ->
