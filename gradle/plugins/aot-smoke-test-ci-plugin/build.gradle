@@ -5,7 +5,17 @@ plugins {
 }
 
 repositories {
-	mavenCentral()
+	maven {
+		name "Maven Central Mirror"
+		url "https://repo.spring.io/artifactory/repo1"
+		credentials {
+			username System.env['REPO_SPRING_IO_USERNAME']
+			password System.env['REPO_SPRING_IO_PASSWORD']
+		}
+		mavenContent {
+			releasesOnly()
+		}
+	}
 }
 
 gradlePlugin {
