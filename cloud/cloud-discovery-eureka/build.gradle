@@ -6,7 +6,13 @@ plugins {
 }
 
 repositories {
-	maven { url "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates" }
+	maven {
+		name "Netflix Release Candidate"
+		url "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates"
+		mavenContent {
+			releasesOnly()
+		}
+	}
 }
 
 dependencies {
