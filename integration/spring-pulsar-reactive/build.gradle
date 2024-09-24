@@ -5,10 +5,6 @@ plugins {
 	id "org.graalvm.buildtools.native"
 }
 
-repositories {
-	maven { url "https://repository.apache.org/content/repositories/snapshots" }
-}
-
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-pulsar-reactive")

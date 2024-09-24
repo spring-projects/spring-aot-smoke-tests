@@ -5,15 +5,32 @@ plugins {
 }
 
 repositories {
-	mavenCentral()
+	if (System.env['REPO_SPRING_IO_USERNAME'] != null && System.env['REPO_SPRING_IO_PASSWORD'] != null) {
+		maven {
+			name "Maven Central Mirror"
+			url "https://repo.spring.io/artifactory/repo1"
+			credentials {
+				username System.env['REPO_SPRING_IO_USERNAME']
+				password System.env['REPO_SPRING_IO_PASSWORD']
+			}
+			mavenContent {
+				releasesOnly()
+			}
+		}
+	}
+	else {
+		mavenCentral()
+	}
 	maven {
-		url "https://repo.spring.io/snapshot"
+		name "Spring Snapshot"
+		url "https://repo.spring.io/artifactory/snapshot"
 		mavenContent {
 			snapshotsOnly()
 		}
 	}
 	maven {
-		url "https://repo.spring.io/milestone"
+		name "Spring Milestone"
+		url "https://repo.spring.io/artifactory/milestone"
 		mavenContent {
 			releasesOnly()
 		}
