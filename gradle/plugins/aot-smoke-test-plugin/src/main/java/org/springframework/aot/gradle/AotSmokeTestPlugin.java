@@ -131,7 +131,15 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				mavenContent.includeGroupByRegex("org.springframework.*");
 			});
 		});
-		project.getRepositories().mavenCentral();
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Maven Central Mirror");
+			repo.setUrl("https://repo.spring.io/artifactory/repo1");
+			repo.credentials((credentials) -> {
+				credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
+			});
+			repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
+		});
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Snapshot");
 			repo.setUrl("https://repo.spring.io/snapshot");

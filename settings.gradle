@@ -47,7 +47,6 @@ plugins {
 rootProject.name="spring-aot-smoke-tests"
 
 include "aot-smoke-test-support"
-include "aot-smoke-test-third-party-hints"
 
 ["batch", "boot", "cloud", "data", "framework", "graphql", "integration", "security", "session"].each { group ->
 	file(group).eachDirMatch(~/[a-z].*/) { smokeTest ->
