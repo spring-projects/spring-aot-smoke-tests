@@ -18,6 +18,7 @@ package org.springframework.aot.gradle;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -32,9 +33,11 @@ import org.graalvm.buildtools.gradle.NativeImagePlugin;
 import org.graalvm.buildtools.gradle.dsl.GraalVMExtension;
 import org.graalvm.buildtools.gradle.dsl.GraalVMReachabilityMetadataRepositoryExtension;
 import org.graalvm.buildtools.gradle.tasks.BuildNativeImageTask;
+import org.gradle.api.Action;
 import org.gradle.api.JavaVersion;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.artifacts.dsl.DependencyHandler;
 import org.gradle.api.file.Directory;
@@ -50,6 +53,8 @@ import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.compile.JavaCompile;
 import org.gradle.api.tasks.testing.Test;
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.aot.gradle.dsl.AotSmokeTestExtension;
 import org.springframework.aot.gradle.dsl.AotSmokeTestExtension.Outcome;
@@ -236,6 +241,10 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 			String reachabilityMetadataVersion = (String) project.getProperties().get("reachabilityMetadataVersion");
 			if (reachabilityMetadataVersion != null) {
 				metadataRepositoryExtension.getVersion().set(reachabilityMetadataVersion);
+				project.getTasks()
+					.named("collectReachabilityMetadata")
+					.configure(
+							(task) -> task.setActions(Collections.singletonList(new RetryAction(task.getActions()))));
 			}
 			String reachabilityMetadataUrl = (String) project.getProperties().get("reachabilityMetadataUrl");
 			if (reachabilityMetadataUrl != null) {
@@ -364,6 +373,55 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		ApplicationType(String name, Class<? extends StartApplication> startTaskType) {
 			this.description = name;
 			this.startTaskType = startTaskType;
+		}
+
+	}
+
+	private static final class RetryAction implements Action<Task> {
+
+		private static final Logger log = LoggerFactory.getLogger(RetryAction.class);
+
+		private static final int MAX_ATTEMPTS = 5;
+
+		private static final long INITIAL_DELAY = 500;
+
+		private final List<Action<? super Task>> actions;
+
+		private RetryAction(List<Action<? super Task>> actions) {
+			this.actions = new ArrayList<>(actions);
+		}
+
+		@Override
+		public void execute(Task task) {
+			log.info("Executing {} with retries", task);
+			List<Exception> failures = new ArrayList<>();
+			long delay = INITIAL_DELAY;
+			for (int i = 1; i <= MAX_ATTEMPTS; i++) {
+				try {
+					for (Action<? super Task> action : this.actions) {
+						action.execute(task);
+					}
+					log.info("Task succeeded after {} attempt(s)", i);
+					return;
+				}
+				catch (Exception ex) {
+					if (i == MAX_ATTEMPTS) {
+						log.info("Execution has not succeeded after {} attempts. Failing task.", MAX_ATTEMPTS);
+						failures.forEach(ex::addSuppressed);
+						throw ex;
+					}
+					failures.add(ex);
+				}
+				try {
+					log.info("Execution failed and will be retried in {}ms", delay);
+					Thread.sleep(delay);
+					delay *= 2;
+				}
+				catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				}
+			}
+
 		}
 
 	}
