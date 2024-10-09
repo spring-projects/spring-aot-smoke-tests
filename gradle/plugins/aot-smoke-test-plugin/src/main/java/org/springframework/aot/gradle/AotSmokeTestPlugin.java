@@ -250,8 +250,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				metadataRepositoryExtension.getVersion().set(reachabilityMetadataVersion);
 				project.getTasks()
 					.named("collectReachabilityMetadata")
-					.configure(
-							(task) -> task.setActions(Collections.singletonList(new RetryAction(task.getActions()))));
+					.configure((task) -> task
+						.setActions(Collections.singletonList(new WithRetryAction(task.getActions()))));
 			}
 			String reachabilityMetadataUrl = (String) project.getProperties().get("reachabilityMetadataUrl");
 			if (reachabilityMetadataUrl != null) {
@@ -261,7 +261,26 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.named(NativeImagePlugin.NATIVE_COMPILE_TASK_NAME, BuildNativeImageTask.class)
 				.flatMap(BuildNativeImageTask::getOutputFile);
 			configureTasks(project, aotTest, ApplicationType.NATIVE, nativeImage, extension);
+			withRetries("nativeConfigurationService initialization",
+					() -> project.getGradle()
+						.getSharedServices()
+						.getRegistrations()
+						.getByName("nativeConfigurationService")
+						.getService()
+						.get());
 		});
+	}
+
+	private void withRetries(String description, Operation operation) {
+		try {
+			new WithRetries(description, operation).perform();
+		}
+		catch (Exception ex) {
+			if (ex instanceof RuntimeException runtimeEx) {
+				throw runtimeEx;
+			}
+			throw new RuntimeException(ex);
+		}
 	}
 
 	private TaskProvider<AppTest> configureTasks(Project project, SourceSet appTest, ApplicationType type,
@@ -384,43 +403,44 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 
 	}
 
-	private static final class RetryAction implements Action<Task> {
+	private static final class WithRetries implements Operation {
 
-		private static final Logger log = LoggerFactory.getLogger(RetryAction.class);
+		private static final Logger log = LoggerFactory.getLogger(WithRetries.class);
 
 		private static final int MAX_ATTEMPTS = 5;
 
 		private static final long INITIAL_DELAY = 500;
 
-		private final List<Action<? super Task>> actions;
+		private final String description;
 
-		private RetryAction(List<Action<? super Task>> actions) {
-			this.actions = new ArrayList<>(actions);
+		private final Operation retryable;
+
+		private WithRetries(String description, Operation retryable) {
+			this.description = description;
+			this.retryable = retryable;
 		}
 
 		@Override
-		public void execute(Task task) {
-			log.info("Executing {} with retries", task);
+		public void perform() throws Exception {
+			log.info("Executing {} with retries", this.description);
 			List<Exception> failures = new ArrayList<>();
 			long delay = INITIAL_DELAY;
 			for (int i = 1; i <= MAX_ATTEMPTS; i++) {
 				try {
-					for (Action<? super Task> action : this.actions) {
-						action.execute(task);
-					}
-					log.info("Task succeeded after {} attempt(s)", i);
+					this.retryable.perform();
+					log.info("{} succeeded after {} attempt(s)", this.description, i);
 					return;
 				}
 				catch (Exception ex) {
 					if (i == MAX_ATTEMPTS) {
-						log.info("Execution has not succeeded after {} attempts. Failing task.", MAX_ATTEMPTS);
+						log.warn("{} has not succeeded after {} attempts. Failing.", this.description, MAX_ATTEMPTS);
 						failures.forEach(ex::addSuppressed);
 						throw ex;
 					}
 					failures.add(ex);
 				}
 				try {
-					log.info("Execution failed and will be retried in {}ms", delay);
+					log.info("{} failed and will be retried in {}ms", this.description, delay);
 					Thread.sleep(delay);
 					delay *= 2;
 				}
@@ -428,7 +448,31 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 					Thread.currentThread().interrupt();
 				}
 			}
+		}
 
+	}
+
+	private interface Operation {
+
+		void perform() throws Exception;
+
+	}
+
+	private static final class WithRetryAction implements Action<Task> {
+
+		private final List<Action<? super Task>> actions;
+
+		private WithRetryAction(List<Action<? super Task>> actions) {
+			this.actions = actions;
+		}
+
+		@Override
+		public void execute(Task task) {
+			new WithRetries(task.toString(), () -> {
+				for (Action<? super Task> action : this.actions) {
+					action.execute(task);
+				}
+			});
 		}
 
 	}
