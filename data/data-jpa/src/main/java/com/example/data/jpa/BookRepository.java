@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 the original author or authors.
+ * Copyright 2022-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
  */
 package com.example.data.jpa;
 
+import com.acme.data.jpa.extension.RepositoryExtension;
 import com.example.data.jpa.model.Book;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
-public interface BookRepository extends ListCrudRepository<Book, Long> {
+public interface BookRepository extends ListCrudRepository<Book, Long>, RepositoryExtension<Book> {
 
 	@EntityGraph(attributePaths = "authors")
 	@Query("SELECT b FROM Book b WHERE b.title = :title")
