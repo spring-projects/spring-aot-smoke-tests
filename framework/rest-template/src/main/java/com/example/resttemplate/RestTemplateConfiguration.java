@@ -30,8 +30,8 @@ class RestTemplateConfiguration {
 	RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.requestFactory(SkipSslVerificationHttpRequestFactory::new)
 			.defaultHeader("User-Agent", "RestTemplateApplication")
-			.setConnectTimeout(Duration.ofSeconds(5))
-			.setReadTimeout(Duration.ofSeconds(5))
+			.connectTimeout(Duration.ofSeconds(5))
+			.readTimeout(Duration.ofSeconds(5))
 			.build();
 	}
 
