@@ -22,4 +22,3 @@ jobs:
       checkout_ref: 3.0.x
       project: boot:flyway
       task: nativeAppTest
-      expected_to_fail: true
