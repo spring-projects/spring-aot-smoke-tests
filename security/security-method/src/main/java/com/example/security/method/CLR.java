@@ -17,11 +17,14 @@
 package com.example.security.method;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -38,15 +41,19 @@ public class CLR implements CommandLineRunner {
 
 	private final PostAuthorizeProtectedService postAuthorizeProtectedService;
 
+	private final AuthorizedReturnValueService authorizedReturnValueService;
+
 	private final UserDetailsManager userDetailsManager;
 
 	public CLR(PreAuthorizeProtectedService preAuthorizeProtectedService,
 			SecuredProtectedService securedProtectedService, Jsr250ProtectedService jsr250ProtectedService,
-			PostAuthorizeProtectedService postAuthorizeProtectedService, UserDetailsManager userDetailsManager) {
+			PostAuthorizeProtectedService postAuthorizeProtectedService,
+			AuthorizedReturnValueService authorizedReturnValueService, UserDetailsManager userDetailsManager) {
 		this.preAuthorizeProtectedService = preAuthorizeProtectedService;
 		this.securedProtectedService = securedProtectedService;
 		this.jsr250ProtectedService = jsr250ProtectedService;
 		this.postAuthorizeProtectedService = postAuthorizeProtectedService;
+		this.authorizedReturnValueService = authorizedReturnValueService;
 		this.userDetailsManager = userDetailsManager;
 	}
 
@@ -66,35 +73,36 @@ public class CLR implements CommandLineRunner {
 		testJsr250Admin();
 		testJsr250PermitAll();
 		testJsr250DenyAll();
+		testAuthorizedObject();
 	}
 
 	private void testAnonymous() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		this.preAuthorizeProtectedService.anonymous();
 		System.out.println("testAnonymous(): preAuthorizeProtectedService.anonymous() worked as anonymous");
 	}
 
 	private void testPostAuthorizeAnonymous() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		this.postAuthorizeProtectedService.anonymous();
 		System.out
 			.println("testPostAuthorizeAnonymous(): postAuthorizeProtectedService.anonymous() worked as anonymous");
 	}
 
 	private void testSecuredAnonymous() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		this.securedProtectedService.anonymous();
 		System.out.println("testSecuredAnonymous(): securedProtectedService.anonymous() worked as anonymous");
 	}
 
 	private void testJsr250Anonymous() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		this.jsr250ProtectedService.anonymous();
 		System.out.println("testJsr250Anonymous(): jsr250ProtectedService.anonymous() worked as anonymous");
 	}
 
 	private void testUser() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.preAuthorizeProtectedService.user();
 			throw new IllegalStateException("testUser(): preAuthorizeProtectedService.user() worked as anonymous");
@@ -109,7 +117,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testPostAuthorizeUser() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.postAuthorizeProtectedService.user();
 			throw new IllegalStateException(
@@ -125,7 +133,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testSecuredUser() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.securedProtectedService.user();
 			throw new IllegalStateException("testSecuredUser(): securedProtectedService.user() worked as anonymous");
@@ -140,7 +148,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testJsr250User() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.jsr250ProtectedService.user();
 			throw new IllegalStateException("testJsr250User(): jsr250ProtectedService.user() worked as anonymous");
@@ -155,7 +163,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testAdmin() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.preAuthorizeProtectedService.admin();
 			throw new IllegalStateException("testAdmin(): preAuthorizeProtectedService.admin() worked as anonymous");
@@ -179,7 +187,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testPostAuthorizeAdmin() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.postAuthorizeProtectedService.admin();
 			throw new IllegalStateException(
@@ -205,7 +213,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testSecuredAdmin() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.securedProtectedService.admin();
 			throw new IllegalStateException("testSecuredAdmin(): securedProtectedService.admin() worked as anonymous");
@@ -229,7 +237,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testJsr250Admin() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.jsr250ProtectedService.admin();
 			throw new IllegalStateException("testJsr250Admin(): jsr250ProtectedService.admin() worked as anonymous");
@@ -253,7 +261,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testJsr250DenyAll() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		try {
 			this.jsr250ProtectedService.denyAll();
 			throw new IllegalStateException(
@@ -283,7 +291,7 @@ public class CLR implements CommandLineRunner {
 	}
 
 	private void testJsr250PermitAll() {
-		impersonateAnonymous();
+		impersonateNoAuthentication();
 		this.jsr250ProtectedService.permitAll();
 		System.out.println("testJsr250PermitAll(): jsr250ProtectedService.permitAll() worked as anonymous");
 
@@ -296,8 +304,51 @@ public class CLR implements CommandLineRunner {
 		System.out.println("testJsr250PermitAll(): jsr250ProtectedService.permitAll() worked as admin");
 	}
 
-	private void impersonateAnonymous() {
+	private void testAuthorizedObject() {
+		AuthorizableObject object = this.authorizedReturnValueService.getObject();
+		AuthorizableObject authorized = this.authorizedReturnValueService.getAuthorizedObject();
+
+		impersonateAnonymous();
+		expectAllow(object::getAdminProperty).report("testAuthorizedObject", "object.getAdminProperty", "anonymous");
+		expectAllow(object::getUserProperty).report("testAuthorizedObject", "object.getUserProperty", "anonymous");
+		expectAllow(object::getUserPropertyJsr250).report("testAuthorizedObject", "object.getUserPropertyJsr250",
+				"anonymous");
+		expectAllow(object::getUserPropertySecured).report("testAuthorizedObject", "object.getUserPropertySecured",
+				"anonymous");
+		expectDeny(authorized::getAdminProperty).report("testAuthorizedObject", "authorized.getAdminProperty",
+				"anonymous");
+		expectDeny(authorized::getUserProperty).report("testAuthorizedObject", "authorized.getUserProperty",
+				"anonymous");
+		expectDeny(authorized::getUserPropertyJsr250).report("testAuthorizedObject", "authorized.getUserPropertyJsr250",
+				"anonymous");
+		expectDeny(authorized::getUserPropertySecured).report("testAuthorizedObject",
+				"authorized.getUserPropertySecured", "anonymous");
+
+		impersonateUser();
+		expectDeny(authorized::getAdminProperty).report("testAuthorizedObject", "authorized.getAdminProperty", "user");
+		expectAllow(authorized::getUserProperty).report("testAuthorizedObject", "authorized.getUserProperty", "user");
+		expectAllow(authorized::getUserPropertyJsr250).report("testAuthorizedObject",
+				"authorized.getUserPropertyJsr250", "user");
+		expectAllow(authorized::getUserPropertySecured).report("testAuthorizedObject",
+				"authorized.getUserPropertySecured", "user");
+
+		impersonateAdmin();
+		expectAllow(authorized::getAdminProperty).report("testAuthorizedObject", "authorized.getAdminProperty",
+				"admin");
+		expectDeny(authorized::getUserProperty).report("testAuthorizedObject", "authorized.getUserProperty", "admin");
+		expectDeny(authorized::getUserPropertyJsr250).report("testAuthorizedObject", "authorized.getUserPropertyJsr250",
+				"admin");
+		expectDeny(authorized::getUserPropertySecured).report("testAuthorizedObject",
+				"authorized.getUserPropertySecured", "admin");
+	}
+
+	private void impersonateNoAuthentication() {
 		SecurityContextHolder.getContext().setAuthentication(null);
+	}
+
+	private void impersonateAnonymous() {
+		SecurityContextHolder.getContext()
+			.setAuthentication(new TestingAuthenticationToken("principal", "credentials"));
 	}
 
 	private void impersonateUser() {
@@ -312,6 +363,32 @@ public class CLR implements CommandLineRunner {
 		SecurityContextHolder.getContext()
 			.setAuthentication(
 					new TestingAuthenticationToken(user, user.getPassword(), List.copyOf(user.getAuthorities())));
+	}
+
+	private interface ResultReporter {
+
+		void report(String testMethod, String method, String role);
+
+	}
+
+	private ResultReporter expectAllow(Supplier<?> test) {
+		try {
+			test.get();
+			return (t, m, r) -> System.out.printf("%s(): %s() correctly allowed as %s%n", t, m, r);
+		}
+		catch (AccessDeniedException ex) {
+			return (t, m, r) -> System.out.printf("%s(): %s() incorrectly denied as %s%n", t, m, r);
+		}
+	}
+
+	private ResultReporter expectDeny(Supplier<?> test) {
+		try {
+			test.get();
+			return (t, m, r) -> System.out.printf("%s(): %s() incorrectly allowed as %s%n", t, m, r);
+		}
+		catch (AccessDeniedException ex) {
+			return (t, m, r) -> System.out.printf("%s(): %s() correctly denied as %s%n", t, m, r);
+		}
 	}
 
 }
