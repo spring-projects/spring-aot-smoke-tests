@@ -16,6 +16,7 @@ repositories {
 			snapshotsOnly()
 			includeGroupByRegex("io.micrometer.*")
 			includeGroupByRegex("org.springframework.*")
+			includeGroupByRegex("io.projectreactor.*")
 		}
 	}
 	maven {
@@ -29,6 +30,7 @@ repositories {
 			releasesOnly()
 			includeGroupByRegex("io.micrometer.*")
 			includeGroupByRegex("org.springframework.*")
+			includeGroupByRegex("io.projectreactor.*")
 		}
 	}
 	maven {

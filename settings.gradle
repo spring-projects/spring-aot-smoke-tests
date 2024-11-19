@@ -11,6 +11,7 @@ pluginManagement {
 			mavenContent {
 				snapshotsOnly()
 				includeGroupByRegex("org.springframework.*")
+				includeGroupByRegex("io.projectreactor.*")
 			}
 		}
 		maven {
@@ -23,6 +24,7 @@ pluginManagement {
 			mavenContent {
 				releasesOnly()
 				includeGroupByRegex("org.springframework.*")
+				includeGroupByRegex("io.projectreactor.*")
 			}
 		}
 		maven {
