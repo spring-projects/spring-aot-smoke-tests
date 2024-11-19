@@ -121,6 +121,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				mavenContent.snapshotsOnly();
 				mavenContent.includeGroupByRegex("io.micrometer.*");
 				mavenContent.includeGroupByRegex("org.springframework.*");
+				mavenContent.includeGroupByRegex("io.projectreactor.*");
 			});
 		});
 		project.getRepositories().maven((repo) -> {
@@ -134,6 +135,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				mavenContent.releasesOnly();
 				mavenContent.includeGroupByRegex("io.micrometer.*");
 				mavenContent.includeGroupByRegex("org.springframework.*");
+				mavenContent.includeGroupByRegex("io.projectreactor.*");
 			});
 		});
 		project.getRepositories().maven((repo) -> {
