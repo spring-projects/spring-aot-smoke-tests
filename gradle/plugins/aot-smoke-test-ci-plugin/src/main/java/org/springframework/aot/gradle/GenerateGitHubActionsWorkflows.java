@@ -79,7 +79,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("name: " + workflowName);
 			writer.println("on:");
 			writer.println("  schedule:");
-			writer.println("    - cron : '" + getCronSchedule().get() + "'");
+			if (!"3.2.x".equals(getGitBranch().get())) {
+				writer.println("    - cron : '" + getCronSchedule().get() + "'");
+			}
 			writer.println("  workflow_dispatch:");
 			writer.println("jobs:");
 			smokeTest.tests().forEach((test) -> {

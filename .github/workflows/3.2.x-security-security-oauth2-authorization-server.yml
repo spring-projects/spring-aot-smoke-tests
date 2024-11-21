@@ -1,7 +1,6 @@
 name: 3.2.x | Security Smoke Tests | Security Oauth2 Authorization Server
 on:
   schedule:
-    - cron : '30 0 * * *'
   workflow_dispatch:
 jobs:
   security_oauth2_authorization_server_app_test:

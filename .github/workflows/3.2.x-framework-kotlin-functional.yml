@@ -1,7 +1,6 @@
 name: 3.2.x | Framework Smoke Tests | Kotlin Functional
 on:
   schedule:
-    - cron : '30 0 * * *'
   workflow_dispatch:
 jobs:
   kotlin_functional_app_test:
