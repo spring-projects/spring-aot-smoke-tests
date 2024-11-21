@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Rest Template
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   rest_template_app_test:

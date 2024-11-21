@@ -1,6 +1,5 @@
 name: 3.2.x | Batch Smoke Tests | Batch
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   batch_app_test:

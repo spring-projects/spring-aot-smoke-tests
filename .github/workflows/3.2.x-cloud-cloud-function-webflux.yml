@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Function Webflux
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_function_webflux_app_test:

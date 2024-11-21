@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Configuration Properties
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   configuration_properties_app_test:

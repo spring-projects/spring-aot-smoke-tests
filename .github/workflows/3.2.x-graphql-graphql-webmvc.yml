@@ -1,6 +1,5 @@
 name: 3.2.x | Graphql Smoke Tests | Graphql Webmvc
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   graphql_webmvc_app_test:

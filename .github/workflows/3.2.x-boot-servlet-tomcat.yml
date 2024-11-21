@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Servlet Tomcat
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   servlet_tomcat_app_test:

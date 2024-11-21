@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Webflux Netty Tls
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   webflux_netty_tls_app_test:

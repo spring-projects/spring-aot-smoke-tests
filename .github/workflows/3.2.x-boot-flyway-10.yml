@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Flyway 10
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   flyway_10_app_test:

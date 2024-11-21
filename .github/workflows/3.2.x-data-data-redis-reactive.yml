@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Data Redis Reactive
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   data_redis_reactive_app_test:

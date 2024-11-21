@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Freemarker Webflux
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   freemarker_webflux_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Aspect
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   aspect_app_test:

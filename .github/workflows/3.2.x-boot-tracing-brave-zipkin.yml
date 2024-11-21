@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Tracing Brave Zipkin
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   tracing_brave_zipkin_app_test:

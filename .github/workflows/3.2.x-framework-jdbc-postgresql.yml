@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Jdbc Postgresql
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   jdbc_postgresql_app_test:

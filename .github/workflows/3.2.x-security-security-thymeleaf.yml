@@ -1,6 +1,5 @@
 name: 3.2.x | Security Smoke Tests | Security Thymeleaf
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   security_thymeleaf_app_test:

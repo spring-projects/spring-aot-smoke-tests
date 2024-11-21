@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Command Line Runner
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   command_line_runner_app_test:

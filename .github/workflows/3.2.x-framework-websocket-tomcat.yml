@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Websocket Tomcat
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   websocket_tomcat_app_test:

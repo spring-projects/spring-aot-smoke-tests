@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Data Mongodb
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   data_mongodb_app_test:

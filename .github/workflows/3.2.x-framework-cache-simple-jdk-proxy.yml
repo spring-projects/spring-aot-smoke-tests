@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Cache Simple Jdk Proxy
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cache_simple_jdk_proxy_app_test:

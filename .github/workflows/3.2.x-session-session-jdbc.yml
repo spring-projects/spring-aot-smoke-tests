@@ -1,6 +1,5 @@
 name: 3.2.x | Session Smoke Tests | Session Jdbc
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   session_jdbc_app_test:

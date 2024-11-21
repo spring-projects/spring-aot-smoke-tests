@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Hateoas
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   hateoas_app_test:

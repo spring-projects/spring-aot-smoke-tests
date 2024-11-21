@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Freemarker Webmvc
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   freemarker_webmvc_app_test:

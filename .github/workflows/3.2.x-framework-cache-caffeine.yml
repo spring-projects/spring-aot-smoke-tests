@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Cache Caffeine
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cache_caffeine_app_test:

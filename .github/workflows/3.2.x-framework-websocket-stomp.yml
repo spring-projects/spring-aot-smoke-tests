@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Websocket Stomp
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   websocket_stomp_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Discovery Eureka
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_discovery_eureka_app_test:

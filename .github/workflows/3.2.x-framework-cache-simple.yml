@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Cache Simple
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cache_simple_app_test:

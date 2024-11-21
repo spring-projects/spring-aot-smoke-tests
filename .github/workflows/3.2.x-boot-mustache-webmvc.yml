@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Mustache Webmvc
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   mustache_webmvc_app_test:

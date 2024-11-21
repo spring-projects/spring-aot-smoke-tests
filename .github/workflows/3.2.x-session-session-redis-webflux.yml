@@ -1,6 +1,5 @@
 name: 3.2.x | Session Smoke Tests | Session Redis Webflux
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   session_redis_webflux_app_test:

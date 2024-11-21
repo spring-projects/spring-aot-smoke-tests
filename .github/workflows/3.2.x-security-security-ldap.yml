@@ -1,6 +1,5 @@
 name: 3.2.x | Security Smoke Tests | Security Ldap
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   security_ldap_app_test:

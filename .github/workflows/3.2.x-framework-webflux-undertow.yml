@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Webflux Undertow
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   webflux_undertow_app_test:

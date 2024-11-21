@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Discovery Zookeeper
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_discovery_zookeeper_app_test:

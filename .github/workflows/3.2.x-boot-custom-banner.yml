@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Custom Banner
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   custom_banner_app_test:

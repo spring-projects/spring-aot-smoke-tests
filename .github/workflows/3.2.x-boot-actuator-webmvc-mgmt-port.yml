@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Actuator Webmvc Mgmt Port
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   actuator_webmvc_mgmt_port_app_test:

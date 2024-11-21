@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Actuator Webflux Mgmt Port
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   actuator_webflux_mgmt_port_app_test:

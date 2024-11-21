@@ -1,6 +1,5 @@
 name: 3.2.x | Integration Smoke Tests | Spring Amqp Rabbit
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   spring_amqp_rabbit_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Stream Kafka Streams
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_stream_kafka_streams_app_test:

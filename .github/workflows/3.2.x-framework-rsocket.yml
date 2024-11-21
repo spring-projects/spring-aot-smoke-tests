@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Rsocket
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   rsocket_app_test:

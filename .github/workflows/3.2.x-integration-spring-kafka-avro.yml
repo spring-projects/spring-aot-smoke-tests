@@ -1,6 +1,5 @@
 name: 3.2.x | Integration Smoke Tests | Spring Kafka Avro
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   spring_kafka_avro_app_test:

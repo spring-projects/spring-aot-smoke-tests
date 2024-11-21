@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Task
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_task_app_test:

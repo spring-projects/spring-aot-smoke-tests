@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Data Jpa Entityscan
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   data_jpa_entityscan_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Order
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   order_app_test:

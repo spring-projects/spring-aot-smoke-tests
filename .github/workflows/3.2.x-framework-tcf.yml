@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Tcf
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   tcf_test:

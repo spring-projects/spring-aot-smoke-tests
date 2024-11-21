@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Hibernate
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   hibernate_app_test:

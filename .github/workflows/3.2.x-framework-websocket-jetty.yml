@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Websocket Jetty
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   websocket_jetty_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Stream Pulsar
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_stream_pulsar_app_test:

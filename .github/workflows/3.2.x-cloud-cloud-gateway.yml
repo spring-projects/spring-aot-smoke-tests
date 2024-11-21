@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Gateway
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_gateway_app_test:

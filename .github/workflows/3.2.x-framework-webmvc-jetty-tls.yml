@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Webmvc Jetty Tls
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   webmvc_jetty_tls_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Webclient
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   webclient_app_test:

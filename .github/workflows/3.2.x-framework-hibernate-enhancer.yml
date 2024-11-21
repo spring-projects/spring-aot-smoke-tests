@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Hibernate Enhancer
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   hibernate_enhancer_app_test:

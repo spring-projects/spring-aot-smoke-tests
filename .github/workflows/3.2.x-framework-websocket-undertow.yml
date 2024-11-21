@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Websocket Undertow
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   websocket_undertow_app_test:

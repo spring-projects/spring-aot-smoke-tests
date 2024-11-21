@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Validation
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   validation_app_test:

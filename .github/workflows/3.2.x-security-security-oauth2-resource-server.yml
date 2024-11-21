@@ -1,6 +1,5 @@
 name: 3.2.x | Security Smoke Tests | Security Oauth2 Resource Server
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   security_oauth2_resource_server_app_test:

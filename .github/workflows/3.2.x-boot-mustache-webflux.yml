@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Mustache Webflux
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   mustache_webflux_app_test:

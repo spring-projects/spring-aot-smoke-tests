@@ -1,6 +1,5 @@
 name: 3.2.x | Integration Smoke Tests | Spring Pulsar Reactive
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   spring_pulsar_reactive_app_test:

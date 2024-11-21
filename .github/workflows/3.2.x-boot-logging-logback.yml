@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Logging Logback
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   logging_logback_app_test:

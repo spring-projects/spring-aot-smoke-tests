@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Conditional
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   conditional_app_test:

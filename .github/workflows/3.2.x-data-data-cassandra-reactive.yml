@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Data Cassandra Reactive
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   data_cassandra_reactive_app_test:

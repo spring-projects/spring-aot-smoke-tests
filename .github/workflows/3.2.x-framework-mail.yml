@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Mail
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   mail_app_test:

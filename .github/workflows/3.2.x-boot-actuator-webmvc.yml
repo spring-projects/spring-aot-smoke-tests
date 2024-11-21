@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Actuator Webmvc
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   actuator_webmvc_app_test:

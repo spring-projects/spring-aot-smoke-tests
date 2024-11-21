@@ -1,6 +1,5 @@
 name: 3.2.x | Integration Smoke Tests | Integration
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   integration_app_test:

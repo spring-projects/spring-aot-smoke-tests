@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Transactional Event Listener
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   transactional_event_listener_app_test:

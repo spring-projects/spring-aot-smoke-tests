@@ -1,6 +1,5 @@
 name: 3.2.x | Integration Smoke Tests | Spring Kafka
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   spring_kafka_app_test:

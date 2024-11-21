@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Webflux Jetty
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   webflux_jetty_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Security Smoke Tests | Security Webflux
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   security_webflux_app_test:

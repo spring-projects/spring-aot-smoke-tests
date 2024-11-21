@@ -1,6 +1,5 @@
 name: 3.2.x | Graphql Smoke Tests | Graphql Webflux
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   graphql_webflux_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Function Web
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_function_web_app_test:

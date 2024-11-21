@@ -1,6 +1,5 @@
 name: 3.2.x | Security Smoke Tests | Security Method
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   security_method_app_test:

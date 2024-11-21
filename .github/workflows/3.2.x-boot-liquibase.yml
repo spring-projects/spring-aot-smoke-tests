@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Liquibase
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   liquibase_app_test:

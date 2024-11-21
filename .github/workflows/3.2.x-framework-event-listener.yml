@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Event Listener
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   event_listener_app_test:

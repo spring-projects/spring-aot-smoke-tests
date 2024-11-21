@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Data Jdbc Postgresql
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   data_jdbc_postgresql_app_test:

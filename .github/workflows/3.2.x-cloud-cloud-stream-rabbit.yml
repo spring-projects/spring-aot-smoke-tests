@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Stream Rabbit
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_stream_rabbit_app_test:

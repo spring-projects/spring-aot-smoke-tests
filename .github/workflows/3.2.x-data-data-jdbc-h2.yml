@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Data Jdbc H2
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   data_jdbc_h2_app_test:

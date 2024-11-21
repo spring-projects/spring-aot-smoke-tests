@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Quartz
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   quartz_app_test:

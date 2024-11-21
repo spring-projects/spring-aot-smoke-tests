@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Boot Tcf
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   boot_tcf_test:

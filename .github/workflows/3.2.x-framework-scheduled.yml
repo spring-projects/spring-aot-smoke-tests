@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Scheduled
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   scheduled_app_test:

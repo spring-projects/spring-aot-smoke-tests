@@ -1,6 +1,5 @@
 name: 3.2.x | Cloud Smoke Tests | Cloud Loadbalancing Web
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   cloud_loadbalancing_web_app_test:

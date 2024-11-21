@@ -1,6 +1,5 @@
 name: 3.2.x | Boot Smoke Tests | Json
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   json_app_test:

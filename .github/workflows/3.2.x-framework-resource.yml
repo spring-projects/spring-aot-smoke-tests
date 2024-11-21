@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Resource
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   resource_app_test:

@@ -1,6 +1,5 @@
 name: 3.2.x | Data Smoke Tests | Data Jpa Kotlin
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   data_jpa_kotlin_app_test:

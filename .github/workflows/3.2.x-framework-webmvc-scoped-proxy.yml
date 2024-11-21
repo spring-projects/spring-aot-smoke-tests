@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Webmvc Scoped Proxy
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   webmvc_scoped_proxy_app_test:

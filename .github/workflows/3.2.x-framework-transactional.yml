@@ -1,6 +1,5 @@
 name: 3.2.x | Framework Smoke Tests | Transactional
 on:
-  schedule:
   workflow_dispatch:
 jobs:
   transactional_app_test:
