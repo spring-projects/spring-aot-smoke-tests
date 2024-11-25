@@ -1,5 +1,7 @@
 name: 3.2.x | Boot Smoke Tests | Servlet Jetty
 on:
+  schedule:
+    - cron : '30 0 * * *'
   workflow_dispatch:
 jobs:
   servlet_jetty_app_test:
