@@ -19,6 +19,7 @@ package com.example.security.method;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.core.annotation.AnnotationTemplateExpressionDefaults;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -27,6 +28,11 @@ import org.springframework.security.provisioning.UserDetailsManager;
 @Configuration
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 class SecurityConfiguration {
+
+	@Bean
+	static AnnotationTemplateExpressionDefaults annotationTemplateExpressionDefaults() {
+		return new AnnotationTemplateExpressionDefaults();
+	}
 
 	@Bean
 	@SuppressWarnings("deprecation")
