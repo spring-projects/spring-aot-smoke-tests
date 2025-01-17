@@ -49,6 +49,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 	public abstract Property<String> getGitBranch();
 
 	@Input
+	public abstract Property<String> getWarmCachesCronSchedule();
+
+	@Input
 	public abstract Property<String> getCronSchedule();
 
 	@Input
@@ -63,10 +66,35 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 	@TaskAction
 	void generateWorkflows() {
 		getProject().delete(getOutputDirectory());
-		getSmokeTests().get().forEach(this::generateWorkflow);
+		generateWarmCachesWorkflow();
+		getSmokeTests().get().forEach(this::generateSmokeTestWorkflow);
 	}
 
-	void generateWorkflow(SmokeTest smokeTest) {
+	private void generateWarmCachesWorkflow() {
+		String springBootGeneration = getSpringBootGeneration().get();
+		File workflowFile = getOutputDirectory().file(springBootGeneration + "-warm-caches.yml").get().getAsFile();
+		workflowFile.getParentFile().mkdirs();
+		String workflowName = springBootGeneration + " | Warm Caches";
+		try (PrintWriter writer = new PrintWriter(new FileWriter(workflowFile))) {
+			writer.println("name: " + workflowName);
+			writer.println("on:");
+			writer.println("  schedule:");
+			writer.println("    - cron : '" + getWarmCachesCronSchedule().get() + "'");
+			writer.println("  workflow_dispatch:");
+			writer.println("jobs:");
+			writer.println("  warm_caches:");
+			writer.println("    uses: ./.github/workflows/warm-caches.yml");
+			writer.println("    secrets: inherit");
+			writer.println("    with:");
+			writer.println("      checkout_repository: " + GITHUB_REPOSITORY);
+			writer.println("      checkout_ref: " + getGitBranch().get());
+		}
+		catch (IOException ex) {
+			throw new GradleException("Failed to write workflow file '" + workflowFile + "'", ex);
+		}
+	}
+
+	private void generateSmokeTestWorkflow(SmokeTest smokeTest) {
 		String springBootGeneration = getSpringBootGeneration().get();
 		File workflowFile = getOutputDirectory()
 			.file(springBootGeneration + "-" + smokeTest.group() + "-" + smokeTest.name() + ".yml")

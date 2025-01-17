@@ -50,8 +50,12 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 			syncFromClasspath("smoke-test-jvm.yml", sync);
 			syncFromClasspath("smoke-test-native.yml", sync);
 			syncFromClasspath("validate-gradle-wrapper.yml", sync);
+			syncFromClasspath("warm-caches.yml", sync);
 		});
+		CronSchedule cronSchedule = new CronSchedule();
 		smokeTests.configureEach((tests) -> {
+			String warmCachesSchedule = cronSchedule.warmCaches();
+			String runTestsSchedule = cronSchedule.runTests();
 			TaskProvider<Exec> describeSmokeTestsForBranch = project.getTasks()
 				.register("describeSmokeTestsFor" + tests.getName(), Exec.class);
 			describeSmokeTestsForBranch.configure((task) -> {
@@ -67,9 +71,11 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 					task.getGitBranch().set(tests.getBranch());
 				}
 				task.getSmokeTests().set(project.provider(() -> loadSmokeTests(tests.getLocation())));
-				task.getCronSchedule().set(tests.getCronSchedule());
+				task.getWarmCachesCronSchedule().set(warmCachesSchedule);
+				task.getCronSchedule().set(runTestsSchedule);
 			});
 			syncWorkflows.configure((sync) -> sync.from(generateWorkflowsForBranch));
+			cronSchedule.nextBatch();
 		});
 	}
 
@@ -92,6 +98,45 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 	private void syncFromClasspath(String name, Sync sync) {
 		sync.from(sync.getProject().getResources().getText().fromUri(getClass().getClassLoader().getResource(name)),
 				(spec) -> spec.rename((temp) -> name));
+	}
+
+	static final class CronSchedule {
+
+		private int minute;
+
+		private int hour;
+
+		private CronSchedule() {
+			this(0, 0);
+		}
+
+		private CronSchedule(int minute, int hour) {
+			this.minute = minute;
+			this.hour = hour;
+		}
+
+		String warmCaches() {
+			return asString();
+		}
+
+		String runTests() {
+			CronSchedule offsetSchedule = new CronSchedule(this.minute, this.hour);
+			offsetSchedule.nextBatch();
+			return offsetSchedule.asString();
+		}
+
+		private String asString() {
+			return "%d %d * * *".formatted(this.minute, this.hour);
+		}
+
+		void nextBatch() {
+			this.minute += 10;
+			if (this.minute == 60) {
+				this.minute = 0;
+				this.hour += 1;
+			}
+		}
+
 	}
 
 }

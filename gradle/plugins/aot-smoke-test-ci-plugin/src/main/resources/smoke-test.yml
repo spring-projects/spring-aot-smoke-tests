@@ -52,6 +52,8 @@ jobs:
           distribution: 'liberica'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@db19848a5fa7950289d3668fb053140cf3028d43 # v3.3.2
+        with:
+          cache-read-only: true
       - name: Configure Gradle user.name
         run: |
            mkdir -p ~/.gradle

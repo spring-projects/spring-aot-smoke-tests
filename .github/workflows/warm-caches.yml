@@ -1,0 +1,37 @@
+name: Smoke Test
+on:
+  workflow_call:
+    inputs:
+      checkout_repository:
+        required: true
+        type: string
+      checkout_ref:
+        required: true
+        type: string
+jobs:
+  warm_caches:
+    name: ${{ inputs.task }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.checkout_repository }}
+          ref: ${{ inputs.checkout_ref }}
+      - name: Set up Java
+        uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4.2.1
+        with:
+          java-version: ${{ inputs.java_version }}
+          distribution: 'liberica'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@db19848a5fa7950289d3668fb053140cf3028d43 # v3.3.2
+      - name: Configure Gradle user.name
+        run: |
+           mkdir -p ~/.gradle
+           echo 'systemProp.user.name=spring-builds+github' >> ~/.gradle/gradle.properties
+      - name: Warm Caches
+        env:
+          DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+          REPO_SPRING_IO_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+          REPO_SPRING_IO_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+        run: ./gradlew warmCaches
