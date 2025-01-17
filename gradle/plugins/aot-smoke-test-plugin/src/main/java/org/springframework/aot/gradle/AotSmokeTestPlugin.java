@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,6 +65,7 @@ import org.springframework.aot.gradle.tasks.StartApplication;
 import org.springframework.aot.gradle.tasks.StartJvmApplication;
 import org.springframework.aot.gradle.tasks.StartNativeApplication;
 import org.springframework.aot.gradle.tasks.StopApplication;
+import org.springframework.aot.gradle.tasks.WarmCaches;
 import org.springframework.boot.gradle.plugin.SpringBootAotPlugin;
 import org.springframework.boot.gradle.plugin.SpringBootPlugin;
 import org.springframework.boot.gradle.tasks.bundling.BootJar;
@@ -183,6 +184,20 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 		DependencyHandler dependencies = project.getRootProject().getDependencies();
 		dependencies.add(smokeTests.getName(),
 				dependencies.project(Map.of("path", project.getPath(), "configuration", smokeTests.getName())));
+		project.getTasks().register("warmCaches", WarmCaches.class, (warmCaches) -> {
+			sourceSets
+				.matching((sourceSet) -> List
+					.of(SourceSet.MAIN_SOURCE_SET_NAME, SourceSet.TEST_SOURCE_SET_NAME, APP_TEST_SOURCE_SET_NAME)
+					.contains(sourceSet.getName()))
+				.all((sourceSet) -> {
+					warmCaches.addDependencies(
+							project.getConfigurations().getByName(sourceSet.getAnnotationProcessorConfigurationName()));
+					warmCaches.addDependencies(
+							project.getConfigurations().getByName(sourceSet.getCompileClasspathConfigurationName()));
+					warmCaches.addDependencies(
+							project.getConfigurations().getByName(sourceSet.getRuntimeClasspathConfigurationName()));
+				});
+		});
 	}
 
 	private void enableJavaCompileLinting(Project project, SourceSetContainer sourceSets) {
