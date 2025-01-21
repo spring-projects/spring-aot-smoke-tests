@@ -80,6 +80,12 @@ jobs:
           groupName=$(echo $projectName | awk '{print substr($1, 0, index($1, "_") - 1)}')
           echo SECRET_NAME_OWNER_IDS_PROJECT=OWNER_IDS_${projectName} >> $GITHUB_ENV
           echo SECRET_NAME_OWNER_IDS_GROUP=OWNER_IDS_${groupName} >> $GITHUB_ENV
+      - name: Upload hs_err_pid files
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hs-err-pid-files
+          path: '**/build/**/hs_err_pid*.log'
       - name: Send notification
         uses: ./ci/.github/actions/send-notification
         if: ${{ failure() || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
