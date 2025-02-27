@@ -12,5 +12,17 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 	appTestImplementation(project(":aot-smoke-test-support"))
-	appTestImplementation("org.awaitility:awaitility:4.2.0")
+}
+
+aotSmokeTest {
+	nativeTest {
+		expectedToFail {
+			becauseOf "https://github.com/spring-projects/spring-boot/issues/32195"
+		}
+	}
+	test {
+		expectedToFail {
+			becauseOf "https://github.com/spring-projects/spring-boot/issues/32195"
+		}
+	}
 }
