@@ -1,0 +1,1 @@
+Tests if Spring Framwork TestContext Framework's Mockito support is working
