@@ -1,0 +1,24 @@
+name: 3.5.x | Boot Smoke Tests | Actuator Webmvc
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+jobs:
+  actuator_webmvc_app_test:
+    name: Actuator Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:actuator-webmvc
+      task: appTest
+  actuator_webmvc_native_app_test:
+    name: Actuator Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:actuator-webmvc
+      task: nativeAppTest

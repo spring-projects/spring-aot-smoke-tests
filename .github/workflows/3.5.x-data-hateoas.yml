@@ -1,0 +1,24 @@
+name: 3.5.x | Data Smoke Tests | Hateoas
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+jobs:
+  hateoas_app_test:
+    name: Hateoas App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:hateoas
+      task: appTest
+  hateoas_native_app_test:
+    name: Hateoas Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:hateoas
+      task: nativeAppTest

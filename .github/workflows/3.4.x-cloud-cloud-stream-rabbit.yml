@@ -10,7 +10,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.4.x
       project: cloud:cloud-stream-rabbit
       task: appTest
   cloud_stream_rabbit_native_app_test:
@@ -19,6 +19,6 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.4.x
       project: cloud:cloud-stream-rabbit
       task: nativeAppTest

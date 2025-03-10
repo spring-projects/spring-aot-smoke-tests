@@ -1,0 +1,42 @@
+name: 3.5.x | Framework Smoke Tests | Webflux Jetty
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+jobs:
+  webflux_jetty_app_test:
+    name: Webflux Jetty App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webflux-jetty
+      task: appTest
+  webflux_jetty_native_app_test:
+    name: Webflux Jetty Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webflux-jetty
+      task: nativeAppTest
+  webflux_jetty_test:
+    name: Webflux Jetty Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webflux-jetty
+      task: test
+  webflux_jetty_native_test:
+    name: Webflux Jetty Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webflux-jetty
+      task: nativeTest

@@ -1,0 +1,24 @@
+name: 3.5.x | Boot Smoke Tests | Freemarker Webmvc
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+jobs:
+  freemarker_webmvc_app_test:
+    name: Freemarker Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:freemarker-webmvc
+      task: appTest
+  freemarker_webmvc_native_app_test:
+    name: Freemarker Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:freemarker-webmvc
+      task: nativeAppTest

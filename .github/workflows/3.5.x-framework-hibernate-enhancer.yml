@@ -1,0 +1,24 @@
+name: 3.5.x | Framework Smoke Tests | Hibernate Enhancer
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+jobs:
+  hibernate_enhancer_app_test:
+    name: Hibernate Enhancer App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:hibernate-enhancer
+      task: appTest
+  hibernate_enhancer_native_app_test:
+    name: Hibernate Enhancer Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:hibernate-enhancer
+      task: nativeAppTest

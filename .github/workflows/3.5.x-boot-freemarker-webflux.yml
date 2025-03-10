@@ -1,0 +1,24 @@
+name: 3.5.x | Boot Smoke Tests | Freemarker Webflux
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+jobs:
+  freemarker_webflux_app_test:
+    name: Freemarker Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:freemarker-webflux
+      task: appTest
+  freemarker_webflux_native_app_test:
+    name: Freemarker Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:freemarker-webflux
+      task: nativeAppTest

@@ -1,0 +1,24 @@
+name: 3.5.x | Boot Smoke Tests | Configuration Properties
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+jobs:
+  configuration_properties_app_test:
+    name: Configuration Properties App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:configuration-properties
+      task: appTest
+  configuration_properties_native_app_test:
+    name: Configuration Properties Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:configuration-properties
+      task: nativeAppTest
