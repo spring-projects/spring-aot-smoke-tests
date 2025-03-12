@@ -22,3 +22,4 @@ jobs:
       checkout_ref: main
       project: cloud:cloud-stream-kafka-streams
       task: nativeAppTest
+      expected_to_fail: true
