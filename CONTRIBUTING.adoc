@@ -2,10 +2,8 @@
 
 Before submitting a pull request, please make sure that:
 
-1. You've rebased your changes on top of the current `main` branch
-2. If you created a new top level directory: You've included the new directory in `settings.gradle`
-3. You've run `./gradlew updateInfrastructure`
-4. You've run `./gradlew :<name of the group>:<name of the smoke test>:build`
+1. If you created a new top level directory: You've included the new directory in `settings.gradle`
+2. You've run `./gradlew :<name of the group>:<name of the smoke test>:build`
 
 == Docker Compose tips
 
