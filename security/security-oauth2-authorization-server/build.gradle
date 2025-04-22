@@ -8,7 +8,7 @@ plugins {
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.security:spring-security-oauth2-authorization-server:1.0.0-SNAPSHOT")
+	implementation("org.springframework.security:spring-security-oauth2-authorization-server:1.0.11-SNAPSHOT")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
