@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,27 @@ class ConfigPropsApplicationAotTests {
 		void dataSizeShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output).hasSingleLineContaining("appProperties.getDataSize(): 1048576B");
+			});
+		}
+
+		@Test
+		void dataSizeWithCustomDefaultUnitShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appProperties.getCustomDefaultUnitDataSize(): 5242880B");
+			});
+		}
+
+		@Test
+		void durationShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appProperties.getDuration(): PT30S");
+			});
+		}
+
+		@Test
+		void durationWithCustomDefaultUnitShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appProperties.getCustomDefaultUnitDuration(): PT10M");
 			});
 		}
 
@@ -125,6 +146,28 @@ class ConfigPropsApplicationAotTests {
 		}
 
 		@Test
+		void dataSizeWithCustomDefaultUnitShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output)
+					.hasSingleLineContaining("appPropertiesCtor.getCustomDefaultUnitDataSize(): 5242880B");
+			});
+		}
+
+		@Test
+		void durationShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appPropertiesCtor.getDuration(): PT30S");
+			});
+		}
+
+		@Test
+		void durationWithCustomDefaultUnitShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appPropertiesCtor.getCustomDefaultUnitDuration(): PT10M");
+			});
+		}
+
+		@Test
 		void stringListShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output).hasSingleLineContaining("appPropertiesCtor.getStringList(): [string-1, string-2]");
@@ -184,6 +227,27 @@ class ConfigPropsApplicationAotTests {
 		void dataSizeShouldBind(AssertableOutput output) {
 			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 				assertThat(output).hasSingleLineContaining("appPropertiesRecord.dataSize(): 1048576B");
+			});
+		}
+
+		@Test
+		void dataSizeWithCustomDefaultUnitShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appPropertiesRecord.customDefaultUnitDataSize(): 5242880B");
+			});
+		}
+
+		@Test
+		void durationShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appPropertiesRecord.duration(): PT30S");
+			});
+		}
+
+		@Test
+		void durationWithCustomDefaultUnitShouldBind(AssertableOutput output) {
+			Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+				assertThat(output).hasSingleLineContaining("appPropertiesRecord.customDefaultUnitDuration(): PT10M");
 			});
 		}
 
