@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,11 @@ public class CLR implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.printf("appProperties.getString(): %s%n", appProperties.getString());
 		System.out.printf("appProperties.getDataSize(): %s%n", appProperties.getDataSize());
+		System.out.printf("appProperties.getCustomDefaultUnitDataSize(): %s%n",
+				appProperties.getCustomDefaultUnitDataSize());
+		System.out.printf("appProperties.getDuration(): %s%n", appProperties.getDuration());
+		System.out.printf("appProperties.getCustomDefaultUnitDuration(): %s%n",
+				appProperties.getCustomDefaultUnitDuration());
 		System.out.printf("appProperties.getStringList(): %s%n", appProperties.getStringList());
 		System.out.printf("appProperties.getNestedList(): %s%n", appProperties.getNestedList());
 		System.out.printf("appProperties.getStringMap(): %s%n", appProperties.getStringMap());
@@ -61,6 +66,11 @@ public class CLR implements CommandLineRunner {
 
 		System.out.printf("appPropertiesCtor.getString(): %s%n", appPropertiesCtor.getString());
 		System.out.printf("appPropertiesCtor.getDataSize(): %s%n", appPropertiesCtor.getDataSize());
+		System.out.printf("appPropertiesCtor.getCustomDefaultUnitDataSize(): %s%n",
+				appPropertiesCtor.getCustomDefaultUnitDataSize());
+		System.out.printf("appPropertiesCtor.getDuration(): %s%n", appPropertiesCtor.getDuration());
+		System.out.printf("appPropertiesCtor.getCustomDefaultUnitDuration(): %s%n",
+				appPropertiesCtor.getCustomDefaultUnitDuration());
 		System.out.printf("appPropertiesCtor.getStringList(): %s%n", appPropertiesCtor.getStringList());
 		System.out.printf("appPropertiesCtor.getNestedList(): %s%n", appPropertiesCtor.getNestedList());
 		System.out.printf("appPropertiesCtor.getNested(): %s%n", appPropertiesCtor.getNested());
@@ -71,6 +81,11 @@ public class CLR implements CommandLineRunner {
 
 		System.out.printf("appPropertiesRecord.string(): %s%n", appPropertiesRecord.string());
 		System.out.printf("appPropertiesRecord.dataSize(): %s%n", appPropertiesRecord.dataSize());
+		System.out.printf("appPropertiesRecord.customDefaultUnitDataSize(): %s%n",
+				appPropertiesRecord.customDefaultUnitDataSize());
+		System.out.printf("appPropertiesRecord.duration(): %s%n", appPropertiesRecord.duration());
+		System.out.printf("appPropertiesRecord.customDefaultUnitDuration(): %s%n",
+				appPropertiesRecord.customDefaultUnitDuration());
 		System.out.printf("appPropertiesRecord.stringList(): %s%n", appPropertiesRecord.stringList());
 		System.out.printf("appPropertiesRecord.nestedList(): %s%n", appPropertiesRecord.nestedList());
 		System.out.printf("appPropertiesRecord.nested(): %s%n", appPropertiesRecord.nested());

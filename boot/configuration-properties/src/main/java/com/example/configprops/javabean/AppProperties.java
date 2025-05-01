@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,19 @@
 
 package com.example.configprops.javabean;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.convert.DataSizeUnit;
+import org.springframework.boot.convert.DurationUnit;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.util.unit.DataSize;
+import org.springframework.util.unit.DataUnit;
 
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
@@ -31,6 +36,14 @@ public class AppProperties {
 	private String string;
 
 	private DataSize dataSize;
+
+	@DataSizeUnit(DataUnit.MEGABYTES)
+	private DataSize customDefaultUnitDataSize;
+
+	private Duration duration;
+
+	@DurationUnit(ChronoUnit.MINUTES)
+	private Duration customDefaultUnitDuration;
 
 	private List<String> stringList = new ArrayList<>();
 
@@ -109,10 +122,36 @@ public class AppProperties {
 		this.dataSize = dataSize;
 	}
 
+	public DataSize getCustomDefaultUnitDataSize() {
+		return this.customDefaultUnitDataSize;
+	}
+
+	public void setCustomDefaultUnitDataSize(DataSize customDefaultUnitDataSize) {
+		this.customDefaultUnitDataSize = customDefaultUnitDataSize;
+	}
+
+	public Duration getDuration() {
+		return this.duration;
+	}
+
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
+
+	public Duration getCustomDefaultUnitDuration() {
+		return this.customDefaultUnitDuration;
+	}
+
+	public void setCustomDefaultUnitDuration(Duration customDefaultUnitDuration) {
+		this.customDefaultUnitDuration = customDefaultUnitDuration;
+	}
+
 	@Override
 	public String toString() {
-		return "AppProperties{" + "string='" + string + '\'' + ", dataSize=" + dataSize + ", stringList=" + stringList
-				+ ", nestedList=" + nestedList + ", nested=" + nested + ", nestedNotInner=" + nestedNotInner + '}';
+		return "AppProperties{" + "string='" + string + '\'' + ", dataSize=" + dataSize + ", customDefaultUnitDataSize="
+				+ customDefaultUnitDataSize + ", duration=" + duration + ", customDefaultUnitDuration="
+				+ customDefaultUnitDuration + ", stringList=" + stringList + ", nestedList=" + nestedList + ", nested="
+				+ nested + ", nestedNotInner=" + nestedNotInner + '}';
 	}
 
 	public static class Nested {
