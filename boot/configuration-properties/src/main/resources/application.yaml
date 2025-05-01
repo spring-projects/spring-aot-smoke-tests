@@ -1,6 +1,9 @@
 app:
   string: "a-string"
   data-size: "1MB"
+  custom-default-unit-data-size: 5
+  duration: "30s"
+  custom-default-unit-duration: 10
   string-list: [ "string-1", "string-2" ]
   nested-list:
     - a-int: 1
@@ -21,6 +24,9 @@ app:
 app.ctor:
   string: "a-string"
   data-size: "1MB"
+  custom-default-unit-data-size: 5
+  duration: "30s"
+  custom-default-unit-duration: 10
   string-list: [ "string-1", "string-2" ]
   nested-list:
     - a-int: 1
@@ -33,6 +39,9 @@ app.ctor:
 app.record:
   string: "a-string"
   data-size: "1MB"
+  custom-default-unit-data-size: 5
+  duration: "30s"
+  custom-default-unit-duration: 10
   string-list: [ "string-1", "string-2" ]
   nested-list:
     - a-int: 1
