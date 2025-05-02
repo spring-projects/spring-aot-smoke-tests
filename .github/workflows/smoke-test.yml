@@ -68,13 +68,13 @@ jobs:
         continue-on-error: ${{ inputs.expected_to_fail }}
       - name: Check out send notification action
         uses: actions/checkout@v4
-        if: ${{ steps.build.outcome == 'failure' || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
+        if: ${{ steps.build.conclusion == 'failure' || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
         with:
           path: ci
           ref: ci
           sparse-checkout: .github/actions/send-notification
       - name: Determine owner ID secret names
-        if: ${{ steps.build.outcome == 'failure' || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
+        if: ${{ steps.build.conclusion == 'failure' || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
         run: |
           projectName=$(echo ${{ inputs.project }} | tr '[:lower:]:-' '[:upper:]__')
           groupName=$(echo $projectName | awk '{print substr($1, 0, index($1, "_") - 1)}')
@@ -88,7 +88,7 @@ jobs:
           path: '**/build/**/hs_err_pid*.log'
       - name: Send notification
         uses: ./ci/.github/actions/send-notification
-        if: ${{ steps.build.outcome == 'failure' || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
+        if: ${{ steps.build.conclusion == 'failure' || (steps.build.outcome == 'success' && inputs.expected_to_fail)}}
         with:
           webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
           task: ${{ inputs.project }}:${{ inputs.task }}
