@@ -1,7 +1,7 @@
 name: 3.2.x | Boot Smoke Tests | Servlet Component Scan
 on:
   schedule:
-    - cron : '30 0 * * *'
+    - cron : '20 0 * * *'
   workflow_dispatch:
 jobs:
   servlet_component_scan_app_test:

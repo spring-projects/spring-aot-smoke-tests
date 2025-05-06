@@ -1,7 +1,7 @@
 name: 3.2.x | Boot Smoke Tests | Servlet Undertow
 on:
   schedule:
-    - cron : '30 0 * * *'
+    - cron : '20 0 * * *'
   workflow_dispatch:
 jobs:
   servlet_undertow_app_test:

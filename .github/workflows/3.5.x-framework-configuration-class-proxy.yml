@@ -1,7 +1,7 @@
 name: 3.5.x | Framework Smoke Tests | Configuration Class Proxy
 on:
   schedule:
-    - cron : '0 1 * * *'
+    - cron : '50 0 * * *'
   workflow_dispatch:
 jobs:
   configuration_class_proxy_app_test:

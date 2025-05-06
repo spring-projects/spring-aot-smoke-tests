@@ -1,7 +1,7 @@
 name: 3.3.x | Data Smoke Tests | Data Neo4j
 on:
   schedule:
-    - cron : '40 0 * * *'
+    - cron : '30 0 * * *'
   workflow_dispatch:
 jobs:
   data_neo4j_app_test:

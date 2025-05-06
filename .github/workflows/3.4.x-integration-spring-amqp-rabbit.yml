@@ -1,7 +1,7 @@
 name: 3.4.x | Integration Smoke Tests | Spring Amqp Rabbit
 on:
   schedule:
-    - cron : '50 0 * * *'
+    - cron : '40 0 * * *'
   workflow_dispatch:
 jobs:
   spring_amqp_rabbit_app_test:

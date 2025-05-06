@@ -1,7 +1,7 @@
 name: 3.1.x | Data Smoke Tests | Data Jpa Kotlin
 on:
   schedule:
-    - cron : '20 0 * * *'
+    - cron : '10 0 * * *'
   workflow_dispatch:
 jobs:
   data_jpa_kotlin_app_test:

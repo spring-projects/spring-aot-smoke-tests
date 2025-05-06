@@ -1,7 +1,7 @@
 name: 3.5.x | Framework Smoke Tests | Websocket Jetty
 on:
   schedule:
-    - cron : '0 1 * * *'
+    - cron : '50 0 * * *'
   workflow_dispatch:
 jobs:
   websocket_jetty_app_test:

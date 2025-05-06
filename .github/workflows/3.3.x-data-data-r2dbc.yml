@@ -1,7 +1,7 @@
 name: 3.3.x | Data Smoke Tests | Data R2dbc
 on:
   schedule:
-    - cron : '40 0 * * *'
+    - cron : '30 0 * * *'
   workflow_dispatch:
 jobs:
   data_r2dbc_app_test:

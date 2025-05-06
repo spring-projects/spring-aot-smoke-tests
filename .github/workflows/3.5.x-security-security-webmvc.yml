@@ -1,7 +1,7 @@
 name: 3.5.x | Security Smoke Tests | Security Webmvc
 on:
   schedule:
-    - cron : '0 1 * * *'
+    - cron : '50 0 * * *'
   workflow_dispatch:
 jobs:
   security_webmvc_app_test:

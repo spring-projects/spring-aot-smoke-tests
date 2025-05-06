@@ -1,7 +1,7 @@
 name: 3.2.x | Integration Smoke Tests | Spring Kafka Avro
 on:
   schedule:
-    - cron : '30 0 * * *'
+    - cron : '20 0 * * *'
   workflow_dispatch:
 jobs:
   spring_kafka_avro_app_test:

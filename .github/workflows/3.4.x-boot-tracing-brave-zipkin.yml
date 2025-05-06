@@ -1,7 +1,7 @@
 name: 3.4.x | Boot Smoke Tests | Tracing Brave Zipkin
 on:
   schedule:
-    - cron : '50 0 * * *'
+    - cron : '40 0 * * *'
   workflow_dispatch:
 jobs:
   tracing_brave_zipkin_app_test:

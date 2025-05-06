@@ -1,7 +1,7 @@
 name: 3.1.x | Framework Smoke Tests | Rsocket
 on:
   schedule:
-    - cron : '20 0 * * *'
+    - cron : '10 0 * * *'
   workflow_dispatch:
 jobs:
   rsocket_app_test:

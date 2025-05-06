@@ -1,7 +1,7 @@
 name: 3.4.x | Framework Smoke Tests | Webmvc Undertow
 on:
   schedule:
-    - cron : '50 0 * * *'
+    - cron : '40 0 * * *'
   workflow_dispatch:
 jobs:
   webmvc_undertow_app_test:
