@@ -61,6 +61,7 @@ jobs:
       - name: Build
         id: build
         env:
+          COMPOSE_PARALLEL_LIMIT: 1
           DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
           REPO_SPRING_IO_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
           REPO_SPRING_IO_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
