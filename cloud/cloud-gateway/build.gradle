@@ -9,7 +9,6 @@ dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux")
-	implementation("org.springframework.boot:spring-boot-properties-migrator")
 	implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
