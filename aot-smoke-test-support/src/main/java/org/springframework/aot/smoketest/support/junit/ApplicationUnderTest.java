@@ -47,7 +47,8 @@ final class ApplicationUnderTest {
 			return this.port;
 		}
 		List<Pattern> portPatterns = List.of(Pattern.compile("Tomcat started on port ([0-9]+)"),
-				Pattern.compile("Netty started on port ([0-9]+)"), Pattern.compile("Jetty started on port ([0-9]+)"),
+				Pattern.compile("Netty started on port ([0-9]+)"),
+				Pattern.compile("Jetty started on port ([0-9]+)"),
 				Pattern.compile("Undertow started on port ([0-9]+)"));
 		List<String> lines = Output.current().lines();
 		for (String line : lines) {
