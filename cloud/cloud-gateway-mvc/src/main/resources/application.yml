@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    refresh:
+      enabled: false
+    discovery:
+      client:
+        simple:
+            instances:
+              test-service:
+                - uri: http://${TEST-SERVICE_HOST:localhost}:${TEST-SERVICE_PORT_8081:8081}
+              demo-service:
+                - uri: http://${DEMO-SERVICE_HOST:localhost}:${DEMO-SERVICE_PORT_8082:8082}
+    loadbalancer:
+      eager-load:
+        clients:
+          - demo-service
+          - test-service
+    gateway:
+      mvc:
+        routes:
+          - id: test_service_route
+            uri: lb://test-service
+            predicates:
+              - Path=/test-service/**
+            filters:
+              - StripPrefix=1
+              - name: Retry
+                args:
+                  retries: 3

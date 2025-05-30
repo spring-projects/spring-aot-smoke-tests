@@ -1,0 +1,9 @@
+services:
+  test-service:
+    image: springcloud/test-service:latest
+    ports:
+      - "8081"
+  demo-service:
+    image: springcloud/demo-service:latest
+    ports:
+      - "8082"
