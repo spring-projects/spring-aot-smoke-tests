@@ -101,12 +101,6 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.mavenLocal(
 						(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
 		}
-		if ((!project.hasProperty("forceSnapshots"))
-				|| Boolean.valueOf(project.property("forceSnapshots").toString())) {
-			ForceSnapshots forceSnapshots = new ForceSnapshots();
-			project.getConfigurations()
-				.all((configuration) -> configuration.getResolutionStrategy().eachDependency(forceSnapshots));
-		}
 		if (System.getenv().containsKey("REPO_SPRING_IO_USERNAME")
 				&& System.getenv().containsKey("REPO_SPRING_IO_PASSWORD")) {
 			project.getRepositories().maven((repo) -> {
