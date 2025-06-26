@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '10 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   actuator_webmvc_mgmt_port_app_test:
     name: Actuator Webmvc Mgmt Port App Test

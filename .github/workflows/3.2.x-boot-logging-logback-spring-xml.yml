@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '20 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   logging_logback_spring_xml_app_test:
     name: Logging Logback Spring Xml App Test

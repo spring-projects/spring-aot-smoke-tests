@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '50 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   session_redis_webflux_app_test:
     name: Session Redis Webflux App Test

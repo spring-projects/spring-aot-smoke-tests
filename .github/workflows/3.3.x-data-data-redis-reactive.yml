@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '30 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   data_redis_reactive_app_test:
     name: Data Redis Reactive App Test

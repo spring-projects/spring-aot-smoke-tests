@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '10 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   data_r2dbc_app_test:
     name: Data R2dbc App Test

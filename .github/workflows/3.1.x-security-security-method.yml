@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '10 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   security_method_app_test:
     name: Security Method App Test

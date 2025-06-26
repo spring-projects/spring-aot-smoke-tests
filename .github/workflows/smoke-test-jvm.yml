@@ -22,6 +22,8 @@ on:
         required: false
         type: string
         default: '17'
+permissions:
+  contents: read
 jobs:
   jvm_smoke_test:
     name: ${{ inputs.task }}

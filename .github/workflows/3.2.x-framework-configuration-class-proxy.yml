@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '20 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   configuration_class_proxy_app_test:
     name: Configuration Class Proxy App Test

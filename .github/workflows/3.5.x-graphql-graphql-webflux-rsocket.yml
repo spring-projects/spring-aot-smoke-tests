@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '50 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   graphql_webflux_rsocket_app_test:
     name: Graphql Webflux Rsocket App Test

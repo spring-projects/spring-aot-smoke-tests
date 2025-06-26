@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '50 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   security_thymeleaf_app_test:
     name: Security Thymeleaf App Test

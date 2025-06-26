@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '20 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   conditional_app_test:
     name: Conditional App Test

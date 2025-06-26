@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '10 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   data_jdbc_h2_app_test:
     name: Data Jdbc H2 App Test

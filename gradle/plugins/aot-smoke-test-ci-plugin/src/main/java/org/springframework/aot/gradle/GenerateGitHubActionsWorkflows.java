@@ -81,6 +81,8 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("  schedule:");
 			writer.println("    - cron : '" + getWarmCachesCronSchedule().get() + "'");
 			writer.println("  workflow_dispatch:");
+			writer.println("permissions:");
+			writer.println("  contents: read");
 			writer.println("jobs:");
 			writer.println("  warm_caches:");
 			writer.println("    uses: ./.github/workflows/warm-caches.yml");
@@ -109,6 +111,8 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("  schedule:");
 			writer.println("    - cron : '" + getCronSchedule().get() + "'");
 			writer.println("  workflow_dispatch:");
+			writer.println("permissions:");
+			writer.println("  contents: read");
 			writer.println("jobs:");
 			smokeTest.tests().forEach((test) -> {
 				writer.println("  " + jobId(smokeTest.name(), test.taskName()) + ":");

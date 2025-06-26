@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '50 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   kotlin_functional_app_test:
     name: Kotlin Functional App Test

@@ -46,6 +46,7 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 		TaskProvider<Sync> syncWorkflows = project.getTasks().register("syncGitHubActionsWorkflows", Sync.class);
 		syncWorkflows.configure((sync) -> {
 			sync.into(".github/workflows");
+			syncFromClasspath("run-codeql-analysis.yml", sync);
 			syncFromClasspath("smoke-test.yml", sync);
 			syncFromClasspath("smoke-test-jvm.yml", sync);
 			syncFromClasspath("smoke-test-native.yml", sync);

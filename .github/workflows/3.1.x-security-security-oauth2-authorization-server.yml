@@ -3,6 +3,8 @@ on:
   schedule:
     - cron : '10 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   security_oauth2_authorization_server_app_test:
     name: Security Oauth2 Authorization Server App Test
