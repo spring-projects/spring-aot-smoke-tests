@@ -1,7 +1,7 @@
 name: 3.4.x | Graphql Smoke Tests | Graphql Webflux Rsocket
 on:
   schedule:
-    - cron : '40 0 * * *'
+    - cron : '30 0 * * *'
   workflow_dispatch:
 permissions:
   contents: read
