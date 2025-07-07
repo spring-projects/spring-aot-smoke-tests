@@ -18,7 +18,7 @@ dependencies {
 }
 
 aotSmokeTest {
-	nativeTest {
+	nativeAppTest {
 		expectedToFail {
 			becauseOf "https://github.com/oracle/graalvm-reachability-metadata/pull/648"
 		}
