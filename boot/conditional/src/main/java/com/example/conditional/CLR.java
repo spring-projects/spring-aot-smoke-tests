@@ -17,9 +17,9 @@
 package com.example.conditional;
 
 import com.example.conditional.ConditionalConfig.SomeBean;
+import org.jspecify.annotations.Nullable;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
