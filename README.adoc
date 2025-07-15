@@ -11,10 +11,9 @@ It is the default branch in the repository to work around a limitation of GitHub
 > Scheduled workflows run on the latest commit on the default or base branch.
 
 Additionally, scheduling will only work for a workflow that exists in the default branch.
-To overcome this limitation, this branch contains workflows for every smoke test found in the `3.1.x`, `3.2.x`, `3.3.x`, `3.4.x` and `main` branches.
+To overcome this limitation, this branch contains workflows for every smoke test found in the `3.2.x`, `3.3.x`, `3.4.x` and `main` branches.
 If you're looking for the smoke tests themselves, please take a look at one of those other branches:
 
-- https://github.com/spring-projects/spring-aot-smoke-tests/tree/3.1.x[3.1.x]
 - https://github.com/spring-projects/spring-aot-smoke-tests/tree/3.2.x[3.2.x]
 - https://github.com/spring-projects/spring-aot-smoke-tests/tree/3.3.x[3.3.x]
 - https://github.com/spring-projects/spring-aot-smoke-tests/tree/3.4.x[3.4.x]
@@ -29,7 +28,6 @@ The workflows can be updated automatically but doing so relies upon a particular
 [source,]
 ----
 spring-aot-smoke-tests
-├── 3.1.x
 ├── 3.2.x
 ├── 3.3.x
 ├── 3.4.x
@@ -51,11 +49,10 @@ git clone https://github.com/spring-projects/spring-aot-smoke-tests ci
 cd ci
 ----
 
-Now, create worktrees for the `3.1.x`, `3.2.x`, `3.3.x`, `3.4.x`, and `main` branches:
+Now, create worktrees for the `3.2.x`, `3.3.x`, `3.4.x`, and `main` branches:
 
 [source,]
 ----
-git worktree add ../3.1.x 3.1.x
 git worktree add ../3.2.x 3.2.x
 git worktree add ../3.3.x 3.3.x
 git worktree add ../3.4.x 3.4.x
