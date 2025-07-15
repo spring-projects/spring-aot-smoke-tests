@@ -23,7 +23,7 @@ import com.example.websocket.stomp.dto.GreetingMessage;
 import com.example.websocket.stomp.dto.HelloMessage;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
+import org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;

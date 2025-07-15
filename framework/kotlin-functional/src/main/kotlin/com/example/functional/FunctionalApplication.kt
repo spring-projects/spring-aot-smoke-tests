@@ -40,7 +40,7 @@ fun endpoints() = router {
 }
 
 class Foo : CommandLineRunner {
-	override fun run(vararg args: String?) {
+	override fun run(vararg args: String) {
 		println("Hello world!")
 	}
 }

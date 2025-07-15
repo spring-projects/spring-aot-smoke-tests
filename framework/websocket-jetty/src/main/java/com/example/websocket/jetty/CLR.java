@@ -20,7 +20,7 @@ import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
+import org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
