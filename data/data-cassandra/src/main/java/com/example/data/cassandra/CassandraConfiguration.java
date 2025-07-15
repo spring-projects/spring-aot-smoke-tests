@@ -19,7 +19,7 @@ package com.example.data.cassandra;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.CqlSessionBuilder;
 
-import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
+import org.springframework.boot.cassandra.autoconfigure.CassandraProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.core.cql.generator.CreateKeyspaceCqlGenerator;
