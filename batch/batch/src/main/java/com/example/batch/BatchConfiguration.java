@@ -19,12 +19,12 @@ package com.example.batch;
 import javax.sql.DataSource;
 
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
@@ -78,9 +78,8 @@ class BatchConfiguration {
 
 	@Bean
 	public Step step1(JobRepository jobRepository, FlatFileItemReader<Person> itemReader,
-			ItemProcessor<Person, Person> itemProcessor, JdbcBatchItemWriter<Person> itemWriter,
-			PlatformTransactionManager transactionManager) {
-		return new StepBuilder("step1", jobRepository).<Person, Person>chunk(2, transactionManager)
+			ItemProcessor<Person, Person> itemProcessor, JdbcBatchItemWriter<Person> itemWriter) {
+		return new StepBuilder("step1", jobRepository).<Person, Person>chunk(2)
 			.reader(itemReader)
 			.processor(itemProcessor)
 			.writer(itemWriter)
