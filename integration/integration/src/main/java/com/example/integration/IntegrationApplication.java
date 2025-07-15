@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJackson3JsonRedisSerializer;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.interceptor.WireTap;
 import org.springframework.integration.config.EnableIntegrationManagement;
@@ -41,7 +41,7 @@ import org.springframework.integration.http.config.EnableIntegrationGraphControl
 import org.springframework.integration.jdbc.store.JdbcChannelMessageStore;
 import org.springframework.integration.jdbc.store.channel.H2ChannelMessageStoreQueryProvider;
 import org.springframework.integration.redis.store.RedisChannelMessageStore;
-import org.springframework.integration.support.json.JacksonJsonUtils;
+import org.springframework.integration.support.json.JacksonMessagingUtils;
 import org.springframework.messaging.MessageHandler;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -74,7 +74,7 @@ public class IntegrationApplication {
 	RedisChannelMessageStore redisChannelMessageStore(RedisConnectionFactory connectionFactory) {
 		RedisChannelMessageStore redisChannelMessageStore = new RedisChannelMessageStore(connectionFactory);
 		redisChannelMessageStore
-			.setValueSerializer(new GenericJackson2JsonRedisSerializer(JacksonJsonUtils.messagingAwareMapper()));
+			.setValueSerializer(new GenericJackson3JsonRedisSerializer(JacksonMessagingUtils.messagingAwareMapper()));
 		return redisChannelMessageStore;
 	}
 
