@@ -24,4 +24,3 @@ jobs:
       checkout_ref: main
       project: boot:flyway-postgresql
       task: nativeAppTest
-      expected_to_fail: true
