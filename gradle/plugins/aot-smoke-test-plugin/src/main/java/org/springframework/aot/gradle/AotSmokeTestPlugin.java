@@ -101,21 +101,43 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.mavenLocal(
 						(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
 		}
-		if (System.getenv().containsKey("REPO_SPRING_IO_USERNAME")
-				&& System.getenv().containsKey("REPO_SPRING_IO_PASSWORD")) {
-			project.getRepositories().maven((repo) -> {
-				repo.setName("Maven Central Mirror");
-				repo.setUrl("https://repo.spring.io/artifactory/repo1");
-				repo.credentials((credentials) -> {
-					credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
-					credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
-				});
-				repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Commercial Snapshot");
+			repo.setUrl("https://repo.spring.io/artifactory/spring-commercial-snapshot-remote");
+			repo.credentials((credentials) -> {
+				credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
 			});
-		}
-		else {
-			project.getRepositories().mavenCentral();
-		}
+			repo.mavenContent((mavenContent) -> {
+				mavenContent.snapshotsOnly();
+				mavenContent.includeGroupByRegex("io.micrometer.*");
+				mavenContent.includeGroupByRegex("org.springframework.*");
+				mavenContent.includeGroupByRegex("io.projectreactor.*");
+			});
+		});
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Spring Commercial Release");
+			repo.setUrl("https://repo.spring.io/artifactory/spring-commercial-release-remote");
+			repo.credentials((credentials) -> {
+				credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
+			});
+			repo.mavenContent((mavenContent) -> {
+				mavenContent.releasesOnly();
+				mavenContent.includeGroupByRegex("io.micrometer.*");
+				mavenContent.includeGroupByRegex("org.springframework.*");
+				mavenContent.includeGroupByRegex("io.projectreactor.*");
+			});
+		});
+		project.getRepositories().maven((repo) -> {
+			repo.setName("Maven Central Mirror");
+			repo.setUrl("https://repo.spring.io/artifactory/repo1");
+			repo.credentials((credentials) -> {
+				credentials.setUsername(System.getenv().get("REPO_SPRING_IO_USERNAME"));
+				credentials.setPassword(System.getenv().get("REPO_SPRING_IO_PASSWORD"));
+			});
+			repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
+		});
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Snapshot");
 			repo.setUrl("https://repo.spring.io/artifactory/snapshot");
