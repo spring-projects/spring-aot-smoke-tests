@@ -101,6 +101,12 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				.mavenLocal(
 						(mavenLocal) -> mavenLocal.content((content) -> includedGroups.forEach(content::includeGroup)));
 		}
+		if ((!project.hasProperty("forceSnapshots"))
+				|| Boolean.valueOf(project.property("forceSnapshots").toString())) {
+			ForceSnapshots forceSnapshots = new ForceSnapshots();
+			project.getConfigurations()
+				.all((configuration) -> configuration.getResolutionStrategy().eachDependency(forceSnapshots));
+		}
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Commercial Snapshot");
 			repo.setUrl("https://repo.spring.io/artifactory/spring-commercial-snapshot-remote");
