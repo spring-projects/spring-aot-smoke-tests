@@ -13,6 +13,9 @@ smokeTests {
 		location = "../3.4.x"
 	}
 	'3.5.x' {
+		location = "../3.5.x"
+	}
+	'4.0.x' {
 		branch = "main"
 		location = "../main"
 	}
