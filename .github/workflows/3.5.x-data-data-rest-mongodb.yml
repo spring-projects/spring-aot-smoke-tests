@@ -12,7 +12,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: data:data-rest-mongodb
       task: appTest
   data_rest_mongodb_native_app_test:
@@ -21,6 +21,6 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: data:data-rest-mongodb
       task: nativeAppTest

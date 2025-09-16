@@ -12,7 +12,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: data:data-jdbc-h2-kotlin
       task: appTest
   data_jdbc_h2_kotlin_native_app_test:
@@ -21,7 +21,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: data:data-jdbc-h2-kotlin
       task: nativeAppTest
   data_jdbc_h2_kotlin_test:
@@ -30,7 +30,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: data:data-jdbc-h2-kotlin
       task: test
   data_jdbc_h2_kotlin_native_test:
@@ -39,7 +39,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: data:data-jdbc-h2-kotlin
       task: nativeTest
       java_version: 22

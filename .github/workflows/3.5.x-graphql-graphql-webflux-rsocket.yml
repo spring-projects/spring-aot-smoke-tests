@@ -12,7 +12,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: graphql:graphql-webflux-rsocket
       task: appTest
   graphql_webflux_rsocket_native_app_test:
@@ -21,7 +21,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: graphql:graphql-webflux-rsocket
       task: nativeAppTest
   graphql_webflux_rsocket_test:
@@ -30,7 +30,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: graphql:graphql-webflux-rsocket
       task: test
   graphql_webflux_rsocket_native_test:
@@ -39,6 +39,6 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 3.5.x
       project: graphql:graphql-webflux-rsocket
       task: nativeTest
