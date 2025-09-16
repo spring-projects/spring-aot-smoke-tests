@@ -22,8 +22,8 @@ import com.example.actuator.webmvc.health.AnotherCustomHealthIndicator;
 import com.example.actuator.webmvc.health.CustomHealthIndicator;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.health.contributor.CompositeHealthContributor;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication

@@ -18,7 +18,7 @@ package com.example.actuator.webflux.mgmtport;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.reactive.context.ReactiveWebServerInitializedEvent;
+import org.springframework.boot.web.server.reactive.context.ReactiveWebServerInitializedEvent;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication

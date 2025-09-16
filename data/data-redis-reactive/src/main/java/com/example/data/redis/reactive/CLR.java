@@ -16,20 +16,20 @@
 
 package com.example.data.redis.reactive;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveRedisCallback;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson3JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 class CLR implements CommandLineRunner {
@@ -54,7 +54,7 @@ class CLR implements CommandLineRunner {
 
 	private void jsonSerializer() {
 
-		Jackson2JsonRedisSerializer<Person> serializer = new Jackson2JsonRedisSerializer<>(objectMapper, Person.class);
+		Jackson3JsonRedisSerializer<Person> serializer = new Jackson3JsonRedisSerializer<>(objectMapper, Person.class);
 		RedisSerializationContext.RedisSerializationContextBuilder<String, Person> builder = RedisSerializationContext
 			.newSerializationContext(new StringRedisSerializer());
 		RedisSerializationContext<String, Person> context = builder.value(serializer).build();

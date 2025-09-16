@@ -9,6 +9,7 @@ dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-ldap")
 	implementation("org.springframework.security:spring-security-ldap")
 	implementation("com.unboundid:unboundid-ldapsdk")
 

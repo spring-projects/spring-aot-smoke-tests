@@ -19,7 +19,7 @@ package com.example.json;
 import com.example.json.model.Dto;
 import com.example.json.model.Dto2;
 import com.example.json.model.Dto3;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

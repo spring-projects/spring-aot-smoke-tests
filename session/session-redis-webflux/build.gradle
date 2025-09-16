@@ -7,9 +7,10 @@ plugins {
 
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-session-data-redis")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
-	implementation("org.springframework.session:spring-session-data-redis")
-	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+	// This should not be necessary. Without it, Lettuce is on the runtime classpath only
+	implementation("io.lettuce:lettuce-core")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

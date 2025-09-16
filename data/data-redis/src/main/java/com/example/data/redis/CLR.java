@@ -93,6 +93,7 @@ class CLR implements CommandLineRunner {
 		System.out.printf("redis set: %s%n", redisSet.iterator().next());
 	}
 
+	@SuppressWarnings("removal") // Jackson 3
 	private void hashMapper(HashStructure structure) {
 		Jackson2HashMapper hashMapper = new Jackson2HashMapper(HashStructure.FLAT.equals(structure));
 		this.template.opsForHash().putAll("hash", hashMapper.toHash(new Person("hashed-fn", "hashed-ln")));

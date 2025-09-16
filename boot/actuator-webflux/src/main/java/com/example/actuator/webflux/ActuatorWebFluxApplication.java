@@ -22,8 +22,8 @@ import com.example.actuator.webflux.health.AnotherCustomHealthIndicator;
 import com.example.actuator.webflux.health.CustomHealthIndicator;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.health.contributor.CompositeReactiveHealthContributor;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication

@@ -9,7 +9,7 @@ plugins {
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.springframework.kafka:spring-kafka")
+	implementation("org.springframework.boot:spring-boot-kafka")
 	implementation("com.fasterxml.jackson.core:jackson-databind")
 	implementation("org.apache.avro:avro:1.11.0")
 
