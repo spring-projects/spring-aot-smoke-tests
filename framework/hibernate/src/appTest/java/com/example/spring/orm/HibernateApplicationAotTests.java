@@ -32,8 +32,7 @@ class HibernateApplicationAotTests {
 	@Test
 	void entityGraph(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output)
-				.hasLineMatching(".*left join \\(?book_authors a1_0 .*")
+			assertThat(output).hasLineMatching(".*left join \\(?book_authors a1_0 .*")
 				.hasSingleLineContaining(
 						"namedEntityGraph: Book{title='Spring in Action', authors=[Author{name='Craig Walls'}]}");
 		});
