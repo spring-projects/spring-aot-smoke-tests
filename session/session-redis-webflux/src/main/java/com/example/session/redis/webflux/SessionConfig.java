@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.serializer.GenericJackson3JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJacksonJsonRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.server.EnableRedisWebSession;
 
 @Configuration(proxyBeanMethods = false)
@@ -38,8 +38,8 @@ class SessionConfig {
 
 	@Bean
 	@Qualifier("springSessionDefaultRedisSerializer")
-	GenericJackson3JsonRedisSerializer redisSerializer(ObjectMapper objectMapper) {
-		return new GenericJackson3JsonRedisSerializer(objectMapper);
+	GenericJacksonJsonRedisSerializer redisSerializer(ObjectMapper objectMapper) {
+		return new GenericJacksonJsonRedisSerializer(objectMapper);
 	}
 
 }
