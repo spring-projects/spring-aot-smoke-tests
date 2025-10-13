@@ -42,8 +42,7 @@ class CLR implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		WebSocketSession session = this.webSocketClient
-			.execute(new MyWebsocketHandler(), null,
-					URI.create("ws://localhost:%d/echo".formatted(getServerPort())))
+			.execute(new MyWebsocketHandler(), null, URI.create("ws://localhost:%d/echo".formatted(getServerPort())))
 			.get(5, TimeUnit.SECONDS);
 		TextMessage message = new TextMessage("Hello Websocket");
 		session.sendMessage(message);
