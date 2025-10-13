@@ -7,8 +7,7 @@ plugins {
 
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.springframework.boot:spring-boot-kafka")
+	implementation("org.springframework.boot:spring-boot-starter-kafka")
 	implementation("com.fasterxml.jackson.core:jackson-databind")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

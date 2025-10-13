@@ -21,12 +21,15 @@ import java.util.Date;
 
 import javax.sql.DataSource;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.GenericJackson3JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJacksonJsonRedisSerializer;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.interceptor.WireTap;
 import org.springframework.integration.config.EnableIntegrationManagement;
@@ -43,9 +46,6 @@ import org.springframework.integration.jdbc.store.channel.H2ChannelMessageStoreQ
 import org.springframework.integration.redis.store.RedisChannelMessageStore;
 import org.springframework.integration.support.json.JacksonMessagingUtils;
 import org.springframework.messaging.MessageHandler;
-
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
 @SpringBootApplication(proxyBeanMethods = false)
 @EnableMessageHistory("dateChannel")
@@ -74,7 +74,7 @@ public class IntegrationApplication {
 	RedisChannelMessageStore redisChannelMessageStore(RedisConnectionFactory connectionFactory) {
 		RedisChannelMessageStore redisChannelMessageStore = new RedisChannelMessageStore(connectionFactory);
 		redisChannelMessageStore
-			.setValueSerializer(new GenericJackson3JsonRedisSerializer(JacksonMessagingUtils.messagingAwareMapper()));
+			.setValueSerializer(new GenericJacksonJsonRedisSerializer(JacksonMessagingUtils.messagingAwareMapper()));
 		return redisChannelMessageStore;
 	}
 
