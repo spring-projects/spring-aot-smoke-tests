@@ -7,8 +7,8 @@ plugins {
 
 repositories {
 	maven {
-		name "Netflix Release Candidate"
-		url "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates"
+		name = "Netflix Release Candidate"
+		url = "https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates"
 		mavenContent {
 			releasesOnly()
 		}
