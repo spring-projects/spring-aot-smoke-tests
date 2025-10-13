@@ -7,16 +7,14 @@ plugins {
 
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-starter-graphql")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
-	implementation("org.springframework.boot:spring-boot-starter-graphql")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.graphql:spring-graphql-test")
-	testImplementation("io.projectreactor:reactor-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-graphql-test")
 
 	appTestImplementation(project(":aot-smoke-test-support"))
-	appTestImplementation("org.springframework.graphql:spring-graphql-test")
+	appTestImplementation("org.springframework.boot:spring-boot-starter-graphql-test")
 	appTestImplementation("org.springframework.boot:spring-boot-starter-json")
 	appTestImplementation("io.projectreactor:reactor-test")
 }
