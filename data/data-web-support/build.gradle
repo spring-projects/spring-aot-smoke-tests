@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.data:spring-data-commons")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

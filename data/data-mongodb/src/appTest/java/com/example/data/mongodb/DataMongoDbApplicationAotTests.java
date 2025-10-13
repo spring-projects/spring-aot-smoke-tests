@@ -16,8 +16,6 @@
 
 package com.example.data.mongodb;
 
-import static org.assertj.core.api.Assertions.*;
-
 import java.time.Duration;
 
 import org.awaitility.Awaitility;
