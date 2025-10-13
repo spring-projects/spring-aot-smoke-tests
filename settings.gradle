@@ -3,11 +3,11 @@ pluginManagement {
 	repositories {
 		if (System.env['REPO_SPRING_IO_USERNAME'] != null && System.env['REPO_SPRING_IO_PASSWORD'] != null) {
 			maven {
-				name "Maven Central Mirror"
-				url "https://repo.spring.io/artifactory/repo1"
+				name = "Maven Central Mirror"
+				url = "https://repo.spring.io/artifactory/repo1"
 				credentials {
-					username System.env['REPO_SPRING_IO_USERNAME']
-					password System.env['REPO_SPRING_IO_PASSWORD']
+					username = System.env['REPO_SPRING_IO_USERNAME']
+					password = System.env['REPO_SPRING_IO_PASSWORD']
 				}
 				mavenContent {
 					releasesOnly()
@@ -19,15 +19,15 @@ pluginManagement {
 		}
 		gradlePluginPortal()
 		maven {
-			name "Spring Snapshot"
-			url "https://repo.spring.io/artifactory/snapshot"
+			name = "Spring Snapshot"
+			url = "https://repo.spring.io/artifactory/snapshot"
 			mavenContent {
 				snapshotsOnly()
 			}
 		}
 		maven {
-			name "Spring Milestone"
-			url "https://repo.spring.io/artifactory/milestone"
+			name = "Spring Milestone"
+			url = "https://repo.spring.io/artifactory/milestone"
 			mavenContent {
 				releasesOnly()
 			}
