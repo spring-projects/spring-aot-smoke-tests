@@ -7,10 +7,7 @@ plugins {
 
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.springframework.boot:spring-boot-webclient")
-	implementation("org.springframework.boot:spring-boot-jackson")
-	implementation("io.projectreactor.netty:reactor-netty-http")
+	implementation("org.springframework.boot:spring-boot-starter-webclient")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

@@ -14,7 +14,7 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.glassfish.jaxb:jaxb-runtime")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-webflux-test")
 
 	appTestImplementation(project(":aot-smoke-test-support"))
 }
