@@ -17,8 +17,8 @@
 package com.example.security.oauth2resourceserver.env;
 
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.boot.EnvironmentPostProcessor;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**

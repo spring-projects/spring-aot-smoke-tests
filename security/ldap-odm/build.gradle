@@ -7,11 +7,11 @@ plugins {
 
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-data-ldap")
+	implementation("org.springframework.boot:spring-boot-starter-data-ldap")
+	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("com.unboundid:unboundid-ldapsdk")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-data-ldap-test")
 
 	appTestImplementation(project(":aot-smoke-test-support"))
 }
