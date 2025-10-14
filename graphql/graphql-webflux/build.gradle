@@ -12,6 +12,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-graphql-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-webflux-test")
 
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.springframework.boot:spring-boot-starter-graphql-test")
