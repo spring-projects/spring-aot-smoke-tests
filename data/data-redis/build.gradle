@@ -8,7 +8,7 @@ plugins {
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
-	implementation("tools.jackson.core:jackson-databind")
+	implementation("org.springframework.boot:spring-boot-starter-json")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
