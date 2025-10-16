@@ -1,0 +1,17 @@
+name: 4.0.x | Boot Smoke Tests | Boot Tcf
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  boot_tcf_test:
+    name: Boot Tcf Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:boot-tcf
+      task: test

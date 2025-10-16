@@ -1,0 +1,17 @@
+name: 4.0.x | Boot Smoke Tests | Actuator Webflux
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  actuator_webflux_app_test:
+    name: Actuator Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:actuator-webflux
+      task: appTest
