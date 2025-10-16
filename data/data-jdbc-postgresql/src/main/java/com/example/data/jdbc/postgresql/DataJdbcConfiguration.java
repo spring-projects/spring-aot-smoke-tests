@@ -30,4 +30,5 @@ class DataJdbcConfiguration {
 	JdbcDialect dialect() {
 		return JdbcPostgresDialect.INSTANCE;
 	}
+
 }

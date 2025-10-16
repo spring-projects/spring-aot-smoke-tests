@@ -94,7 +94,8 @@ class CLR implements CommandLineRunner {
 	}
 
 	private void hashMapper(HashStructure structure) {
-		JacksonHashMapper hashMapper = HashStructure.FLAT.equals(structure) ? JacksonHashMapper.flattening() : JacksonHashMapper.hierarchical();
+		JacksonHashMapper hashMapper = HashStructure.FLAT.equals(structure) ? JacksonHashMapper.flattening()
+				: JacksonHashMapper.hierarchical();
 		this.template.opsForHash().putAll("hash", hashMapper.toHash(new Person("hashed-fn", "hashed-ln")));
 
 		Map<String, Object> hashedEntry = this.template.<String, Object>opsForHash().entries("hash");
