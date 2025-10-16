@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,18 @@
 
 package com.example.data.jdbc.postgresql;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jdbc.core.dialect.JdbcDialect;
+import org.springframework.data.jdbc.core.dialect.JdbcPostgresDialect;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
 @Configuration
 @EnableJdbcRepositories
 class DataJdbcConfiguration {
 
+	@Bean
+	JdbcDialect dialect() {
+		return JdbcPostgresDialect.INSTANCE;
+	}
 }
