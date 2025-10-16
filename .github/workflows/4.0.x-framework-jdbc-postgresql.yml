@@ -1,0 +1,17 @@
+name: 4.0.x | Framework Smoke Tests | Jdbc Postgresql
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  jdbc_postgresql_app_test:
+    name: Jdbc Postgresql App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:jdbc-postgresql
+      task: appTest

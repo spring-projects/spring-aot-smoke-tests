@@ -1,0 +1,17 @@
+name: 4.0.x | Framework Smoke Tests | Webmvc Scoped Proxy
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  webmvc_scoped_proxy_app_test:
+    name: Webmvc Scoped Proxy App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webmvc-scoped-proxy
+      task: appTest
