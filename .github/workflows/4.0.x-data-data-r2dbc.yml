@@ -1,0 +1,17 @@
+name: 4.0.x | Data Smoke Tests | Data R2dbc
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  data_r2dbc_app_test:
+    name: Data R2dbc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-r2dbc
+      task: appTest

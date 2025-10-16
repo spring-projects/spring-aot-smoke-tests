@@ -1,0 +1,17 @@
+name: 4.0.x | Data Smoke Tests | Data Jdbc Postgresql
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  data_jdbc_postgresql_app_test:
+    name: Data Jdbc Postgresql App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-jdbc-postgresql
+      task: appTest
