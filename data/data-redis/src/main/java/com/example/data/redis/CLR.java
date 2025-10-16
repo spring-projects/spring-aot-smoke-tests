@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.hash.Jackson2HashMapper;
+import org.springframework.data.redis.hash.JacksonHashMapper;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
@@ -95,7 +95,7 @@ class CLR implements CommandLineRunner {
 
 	@SuppressWarnings("removal") // Jackson 3
 	private void hashMapper(HashStructure structure) {
-		Jackson2HashMapper hashMapper = new Jackson2HashMapper(HashStructure.FLAT.equals(structure));
+		JacksonHashMapper hashMapper = HashStructure.FLAT.equals(structure) ? JacksonHashMapper.flattening() : JacksonHashMapper.hierarchical();
 		this.template.opsForHash().putAll("hash", hashMapper.toHash(new Person("hashed-fn", "hashed-ln")));
 
 		Map<String, Object> hashedEntry = this.template.<String, Object>opsForHash().entries("hash");
