@@ -21,3 +21,9 @@ dependencies {
 tasks.named("checkFormatMain").configure {
 	exclude { it.file.absolutePath.contains("generated-main-avro-java") }
 }
+
+graalvmNative {
+    binaries.configureEach {
+        buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:Preserve=package=org.apache.kafka.*')
+    }
+}
