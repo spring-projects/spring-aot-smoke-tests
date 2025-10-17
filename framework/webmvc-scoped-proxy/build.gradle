@@ -18,3 +18,9 @@ dependencies {
 aotSmokeTest {
 	webApplication = true
 }
+
+graalvmNative {
+    binaries.configureEach {
+        buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:Preserve=package=tools.jackson.*')
+    }
+}
