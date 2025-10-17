@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,14 +37,14 @@ class JsonApplicationAotTests {
 	}
 
 	@Test
-	void jsonComponentIsWorking(AssertableOutput output) {
+	void jacksonComponentIsWorking(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("DTO2: {\"customized-field\":\"field-2\"}");
 		});
 	}
 
 	@Test
-	void jsonMixinIsWorking(AssertableOutput output) {
+	void jacksonMixinIsWorking(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("DTO3: {\"mixin-field\":\"field-3\"}");
 		});

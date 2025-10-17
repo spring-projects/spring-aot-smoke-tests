@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2022-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,11 @@ import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.SerializationContext;
 
-import org.springframework.boot.jackson.JsonComponent;
+import org.springframework.boot.jackson.JacksonComponent;
 import org.springframework.boot.jackson.ObjectValueDeserializer;
 import org.springframework.boot.jackson.ObjectValueSerializer;
 
-@JsonComponent
+@JacksonComponent
 public class Dto2DeSer {
 
 	public static class Serializer extends ObjectValueSerializer<Dto2> {
