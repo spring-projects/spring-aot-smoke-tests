@@ -31,14 +31,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TestController {
 
 	@GetMapping("/greeting")
-    @RegisterReflectionForBinding(IndexModel.class)
+	@RegisterReflectionForBinding(IndexModel.class)
 	public String index(@RequestParam(defaultValue = "world") String name, Model model) {
 		model.addAttribute("model", new IndexModel("Hello", name));
 		return "index";
 	}
 
 	@GetMapping("/authors")
-    @RegisterReflectionForBinding(Author.class)
+	@RegisterReflectionForBinding(Author.class)
 	public String authors(Model model) {
 		model.addAttribute("authors", List.of(new Author("Brian Goetz"), new Author("Joshua Bloch")));
 		return "authors";
