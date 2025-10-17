@@ -14,3 +14,13 @@ dependencies {
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
+
+graalvmNative {
+    binaries.configureEach {
+        buildArgs.addAll(
+            '-H:+UnlockExperimentalVMOptions',
+            '-H:+SharedArenaSupport',
+            '--initialize-at-build-time=com.datastax.oss.driver.shaded.guava.common.primitives.UnsignedBytes$LexicographicalComparatorHolder$PureJavaComparator'
+        )
+    }
+}
