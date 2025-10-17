@@ -1,0 +1,26 @@
+name: 4.0.x | Graphql Smoke Tests | Graphql Webflux Rsocket
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  graphql_webflux_rsocket_app_test:
+    name: Graphql Webflux Rsocket App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webflux-rsocket
+      task: appTest
+  graphql_webflux_rsocket_test:
+    name: Graphql Webflux Rsocket Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webflux-rsocket
+      task: test

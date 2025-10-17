@@ -1,0 +1,26 @@
+name: 4.0.x | Graphql Smoke Tests | Graphql Webmvc
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  graphql_webmvc_app_test:
+    name: Graphql Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webmvc
+      task: appTest
+  graphql_webmvc_test:
+    name: Graphql Webmvc Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webmvc
+      task: test
