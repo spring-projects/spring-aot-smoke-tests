@@ -27,13 +27,17 @@ aotSmokeTest {
 graalvmNative {
 	binaries {
 		main {
-			buildArgs('-H:-AddAllFileSystemProviders',
-						'--strict-image-heap',
-						'--initialize-at-build-time=org.bouncycastle',
-						'--initialize-at-build-time=net.i2p.crypto.eddsa.EdDSASecurityProvider',
-						'--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG$Default',
-						'--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG$NonceAndIV')
+			buildArgs(
+                '--initialize-at-build-time=org.bouncycastle',
+                '--initialize-at-build-time=net.i2p.crypto.eddsa.EdDSASecurityProvider',
+                '--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG$Default',
+                '--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG$NonceAndIV'
+            )
 		}
 	}
+
+    binaries.configureEach {
+        buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:Preserve=package=org.eclipse.jgit.*', '-H:-AddAllFileSystemProviders')
+    }
 }
 
