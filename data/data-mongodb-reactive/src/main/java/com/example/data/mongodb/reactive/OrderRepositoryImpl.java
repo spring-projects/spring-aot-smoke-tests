@@ -18,6 +18,12 @@ package com.example.data.mongodb.reactive;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.*;
 
+import com.example.data.mongodb.reactive.OrderRepositoryImpl.Hints;
+import org.jspecify.annotations.Nullable;
+import org.springframework.aot.hint.MemberCategory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Indexed;
@@ -25,6 +31,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
+@ImportRuntimeHints(Hints.class)
 class OrderRepositoryImpl implements OrderRepositoryCustom {
 
 	private final ReactiveMongoOperations operations;
@@ -59,6 +66,17 @@ class OrderRepositoryImpl implements OrderRepositoryCustom {
 		), Invoice.class);
 
 		return results.next();
+	}
+
+	static class Hints implements RuntimeHintsRegistrar {
+
+		@Override
+		public void registerHints(RuntimeHints hints, @Nullable ClassLoader classLoader) {
+			hints.reflection()
+				.registerType(Invoice.class, MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
+						MemberCategory.INVOKE_PUBLIC_METHODS);
+		}
+
 	}
 
 }
