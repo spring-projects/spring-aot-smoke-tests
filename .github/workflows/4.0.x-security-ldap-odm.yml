@@ -15,6 +15,15 @@ jobs:
       checkout_ref: main
       project: security:ldap-odm
       task: appTest
+  ldap_odm_native_app_test:
+    name: Ldap Odm Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:ldap-odm
+      task: nativeAppTest
   ldap_odm_test:
     name: Ldap Odm Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -24,3 +33,12 @@ jobs:
       checkout_ref: main
       project: security:ldap-odm
       task: test
+  ldap_odm_native_test:
+    name: Ldap Odm Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:ldap-odm
+      task: nativeTest
