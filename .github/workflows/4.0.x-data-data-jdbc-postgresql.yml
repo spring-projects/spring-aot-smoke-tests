@@ -15,3 +15,12 @@ jobs:
       checkout_ref: main
       project: data:data-jdbc-postgresql
       task: appTest
+  data_jdbc_postgresql_native_app_test:
+    name: Data Jdbc Postgresql Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-jdbc-postgresql
+      task: nativeAppTest

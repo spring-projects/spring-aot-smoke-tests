@@ -15,6 +15,15 @@ jobs:
       checkout_ref: main
       project: data:data-jdbc-h2-kotlin
       task: appTest
+  data_jdbc_h2_kotlin_native_app_test:
+    name: Data Jdbc H2 Kotlin Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-jdbc-h2-kotlin
+      task: nativeAppTest
   data_jdbc_h2_kotlin_test:
     name: Data Jdbc H2 Kotlin Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -24,3 +33,13 @@ jobs:
       checkout_ref: main
       project: data:data-jdbc-h2-kotlin
       task: test
+  data_jdbc_h2_kotlin_native_test:
+    name: Data Jdbc H2 Kotlin Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-jdbc-h2-kotlin
+      task: nativeTest
+      java_version: 22
