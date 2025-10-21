@@ -15,3 +15,12 @@ jobs:
       checkout_ref: main
       project: framework:order
       task: appTest
+  order_native_app_test:
+    name: Order Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:order
+      task: nativeAppTest

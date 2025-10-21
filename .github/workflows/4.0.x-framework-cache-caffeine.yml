@@ -15,3 +15,12 @@ jobs:
       checkout_ref: main
       project: framework:cache-caffeine
       task: appTest
+  cache_caffeine_native_app_test:
+    name: Cache Caffeine Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:cache-caffeine
+      task: nativeAppTest

@@ -15,3 +15,13 @@ jobs:
       checkout_ref: main
       project: framework:tcf-mockito
       task: test
+  tcf_mockito_native_test:
+    name: Tcf Mockito Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:tcf-mockito
+      task: nativeTest
+      expected_to_fail: true

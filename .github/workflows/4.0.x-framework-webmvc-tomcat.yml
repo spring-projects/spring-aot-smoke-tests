@@ -15,6 +15,15 @@ jobs:
       checkout_ref: main
       project: framework:webmvc-tomcat
       task: appTest
+  webmvc_tomcat_native_app_test:
+    name: Webmvc Tomcat Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webmvc-tomcat
+      task: nativeAppTest
   webmvc_tomcat_test:
     name: Webmvc Tomcat Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -24,3 +33,12 @@ jobs:
       checkout_ref: main
       project: framework:webmvc-tomcat
       task: test
+  webmvc_tomcat_native_test:
+    name: Webmvc Tomcat Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webmvc-tomcat
+      task: nativeTest

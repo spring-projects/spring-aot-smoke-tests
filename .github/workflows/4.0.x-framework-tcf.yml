@@ -15,3 +15,12 @@ jobs:
       checkout_ref: main
       project: framework:tcf
       task: test
+  tcf_native_test:
+    name: Tcf Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:tcf
+      task: nativeTest
