@@ -15,3 +15,13 @@ jobs:
       checkout_ref: main
       project: boot:liquibase
       task: appTest
+  liquibase_native_app_test:
+    name: Liquibase Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:liquibase
+      task: nativeAppTest
+      expected_to_fail: true
