@@ -18,12 +18,19 @@ package com.example.data.mongodb;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.*;
 
+import com.example.data.mongodb.OrderRepositoryImpl.Hints;
+import org.jspecify.annotations.Nullable;
+import org.springframework.aot.hint.MemberCategory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Indexed;
 
 @Component
+@ImportRuntimeHints(Hints.class)
 class OrderRepositoryImpl implements OrderRepositoryCustom {
 
 	private final MongoOperations operations;
@@ -58,6 +65,17 @@ class OrderRepositoryImpl implements OrderRepositoryCustom {
 		), Invoice.class);
 
 		return results.getUniqueMappedResult();
+	}
+
+	static class Hints implements RuntimeHintsRegistrar {
+
+		@Override
+		public void registerHints(RuntimeHints hints, @Nullable ClassLoader classLoader) {
+			hints.reflection()
+				.registerType(Invoice.class, MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
+						MemberCategory.INVOKE_PUBLIC_METHODS);
+		}
+
 	}
 
 }
