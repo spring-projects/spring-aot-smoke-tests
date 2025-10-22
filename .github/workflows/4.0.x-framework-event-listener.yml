@@ -24,3 +24,4 @@ jobs:
       checkout_ref: main
       project: framework:event-listener
       task: nativeAppTest
+      graal_version: 25

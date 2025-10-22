@@ -24,6 +24,7 @@ jobs:
       checkout_ref: main
       project: boot:json
       task: nativeAppTest
+      graal_version: 25
   json_test:
     name: Json Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -42,3 +43,4 @@ jobs:
       checkout_ref: main
       project: boot:json
       task: nativeTest
+      graal_version: 25

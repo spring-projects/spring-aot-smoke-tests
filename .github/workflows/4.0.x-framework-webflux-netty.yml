@@ -24,6 +24,7 @@ jobs:
       checkout_ref: main
       project: framework:webflux-netty
       task: nativeAppTest
+      graal_version: 25
   webflux_netty_test:
     name: Webflux Netty Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -42,3 +43,4 @@ jobs:
       checkout_ref: main
       project: framework:webflux-netty
       task: nativeTest
+      graal_version: 25

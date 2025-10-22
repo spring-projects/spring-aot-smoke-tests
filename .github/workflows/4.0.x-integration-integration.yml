@@ -24,3 +24,4 @@ jobs:
       checkout_ref: main
       project: integration:integration
       task: nativeAppTest
+      graal_version: 25

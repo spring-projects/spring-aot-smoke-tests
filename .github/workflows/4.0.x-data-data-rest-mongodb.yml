@@ -24,3 +24,4 @@ jobs:
       checkout_ref: main
       project: data:data-rest-mongodb
       task: nativeAppTest
+      graal_version: 25

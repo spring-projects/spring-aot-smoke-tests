@@ -24,6 +24,7 @@ jobs:
       checkout_ref: main
       project: security:security-thymeleaf
       task: nativeAppTest
+      graal_version: 25
   security_thymeleaf_test:
     name: Security Thymeleaf Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -42,3 +43,4 @@ jobs:
       checkout_ref: main
       project: security:security-thymeleaf
       task: nativeTest
+      graal_version: 25

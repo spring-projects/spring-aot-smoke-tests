@@ -24,6 +24,7 @@ jobs:
       checkout_ref: main
       project: graphql:graphql-webflux
       task: nativeAppTest
+      graal_version: 25
   graphql_webflux_test:
     name: Graphql Webflux Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -42,3 +43,4 @@ jobs:
       checkout_ref: main
       project: graphql:graphql-webflux
       task: nativeTest
+      graal_version: 25

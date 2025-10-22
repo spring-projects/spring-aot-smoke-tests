@@ -24,3 +24,4 @@ jobs:
       checkout_ref: main
       project: data:data-cassandra-reactive
       task: nativeAppTest
+      graal_version: 25

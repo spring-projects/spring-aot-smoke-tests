@@ -25,3 +25,4 @@ jobs:
       project: framework:websocket-jetty
       task: nativeAppTest
       expected_to_fail: true
+      graal_version: 25

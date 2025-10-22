@@ -25,3 +25,4 @@ jobs:
       project: framework:tcf-mockito
       task: nativeTest
       expected_to_fail: true
+      graal_version: 25

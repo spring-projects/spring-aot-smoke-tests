@@ -24,3 +24,4 @@ jobs:
       checkout_ref: main
       project: framework:transactional
       task: nativeAppTest
+      graal_version: 25

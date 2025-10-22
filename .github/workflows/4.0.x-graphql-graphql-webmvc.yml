@@ -24,6 +24,7 @@ jobs:
       checkout_ref: main
       project: graphql:graphql-webmvc
       task: nativeAppTest
+      graal_version: 25
   graphql_webmvc_test:
     name: Graphql Webmvc Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -42,3 +43,4 @@ jobs:
       checkout_ref: main
       project: graphql:graphql-webmvc
       task: nativeTest
+      graal_version: 25

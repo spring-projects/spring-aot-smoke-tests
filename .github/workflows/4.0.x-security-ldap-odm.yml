@@ -24,6 +24,7 @@ jobs:
       checkout_ref: main
       project: security:ldap-odm
       task: nativeAppTest
+      graal_version: 25
   ldap_odm_test:
     name: Ldap Odm Test
     uses: ./.github/workflows/smoke-test-jvm.yml
@@ -42,3 +43,4 @@ jobs:
       checkout_ref: main
       project: security:ldap-odm
       task: nativeTest
+      graal_version: 25
