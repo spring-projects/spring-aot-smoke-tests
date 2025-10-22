@@ -115,10 +115,11 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("  contents: read");
 			writer.println("jobs:");
 			smokeTest.tests().forEach((test) -> {
-				writer.println("  " + jobId(smokeTest.name(), test.taskName()) + ":");
+                boolean isNative = test.taskName().startsWith("native");
+                writer.println("  " + jobId(smokeTest.name(), test.taskName()) + ":");
 				writer.println("    name: " + name(smokeTest.name() + " " + test.taskName()));
-				writer.println("    uses: ./.github/workflows/smoke-test-%s.yml"
-					.formatted(test.taskName().startsWith("native") ? "native" : "jvm"));
+                writer.println("    uses: ./.github/workflows/smoke-test-%s.yml"
+					.formatted(isNative ? "native" : "jvm"));
 				writer.println("    secrets: inherit");
 				writer.println("    with:");
 				writer.println("      checkout_repository: " + GITHUB_REPOSITORY);
@@ -131,6 +132,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				if (test.javaVersion() != null) {
 					writer.println("      java_version: " + test.javaVersion());
 				}
+                if (isNative && test.graalVersion() != null) {
+                    writer.println("      graal_version: " + test.graalVersion());
+                }
 			});
 		}
 		catch (IOException ex) {
