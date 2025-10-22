@@ -64,6 +64,9 @@ public abstract class DescribeSmokeTest extends DefaultTask {
 			if (test.javaVersion() != null) {
 				properties.add("tests." + test.taskName() + ".javaVersion=" + test.javaVersion());
 			}
+			if (test.graalVersion() != null) {
+				properties.add("tests." + test.taskName() + ".graalVersion=" + test.graalVersion());
+			}
 		});
 		Files.write(propertiesFile.toPath(), properties);
 	}

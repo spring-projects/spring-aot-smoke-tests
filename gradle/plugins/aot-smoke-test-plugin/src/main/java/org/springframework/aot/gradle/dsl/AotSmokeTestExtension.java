@@ -128,11 +128,14 @@ public class AotSmokeTestExtension {
 
 		private final Property<String> javaVersion;
 
+		private final Property<String> graalVersion;
+
 		@Inject
 		public TestConfiguration(Project project) {
 			this.outcome = project.getObjects().property(Outcome.class);
 			this.outcome.convention(Outcome.SUCCESS);
 			this.javaVersion = project.getObjects().property(String.class);
+			this.graalVersion = project.getObjects().property(String.class).convention("25");
 		}
 
 		/**
@@ -157,6 +160,14 @@ public class AotSmokeTestExtension {
 		 */
 		public Property<String> getJavaVersion() {
 			return this.javaVersion;
+		}
+
+		/**
+		 * The GraalVM version required by the test.
+		 * @return the required GraalVM version
+		 */
+		public Property<String> getGraalVersion() {
+			return this.graalVersion;
 		}
 
 	}
