@@ -271,7 +271,8 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 	private void configureNativeAppTests(Project project, SourceSet aotTest, AotSmokeTestExtension extension) {
 		project.getPlugins().withType(NativeImagePlugin.class, (nativeImagePlugin) -> {
 			GraalVMExtension graalVMExtension = project.getExtensions().getByType(GraalVMExtension.class);
-			graalVMExtension.getAgent().getTasksToInstrumentPredicate().set((task) -> false);
+            graalVMExtension.getBinaries().forEach(binary -> binary.getQuickBuild().set(true));
+            graalVMExtension.getAgent().getTasksToInstrumentPredicate().set((task) -> false);
 			GraalVMReachabilityMetadataRepositoryExtension metadataRepositoryExtension = ((ExtensionAware) graalVMExtension)
 				.getExtensions()
 				.getByType(GraalVMReachabilityMetadataRepositoryExtension.class);
