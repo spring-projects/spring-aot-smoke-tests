@@ -17,14 +17,6 @@ dependencies {
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
 
-aotSmokeTest {
-	nativeAppTest {
-		expectedToFail {
-			becauseOf "https://github.com/oracle/graalvm-reachability-metadata/issues/431"
-		}
-	}
-}
-
 graalvmNative {
     binaries.configureEach {
         buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:Preserve=package=liquibase.*')
