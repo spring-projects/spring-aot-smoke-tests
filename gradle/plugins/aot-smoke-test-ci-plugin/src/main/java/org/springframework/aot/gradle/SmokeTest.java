@@ -49,9 +49,10 @@ public record SmokeTest(String name, String group, String path, List<SmokeTest.T
 
 	private static void testFrom(Properties properties, String name, Consumer<SmokeTest.Test> consumer) {
 		if (configuresTest(properties, name)) {
-			boolean expectedToFail = Boolean.parseBoolean(properties.getProperty("tests.%s.expectedToFail".formatted(name)));
+			boolean expectedToFail = Boolean
+				.parseBoolean(properties.getProperty("tests.%s.expectedToFail".formatted(name)));
 			String javaVersion = properties.getProperty("tests.%s.javaVersion".formatted(name));
-            String graalVersion = properties.getProperty("tests.%s.graalVersion".formatted(name));
+			String graalVersion = properties.getProperty("tests.%s.graalVersion".formatted(name));
 			consumer.accept(new SmokeTest.Test(name, expectedToFail, javaVersion, graalVersion));
 		}
 	}
@@ -75,7 +76,8 @@ public record SmokeTest(String name, String group, String path, List<SmokeTest.T
 	 * @param graalVersion the required GraalVM version for the test. May be {@code null}
 	 * to use the default version
 	 */
-	public record Test(String taskName, boolean expectedToFail, String javaVersion, String graalVersion) implements Serializable {
+	public record Test(String taskName, boolean expectedToFail, String javaVersion,
+			String graalVersion) implements Serializable {
 
 	}
 
