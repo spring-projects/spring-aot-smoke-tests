@@ -25,3 +25,4 @@ jobs:
       project: cloud:cloud-config-server
       task: nativeAppTest
       java_version: 21
+      graal_version: 21

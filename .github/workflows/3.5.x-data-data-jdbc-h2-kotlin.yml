@@ -43,3 +43,4 @@ jobs:
       project: data:data-jdbc-h2-kotlin
       task: nativeTest
       java_version: 22
+      graal_version: 22
