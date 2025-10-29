@@ -23,7 +23,7 @@ import org.springframework.web.reactive.function.server.router
 
 class FunctionalBeanRegistrar: BeanRegistrarDsl({
     registerBean<Foo>()
-    registerBean(::endpoints)
+    registerBean { endpoints() }
 })
 
 fun endpoints() = router {
