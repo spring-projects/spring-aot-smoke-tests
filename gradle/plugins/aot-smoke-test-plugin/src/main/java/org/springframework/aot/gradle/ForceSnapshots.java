@@ -45,7 +45,7 @@ import org.gradle.api.artifacts.ResolutionStrategy;
 final class ForceSnapshots implements Action<DependencyResolveDetails> {
 
 	private static final Set<String> IGNORED_GROUPS = Set.of("org.springframework.boot", "org.springframework.cloud",
-			"org.springframework.plugin");
+			"org.springframework.plugin", "org.springframework");
 
 	@Override
 	public void execute(DependencyResolveDetails dependency) {
