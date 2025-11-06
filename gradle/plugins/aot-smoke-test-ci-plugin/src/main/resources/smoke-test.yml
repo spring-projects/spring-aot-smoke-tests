@@ -46,7 +46,7 @@ jobs:
         if: ${{ inputs.type == 'native' }}
         with:
           java-version: ${{ inputs.graal_version }}
-          distribution: 'graalvm-community'
+          distribution: 'liberica'
       - name: Set up Java
         uses: actions/setup-java@v5
         with:
