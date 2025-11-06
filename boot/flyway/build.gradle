@@ -16,9 +16,3 @@ dependencies {
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
-
-graalvmNative {
-    binaries.configureEach {
-        buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:Preserve=package=org.flywaydb.*')
-    }
-}
