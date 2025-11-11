@@ -17,8 +17,3 @@ dependencies {
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
 
-graalvmNative {
-    binaries.configureEach {
-        buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:Preserve=package=liquibase.*')
-    }
-}
