@@ -1,0 +1,27 @@
+name: 4.0.x | Boot Smoke Tests | Environment
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  environment_app_test:
+    name: Environment App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:environment
+      task: appTest
+  environment_native_app_test:
+    name: Environment Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:environment
+      task: nativeAppTest
+      graal_version: 25
