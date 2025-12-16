@@ -1,0 +1,27 @@
+name: 4.0.x | Cloud Smoke Tests | Cloud Gateway Webmvc
+on:
+  schedule:
+    - cron : '50 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cloud_gateway_webmvc_app_test:
+    name: Cloud Gateway Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-gateway-webmvc
+      task: appTest
+  cloud_gateway_webmvc_native_app_test:
+    name: Cloud Gateway Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-gateway-webmvc
+      task: nativeAppTest
+      graal_version: 25
