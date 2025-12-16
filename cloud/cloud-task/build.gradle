@@ -18,6 +18,12 @@ dependencies {
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
 
+configurations.all {
+	resolutionStrategy {
+		force 'org.springframework.retry:spring-retry:2.0.12'
+	}
+}
+
 aotSmokeTest {
 	webApplication = true
 }
