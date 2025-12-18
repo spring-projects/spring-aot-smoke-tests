@@ -16,13 +16,15 @@ spring:
           - demo-service
           - test-service
     gateway:
-      routes:
-        - id: test_service_route
-          uri: lb://test-service
-          predicates:
-            - Path=/test-service/**
-          filters:
-            - StripPrefix=1
-            - name: Retry
-              args:
-                retries: 3
+      server:
+        webflux:
+          routes:
+          - id: test_service_route
+            uri: lb://test-service
+            predicates:
+              - Path=/test-service/**
+            filters:
+              - StripPrefix=1
+              - name: Retry
+                args:
+                  retries: 3
