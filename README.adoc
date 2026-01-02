@@ -103,10 +103,22 @@ To disable this behavior, set the `forceSnapshots` property to `false`, as shown
 
 === Override a dependency version
 
-As the test doesn't use the Spring Dependency Management Plugin, you can't use the `ext['...'] = '...'` method.
+As the tests don't use the Spring Dependency Management Plugin, you can't use the `ext['...'] = '...'` method.
 
 Instead, use https://docs.gradle.org/current/userguide/dependency_constraints.html[Gradle dependency constraints].
-Say, for example, you want to update the version of Spring Session JDBC to `3.0.0-SNAPSHOT`:
+
+Say, for example, you want to update the version of Spring Session JDBC to `3.0.0-SNAPSHOT`.
+The version of `spring-session-jdbc` is managed by `spring-boot-dependencies`.
+To allow it to be overridden, change the `enforcedPlatform` dependency on `spring-boot-dependencies` to a `platform` dependency:
+
+[source,]
+----
+dependencies {
+    implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+}
+----
+
+Now, declare a constraint to control the version of `spring-session-jdbc`:
 
 [source,]
 ----
