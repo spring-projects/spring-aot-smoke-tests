@@ -1,7 +1,6 @@
-version: '3'
 services:
   pulsar:
-    image: apachepulsar/pulsar:3.2.1
+    image: apachepulsar/pulsar:latest
     ports:
       - '8080'
       - '6650'
