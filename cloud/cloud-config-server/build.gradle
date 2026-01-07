@@ -37,7 +37,7 @@ graalvmNative {
 	}
 
     binaries.configureEach {
-        buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:Preserve=package=org.eclipse.jgit.*', '-H:-AddAllFileSystemProviders')
+        buildArgs.addAll('-H:+UnlockExperimentalVMOptions', '-H:-AddAllFileSystemProviders')
     }
 }
 
