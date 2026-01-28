@@ -41,3 +41,10 @@ graalvmNative {
     }
 }
 
+aotSmokeTest {
+	nativeAppTest {
+		expectedToFail {
+			becauseOf "Spring Cloud has no Spring Boot 4.1.x compatible release yet"
+		}
+	}
+}

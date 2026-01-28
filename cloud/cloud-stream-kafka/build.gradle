@@ -17,3 +17,11 @@ dependencies {
 	appTestImplementation(project(":aot-smoke-test-support"))
 	appTestImplementation("org.awaitility:awaitility:4.2.0")
 }
+
+aotSmokeTest {
+	nativeAppTest {
+		expectedToFail {
+			becauseOf "Spring Cloud has no Spring Boot 4.1.x compatible release yet"
+		}
+	}
+}
