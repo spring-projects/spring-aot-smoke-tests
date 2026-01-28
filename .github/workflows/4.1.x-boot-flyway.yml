@@ -1,0 +1,27 @@
+name: 4.1.x | Boot Smoke Tests | Flyway
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  flyway_app_test:
+    name: Flyway App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:flyway
+      task: appTest
+  flyway_native_app_test:
+    name: Flyway Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:flyway
+      task: nativeAppTest
+      graal_version: 25

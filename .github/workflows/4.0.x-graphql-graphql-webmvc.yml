@@ -12,7 +12,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.0.x
       project: graphql:graphql-webmvc
       task: appTest
   graphql_webmvc_native_app_test:
@@ -21,7 +21,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.0.x
       project: graphql:graphql-webmvc
       task: nativeAppTest
       graal_version: 25
@@ -31,7 +31,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.0.x
       project: graphql:graphql-webmvc
       task: test
   graphql_webmvc_native_test:
@@ -40,7 +40,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.0.x
       project: graphql:graphql-webmvc
       task: nativeTest
       graal_version: 25

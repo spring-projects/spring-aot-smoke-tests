@@ -1,0 +1,46 @@
+name: 4.1.x | Boot Smoke Tests | Json
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  json_app_test:
+    name: Json App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:json
+      task: appTest
+  json_native_app_test:
+    name: Json Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:json
+      task: nativeAppTest
+      graal_version: 25
+  json_test:
+    name: Json Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:json
+      task: test
+  json_native_test:
+    name: Json Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:json
+      task: nativeTest
+      graal_version: 25

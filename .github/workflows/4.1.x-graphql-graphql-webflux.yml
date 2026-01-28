@@ -1,0 +1,46 @@
+name: 4.1.x | Graphql Smoke Tests | Graphql Webflux
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  graphql_webflux_app_test:
+    name: Graphql Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webflux
+      task: appTest
+  graphql_webflux_native_app_test:
+    name: Graphql Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webflux
+      task: nativeAppTest
+      graal_version: 25
+  graphql_webflux_test:
+    name: Graphql Webflux Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webflux
+      task: test
+  graphql_webflux_native_test:
+    name: Graphql Webflux Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: graphql:graphql-webflux
+      task: nativeTest
+      graal_version: 25

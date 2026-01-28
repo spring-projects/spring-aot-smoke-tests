@@ -1,0 +1,27 @@
+name: 4.1.x | Boot Smoke Tests | Thymeleaf Webmvc
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  thymeleaf_webmvc_app_test:
+    name: Thymeleaf Webmvc App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:thymeleaf-webmvc
+      task: appTest
+  thymeleaf_webmvc_native_app_test:
+    name: Thymeleaf Webmvc Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:thymeleaf-webmvc
+      task: nativeAppTest
+      graal_version: 25

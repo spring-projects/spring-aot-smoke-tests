@@ -1,0 +1,27 @@
+name: 4.1.x | Framework Smoke Tests | Webflux Netty Tls
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  webflux_netty_tls_app_test:
+    name: Webflux Netty Tls App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webflux-netty-tls
+      task: appTest
+  webflux_netty_tls_native_app_test:
+    name: Webflux Netty Tls Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webflux-netty-tls
+      task: nativeAppTest
+      graal_version: 25

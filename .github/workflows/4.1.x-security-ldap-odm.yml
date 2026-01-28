@@ -1,0 +1,46 @@
+name: 4.1.x | Security Smoke Tests | Ldap Odm
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ldap_odm_app_test:
+    name: Ldap Odm App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:ldap-odm
+      task: appTest
+  ldap_odm_native_app_test:
+    name: Ldap Odm Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:ldap-odm
+      task: nativeAppTest
+      graal_version: 25
+  ldap_odm_test:
+    name: Ldap Odm Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:ldap-odm
+      task: test
+  ldap_odm_native_test:
+    name: Ldap Odm Native Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: security:ldap-odm
+      task: nativeTest
+      graal_version: 25

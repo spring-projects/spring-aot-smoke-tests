@@ -12,7 +12,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.0.x
       project: framework:cache-redis
       task: appTest
   cache_redis_native_app_test:
@@ -21,7 +21,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.0.x
       project: framework:cache-redis
       task: nativeAppTest
       graal_version: 25

@@ -1,0 +1,28 @@
+name: 4.1.x | Cloud Smoke Tests | Cloud Stream Kafka Streams
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cloud_stream_kafka_streams_app_test:
+    name: Cloud Stream Kafka Streams App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-stream-kafka-streams
+      task: appTest
+  cloud_stream_kafka_streams_native_app_test:
+    name: Cloud Stream Kafka Streams Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-stream-kafka-streams
+      task: nativeAppTest
+      expected_to_fail: true
+      graal_version: 25

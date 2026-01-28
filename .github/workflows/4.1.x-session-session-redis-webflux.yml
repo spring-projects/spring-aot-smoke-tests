@@ -1,0 +1,27 @@
+name: 4.1.x | Session Smoke Tests | Session Redis Webflux
+on:
+  schedule:
+    - cron : '0 1 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  session_redis_webflux_app_test:
+    name: Session Redis Webflux App Test
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: session:session-redis-webflux
+      task: appTest
+  session_redis_webflux_native_app_test:
+    name: Session Redis Webflux Native App Test
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: session:session-redis-webflux
+      task: nativeAppTest
+      graal_version: 25
