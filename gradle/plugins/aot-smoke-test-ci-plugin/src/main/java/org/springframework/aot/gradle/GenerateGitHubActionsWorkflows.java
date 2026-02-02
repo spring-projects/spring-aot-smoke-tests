@@ -79,7 +79,7 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("name: " + workflowName);
 			writer.println("on:");
 			writer.println("  schedule:");
-			writer.println("    - cron : '" + getWarmCachesCronSchedule().get() + "'");
+			writer.println("    - cron: '" + getWarmCachesCronSchedule().get() + "'");
 			writer.println("  workflow_dispatch:");
 			writer.println("permissions:");
 			writer.println("  contents: read");
@@ -109,7 +109,7 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("name: " + workflowName);
 			writer.println("on:");
 			writer.println("  schedule:");
-			writer.println("    - cron : '" + getCronSchedule().get() + "'");
+			writer.println("    - cron: '" + getCronSchedule().get() + "'");
 			writer.println("  workflow_dispatch:");
 			writer.println("permissions:");
 			writer.println("  contents: read");
