@@ -31,9 +31,10 @@ class CacheRedisApplicationAotTests {
 
 	@Test
 	void methodIsCached(AssertableOutput output) {
-		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
-			assertThat(output).hasSingleLineContaining("invoke: 1").hasNoLinesContaining("invoke: 2");
-		});
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(10))
+			.untilAsserted(() -> assertThat(output).hasSingleLineContaining("Test done"));
+		assertThat(output).hasSingleLineContaining("invoke: 1").hasNoLinesContaining("invoke: 2");
 	}
 
 }

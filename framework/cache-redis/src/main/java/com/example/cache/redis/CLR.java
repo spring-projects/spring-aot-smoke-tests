@@ -32,6 +32,7 @@ class CLR implements CommandLineRunner {
 	public void run(String... args) {
 		this.testService.invoke();
 		this.testService.invoke();
+		System.out.println("Test done");
 	}
 
 }
