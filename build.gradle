@@ -3,9 +3,6 @@ plugins {
 }
 
 smokeTests {
-	'3.2.x' {
-		location = "../3.2.x"
-	}
 	'3.3.x' {
 		location = "../3.3.x"
 	}
