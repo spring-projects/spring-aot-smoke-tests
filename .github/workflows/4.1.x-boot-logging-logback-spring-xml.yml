@@ -1,7 +1,7 @@
 name: 4.1.x | Boot Smoke Tests | Logging Logback Spring Xml
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '50 0 * * *'
   workflow_dispatch:
 permissions:
   contents: read

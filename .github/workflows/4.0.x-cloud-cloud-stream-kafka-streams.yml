@@ -1,7 +1,7 @@
 name: 4.0.x | Cloud Smoke Tests | Cloud Stream Kafka Streams
 on:
   schedule:
-    - cron: '50 0 * * *'
+    - cron: '40 0 * * *'
   workflow_dispatch:
 permissions:
   contents: read
