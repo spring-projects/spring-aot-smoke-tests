@@ -24,7 +24,7 @@ class TestService {
 
 	private int counter = 1;
 
-	@Cacheable(cacheNames = "invoke")
+	@Cacheable(cacheNames = "invoke", sync = true)
 	public void invoke() {
 		System.out.printf("invoke: %d%n", this.counter);
 		this.counter++;
