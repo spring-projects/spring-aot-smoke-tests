@@ -1,5 +1,7 @@
 services:
   test-service:
     image: springcloud/test-service:latest
+    environment:
+      SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration"
     ports:
       - "8081"
