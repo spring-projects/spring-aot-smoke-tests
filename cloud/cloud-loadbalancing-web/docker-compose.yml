@@ -1,6 +1,8 @@
 services:
   test-service:
     image: springcloud/test-service:latest
+    environment:
+      JAVA_TOOL_OPTIONS: "-Djdk.internal.platform.disableCgroupsV2=true"
     ports:
       - "8081"
   demo-service:
