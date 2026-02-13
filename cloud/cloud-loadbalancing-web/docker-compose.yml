@@ -2,12 +2,12 @@ services:
   test-service:
     image: springcloud/test-service:latest
     environment:
-      SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.boot.micrometer.metrics.autoconfigure.system.SystemMetricsAutoConfiguration"
+      SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration"
     ports:
       - "8081"
   demo-service:
     image: springcloud/demo-service:latest
     environment:
-      SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.boot.micrometer.metrics.autoconfigure.system.SystemMetricsAutoConfiguration"
+      SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration"
     ports:
       - "8082"
