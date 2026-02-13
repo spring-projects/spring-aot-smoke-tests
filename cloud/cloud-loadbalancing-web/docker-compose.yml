@@ -7,5 +7,7 @@ services:
       - "8081"
   demo-service:
     image: springcloud/demo-service:latest
+    environment:
+      JAVA_TOOL_OPTIONS: "-Djdk.internal.platform.disableCgroupsV2=true"
     ports:
       - "8082"
