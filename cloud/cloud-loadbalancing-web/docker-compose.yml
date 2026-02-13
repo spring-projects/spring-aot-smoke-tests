@@ -2,12 +2,12 @@ services:
   test-service:
     image: springcloud/test-service:latest
     environment:
-      JAVA_TOOL_OPTIONS: "-Djdk.internal.platform.disableCgroupsV2=true"
+      SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.boot.micrometer.metrics.autoconfigure.system.SystemMetricsAutoConfiguration"
     ports:
       - "8081"
   demo-service:
     image: springcloud/demo-service:latest
     environment:
-      JAVA_TOOL_OPTIONS: "-Djdk.internal.platform.disableCgroupsV2=true"
+      SPRING_AUTOCONFIGURE_EXCLUDE: "org.springframework.boot.micrometer.metrics.autoconfigure.system.SystemMetricsAutoConfiguration"
     ports:
       - "8082"
