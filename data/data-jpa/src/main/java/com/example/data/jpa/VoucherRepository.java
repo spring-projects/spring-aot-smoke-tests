@@ -21,8 +21,10 @@ import java.util.List;
 import com.example.data.jpa.model.Voucher;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListPagingAndSortingRepository;
 
-public interface VoucherRepository extends CrudRepository<Voucher, Integer> {
+public interface VoucherRepository
+		extends CrudRepository<Voucher, Integer>, ListPagingAndSortingRepository<Voucher, Integer> {
 
 	List<Voucher> findByMsisdn(String msisdn);
 
