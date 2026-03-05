@@ -23,7 +23,12 @@ import com.example.data.jpa.model.Recipient;
 import com.example.data.jpa.model.Voucher;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.core.TypedPropertyPath;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 @Component
 public class NonTransactionalRunner implements CommandLineRunner {
@@ -43,6 +48,7 @@ public class NonTransactionalRunner implements CommandLineRunner {
 		insertRecipients();
 		listVouchers();
 		listRecipients();
+		typedPropertyPath();
 	}
 
 	private void insertVouchers() {
@@ -62,6 +68,13 @@ public class NonTransactionalRunner implements CommandLineRunner {
 	private void listRecipients() {
 		List<Recipient> recipients = this.recipientRepository.findAll();
 		recipients.forEach(recipient -> System.out.printf("listRecipients(): recipient = %s%n", recipient));
+	}
+
+	private void typedPropertyPath() {
+		List<Voucher> sorted = this.voucherRepository
+			.findAll(Sort.by(Direction.DESC, TypedPropertyPath.path(Voucher::getStatus)));
+		System.out.printf("typedPropertyPath(): %s%n\r",
+				StringUtils.collectionToCommaDelimitedString(sorted.stream().map(Voucher::getStatus).toList()));
 	}
 
 }

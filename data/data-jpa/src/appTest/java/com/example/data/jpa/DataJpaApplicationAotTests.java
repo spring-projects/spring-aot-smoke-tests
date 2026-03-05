@@ -139,4 +139,11 @@ class DataJpaApplicationAotTests {
 		});
 	}
 
+	@Test
+	void typedPropertyPath(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("typedPropertyPath(): 1,0");
+		});
+	}
+
 }
