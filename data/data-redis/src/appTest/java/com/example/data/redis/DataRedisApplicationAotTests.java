@@ -84,6 +84,14 @@ class DataRedisApplicationAotTests {
 	}
 
 	@Test
+	void messageListeners(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output)
+				.hasSingleLineContaining("message-listener: received [payload] from [string-channel] at ");
+		});
+	}
+
+	@Test
 	void findAll(AssertableOutput output) {
 		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
 			assertThat(output).hasSingleLineContaining("findAll(): Person{firstname='first-1', lastname='last-1'}")

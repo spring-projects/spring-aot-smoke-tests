@@ -28,9 +28,12 @@ import org.springframework.data.redis.hash.JacksonHashMapper;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.messaging.RedisMessageSendingOperations;
+import org.springframework.data.redis.messaging.RedisMessageSendingTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.support.collections.DefaultRedisSet;
 import org.springframework.data.redis.support.collections.RedisSet;
+import org.springframework.messaging.core.MessageSendingOperations;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -59,6 +62,7 @@ class CLR implements CommandLineRunner {
 		hashMapper(HashStructure.FLAT);
 		jsonSerializer();
 		pubSub();
+		messageListener();
 
 		this.personRepository.save(new Person("first-1", "last-1"));
 		this.personRepository.save(new Person("first-2", "last-2"));
@@ -141,6 +145,16 @@ class CLR implements CommandLineRunner {
 
 		Thread.sleep(100);
 		System.out.printf("pub/sub: %s%n", this.messageHandler.receivedMessages());
+
+		container.stop();
+	}
+
+	private void messageListener() {
+
+		String channel = Messaging.STRING_CHANNEL;
+
+		RedisMessageSendingOperations sender = new RedisMessageSendingTemplate(template);
+		sender.convertAndSend(channel, "payload");
 	}
 
 	enum HashStructure {
