@@ -20,4 +20,14 @@ dependencies {
 
 aotSmokeTest {
 	webApplication = true
+	nativeAppTest {
+		expectedToFail {
+			becauseOf " https://github.com/oracle/graalvm-reachability-metadata/issues/2094"
+		}
+	}
+	nativeTest {
+		expectedToFail {
+			becauseOf " https://github.com/oracle/graalvm-reachability-metadata/issues/2094"
+		}
+	}
 }
