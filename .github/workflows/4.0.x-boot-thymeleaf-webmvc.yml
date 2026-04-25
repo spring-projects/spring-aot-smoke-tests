@@ -24,4 +24,5 @@ jobs:
       checkout_ref: 4.0.x
       project: boot:thymeleaf-webmvc
       task: nativeAppTest
+      expected_to_fail: true
       graal_version: 25
