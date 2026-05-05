@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: 'rabbitmq:management'
+    image: 'rabbitmq:4.2-management'
     ports:
       - '5672'
       - '15672'
