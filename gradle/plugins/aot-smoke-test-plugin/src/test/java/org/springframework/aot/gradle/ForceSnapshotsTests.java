@@ -38,6 +38,7 @@ class ForceSnapshotsTests {
 	@ParameterizedTest
 	@CsvSource(textBlock = """
 				6.0.12-SNAPSHOT, 6.0.12-SNAPSHOT
+				6.0.12.1-SNAPSHOT, 6.0.12.1-SNAPSHOT
 				5.2.26.BUILD-SNAPSHOT, 5.2.26.BUILD-SNAPSHOT
 			""")
 	void snapshotVersionIsUsedAsIs(String version, String derivedVersion) {
@@ -68,6 +69,7 @@ class ForceSnapshotsTests {
 	@ParameterizedTest
 	@CsvSource(textBlock = """
 				6.1.0, 6.1.1-SNAPSHOT
+				6.1.0.1, 6.1.1-SNAPSHOT
 				5.2.0.RELEASE, 5.2.1.BUILD-SNAPSHOT
 			""")
 	void gaReleaseUsesSnapshotOfNextPatch(String version, String derivedVersion) {

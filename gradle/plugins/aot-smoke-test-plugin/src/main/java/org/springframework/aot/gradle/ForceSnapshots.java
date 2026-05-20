@@ -16,6 +16,7 @@
 
 package org.springframework.aot.gradle;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import org.gradle.api.Action;
@@ -76,6 +77,9 @@ final class ForceSnapshots implements Action<DependencyResolveDetails> {
 		String[] parts = rawVersion.split("\\.");
 		int nextPatchVersion = Integer.parseInt(parts[2]) + 1;
 		parts[2] = nextPatchVersion + "-SNAPSHOT";
+		if (parts.length == 4) {
+			parts = Arrays.copyOf(parts, 3);
+		}
 		return String.join(".", parts);
 	}
 
