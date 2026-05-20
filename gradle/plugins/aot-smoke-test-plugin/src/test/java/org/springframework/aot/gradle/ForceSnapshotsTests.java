@@ -114,6 +114,7 @@ class ForceSnapshotsTests {
 		ModuleVersionSelector selector = mock(ModuleVersionSelector.class);
 		given(dependency.getRequested()).willReturn(selector);
 		given(selector.getGroup()).willReturn(group);
+		given(selector.getName()).willReturn("example");
 		given(selector.getVersion()).willReturn(version);
 		this.useSnapshots.execute(dependency);
 		then(dependency).should().getRequested();
