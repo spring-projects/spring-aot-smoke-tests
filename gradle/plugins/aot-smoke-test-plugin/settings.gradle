@@ -25,9 +25,7 @@ pluginManagement {
 				}
 			}
 		}
-		else {
-			mavenCentral()
-		}
+		mavenCentral()
 	}
 }
 
