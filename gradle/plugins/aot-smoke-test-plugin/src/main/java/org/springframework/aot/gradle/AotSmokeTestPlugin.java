@@ -147,9 +147,7 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 				repo.mavenContent((mavenContent) -> mavenContent.releasesOnly());
 			});
 		}
-		else {
-			project.getRepositories().mavenCentral();
-		}
+		project.getRepositories().mavenCentral();
 		project.getRepositories().maven((repo) -> {
 			repo.setName("Spring Snapshot");
 			repo.setUrl("https://repo.spring.io/artifactory/snapshot");
