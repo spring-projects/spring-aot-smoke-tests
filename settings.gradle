@@ -38,6 +38,7 @@ pluginManagement {
 				releasesOnly()
 			}
 		}
+		mavenCentral()
 		gradlePluginPortal()
 		maven {
 			name "Spring Snapshot"
