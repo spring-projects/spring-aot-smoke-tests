@@ -18,9 +18,7 @@ repositories {
 			}
 		}
 	}
-	else {
-		mavenCentral()
-	}
+	mavenCentral()
 	maven {
 		name = "Spring Snapshot"
 		url = "https://repo.spring.io/artifactory/snapshot"

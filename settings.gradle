@@ -14,9 +14,7 @@ pluginManagement {
 				}
 			}
 		}
-		else {
-			mavenCentral()
-		}
+		mavenCentral()
 		gradlePluginPortal()
 		maven {
 			name = "Spring Snapshot"
