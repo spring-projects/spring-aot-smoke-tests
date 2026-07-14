@@ -24,6 +24,5 @@ jobs:
       checkout_ref: main
       project: cloud:cloud-config-server
       task: nativeAppTest
-      expected_to_fail: true
       java_version: 21
       graal_version: 25
