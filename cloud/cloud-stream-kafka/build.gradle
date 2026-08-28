@@ -8,7 +8,7 @@ plugins {
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
-	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-jackson")
 	implementation("org.springframework.cloud:spring-cloud-stream")
 	implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka")
 
