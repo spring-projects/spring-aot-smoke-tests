@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: write
 jobs:
   warm_caches:
     uses: ./.github/workflows/warm-caches.yml

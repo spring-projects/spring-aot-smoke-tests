@@ -50,8 +50,6 @@ jobs:
           java-version: ${{ inputs.java_version }}
           distribution: 'liberica'
           cache-jdk: true
-      # Runs after "Set up Java" so its JAVA_HOME (pointing at the Native Image Kit toolchain)
-      # is the one left standing, since liberica-nik doesn't export GRAALVM_HOME to fall back on.
       - name: Set up GraalVM
         uses: actions/setup-java@v6
         if: ${{ inputs.type == 'native' }}

@@ -83,6 +83,7 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 			writer.println("  workflow_dispatch:");
 			writer.println("permissions:");
 			writer.println("  contents: read");
+			writer.println("  actions: write");
 			writer.println("jobs:");
 			writer.println("  warm_caches:");
 			writer.println("    uses: ./.github/workflows/warm-caches.yml");

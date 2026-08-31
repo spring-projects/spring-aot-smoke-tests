@@ -10,6 +10,7 @@ on:
         type: string
 permissions:
   contents: read
+  actions: write
 jobs:
   warm_caches:
     name: ${{ inputs.task }}
@@ -37,9 +38,8 @@ jobs:
         run: |
            mkdir -p ~/.gradle
            echo 'systemProp.user.name=spring-builds+github' >> ~/.gradle/gradle.properties
-      # A new key each day means saving never collides with GitHub's cache key immutability, so no
-      # explicit deletion is needed. restore-keys falls back to the most recent entry for this
-      # branch, and the branch is baked into the key so branches never share or clobber each other.
+      # A new key each day sidesteps GitHub's cache key immutability; restore-keys falls back to
+      # the most recent entry for this branch.
       - name: Restore/save Gradle wrapper and dependencies cache
         uses: actions/cache@v6
         with:
@@ -49,6 +49,21 @@ jobs:
           key: gradle-deps-${{ inputs.checkout_ref }}-${{ steps.date.outputs.today }}
           restore-keys: |
             gradle-deps-${{ inputs.checkout_ref }}-
+      # Older dated entries for this branch will never be restored again - delete them so they
+      # don't waste cache quota.
+      - name: Delete stale Gradle dependency caches
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          stale=$(gh cache list --repo ${{ github.repository }} \
+            --key "gradle-deps-${{ inputs.checkout_ref }}-" \
+            --json id,key \
+            --jq '.[] | select(.key != "gradle-deps-${{ inputs.checkout_ref }}-${{ steps.date.outputs.today }}")')
+          echo "Cache entries to delete:"
+          echo "$stale"
+          echo "$stale" | jq -r '.id' | xargs -r -n1 gh cache delete --repo ${{ github.repository }}
+        continue-on-error: true
       - name: Warm Caches
         env:
           DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
