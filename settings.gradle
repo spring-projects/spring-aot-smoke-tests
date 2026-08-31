@@ -41,7 +41,11 @@ pluginManagement {
 			}
 		}
 		mavenCentral()
-		gradlePluginPortal()
+		gradlePluginPortal {
+			content {
+				releasesOnly()
+			}
+		}
 		maven {
 			name = "Spring Snapshot"
 			url = "https://repo.spring.io/artifactory/snapshot"
