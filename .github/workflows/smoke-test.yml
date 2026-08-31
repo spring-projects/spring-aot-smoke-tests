@@ -41,6 +41,9 @@ jobs:
         with:
           repository: ${{ inputs.checkout_repository }}
           ref: ${{ inputs.checkout_ref }}
+      - name: Record date
+        id: date
+        run: echo "today=$(date -u +%F)" >> "$GITHUB_OUTPUT"
       - name: Set up GraalVM
         uses: graalvm/setup-graalvm@2a2412009026a83f51d179f92dc2b3fd4c8142df # v1.41
         if: ${{ inputs.type == 'native' }}
@@ -55,11 +58,20 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
         with:
-          cache-read-only: true
+          cache-disabled: true
       - name: Configure Gradle user.name
         run: |
            mkdir -p ~/.gradle
            echo 'systemProp.user.name=spring-builds+github' >> ~/.gradle/gradle.properties
+      - name: Restore Gradle wrapper and dependencies cache
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            ~/.gradle/wrapper
+            ~/.gradle/caches/modules-2
+          key: gradle-deps-${{ inputs.checkout_ref }}-${{ steps.date.outputs.today }}
+          restore-keys: |
+            gradle-deps-${{ inputs.checkout_ref }}-
       - name: Build
         id: build
         env:

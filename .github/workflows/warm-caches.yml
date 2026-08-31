@@ -20,6 +20,9 @@ jobs:
         with:
           repository: ${{ inputs.checkout_repository }}
           ref: ${{ inputs.checkout_ref }}
+      - name: Record date
+        id: date
+        run: echo "today=$(date -u +%F)" >> "$GITHUB_OUTPUT"
       - name: Set up Java
         uses: actions/setup-java@v5
         with:
@@ -27,10 +30,24 @@ jobs:
           distribution: 'liberica'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+        with:
+          cache-disabled: true
       - name: Configure Gradle user.name
         run: |
            mkdir -p ~/.gradle
            echo 'systemProp.user.name=spring-builds+github' >> ~/.gradle/gradle.properties
+      # A new key each day means saving never collides with GitHub's cache key immutability, so no
+      # explicit deletion is needed. restore-keys falls back to the most recent entry for this
+      # branch, and the branch is baked into the key so branches never share or clobber each other.
+      - name: Restore/save Gradle wrapper and dependencies cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.gradle/wrapper
+            ~/.gradle/caches/modules-2
+          key: gradle-deps-${{ inputs.checkout_ref }}-${{ steps.date.outputs.today }}
+          restore-keys: |
+            gradle-deps-${{ inputs.checkout_ref }}-
       - name: Warm Caches
         env:
           DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
