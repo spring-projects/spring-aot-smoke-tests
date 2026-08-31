@@ -39,6 +39,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.artifacts.dsl.DependencyHandler;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.RegularFile;
+import org.gradle.api.initialization.dsl.ScriptHandler;
 import org.gradle.api.plugins.ExtensionAware;
 import org.gradle.api.plugins.JavaBasePlugin;
 import org.gradle.api.plugins.JavaPlugin;
@@ -162,6 +163,14 @@ public class AotSmokeTestPlugin implements Plugin<Project> {
 					warmCaches.addDependencies(
 							project.getConfigurations().getByName(sourceSet.getRuntimeClasspathConfigurationName()));
 				});
+			warmCaches.addDependencies(
+					project.getBuildscript().getConfigurations().getByName(ScriptHandler.CLASSPATH_CONFIGURATION));
+			if (project.getRootProject() != project) {
+				warmCaches.addDependencies(project.getRootProject()
+					.getBuildscript()
+					.getConfigurations()
+					.getByName(ScriptHandler.CLASSPATH_CONFIGURATION));
+			}
 		});
 	}
 
