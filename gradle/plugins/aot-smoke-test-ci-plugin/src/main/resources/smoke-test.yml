@@ -46,12 +46,12 @@ jobs:
         run: echo "today=$(date -u +%F)" >> "$GITHUB_OUTPUT"
       - name: Set up Java
         uses: actions/setup-java@v6
+        if: ${{ inputs.type == 'jvm' }}
         with:
           java-version: ${{ inputs.java_version }}
           distribution: 'liberica'
           cache-jdk: true
       - name: Set up GraalVM
-        id: graalvm
         # We use setup-java for the caching functionality
         uses: actions/setup-java@v6
         if: ${{ inputs.type == 'native' }}
@@ -59,10 +59,6 @@ jobs:
           java-version: ${{ inputs.graal_version }}
           distribution: 'liberica-nik'
           cache-jdk: true
-          set-default: false
-      - name: Set GRAALVM_HOME
-        if: ${{ inputs.type == 'native' }}
-        run: echo "GRAALVM_HOME=${{ steps.graalvm.outputs.path }}" >> "$GITHUB_ENV"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
         with:
