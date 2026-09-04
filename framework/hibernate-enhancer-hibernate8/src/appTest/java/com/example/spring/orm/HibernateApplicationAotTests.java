@@ -14,17 +14,26 @@
  * limitations under the License.
  */
 
-package com.example.data.jpa;
+package com.example.spring.orm;
 
-import com.example.data.jpa.model.Publisher;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.ListCrudRepository;
+import java.time.Duration;
 
-public interface PublisherRepository extends ListCrudRepository<Publisher, Long> {
+import org.awaitility.Awaitility;
+import org.junit.jupiter.api.Test;
 
-	@Modifying(clearAutomatically = true)
-	@Query("DELETE FROM Publisher p WHERE p.name = :name")
-	void deleteByNameMatching(String name);
+import org.springframework.aot.smoketest.support.assertj.AssertableOutput;
+import org.springframework.aot.smoketest.support.junit.ApplicationTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@ApplicationTest
+class HibernateApplicationAotTests {
+
+	@Test
+	void lazyLoading(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasLineContaining("lazy - category.product: lazy-loading-works :)");
+		});
+	}
 
 }

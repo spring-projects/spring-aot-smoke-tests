@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2026-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ import org.springframework.data.repository.ListCrudRepository;
 
 public interface PublisherRepository extends ListCrudRepository<Publisher, Long> {
 
+	// executeUpdate(query), result discarded. Publisher has no associations, so a bulk
+	// delete cannot leave orphaned join table rows behind.
 	@Modifying(clearAutomatically = true)
 	@Query("DELETE FROM Publisher p WHERE p.name = :name")
 	void deleteByNameMatching(String name);

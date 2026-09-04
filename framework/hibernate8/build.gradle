@@ -1,0 +1,53 @@
+plugins {
+	id "java"
+	id "org.springframework.boot"
+	id "org.springframework.aot.smoke-test"
+	id "org.graalvm.buildtools.native"
+}
+
+def hibernateVersion = "8.0.0-SNAPSHOT"
+def jakartaPersistenceVersion = "4.0.0-M6"
+
+repositories {
+	mavenLocal {
+		content {
+			includeGroup "org.hibernate.orm"
+			includeGroup "jakarta.persistence"
+		}
+	}
+	maven {
+		name = "Sonatype Central Snapshots"
+		url = "https://central.sonatype.com/repository/maven-snapshots"
+		mavenContent {
+			snapshotsOnly()
+		}
+		content {
+			includeGroup "org.hibernate.orm"
+			includeGroup "jakarta.persistence"
+		}
+	}
+}
+
+configurations.all {
+	resolutionStrategy.eachDependency { details ->
+		def requested = details.requested
+		if (requested.group == "org.hibernate.orm") {
+			details.useVersion(hibernateVersion)
+		}
+		else if (requested.group == "jakarta.persistence" && requested.name == "jakarta.persistence-api") {
+			details.useVersion(jakartaPersistenceVersion)
+		}
+	}
+}
+
+dependencies {
+	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.springframework.boot:spring-boot-hibernate")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	runtimeOnly("com.h2database:h2")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	appTestImplementation(project(":aot-smoke-test-support"))
+	appTestImplementation("org.awaitility:awaitility:4.2.0")
+}
