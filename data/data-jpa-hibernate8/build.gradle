@@ -7,11 +7,26 @@ plugins {
 
 def springDataVersion = "4.2.0-SNAPSHOT"
 def springDataCommonsVersion = "4.2.0-SNAPSHOT"
+def hibernateVersion = "8.0.0-SNAPSHOT"
+def jakartaPersistenceVersion = "4.0.0-M6"
 
 repositories {
 	mavenLocal {
 		content {
 			includeGroup "org.springframework.data"
+			includeGroup "org.hibernate.orm"
+			includeGroup "jakarta.persistence"
+		}
+	}
+	maven {
+		name = "Sonatype Central Snapshots"
+		url = "https://central.sonatype.com/repository/maven-snapshots"
+		mavenContent {
+			snapshotsOnly()
+		}
+		content {
+			includeGroup "org.hibernate.orm"
+			includeGroup "jakarta.persistence"
 		}
 	}
 }
@@ -24,6 +39,12 @@ configurations.all {
 		}
 		else if (requested.group == "org.springframework.data" && requested.name == "spring-data-commons") {
 			details.useVersion(springDataCommonsVersion)
+		}
+		else if (requested.group == "org.hibernate.orm") {
+			details.useVersion(hibernateVersion)
+		}
+		else if (requested.group == "jakarta.persistence" && requested.name == "jakarta.persistence-api") {
+			details.useVersion(jakartaPersistenceVersion)
 		}
 	}
 }

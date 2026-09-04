@@ -1,0 +1,1 @@
+Tests if Spring ORM - Hibernate works with the Hibernate 8.0 and JPA 4.0 previews
