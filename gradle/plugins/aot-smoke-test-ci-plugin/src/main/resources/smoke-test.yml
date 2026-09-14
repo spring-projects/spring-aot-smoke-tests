@@ -73,6 +73,7 @@ jobs:
           path: |
             ~/.gradle/wrapper
             ~/.gradle/caches/modules-2
+            ~/.gradle/native-build-tools
           key: gradle-deps-${{ inputs.checkout_ref }}-${{ steps.date.outputs.today }}
           restore-keys: |
             gradle-deps-${{ inputs.checkout_ref }}-
