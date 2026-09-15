@@ -1,13 +1,15 @@
 name: 3.5.x | Boot Smoke Tests | Conditional
 on:
-  schedule:
-    - cron: '50 0 * * *'
+  workflow_run:
+    workflows: ["3.5.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   conditional_app_test:
     name: Conditional App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   conditional_native_app_test:
     name: Conditional Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

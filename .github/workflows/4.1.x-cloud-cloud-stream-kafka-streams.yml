@@ -1,13 +1,15 @@
 name: 4.1.x | Cloud Smoke Tests | Cloud Stream Kafka Streams
 on:
-  schedule:
-    - cron: '30 1 * * *'
+  workflow_run:
+    workflows: ["4.1.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   cloud_stream_kafka_streams_app_test:
     name: Cloud Stream Kafka Streams App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   cloud_stream_kafka_streams_native_app_test:
     name: Cloud Stream Kafka Streams Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

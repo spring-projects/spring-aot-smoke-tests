@@ -1,13 +1,15 @@
 name: 3.4.x | Cloud Smoke Tests | Cloud Openfeign
 on:
-  schedule:
-    - cron: '30 0 * * *'
+  workflow_run:
+    workflows: ["3.4.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   cloud_openfeign_app_test:
     name: Cloud Openfeign App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   cloud_openfeign_native_app_test:
     name: Cloud Openfeign Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

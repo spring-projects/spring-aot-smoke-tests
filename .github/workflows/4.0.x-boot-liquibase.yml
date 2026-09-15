@@ -1,13 +1,15 @@
 name: 4.0.x | Boot Smoke Tests | Liquibase
 on:
-  schedule:
-    - cron: '10 1 * * *'
+  workflow_run:
+    workflows: ["4.0.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   liquibase_app_test:
     name: Liquibase App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   liquibase_native_app_test:
     name: Liquibase Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

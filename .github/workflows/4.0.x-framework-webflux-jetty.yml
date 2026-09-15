@@ -1,13 +1,15 @@
 name: 4.0.x | Framework Smoke Tests | Webflux Jetty
 on:
-  schedule:
-    - cron: '10 1 * * *'
+  workflow_run:
+    workflows: ["4.0.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   webflux_jetty_app_test:
     name: Webflux Jetty App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   webflux_jetty_native_app_test:
     name: Webflux Jetty Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:
@@ -27,6 +30,7 @@ jobs:
       graal_version: 25
   webflux_jetty_test:
     name: Webflux Jetty Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -36,6 +40,7 @@ jobs:
       task: test
   webflux_jetty_native_test:
     name: Webflux Jetty Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

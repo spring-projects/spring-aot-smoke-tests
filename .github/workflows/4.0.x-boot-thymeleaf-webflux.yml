@@ -1,13 +1,15 @@
 name: 4.0.x | Boot Smoke Tests | Thymeleaf Webflux
 on:
-  schedule:
-    - cron: '10 1 * * *'
+  workflow_run:
+    workflows: ["4.0.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   thymeleaf_webflux_app_test:
     name: Thymeleaf Webflux App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   thymeleaf_webflux_native_app_test:
     name: Thymeleaf Webflux Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

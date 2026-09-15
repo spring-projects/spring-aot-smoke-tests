@@ -1,13 +1,15 @@
 name: 4.0.x | Data Smoke Tests | Data Jdbc H2
 on:
-  schedule:
-    - cron: '10 1 * * *'
+  workflow_run:
+    workflows: ["4.0.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   data_jdbc_h2_app_test:
     name: Data Jdbc H2 App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   data_jdbc_h2_native_app_test:
     name: Data Jdbc H2 Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:
@@ -27,6 +30,7 @@ jobs:
       graal_version: 25
   data_jdbc_h2_test:
     name: Data Jdbc H2 Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -36,6 +40,7 @@ jobs:
       task: test
   data_jdbc_h2_native_test:
     name: Data Jdbc H2 Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

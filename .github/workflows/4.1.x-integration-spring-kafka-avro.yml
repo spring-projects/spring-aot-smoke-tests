@@ -1,13 +1,15 @@
 name: 4.1.x | Integration Smoke Tests | Spring Kafka Avro
 on:
-  schedule:
-    - cron: '30 1 * * *'
+  workflow_run:
+    workflows: ["4.1.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   spring_kafka_avro_app_test:
     name: Spring Kafka Avro App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   spring_kafka_avro_native_app_test:
     name: Spring Kafka Avro Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

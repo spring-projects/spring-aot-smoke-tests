@@ -1,13 +1,15 @@
 name: 3.5.x | Graphql Smoke Tests | Graphql Webmvc
 on:
-  schedule:
-    - cron: '50 0 * * *'
+  workflow_run:
+    workflows: ["3.5.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   graphql_webmvc_app_test:
     name: Graphql Webmvc App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   graphql_webmvc_native_app_test:
     name: Graphql Webmvc Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:
@@ -26,6 +29,7 @@ jobs:
       task: nativeAppTest
   graphql_webmvc_test:
     name: Graphql Webmvc Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -35,6 +39,7 @@ jobs:
       task: test
   graphql_webmvc_native_test:
     name: Graphql Webmvc Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

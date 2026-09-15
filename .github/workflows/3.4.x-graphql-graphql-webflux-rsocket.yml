@@ -1,13 +1,15 @@
 name: 3.4.x | Graphql Smoke Tests | Graphql Webflux Rsocket
 on:
-  schedule:
-    - cron: '30 0 * * *'
+  workflow_run:
+    workflows: ["3.4.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   graphql_webflux_rsocket_app_test:
     name: Graphql Webflux Rsocket App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   graphql_webflux_rsocket_native_app_test:
     name: Graphql Webflux Rsocket Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:
@@ -26,6 +29,7 @@ jobs:
       task: nativeAppTest
   graphql_webflux_rsocket_test:
     name: Graphql Webflux Rsocket Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -35,6 +39,7 @@ jobs:
       task: test
   graphql_webflux_rsocket_native_test:
     name: Graphql Webflux Rsocket Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

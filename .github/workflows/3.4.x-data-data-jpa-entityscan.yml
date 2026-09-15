@@ -1,13 +1,15 @@
 name: 3.4.x | Data Smoke Tests | Data Jpa Entityscan
 on:
-  schedule:
-    - cron: '30 0 * * *'
+  workflow_run:
+    workflows: ["3.4.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   data_jpa_entityscan_app_test:
     name: Data Jpa Entityscan App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   data_jpa_entityscan_native_app_test:
     name: Data Jpa Entityscan Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:
@@ -26,6 +29,7 @@ jobs:
       task: nativeAppTest
   data_jpa_entityscan_test:
     name: Data Jpa Entityscan Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -35,6 +39,7 @@ jobs:
       task: test
   data_jpa_entityscan_native_test:
     name: Data Jpa Entityscan Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

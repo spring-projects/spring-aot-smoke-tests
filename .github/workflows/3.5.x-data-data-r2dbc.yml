@@ -1,13 +1,15 @@
 name: 3.5.x | Data Smoke Tests | Data R2dbc
 on:
-  schedule:
-    - cron: '50 0 * * *'
+  workflow_run:
+    workflows: ["3.5.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   data_r2dbc_app_test:
     name: Data R2dbc App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   data_r2dbc_native_app_test:
     name: Data R2dbc Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:

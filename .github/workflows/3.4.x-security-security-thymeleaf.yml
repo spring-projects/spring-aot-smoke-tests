@@ -1,13 +1,15 @@
 name: 3.4.x | Security Smoke Tests | Security Thymeleaf
 on:
-  schedule:
-    - cron: '30 0 * * *'
+  workflow_run:
+    workflows: ["3.4.x | Warm Caches"]
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   security_thymeleaf_app_test:
     name: Security Thymeleaf App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -17,6 +19,7 @@ jobs:
       task: appTest
   security_thymeleaf_native_app_test:
     name: Security Thymeleaf Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:
@@ -26,6 +29,7 @@ jobs:
       task: nativeAppTest
   security_thymeleaf_test:
     name: Security Thymeleaf Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-jvm.yml
     secrets: inherit
     with:
@@ -35,6 +39,7 @@ jobs:
       task: test
   security_thymeleaf_native_test:
     name: Security Thymeleaf Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/smoke-test-native.yml
     secrets: inherit
     with:
