@@ -103,12 +103,6 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 
 	static final class CronSchedule {
 
-		// Gap between a branch's Warm Caches run and its smoke tests.
-		private static final int SMOKE_TEST_OFFSET_MINUTES = 30;
-
-		// Step between one branch's Warm Caches run and the next branch's.
-		private static final int BRANCH_STEP_MINUTES = 20;
-
 		private int minute;
 
 		private int hour;
@@ -128,7 +122,7 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 
 		String runTests() {
 			CronSchedule offsetSchedule = new CronSchedule(this.minute, this.hour);
-			offsetSchedule.advance(SMOKE_TEST_OFFSET_MINUTES);
+			offsetSchedule.nextBatch();
 			return offsetSchedule.asString();
 		}
 
@@ -137,13 +131,11 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 		}
 
 		void nextBatch() {
-			advance(BRANCH_STEP_MINUTES);
-		}
-
-		private void advance(int minutes) {
-			this.minute += minutes;
-			this.hour += this.minute / 60;
-			this.minute %= 60;
+			this.minute += 10;
+			if (this.minute == 60) {
+				this.minute = 0;
+				this.hour += 1;
+			}
 		}
 
 	}
