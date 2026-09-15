@@ -70,3 +70,19 @@ jobs:
           echo "$stale"
           echo "$stale" | jq -r '.id' | xargs -r -n1 gh cache delete --repo ${{ github.repository }}
         continue-on-error: true
+      - name: Check out send notification action
+        uses: actions/checkout@v5
+        if: failure()
+        with:
+          path: ci
+          ref: ci
+          sparse-checkout: .github/actions/send-notification
+      - name: Send notification
+        uses: ./ci/.github/actions/send-notification
+        if: failure()
+        with:
+          webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          task: warmCaches
+          owner-ids: ${{ secrets.OWNER_IDS_WARM_CACHES }}
+          branch: ${{ inputs.checkout_ref }}
+          failure-url: ${{ format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}

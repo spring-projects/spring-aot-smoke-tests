@@ -39,6 +39,8 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 
 	private static final String GITHUB_REPOSITORY = "spring-projects/spring-aot-smoke-tests";
 
+	private static final String RUN_AFTER_WARM_CACHES_CONDITION = "${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}";
+
 	@OutputDirectory
 	public abstract DirectoryProperty getOutputDirectory();
 
@@ -50,9 +52,6 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 
 	@Input
 	public abstract Property<String> getWarmCachesCronSchedule();
-
-	@Input
-	public abstract Property<String> getCronSchedule();
 
 	@Input
 	public abstract Property<String> getSpringBootGeneration();
@@ -74,7 +73,7 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 		String springBootGeneration = getSpringBootGeneration().get();
 		File workflowFile = getOutputDirectory().file(springBootGeneration + "-warm-caches.yml").get().getAsFile();
 		workflowFile.getParentFile().mkdirs();
-		String workflowName = springBootGeneration + " | Warm Caches";
+		String workflowName = warmCachesWorkflowName(springBootGeneration);
 		try (PrintWriter writer = new PrintWriter(new FileWriter(workflowFile))) {
 			writer.println("name: " + workflowName);
 			writer.println("on:");
@@ -109,8 +108,9 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 		try (PrintWriter writer = new PrintWriter(new FileWriter(workflowFile))) {
 			writer.println("name: " + workflowName);
 			writer.println("on:");
-			writer.println("  schedule:");
-			writer.println("    - cron: '" + getCronSchedule().get() + "'");
+			writer.println("  workflow_run:");
+			writer.println("    workflows: [\"" + warmCachesWorkflowName(springBootGeneration) + "\"]");
+			writer.println("    types: [completed]");
 			writer.println("  workflow_dispatch:");
 			writer.println("permissions:");
 			writer.println("  contents: read");
@@ -119,6 +119,7 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 				boolean isNative = test.taskName().startsWith("native");
 				writer.println("  " + jobId(smokeTest.name(), test.taskName()) + ":");
 				writer.println("    name: " + name(smokeTest.name() + " " + test.taskName()));
+				writer.println("    if: " + RUN_AFTER_WARM_CACHES_CONDITION);
 				writer
 					.println("    uses: ./.github/workflows/smoke-test-%s.yml".formatted(isNative ? "native" : "jvm"));
 				writer.println("    secrets: inherit");
@@ -146,6 +147,10 @@ public abstract class GenerateGitHubActionsWorkflows extends DefaultTask {
 		catch (IOException ex) {
 			throw new GradleException("Failed to write workflow file '" + workflowFile + "'", ex);
 		}
+	}
+
+	private String warmCachesWorkflowName(String springBootGeneration) {
+		return springBootGeneration + " | Warm Caches";
 	}
 
 	private String jobId(String smokeTestName, String taskName) {

@@ -35,6 +35,7 @@ import org.gradle.api.tasks.TaskProvider;
  * {@link Plugin} for AOT smoke test CI.
  *
  * @author Andy Wilkinson
+ * @author Moritz Halbritter
  */
 public class AotSmokeTestCiPlugin implements Plugin<Project> {
 
@@ -56,7 +57,6 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 		CronSchedule cronSchedule = new CronSchedule();
 		smokeTests.configureEach((tests) -> {
 			String warmCachesSchedule = cronSchedule.warmCaches();
-			String runTestsSchedule = cronSchedule.runTests();
 			TaskProvider<Exec> describeSmokeTestsForBranch = project.getTasks()
 				.register("describeSmokeTestsFor" + tests.getName(), Exec.class);
 			describeSmokeTestsForBranch.configure((task) -> {
@@ -73,7 +73,6 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 				}
 				task.getSmokeTests().set(project.provider(() -> loadSmokeTests(tests.getLocation())));
 				task.getWarmCachesCronSchedule().set(warmCachesSchedule);
-				task.getCronSchedule().set(runTestsSchedule);
 			});
 			syncWorkflows.configure((sync) -> sync.from(generateWorkflowsForBranch));
 			cronSchedule.nextBatch();
@@ -120,20 +119,14 @@ public class AotSmokeTestCiPlugin implements Plugin<Project> {
 			return asString();
 		}
 
-		String runTests() {
-			CronSchedule offsetSchedule = new CronSchedule(this.minute, this.hour);
-			offsetSchedule.nextBatch();
-			return offsetSchedule.asString();
-		}
-
 		private String asString() {
 			return "%d %d * * *".formatted(this.minute, this.hour);
 		}
 
 		void nextBatch() {
-			this.minute += 10;
-			if (this.minute == 60) {
-				this.minute = 0;
+			this.minute += 30;
+			if (this.minute >= 60) {
+				this.minute -= 60;
 				this.hour += 1;
 			}
 		}
