@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2026-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.example.data.jpa;
 
-import com.example.data.jpa.model.Publisher;
-import org.springframework.data.jpa.repository.Modifying;
+import com.acme.data.jpa.extension.RepositoryExtension;
+import com.example.data.jpa.model.Book;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
-public interface PublisherRepository extends ListCrudRepository<Publisher, Long> {
+public interface BookRepository extends ListCrudRepository<Book, Long>, RepositoryExtension<Book> {
 
-	@Modifying(clearAutomatically = true)
-	@Query("DELETE FROM Publisher p WHERE p.name = :name")
-	void deleteByNameMatching(String name);
+	@EntityGraph(attributePaths = "authors")
+	@Query("SELECT b FROM Book b WHERE b.title = :title")
+	Book findByTitleWithAdHocGraph(String title);
 
 }

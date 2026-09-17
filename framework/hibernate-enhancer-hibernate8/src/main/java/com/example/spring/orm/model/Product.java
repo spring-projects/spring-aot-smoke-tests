@@ -14,17 +14,31 @@
  * limitations under the License.
  */
 
-package com.example.data.jpa;
+package com.example.spring.orm.model;
 
-import com.example.data.jpa.model.Publisher;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.ListCrudRepository;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
-public interface PublisherRepository extends ListCrudRepository<Publisher, Long> {
+@Entity
+public class Product {
 
-	@Modifying(clearAutomatically = true)
-	@Query("DELETE FROM Publisher p WHERE p.name = :name")
-	void deleteByNameMatching(String name);
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	String name;
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }
