@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2026-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,14 +32,19 @@ public interface VoucherRepository
 
 	List<Voucher> findByMsisdn(String msisdn);
 
+	// setFirstResult(query, …) + setMaxResults(query, pageable.getPageSize())
 	Page<Voucher> findByMsisdn(String msisdn, Pageable pageable);
 
+	// setMaxResults(query, pageable.getPageSize() + 1)
 	Slice<Voucher> findSliceByMsisdn(String msisdn, Pageable pageable);
 
+	// setMaxResults(query, limit.max())
 	List<Voucher> findByMsisdn(String msisdn, Limit limit);
 
+	// applyMaxResults(query, 1)
 	List<Voucher> findTop1ByMsisdnOrderByStatusDesc(String msisdn);
 
+	// setMaxResults(query, 1) + getResultList(query)
 	boolean existsByMsisdn(String msisdn);
 
 }

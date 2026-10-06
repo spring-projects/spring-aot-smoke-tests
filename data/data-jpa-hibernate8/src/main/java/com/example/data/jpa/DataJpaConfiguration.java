@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2024 the original author or authors.
+ * Copyright 2026-present the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,11 @@
 
 package com.example.data.jpa;
 
-import com.example.data.jpa.model.Publisher;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-public interface PublisherRepository extends ListCrudRepository<Publisher, Long> {
-
-	@Modifying(clearAutomatically = true)
-	@Query("DELETE FROM Publisher p WHERE p.name = :name")
-	void deleteByNameMatching(String name);
+@Configuration
+@EnableJpaRepositories
+class DataJpaConfiguration {
 
 }
