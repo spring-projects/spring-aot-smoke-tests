@@ -7,8 +7,8 @@ plugins {
 
 def springDataVersion = "4.2.0-SNAPSHOT"
 def springDataCommonsVersion = "4.2.0-SNAPSHOT"
-def hibernateVersion = "8.0.0-SNAPSHOT"
-def jakartaPersistenceVersion = "4.0.0-M6"
+def hibernateVersion = "8.0.0.Beta3"
+def jakartaPersistenceVersion = "4.0.0-M7"
 
 repositories {
 	mavenLocal {

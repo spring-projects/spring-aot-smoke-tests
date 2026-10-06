@@ -18,6 +18,7 @@ package com.example.data.jpa;
 
 import java.util.List;
 
+import org.hibernate.persister.entity.SingleTableEntityPersister;
 import org.springframework.aot.hint.ExecutableMode;
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
@@ -45,10 +46,9 @@ public class DataJpaApplication {
 				"org.hibernate.bytecode.enhance.internal.BytecodeEnhancementLogging",
 				"org.hibernate.id.enhanced.SequenceGeneratorLogger",
 				"org.hibernate.metamodel.mapping.internal.MappingModelCreationLogging",
-				"org.hibernate.sql.results.internal.ResultsLogger");
+				"org.hibernate.sql.results.internal.ResultsLogger", "org.hibernate.internal.log.ConnectionInfoLogger");
 
 		private static final String JBOSS_LOGGER = "org.jboss.logging.Logger";
-
 
 		@Override
 		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
@@ -63,6 +63,9 @@ public class DataJpaApplication {
 							.withConstructor(List.of(TypeReference.of(JBOSS_LOGGER)), ExecutableMode.INVOKE));
 				}
 			}
+
+			hints.reflection()
+				.registerType(SingleTableEntityPersister.class, MemberCategory.INVOKE_DECLARED_CONSTRUCTORS);
 		}
 
 	}
