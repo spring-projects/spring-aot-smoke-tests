@@ -14,7 +14,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: framework:jdbc-h2
       task: appTest
   jdbc_h2_native_app_test:
@@ -24,7 +24,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: framework:jdbc-h2
       task: nativeAppTest
       graal_version: 25
@@ -35,7 +35,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: framework:jdbc-h2
       task: test
   jdbc_h2_native_test:
@@ -45,7 +45,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: framework:jdbc-h2
       task: nativeTest
       graal_version: 25

@@ -1,0 +1,31 @@
+name: 4.2.x | Framework Smoke Tests | Tcf Mockito
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tcf_mockito_test:
+    name: Tcf Mockito Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:tcf-mockito
+      task: test
+  tcf_mockito_native_test:
+    name: Tcf Mockito Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:tcf-mockito
+      task: nativeTest
+      expected_to_fail: true
+      graal_version: 25

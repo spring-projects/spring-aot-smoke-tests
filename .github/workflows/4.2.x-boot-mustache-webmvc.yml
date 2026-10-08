@@ -1,0 +1,30 @@
+name: 4.2.x | Boot Smoke Tests | Mustache Webmvc
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mustache_webmvc_app_test:
+    name: Mustache Webmvc App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:mustache-webmvc
+      task: appTest
+  mustache_webmvc_native_app_test:
+    name: Mustache Webmvc Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:mustache-webmvc
+      task: nativeAppTest
+      graal_version: 25

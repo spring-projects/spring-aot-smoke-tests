@@ -1,0 +1,15 @@
+name: 4.2.x | Warm Caches
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+jobs:
+  warm_caches:
+    uses: ./.github/workflows/warm-caches.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main

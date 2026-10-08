@@ -1,0 +1,51 @@
+name: 4.2.x | Framework Smoke Tests | Jdbc H2
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  jdbc_h2_app_test:
+    name: Jdbc H2 App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:jdbc-h2
+      task: appTest
+  jdbc_h2_native_app_test:
+    name: Jdbc H2 Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:jdbc-h2
+      task: nativeAppTest
+      graal_version: 25
+  jdbc_h2_test:
+    name: Jdbc H2 Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:jdbc-h2
+      task: test
+  jdbc_h2_native_test:
+    name: Jdbc H2 Native Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:jdbc-h2
+      task: nativeTest
+      graal_version: 25

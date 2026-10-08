@@ -1,0 +1,30 @@
+name: 4.2.x | Cloud Smoke Tests | Cloud Gateway Webflux
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cloud_gateway_webflux_app_test:
+    name: Cloud Gateway Webflux App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-gateway-webflux
+      task: appTest
+  cloud_gateway_webflux_native_app_test:
+    name: Cloud Gateway Webflux Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-gateway-webflux
+      task: nativeAppTest
+      graal_version: 25

@@ -1,0 +1,30 @@
+name: 4.2.x | Cloud Smoke Tests | Cloud Stream Kafka
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cloud_stream_kafka_app_test:
+    name: Cloud Stream Kafka App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-stream-kafka
+      task: appTest
+  cloud_stream_kafka_native_app_test:
+    name: Cloud Stream Kafka Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-stream-kafka
+      task: nativeAppTest
+      graal_version: 25

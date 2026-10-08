@@ -1,0 +1,30 @@
+name: 4.2.x | Data Smoke Tests | Data Rest Mongodb
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  data_rest_mongodb_app_test:
+    name: Data Rest Mongodb App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-rest-mongodb
+      task: appTest
+  data_rest_mongodb_native_app_test:
+    name: Data Rest Mongodb Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: data:data-rest-mongodb
+      task: nativeAppTest
+      graal_version: 25

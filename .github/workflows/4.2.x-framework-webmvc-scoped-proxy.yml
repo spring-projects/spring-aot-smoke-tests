@@ -1,0 +1,30 @@
+name: 4.2.x | Framework Smoke Tests | Webmvc Scoped Proxy
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  webmvc_scoped_proxy_app_test:
+    name: Webmvc Scoped Proxy App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webmvc-scoped-proxy
+      task: appTest
+  webmvc_scoped_proxy_native_app_test:
+    name: Webmvc Scoped Proxy Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: framework:webmvc-scoped-proxy
+      task: nativeAppTest
+      graal_version: 25

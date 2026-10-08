@@ -14,7 +14,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: data:data-cassandra
       task: appTest
   data_cassandra_native_app_test:
@@ -24,7 +24,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: data:data-cassandra
       task: nativeAppTest
       graal_version: 25

@@ -1,0 +1,30 @@
+name: 4.2.x | Cloud Smoke Tests | Cloud Loadbalancing Webflux
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cloud_loadbalancing_webflux_app_test:
+    name: Cloud Loadbalancing Webflux App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-loadbalancing-webflux
+      task: appTest
+  cloud_loadbalancing_webflux_native_app_test:
+    name: Cloud Loadbalancing Webflux Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: cloud:cloud-loadbalancing-webflux
+      task: nativeAppTest
+      graal_version: 25

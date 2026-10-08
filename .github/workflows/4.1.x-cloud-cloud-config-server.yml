@@ -14,7 +14,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: cloud:cloud-config-server
       task: appTest
   cloud_config_server_native_app_test:
@@ -24,7 +24,7 @@ jobs:
     secrets: inherit
     with:
       checkout_repository: spring-projects/spring-aot-smoke-tests
-      checkout_ref: main
+      checkout_ref: 4.1.x
       project: cloud:cloud-config-server
       task: nativeAppTest
       java_version: 21

@@ -1,0 +1,30 @@
+name: 4.2.x | Boot Smoke Tests | Actuator Webmvc Mgmt Port
+on:
+  workflow_run:
+    workflows: ["4.2.x | Warm Caches"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  actuator_webmvc_mgmt_port_app_test:
+    name: Actuator Webmvc Mgmt Port App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-jvm.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:actuator-webmvc-mgmt-port
+      task: appTest
+  actuator_webmvc_mgmt_port_native_app_test:
+    name: Actuator Webmvc Mgmt Port Native App Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/smoke-test-native.yml
+    secrets: inherit
+    with:
+      checkout_repository: spring-projects/spring-aot-smoke-tests
+      checkout_ref: main
+      project: boot:actuator-webmvc-mgmt-port
+      task: nativeAppTest
+      graal_version: 25
