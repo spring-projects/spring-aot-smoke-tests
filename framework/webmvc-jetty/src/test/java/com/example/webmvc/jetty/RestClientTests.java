@@ -21,31 +21,32 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RestClientTest
+@DirtiesContext
 class RestClientTests {
 
 	@Autowired
-	private RestTemplateBuilder restTemplateBuilder;
+	private RestClient.Builder restClientBuilder;
 
 	@Autowired
 	private MockRestServiceServer mockServer;
 
 	@Test
 	void test() throws IOException {
-		RestTemplate restTemplate = this.restTemplateBuilder.build();
+		RestClient restClient = this.restClientBuilder.build();
 		this.mockServer.expect(requestTo("/")).andRespond(withSuccess("hello", MediaType.TEXT_PLAIN));
-		ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
+		ResponseEntity<String> response = restClient.get().uri("/").retrieve().toEntity(String.class);
 		assertThat(response.getStatusCode().value()).isEqualTo(200);
 		assertThat(response.getBody()).isEqualTo("hello");
 	}
