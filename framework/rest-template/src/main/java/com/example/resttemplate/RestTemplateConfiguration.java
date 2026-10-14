@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration(proxyBeanMethods = false)
+@SuppressWarnings("removal")
 class RestTemplateConfiguration {
 
 	@Bean

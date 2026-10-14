@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @RegisterReflectionForBinding(DataDto.class)
+@SuppressWarnings("removal")
 class CLR implements CommandLineRunner {
 
 	private final RestTemplate restTemplate;
