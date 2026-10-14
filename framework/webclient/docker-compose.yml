@@ -1,12 +1,15 @@
 services:
   httpbin:
-    image: 'mccutchen/go-httpbin:v2.10.0'
+    image: 'mccutchen/go-httpbin:2.25.0'
+    environment:
+      - 'SRV_READ_HEADER_TIMEOUT=5s'
     ports:
       - '8080'
   httpbin_tls:
-    image: 'mccutchen/go-httpbin:v2.10.0'
+    image: 'mccutchen/go-httpbin:2.25.0'
     environment:
       - 'PORT=8443'
+      - 'SRV_READ_HEADER_TIMEOUT=5s'
       - 'HTTPS_CERT_FILE=/server-certificate'
       - 'HTTPS_KEY_FILE=/server-key'
     configs:
