@@ -24,6 +24,10 @@ import com.example.data.jpa.model.Voucher;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.core.TypedPropertyPath;
+import org.springframework.data.domain.Limit;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
@@ -49,6 +53,40 @@ public class NonTransactionalRunner implements CommandLineRunner {
 		listVouchers();
 		listRecipients();
 		typedPropertyPath();
+		pagedVouchers();
+		slicedVouchers();
+		limitedVouchers();
+		topVouchers();
+		existsVouchers();
+	}
+
+	private void pagedVouchers() {
+		Page<Voucher> page = this.voucherRepository.findByMsisdn("0810000000", PageRequest.of(0, 1, Sort.by("status")));
+		System.out.printf("pagedVouchers(): total = %d, pages = %d, statuses = %s%n", page.getTotalElements(),
+				page.getTotalPages(), page.getContent().stream().map(Voucher::getStatus).toList());
+	}
+
+	private void slicedVouchers() {
+		Slice<Voucher> slice = this.voucherRepository.findSliceByMsisdn("0810000000",
+				PageRequest.of(0, 1, Sort.by("status")));
+		System.out.printf("slicedVouchers(): hasNext = %s, statuses = %s%n", slice.hasNext(),
+				slice.getContent().stream().map(Voucher::getStatus).toList());
+	}
+
+	private void limitedVouchers() {
+		List<Voucher> limited = this.voucherRepository.findByMsisdn("0810000000", Limit.of(1));
+		System.out.printf("limitedVouchers(): size = %d%n", limited.size());
+	}
+
+	private void topVouchers() {
+		List<Voucher> top = this.voucherRepository.findTop1ByMsisdnOrderByStatusDesc("0810000000");
+		System.out.printf("topVouchers(): statuses = %s%n", top.stream().map(Voucher::getStatus).toList());
+	}
+
+	private void existsVouchers() {
+		System.out.printf("existsVouchers(): known = %s, unknown = %s%n",
+				this.voucherRepository.existsByMsisdn("0810000000"),
+				this.voucherRepository.existsByMsisdn("0000000000"));
 	}
 
 	private void insertVouchers() {

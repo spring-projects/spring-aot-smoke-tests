@@ -16,11 +16,15 @@
 
 package com.example.data.jpa;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.example.data.jpa.model.Author;
+import jakarta.persistence.LockModeType;
 
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -35,5 +39,18 @@ public interface AuthorRepository extends ListCrudRepository<Author, Long> {
 	Optional<Author> nativeQueryFindByName(String name);
 
 	Stream<Author> findByNameContaining(String name);
+
+	// setLockMode(query, LockModeType.PESSIMISTIC_WRITE)
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Query("SELECT a FROM Author a WHERE a.name = :name")
+	List<Author> findForUpdateByName(String name);
+
+	// int result = executeUpdate(query)
+	@Modifying
+	@Query("UPDATE Author a SET a.name = :name WHERE a.id = :id")
+	int updateName(Long id, String name);
+
+	// getResultList(query), then EntityManager#remove per element
+	List<Author> deleteByNameContaining(String fragment);
 
 }

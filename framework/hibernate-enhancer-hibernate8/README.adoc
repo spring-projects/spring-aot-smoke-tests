@@ -1,0 +1,1 @@
+Tests if Spring ORM - Hibernate build-time bytecode enhancement works with the Hibernate 8.0 and JPA 4.0 previews

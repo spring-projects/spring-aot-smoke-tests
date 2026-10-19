@@ -5,6 +5,29 @@ plugins {
 	id "org.graalvm.buildtools.native"
 }
 
+def springDataVersion = "4.2.0-SNAPSHOT"
+def springDataCommonsVersion = "4.2.0-SNAPSHOT"
+
+repositories {
+	mavenLocal {
+		content {
+			includeGroup "org.springframework.data"
+		}
+	}
+}
+
+configurations.all {
+	resolutionStrategy.eachDependency { details ->
+		def requested = details.requested
+		if (requested.group == "org.springframework.data" && requested.name == "spring-data-jpa") {
+			details.useVersion(springDataVersion)
+		}
+		else if (requested.group == "org.springframework.data" && requested.name == "spring-data-commons") {
+			details.useVersion(springDataCommonsVersion)
+		}
+	}
+}
+
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")

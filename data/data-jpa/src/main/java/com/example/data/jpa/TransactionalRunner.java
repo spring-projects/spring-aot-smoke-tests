@@ -55,10 +55,35 @@ class TransactionalRunner implements CommandLineRunner {
 		findByPartialName();
 		queryFindByName();
 		streamAuthors();
+		findForUpdate(); // @Lock
+		modifyingUpdate(); // @Modifying, result captured
+		derivedDelete(); // derived delete, loads then removes
 		deleteAll();
 		entityGraph();
 		insertPublishers(); // uses AbstractPersistable
+		modifyingDelete(); // @Modifying, result discarded
 		fragmentsApi();
+	}
+
+	private void findForUpdate() {
+		List<Author> locked = this.authorRepository.findForUpdateByName("Josh Long");
+		System.out.printf("findForUpdate(): authors = %s%n", locked);
+	}
+
+	private void modifyingUpdate() {
+		Author author = this.authorRepository.queryFindByName("Josh Long").orElseThrow();
+		int updated = this.authorRepository.updateName(author.getId(), "Josh Long Jr.");
+		System.out.printf("modifyingUpdate(): updated = %d%n", updated);
+	}
+
+	private void derivedDelete() {
+		List<Author> removed = this.authorRepository.deleteByNameContaining("Kleppmann");
+		System.out.printf("derivedDelete(): removed = %d%n", removed.size());
+	}
+
+	private void modifyingDelete() {
+		this.publisherRepository.deleteByNameMatching("independently published");
+		System.out.printf("modifyingDelete(): count = %d%n", this.publisherRepository.count());
 	}
 
 	private void deleteAll() {

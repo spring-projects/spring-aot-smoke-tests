@@ -1,0 +1,1 @@
+com.acme.data.jpa.extension.RepositoryExtension=com.acme.data.jpa.extension.DefaultRepositoryExtension

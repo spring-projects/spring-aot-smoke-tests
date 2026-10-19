@@ -17,8 +17,14 @@
 package com.example.data.jpa;
 
 import com.example.data.jpa.model.Publisher;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
 public interface PublisherRepository extends ListCrudRepository<Publisher, Long> {
+
+	@Modifying(clearAutomatically = true)
+	@Query("DELETE FROM Publisher p WHERE p.name = :name")
+	void deleteByNameMatching(String name);
 
 }

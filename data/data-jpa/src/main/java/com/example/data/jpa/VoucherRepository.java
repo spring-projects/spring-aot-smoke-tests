@@ -20,6 +20,10 @@ import java.util.List;
 
 import com.example.data.jpa.model.Voucher;
 
+import org.springframework.data.domain.Limit;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.ListPagingAndSortingRepository;
 
@@ -27,5 +31,15 @@ public interface VoucherRepository
 		extends CrudRepository<Voucher, Integer>, ListPagingAndSortingRepository<Voucher, Integer> {
 
 	List<Voucher> findByMsisdn(String msisdn);
+
+	Page<Voucher> findByMsisdn(String msisdn, Pageable pageable);
+
+	Slice<Voucher> findSliceByMsisdn(String msisdn, Pageable pageable);
+
+	List<Voucher> findByMsisdn(String msisdn, Limit limit);
+
+	List<Voucher> findTop1ByMsisdnOrderByStatusDesc(String msisdn);
+
+	boolean existsByMsisdn(String msisdn);
 
 }

@@ -146,4 +146,73 @@ class DataJpaApplicationAotTests {
 		});
 	}
 
+	@Test
+	void pageQuery(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("pagedVouchers(): total = 2, pages = 2, statuses = [0]")
+				.hasLineMatching(
+						".*select .*from voucher .*order by v1_0.status offset \\? rows fetch first \\? rows only.*");
+		});
+	}
+
+	@Test
+	void sliceQuery(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("slicedVouchers(): hasNext = true, statuses = [0]");
+		});
+	}
+
+	@Test
+	void limitParameter(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("limitedVouchers(): size = 1");
+		});
+	}
+
+	@Test
+	void derivedLimit(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("topVouchers(): statuses = [1]")
+				.hasLineMatching(".*select .*from voucher .*order by v1_0.status desc fetch first \\? rows only.*");
+		});
+	}
+
+	@Test
+	void existsQuery(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("existsVouchers(): known = true, unknown = false");
+		});
+	}
+
+	@Test
+	void lockMode(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("findForUpdate(): authors = [Author{name='Josh Long'}]")
+				.hasLineMatching(".*select .*from author .*where a1_0.name=\\? for update.*");
+		});
+	}
+
+	@Test
+	void modifyingQuery(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("modifyingUpdate(): updated = 1")
+				.hasLineMatching(".*update author a1_0 set name=\\? where a1_0.id=\\?.*");
+		});
+	}
+
+	@Test
+	void modifyingQueryWithoutResult(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("modifyingDelete(): count = 0")
+				.hasLineMatching(".*delete from publisher p1_0 where p1_0.name=\\?.*");
+		});
+	}
+
+	@Test
+	void derivedDelete(AssertableOutput output) {
+		Awaitility.await().atMost(Duration.ofSeconds(10)).untilAsserted(() -> {
+			assertThat(output).hasSingleLineContaining("derivedDelete(): removed = 1");
+		});
+	}
+
 }
