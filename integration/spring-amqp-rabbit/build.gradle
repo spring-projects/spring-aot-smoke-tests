@@ -7,8 +7,7 @@ plugins {
 
 dependencies {
 	implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
-	implementation("org.springframework.boot:spring-boot-starter-amqp")
-	implementation("org.springframework.amqp:spring-rabbit")
+	implementation("org.springframework.boot:spring-boot-starter-rabbitmq")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
