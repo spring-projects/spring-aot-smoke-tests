@@ -27,5 +27,4 @@ jobs:
       checkout_ref: 4.1.x
       project: integration:spring-pulsar
       task: nativeAppTest
-      expected_to_fail: true
       graal_version: 25
